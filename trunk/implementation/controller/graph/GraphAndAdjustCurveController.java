@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import view.ViewUtility;
 
 /**
@@ -77,8 +78,8 @@ public class GraphAndAdjustCurveController {
     @FXML
     private void handleAddCustomCurveButton() {
         System.out.println("Add custom curve button pressed");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./../view/graph/GraphAndAdjustCurve.fxml"));
-        ViewUtility.loadView(loader);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("./../../view/graph/CustomCurveAdjuster.fxml"));
+        ViewUtility.showPage(loader, AnchorPane.class, "Custom Curve Adjuster");
 
     }
     
