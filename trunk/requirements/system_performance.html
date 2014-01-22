@@ -1,0 +1,79 @@
+<a name="Performance">
+<h3>
+3.1.  Performance
+</h3>
+</a>
+</a>
+<p>
+The following actions and operations in association to the grader tool execute instantaneously:
+<ul>
+<li>
+Creating a new class
+<li>
+Creating a new grading scheme
+<li>
+Creating a new Teacher's Assistant
+<li>
+Creating, editing, and removing assignments/categories
+<li>
+Creating, editing, and removing students
+<li>
+Entering grades
+<li>
+Expanding/collapsing different columns
+<li>
+Viewing grades as different types
+<li>
+Statistics displayed on the bottome of the main spreadsheet
+<li>
+Grade prediction 
+<li>
+Adjusting curves when in graph view
+</ul>
+
+
+<p>
+The actions and operations that must not execute instantaneously consist of the following:
+</p>
+<ul>
+<li>
+User authentication operates instantaneously unless delays due to network transmission of login details from the local computer to the central host occur
+<li>
+Downloading/syncing roster from SIS operates on the order of seconds, depending on the size of data to transfer along with the timing of the data transmission from the central host to the local computer, and vice versa.
+<li>
+Generating detailed stat graphs operates on the order of seconds
+<li>
+Student electronic handin operates instantaneously unless delays occur due to the connection between the local computer and the central host
+</ul>
+except for any delays due to network transmission of data from the central host
+to the local computer
+</ul>
+
+<p>
+In general, the performance of Grader Tool commands that require a local computer to central host connection is subjust to potential network delays.  The Grader Tool must transmit data as fast as is possible on any given network, but delays due to external network circumstances are beyond the control of the Calendar Tool.
+</p>
+
+<p>
+There are no specific requirements for the allowable size of the collection of courses used in the spreadsheet, along with the size of rosters for each course.  The user's collection of courses on the order of hundreds of courses is the maximum expected size during normal use.  Each course's collection of students on the order of thousands of students is the maximum expected size during normal use.
+</p>
+
+<p>
+The maximum expected sizes of the Grader Tool databases are the following:
+</p>
+<ul>
+<li>
+course database - up to thousands of records
+<li>
+user database - up to tens of thousands of records
+<li>
+categories/assignments database - up to tens of thousands of records
+</ul>
+
+<p>
+While there may be on the order of tens of thousands registered users, including students, the expected maximum number of users connected to any given server at any given time is on the order of hundreds.
+</p>
+
+<p>
+The Grader Tool must be able to operate with calendars and databases of sizes larger than these normal maximums.  However, the tool need not to meet the previously-enumerated time performance requirements for student rosters, collection of categories/assignments, or databases larger than normal maximum sizes.
+</p>
+

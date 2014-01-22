@@ -1,0 +1,441 @@
+
+<!-- saved from url=(0031) -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>
+Requirements Specification for the Grader Tool
+</title>
+</head>
+<body bgcolor="white">
+<p align="center">
+<font size="+2">
+<strong>Requirements Specification
+<br>
+for the Grader Tool
+<br>
+Version 0.1
+<br>
+2 October 2013</strong>
+</font>
+</p>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<blockquote>
+
+<font size="+2">
+<p align="center">
+<strong>Contents</strong>
+</p>
+</font>
+<p>
+<a href="intro.html#Introduction">
+<font size="+3">
+<strong>1.&nbsp;&nbsp;Introduction</strong>
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="problem.html#Problem Statement">
+<font size="+2">
+1.1. Problem Statement
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="personnel.html#System Personnel">
+<font size="+2">
+1.2. System Personnel
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="setting.html#Operational Setting">
+<font size="+2">
+1.3. Operational Setting
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="impacts.html#Impacts">
+<font size="+2">
+1.4. Impacts
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="related.html#Related Systems">
+<font size="+2">
+1.5. Related Systems
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="aeries-review.html#Aeries">
+<font size="+2">
+1.5.1. Aeries
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="easygradepro-review.html#Easy Grade Pro">
+<font size="+2">
+1.5.2. Easy Grade Pro
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="flubaroo-review.html#Flubaroo">
+<font size="+2">
+1.5.3. Flubaroo
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="excel-review.html#Excel">
+<font size="+2">
+1.5.4. Excel 
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="powerteacher-review.html#Power Teacher">
+<font size="+2">
+1.5.5. Power Teacher
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="thinkwave-review.html#Thinkwave">
+<font size="+2">
+1.5.6. Thinkwave
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="feature-comparison.html#Feature Comparison Matrix">
+<font size="+2">
+1.5.7. Feature Comparison Matrix
+</font>
+</a>
+<br>
+
+</p><p>
+<a href="functional_requirements.html#Functional Requirements">
+<font size="+3">
+<strong>2.&nbsp;&nbsp;Functional Requirements</strong>
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="user_interface_overview.html#User Interface Overview">
+<font size="+2">
+2.1. User Interface Overview
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="user_interface_overview_teacher.html">
+<font size="+1">
+2.1.1 Teacher
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="user_interface_overview_teacher_assistant.html">
+<font size="+1">
+2.1.2 Teachers Assistant
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="user_interface_overview_student.html">
+<font size="+1">
+2.1.3 Student
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="basic_gradebook_setup.html">
+<font size="+2">
+2.2. Basic Gradebook Setup
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="create_class.html">
+<font size="+1">
+2.2.1 Create Class
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="download_roster.html">
+<font size="+1">
+2.2.2 Download Roster and Authentication
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="basic_gradebook_category.html">
+<font size="+1">
+2.2.3 Creating First Category
+</font>
+</a>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="manage_students.html">
+<font size="+2">
+2.3. Manage Students
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="add_student.html">
+<font size="+1">
+2.3.1 Add
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="edit_student.html">
+<font size="+1">
+2.3.2 Modify
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="delete_student.html">
+<font size="+1">
+2.3.3 Delete
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="view-student.html">
+<font size="+1">
+2.3.4 View
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="manage_assignments_categories.html">
+    <font size="+2">
+        2.4. Manage Assignments/Categories
+    </font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="add_category.html">
+    <font size="+1">
+        2.4.1 Add Category
+    </font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="edit_category.html">
+    <font size="+1">
+        2.4.2 Edit Category
+    </font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="delete_category.html">
+    <font size="+1">
+        2.4.3 Delete Categories
+    </font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="add_assignment.html">
+    <font size="+1">
+        2.4.4 Add Assignment
+    </font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="edit_assignment.html">
+    <font size="+1">
+        2.4.5 Edit Assignment
+    </font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="delete_assignment.html">
+    <font size="+1">
+        2.4.6 Delete Assignment
+    </font>
+</a>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="using_spreadsheet.html">
+<font size="+2">
+2.5. Using Spreadsheets
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="enter_grades_spreadsheet.html">
+<font size="+1">
+2.5.1 Enter Grades
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="sort_spreadsheet.html">
+<font size="+1">
+2.5.2 Sort
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="show_different_class.html">
+<font size="+1">
+2.5.3 Show Different Classes
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="expand_collapse_spreadsheet.html">
+<font size="+1">
+2.5.4 Expand/Collapse
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="show_grades_as_spreadsheet.html">
+<font size="+1">
+2.5.5 View Grades as Different Types
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="view_detailed_stats_graphs.html">
+<font size="+2">
+2.6. View Detailed Statistics/Graphs
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="view_graphs.html">
+<font size="+1">
+2.6.1 Graphs
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="view_stats.html">
+<font size="+1">
+2.6.2 View Statisics
+</font>
+</a>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="adjust_curves.html">
+<font size="+1">
+2.6.3 Adjust Curves
+</font>
+</a>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="student_functions.html">
+<font size="+2">
+2.7 Student Functions
+</font>
+</a>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="student_signin.html">
+<font size="+1">
+2.7.1 Sign In
+</font>
+</a>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="select_course.html">
+<font size="+1">
+2.7.2 Select Term &amp; Course
+</font>
+</a>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="accessing_gradebooks.html">
+<font size="+1">
+2.7.3 Accessing Gradebooks
+</font>
+</a>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="electronic_turnin.html">
+<font size="+1">
+2.7.4 Electronic Turn In
+</font>
+</a>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="predicting_grades.html">
+<font size="+1">
+2.7.5 Predicting Grades
+</font>
+</a>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="file_edit.html">
+<font size="+2">
+2.8 File/Edit
+</font>
+</a>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="error_conditions.html">
+<font size="+2">
+2.9 Error Conditions
+</font>
+</a>
+<br>
+
+<p>
+<a href="non_func_requirements.html">
+<font size="+3">
+<strong>3.&nbsp;&nbsp;Non-Functional Requirements</strong>
+</font>
+</a>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="system_performance.html">
+<font size="+2">
+3.1 System Performance
+</font>
+</a>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="system_characteristics.html">
+<font size="+2">
+3.2 Qualitative System Characteristics
+</font>
+</a>
+<br>
+
+<p>
+<a href="executive_summary.html">
+<font size="+3">
+<strong>4.&nbsp;&nbsp;Executive Summary</strong>
+</font>
+</a>
+<br>
+
+</p></blockquote>
+</body></html>
