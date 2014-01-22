@@ -1,5 +1,7 @@
 package controller.users;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -7,7 +9,12 @@ import javafx.stage.Stage;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 import view.ViewUtility;
-
+/**
+ * This class represents the interaction between the add student dialog
+ * and the various methods needed in the model package
+ *
+ * @author Kevin Feutz      
+ */
 
 public class AddStudentController {
     @FXML
@@ -36,6 +43,7 @@ public class AddStudentController {
 
     /**
      * Called when the user clicks on the confirm add button
+     * This will eventually check and validate all input requirements
      */
     @FXML
     private void handleConfirmAddButton() {
@@ -48,6 +56,7 @@ public class AddStudentController {
 
     /**
      * Called when the user clicks on the add course button
+     * Opens the AddStudentCourse dialog
      */
     @FXML
     private void handleAddCourseButton() {
@@ -63,5 +72,7 @@ public class AddStudentController {
     @FXML
     private void handleDeleteCourseButton() {
         //open the add course dialog
+        Student tempStudent = new Student();
+        tempStudent.removeCourse(new SpreadsheetCourse());
     }
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.file.AddStudentController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.users.AddStudentController">
   <children>
     <SplitPane dividerPositions="0.5" focusTraversable="true" layoutX="14.0" layoutY="14.0" prefHeight="333.0" prefWidth="572.0">
       <items>
@@ -23,7 +23,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="193.0">
                       <children>
-                        <TextField fx:id="firstName" alignment="CENTER_LEFT" prefWidth="178.0" />
+                        <TextField id="firstName" alignment="CENTER_LEFT" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -37,7 +37,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField fx:id="middleName" prefWidth="178.0" />
+                        <TextField id="middleName" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -51,7 +51,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField fx:id="lastName" prefWidth="178.0" />
+                        <TextField id="lastName" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -65,7 +65,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField fx:id="username" prefWidth="178.0" />
+                        <TextField id="username" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -79,7 +79,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField fx:id="studentId" prefWidth="178.0" />
+                        <TextField id="studentId" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -93,7 +93,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField fx:id="major" prefWidth="179.0" />
+                        <TextField id="major" prefWidth="179.0" />
                       </children>
                     </HBox>
                   </children>
@@ -107,7 +107,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField fx:id="email" prefWidth="178.0" />
+                        <TextField id="email" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -149,7 +149,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField fx:id="phoneNumber" prefWidth="200.0" />
+                        <TextField id="phoneNumber" prefWidth="200.0" />
                       </children>
                     </HBox>
                   </children>
@@ -163,7 +163,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="189.0">
                       <children>
-                        <TextField fx:id="gradeLevel" prefWidth="200.0" />
+                        <TextField id="gradeLevel" prefWidth="200.0" />
                       </children>
                     </HBox>
                   </children>

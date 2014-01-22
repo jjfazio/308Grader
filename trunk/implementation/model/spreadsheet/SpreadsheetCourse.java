@@ -168,7 +168,7 @@ public class SpreadsheetCourse {
                      !studentInCourse.equals(oldStudent)));
      @*/
     public void editStudent(Student oldStudent, Student newStudent) {
-       
+       System.out.println("In SpreadsheetCourse.editStudent");      
     }
 
     /**
@@ -194,7 +194,7 @@ public class SpreadsheetCourse {
     @*/
 
     public void deleteStudent(Student student) {
-       
+       System.out.println("In SpreadsheetCourse.deleteStudent");
     }
        
        /* TODO: CHANGE JML */
