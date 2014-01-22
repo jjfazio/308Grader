@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="462.9998558593725" prefWidth="384.99988474121346" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <!-- TODO Add Nodes -->
+  <children>
+    <VBox layoutX="0.0" layoutY="0.0" prefHeight="462.9998779296875" prefWidth="384.9998779296875">
+      <children>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Label text="Name:" />
+            <TextField prefWidth="200.0" />
+          </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Label text="Section:" />
+            <TextField prefWidth="200.0" />
+          </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Label text="Term:" />
+            <TextField prefWidth="200.0" />
+          </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Label text="Grading Scheme:" />
+            <ComboBox promptText="Create...">
+              <items>
+                <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Item 1" />
+                  <String fx:value="Item 2" />
+                  <String fx:value="Item 3" />
+                </FXCollections>
+              </items>
+            </ComboBox>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Label text="Teacher's Assistant:" />
+            <ComboBox promptText="Create...">
+              <items>
+                <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Item 1" />
+                  <String fx:value="Item 2" />
+                  <String fx:value="Item 3" />
+                </FXCollections>
+              </items>
+            </ComboBox>
+          </children>
+        </HBox>
+        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Label text="Late Policy:" />
+            <VBox alignment="TOP_LEFT" prefHeight="67.0" prefWidth="192.9998779296875">
+              <children>
+                <RadioButton disable="false" focusTraversable="true" mnemonicParsing="false" selected="true" text="None" underline="false" />
+                <HBox prefHeight="22.0" prefWidth="193.0">
+                  <children>
+                    <RadioButton mnemonicParsing="false" prefWidth="71.0" text="Decay" />
+                    <TextField prefWidth="41.0" />
+                    <Label prefWidth="29.0" text="per" />
+                    <TextField prefWidth="41.0" />
+                  </children>
+                </HBox>
+                <RadioButton mnemonicParsing="false" text="Allotment" />
+              </children>
+            </VBox>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Button mnemonicParsing="false" text="Create" />
+          </children>
+        </HBox>
+      </children>
+    </VBox>
+  </children>
+</AnchorPane>

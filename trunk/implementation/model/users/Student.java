@@ -12,6 +12,8 @@ import model.spreadsheet.SpreadsheetCourse;
  * dateOfBirth, a collection of courses enrolled, a phone number, and a grade 
  * level.  Students will belong to a student roster in the SpreadsheetCourse class.
  * Each student also contains a collection of grades that are linked to specific assignments.
+ *
+ * @author Kevin Feutz
  */
 
 public class Student {
@@ -30,6 +32,9 @@ public class Student {
    
    //might use hashcode for key
    HashMap<Assignment, Grade> grades;
+
+   public Student() {
+   }
 
     /**
      * Adds the passed grade to the Student's collection of grades.  The grade added
@@ -120,18 +125,42 @@ public class Student {
        
     }
     
+    /**
+     * This method adds a SpreadsheetCourse to the collection
+     * of the Student's enrolled courses
+     */
     public void addCourse(SpreadsheetCourse course) {
+       /*
        if (coursesEnrolled == null) {
           coursesEnrolled = new ArrayList<SpreadsheetCourse>();
        }
        
        coursesEnrolled.add(course);
+       */
+       System.out.println("In Student.addCourse");
     }
     
+    /**
+     * This method removes a SpreadsheetCourse from the collection
+     * of the Student's enrolled courses
+     */
     public void removeCourse(SpreadsheetCourse course) {
+       /*
        coursesEnrolled.remove(course);
+       */
+       System.out.println("In Student.removeCourse");
     }
-    
+
+    /**
+     * This method will be called when the user edits a Student's
+     * information.  This method will call various setter methods in
+     * the Student class
+     */ 
+    public void editStudentInfo() {
+        System.out.println("In Student.editStudentInfo");
+    }    
+
+
     public Grade getAssignmentGrade(Assignment assign) {
        return grades.get(assign);
     }
