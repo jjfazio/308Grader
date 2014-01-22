@@ -8,6 +8,10 @@
 <AnchorPane prefHeight="314.0" prefWidth="406.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.spreadsheet.TabsController">
   <!-- TODO Add Nodes -->
   <children>
+<<<<<<< HEAD
     <TabPane fx:id="Tabs" prefHeight="314.0" prefWidth="406.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+=======
+    <TabPane id="Tabs" fx:id="tabs" prefHeight="314.0" prefWidth="406.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+>>>>>>> 9fe84d803cfd6e1e86687215486d9201a83a1161
   </children>
 </AnchorPane>
