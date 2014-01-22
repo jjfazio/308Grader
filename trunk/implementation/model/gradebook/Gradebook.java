@@ -310,8 +310,11 @@ public class Gradebook implements Serializable{
    }
 
    public void setCurrentCourse(SpreadsheetCourse currentCourse) {
+<<<<<<< HEAD
+=======
       System.out.println("Setting current course to: " +
          currentCourse.getCourseInfo().getCourseName());
+>>>>>>> 9fe84d803cfd6e1e86687215486d9201a83a1161
       this.currentCourse = currentCourse;
    }
 

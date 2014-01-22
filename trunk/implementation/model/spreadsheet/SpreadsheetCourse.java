@@ -108,7 +108,11 @@ public class SpreadsheetCourse {
                   studentInCourse.equals(student) || \old(this.studentRoster).contains(studentInCourse));
     @*/
     public void addStudent(Student student) {
+<<<<<<< HEAD
+       
+=======
         System.out.println("In SpreadsheetCourse.addStudent");
+>>>>>>> 9fe84d803cfd6e1e86687215486d9201a83a1161
     }
 
     /**
