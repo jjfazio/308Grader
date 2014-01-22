@@ -53,7 +53,7 @@
             <SplitPane dividerPositions="0.6264367816091954" focusTraversable="true" layoutX="-2.0" layoutY="0.0" orientation="VERTICAL" prefHeight="176.0" prefWidth="169.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                <AnchorPane fx:id="savedCurvedGradesButton" minHeight="0.0" minWidth="0.0" prefHeight="61.0" prefWidth="158.00009999999747" />
+                <AnchorPane id="savedCurvedGradesButton" minHeight="0.0" minWidth="0.0" prefHeight="61.0" prefWidth="158.00009999999747" />
               </items>
             </SplitPane>
             <Label font="$x1" layoutX="38.0" layoutY="14.0" text="Adjust Curve" />

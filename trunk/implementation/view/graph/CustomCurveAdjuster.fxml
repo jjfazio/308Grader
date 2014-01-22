@@ -23,7 +23,7 @@
         <NumberAxis side="LEFT" />
       </yAxis>
     </BarChart>
-    <Button id="CancelButton" fx:id="cancelButton" layoutX="204.0" layoutY="497.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="111.0" text="Cancel" />
-    <Button fx:id="applyCurveButton" layoutX="341.0" layoutY="497.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="111.0" text="Apply Curve" />
+    <Button id="CancelButton" fx:id="cancelButton" layoutX="204.0" layoutY="497.0" mnemonicParsing="false" onAction="#handleCancelButtonPressed" prefHeight="34.0" prefWidth="111.0" text="Cancel" />
+    <Button fx:id="applyCurveButton" layoutX="341.0" layoutY="497.0" mnemonicParsing="false" onAction="#handleApplyCurveButtonPressed" prefHeight="34.0" prefWidth="111.0" text="Apply Curve" />
   </children>
 </AnchorPane>
