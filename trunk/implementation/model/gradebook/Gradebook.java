@@ -15,6 +15,7 @@ import model.users.Teacher;
  * A Gradebook is the overarching object of the grader.
  *	It includes a collection spreadsheetCourses that all have a user, a teacher, in common. 
  *	It is derived from the Teacher's View as show in section 1.1 of the requirements. 
+ * @author jamesfazio
  */
 
 public class Gradebook implements Serializable{

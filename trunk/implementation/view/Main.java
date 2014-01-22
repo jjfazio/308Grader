@@ -12,6 +12,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * Starting point for the application. Constructs a gradebook, adds
+ * a few test courses and loads the primary stage
+ * @author jamesfazio
+ *
+ */
 public class Main extends Application
 {
     private Stage primaryStage;
@@ -44,6 +50,10 @@ public class Main extends Application
 		showTabs();
 	}
     
+    /**
+     * Display the tabs that represent SpreadsheetCourses
+     * the current user can access.
+     */
     public void showTabs() {
        // Load the fxml file and set into the center of the main layout
        FXMLLoader loader = new FXMLLoader(getClass().getResource("./spreadsheet/Tabs.fxml"));

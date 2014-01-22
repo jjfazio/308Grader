@@ -5,6 +5,7 @@ import model.spreadsheet.SpreadsheetCourse;
 /**
  * This class controls the Spreadsheet actions. Any action
  * done to a spreadsheet will happen here
+ * @author jamesfazio
  */
 public class SpreadsheetController {
    private SpreadsheetCourse course;

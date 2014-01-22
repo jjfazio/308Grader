@@ -1,10 +1,7 @@
 package controller.spreadsheet;
 
-import view.ViewUtility;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SingleSelectionModel;
@@ -17,6 +14,7 @@ import view.ViewUtility;
 
 /**
  * This class controls any actions done to the Tabs.
+ * @author jamesfazio
  */
 public class TabsController {
    private Gradebook gradebook;

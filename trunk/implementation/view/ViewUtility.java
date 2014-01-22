@@ -7,6 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Utility class that assists in loading and displaying views
+ * @author jamesfazio
+ *
+ */
 public class ViewUtility
 {
    
