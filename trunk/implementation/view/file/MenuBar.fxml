@@ -10,7 +10,7 @@
   <bottom>
     <HBox fx:id="ButtonContainer" alignment="CENTER" prefHeight="71.0" prefWidth="650.0" spacing="75.0">
       <children>
-        <Button fx:id="ViewGraphButton" mnemonicParsing="false" text="View Graphs" />
+        <Button fx:id="ViewGraphButton" mnemonicParsing="false" onAction="#viewGraphs" text="View Graphs" />
         <Button fx:id="PostChangeButton" contentDisplay="LEFT" mnemonicParsing="false" text="Post Changes" />
       </children>
     </HBox>

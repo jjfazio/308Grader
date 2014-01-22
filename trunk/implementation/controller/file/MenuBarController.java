@@ -89,5 +89,14 @@ public class MenuBarController
 
         System.out.println("Delete Student clicked");
     }
+    
+    @FXML
+    public void viewGraphs() {
+    	System.out.println("View Graphs clicked!");
+    	FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/graph/GraphAndAdjustCurve.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Graphs");
+    }
 
 }
