@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.spreadsheet.SpreadsheetController">
+<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.graph.GraphAndAdjustCurveController">
   <!-- TODO Add Nodes -->
   <children>
     <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="800.0" prefWidth="800.0">
