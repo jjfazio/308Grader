@@ -6,6 +6,11 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
 import view.ViewUtility;
 
+/**
+ * 
+ * @author Erik Owen
+ *
+ */
 public class CustomCurveAdjusterController {
 	@FXML
     private Button cancelButton;

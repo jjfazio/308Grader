@@ -10,6 +10,11 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import view.ViewUtility;
 
+/**
+ * 
+ * @author Erik Owen
+ *
+ */
 public class GraphAndAdjustCurveController {
     @FXML
     private CheckBox barChartCheckBox;
