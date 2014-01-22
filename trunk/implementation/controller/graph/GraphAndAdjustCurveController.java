@@ -2,8 +2,19 @@ package controller.graph;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import view.ViewUtility;
 
+/**
+ * 
+ * @author Erik Owen
+ *
+ */
 public class GraphAndAdjustCurveController {
     @FXML
     private CheckBox barChartCheckBox;
@@ -24,7 +35,7 @@ public class GraphAndAdjustCurveController {
     @FXML
     private BarChart barChart;
     
-    public GrandAndAdjustCurveController() {
+    public GraphAndAdjustCurveController() {
     	
     }
     
