@@ -7,10 +7,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.users.Student;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 9fe84d803cfd6e1e86687215486d9201a83a1161
 public class EditStudentListController {
 
     /*
