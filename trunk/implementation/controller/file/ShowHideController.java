@@ -8,6 +8,7 @@ import javafx.scene.control.TreeView;
 /**
  * This class controls the Show/Hide view. Any action done on the page
  * will be handled here
+ * @author jamesfazio
  */
 public class ShowHideController {
    @FXML
