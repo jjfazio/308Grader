@@ -29,7 +29,7 @@
     </VBox>
     <VBox layoutX="303.0" layoutY="26.0" maxWidth="-Infinity" prefHeight="150.0" prefWidth="283.0">
       <children>
-        <ComboBox id="parentName" fx:id="categoryParentName" prefWidth="263.0">
+        <ComboBox fx:id="addCategoryParentName" prefWidth="263.0">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="Item 1" />
@@ -41,18 +41,18 @@
             <Insets left="10.0" right="10.0" top="10.0" fx:id="x3" />
           </VBox.margin>
         </ComboBox>
-        <TextField id="newCategoryName" fx:id="categoryNewName" prefHeight="-1.0" prefWidth="177.0" VBox.margin="$x3" />
-        <TextField id="weight" fx:id="categoryWeight" maxWidth="-1.0" minWidth="-1.0" prefWidth="240.0" VBox.margin="$x3" />
+        <TextField fx:id="addCategoryName" prefWidth="200.0" VBox.margin="$x3" />
+        <TextField fx:id="addCategoryWeight" prefWidth="200.0" VBox.margin="$x3" />
       </children>
     </VBox>
     <HBox alignment="CENTER" layoutX="125.0" layoutY="176.0" prefHeight="36.0" prefWidth="316.0">
       <children>
-        <Button id="saveCategoryBotton" fx:id="categorySaveBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleSaveCategory" text="Save" textAlignment="LEFT">
+        <Button id="saveCategoryBotton" fx:id="addCategorySaveBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleSaveCategory" text="Save" textAlignment="LEFT">
           <HBox.margin>
             <Insets left="50.0" fx:id="x4" />
           </HBox.margin>
         </Button>
-        <Button fx:id="categoryCancelbotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleCancelCategory" text="Cancel" textAlignment="LEFT" HBox.margin="$x4" />
+        <Button id="categoryCancelbotton" fx:id="addCategoryCancelbotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleCancelCategory" text="Cancel" textAlignment="LEFT" HBox.margin="$x4" />
       </children>
     </HBox>
   </children>

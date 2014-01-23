@@ -9,107 +9,84 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
+    <Pane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
       <children>
-        <Pane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
+        <HBox alignment="CENTER" layoutX="125.0" layoutY="284.0" prefHeight="36.0" prefWidth="316.0">
           <children>
-            <HBox alignment="CENTER" layoutX="125.0" layoutY="284.0" prefHeight="36.0" prefWidth="316.0">
-              <children>
-                <Button fx:id="assignmentSaveBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleAssignmentSave" text="Save" textAlignment="LEFT">
-                  <HBox.margin>
-                    <Insets left="50.0" fx:id="x1" />
-                  </HBox.margin>
-                </Button>
-                <Button fx:id="assignmentCancelBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleAssignmentCancel" text="Cancel" textAlignment="LEFT" HBox.margin="$x1" />
-              </children>
-            </HBox>
+            <Button id="assignmentSaveBotton" fx:id="addAssignmentSaveBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleAssignmentSave" text="Save" textAlignment="LEFT">
+              <HBox.margin>
+                <Insets left="50.0" fx:id="x1" />
+              </HBox.margin>
+            </Button>
+            <Button id="assignmentCancelBotton" fx:id="addAssignmentCancelBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleAssignmentCancel" text="Cancel" textAlignment="LEFT" HBox.margin="$x1" />
           </children>
-        </Pane>
-        <VBox layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="280.0">
-          <children>
-            <Label graphicTextGap="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="180.0" text="Name" VBox.vgrow="ALWAYS">
-              <font>
-                <Font size="18.0" fx:id="x2" />
-              </font>
-              <VBox.margin>
-                <Insets left="10.0" top="10.0" fx:id="x3" />
-              </VBox.margin>
-            </Label>
-            <Label font="$x2" graphicTextGap="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="180.0" text="Parrent Category" VBox.margin="$x3" VBox.vgrow="ALWAYS" />
-            <Label font="$x2" graphicTextGap="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="180.0" text="Weight (%)" VBox.margin="$x3" VBox.vgrow="ALWAYS" />
-            <Label font="$x2" graphicTextGap="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="180.0" text="Due Date" VBox.margin="$x3" />
-            <Label font="$x2" graphicTextGap="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="180.0" text="Points" VBox.margin="$x3" />
-          </children>
-        </VBox>
-        <VBox layoutX="303.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="280.0">
-          <children>
-            <TextField id="parCategory" fx:id="assignmentName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="263.0">
-              <VBox.margin>
-                <Insets left="10.0" right="10.0" top="10.0" fx:id="x4" />
-              </VBox.margin>
-            </TextField>
-            <ComboBox id="assignmentPa" fx:id="assignmentParrentCategory" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="260.0" VBox.margin="$x4">
-              <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1" />
-                  <String fx:value="Item 2" />
-                  <String fx:value="Item 3" />
-                </FXCollections>
-              </items>
-            </ComboBox>
-            <TextField fx:id="assignmentWeight" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="263.0" VBox.margin="$x4" />
-            <TextField fx:id="assignmentDueDate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="263.0">
-              <VBox.margin>
-                <Insets left="10.0" right="10.0" top="10.0" fx:id="x4" />
-              </VBox.margin>
-            </TextField>
-            <TextField fx:id="assignmentPoints" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="263.0">
-              <VBox.margin>
-                <Insets left="10.0" right="10.0" top="10.0" fx:id="x4" />
-              </VBox.margin>
-            </TextField>
-          </children>
-        </VBox>
-        <VBox alignment="TOP_LEFT" layoutX="11.0" layoutY="196.0" mouseTransparent="false" pickOnBounds="true" prefHeight="74.0" prefWidth="266.0">
-          <children>
-            <RadioButton fx:id="assignmentDefGradingScheme" mnemonicParsing="false" selected="true" text="Default Grading Scheme">
-              <toggleGroup>
-                <ToggleGroup fx:id="gradingSchemeRB" />
-              </toggleGroup>
-              <VBox.margin>
-                <Insets left="10.0" top="20.0" />
-              </VBox.margin>
-            </RadioButton>
-            <RadioButton fx:id="assignmentSetGradingScheme" mnemonicParsing="false" selected="false" text="Set Grading Scheme" toggleGroup="$gradingSchemeRB">
-              <VBox.margin>
-                <Insets left="10.0" top="10.0" fx:id="x3" />
-              </VBox.margin>
-            </RadioButton>
-          </children>
-          <padding>
-            <Insets />
-          </padding>
-        </VBox>
-        <VBox alignment="TOP_LEFT" layoutX="297.0" layoutY="196.0" mouseTransparent="false" pickOnBounds="true" prefHeight="74.0" prefWidth="266.0">
-          <children>
-            <RadioButton fx:id="assignmentDefLatePolicy" mnemonicParsing="false" selected="true" text="Default Late Policy">
-              <VBox.margin>
-                <Insets left="10.0" top="20.0" />
-              </VBox.margin>
-            </RadioButton>
-            <RadioButton fx:id="assignmentSetLatePolicy" mnemonicParsing="false" selected="false" text="Set Late Policy">
-              <VBox.margin>
-                <Insets left="10.0" top="10.0" fx:id="x3" />
-              </VBox.margin>
-            </RadioButton>
-          </children>
-          <padding>
-            <Insets />
-          </padding>
-        </VBox>
+        </HBox>
       </children>
-    </AnchorPane>
+    </Pane>
+    <VBox fx:id="addAssignmentLblVBox" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="280.0">
+      <children>
+        <Label graphicTextGap="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="180.0" text="Name" VBox.vgrow="ALWAYS">
+          <font>
+            <Font size="18.0" fx:id="x2" />
+          </font>
+          <VBox.margin>
+            <Insets left="10.0" top="10.0" fx:id="x3" />
+          </VBox.margin>
+        </Label>
+        <Label font="$x2" graphicTextGap="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="180.0" text="Parrent Category" VBox.margin="$x3" VBox.vgrow="ALWAYS" />
+        <Label font="$x2" graphicTextGap="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="180.0" text="Weight (%)" VBox.margin="$x3" VBox.vgrow="ALWAYS" />
+        <Label font="$x2" graphicTextGap="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="180.0" text="Due Date" VBox.margin="$x3" />
+        <Label font="$x2" graphicTextGap="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="180.0" text="Points" VBox.margin="$x3" />
+      </children>
+    </VBox>
+    <VBox fx:id="addAssignmentTxtFieldVBox" layoutX="303.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="280.0">
+      <children>
+        <TextField fx:id="addAssignmentName" prefWidth="200.0">
+          <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0" fx:id="x4" />
+          </VBox.margin>
+        </TextField>
+        <ComboBox id="addAssignmentNameCategory" fx:id="addAssignmentCategory" prefWidth="260.0" VBox.margin="$x4">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Item 1" />
+              <String fx:value="Item 2" />
+              <String fx:value="Item 3" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+        <TextField fx:id="addAssignmentWeight" prefWidth="200.0" VBox.margin="$x4" />
+        <TextField fx:id="addAssignmentDueDate" prefWidth="200.0" VBox.margin="$x4" />
+        <TextField fx:id="addAssignmentPoints" prefWidth="200.0" VBox.margin="$x4" />
+      </children>
+    </VBox>
+    <VBox fx:id="gradeSchemeVBox" alignment="TOP_LEFT" layoutX="11.0" layoutY="196.0" mouseTransparent="false" pickOnBounds="true" prefHeight="74.0" prefWidth="266.0">
+      <children>
+        <RadioButton mnemonicParsing="false" selected="true" text="Default Grading Scheme" VBox.margin="$x4">
+          <toggleGroup>
+            <ToggleGroup fx:id="GradingScheme" />
+          </toggleGroup>
+        </RadioButton>
+        <RadioButton mnemonicParsing="false" text="Set Grading Scheme" toggleGroup="$GradingScheme" VBox.margin="$x4" />
+      </children>
+      <padding>
+        <Insets />
+      </padding>
+    </VBox>
+    <VBox fx:id="latePolicyVBox" alignment="TOP_LEFT" layoutX="300.0" layoutY="196.0" mouseTransparent="false" pickOnBounds="true" prefHeight="74.0" prefWidth="266.0">
+      <children>
+        <RadioButton mnemonicParsing="false" selected="true" text="Default Late Policy" VBox.margin="$x4">
+          <toggleGroup>
+            <ToggleGroup fx:id="LatePolicy" />
+          </toggleGroup>
+        </RadioButton>
+        <RadioButton mnemonicParsing="false" text="Set Late Policy" toggleGroup="$LatePolicy" VBox.margin="$x4" />
+      </children>
+      <padding>
+        <Insets />
+      </padding>
+    </VBox>
   </children>
 </AnchorPane>
