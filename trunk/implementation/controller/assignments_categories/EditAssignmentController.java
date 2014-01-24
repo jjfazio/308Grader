@@ -1,19 +1,24 @@
 package controller.assignments_categories;
 
 import javafx.fxml.FXML;
+import model.assignments_categories.Assignment;
 
 /**
- * Created by jib on 1/23/14.
+ * @author Jirbert Dilanchian
  */
 public class EditAssignmentController {
 
     @FXML
-    private void handleEditAssignmentEdit() {
+    private Assignment editAssign;
 
+    @FXML
+    private void handleEditAssignmentEdit() {
+        System.out.println("Edit button Clicked!");
     }
 
     @FXML
     private void handleEditAssignmentCancel() {
+        System.out.println("Cancel button Clicked!");
 
     }
 }

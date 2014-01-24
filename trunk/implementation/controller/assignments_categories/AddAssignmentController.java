@@ -3,12 +3,14 @@ package controller.assignments_categories;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import model.assignments_categories.Assignment;
+import model.assignments_categories.Category;
 import view.ViewUtility;
 
 import java.util.Date;
 
 /**
- * Created by jib on 1/23/14.
+ * @author Jirbert Dilanchian
  */
 public class AddAssignmentController {
     @FXML
@@ -27,11 +29,16 @@ public class AddAssignmentController {
 
     @FXML
     private void handleAddAssignmentSave() {
+        System.out.println("Save button Clicked!");
+        Assignment newAssignment = new Assignment();
+        Category parCategory = new Category();
+        parCategory.addAssignment(newAssignment);
 
     }
 
     @FXML
     private void handleAddAssignmentCancel() {
+        System.out.println("Cancel button Clicked!");
 
     }
 }
