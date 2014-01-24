@@ -274,9 +274,12 @@ public class Gradebook implements Serializable{
          ois.close();
          LOGGER.info("Done loading gradebook");
          
-      } catch (IOException | ClassNotFoundException e) {
+      } catch (IOException e) {
+         LOGGER.warning("Error in loading gradebook: " + e.getStackTrace());
+      } catch (ClassNotFoundException e)  {
          LOGGER.warning("Error in loading gradebook: " + e.getStackTrace());
       }
+
    }
    
    public void saveGradebook() {

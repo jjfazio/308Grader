@@ -47,7 +47,7 @@
     </VBox>
     <HBox alignment="CENTER" layoutX="125.0" layoutY="176.0" prefHeight="36.0" prefWidth="316.0">
       <children>
-        <Button id="saveCategoryBotton" fx:id="addCategorySaveBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" text="Save" textAlignment="LEFT">
+        <Button id="saveCategoryBotton" fx:id="addCategorySaveBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleSaveCategory" text="Save" textAlignment="LEFT">
           <HBox.margin>
             <Insets left="50.0" fx:id="x4" />
           </HBox.margin>
