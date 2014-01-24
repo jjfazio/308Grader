@@ -1,6 +1,6 @@
 package model.users;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import model.assignments_categories.Assignment;
@@ -16,7 +16,7 @@ import model.spreadsheet.SpreadsheetCourse;
  * @author Kevin Feutz
  */
 
-public class Student {
+public class Student implements Serializable {
    String userName;
    String firstName;
    String middleName;

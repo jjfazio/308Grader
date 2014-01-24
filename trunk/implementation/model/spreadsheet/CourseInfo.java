@@ -1,5 +1,6 @@
 package model.spreadsheet;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import model.users.TeacherAssistant;
@@ -8,7 +9,7 @@ import model.users.TeacherAssistant;
  * Course contains a courseName, a quarter, a number, and a dept along with 
  * methods to manipulate these fields
  */
-public class CourseInfo {
+public class CourseInfo implements Serializable{
     /**
      * The name of the course, for example 'Intro to Databases', must not be null
      */

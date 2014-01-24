@@ -1,11 +1,12 @@
 package model.gradebook;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import model.spreadsheet.SpreadsheetCourse;
@@ -28,14 +29,21 @@ public class Gradebook implements Serializable{
 	private static final Logger LOGGER =
 	 Logger.getLogger(Gradebook.class.getName());
 	
+	//Loads the gradebook from a file
 	private Gradebook() {
 	   System.out.println("Congrats, you created a Gradebook!");
 	   loadGradebook();
 	}
 	
+	// Called when there is no previous gradebook
+	// Only called once
+	private Gradebook(boolean firstTime) {
+		
+	}
+	
 	public static Gradebook getInstance() {
 	   if (instance == null)
-	      instance = new Gradebook();
+	      new Gradebook();
 	   
 	   return instance;
 	}
@@ -264,42 +272,48 @@ public class Gradebook implements Serializable{
       return false;
    }
    
-   private void loadGradebook() {
+   public void loadGradebook() {
+	  File f;
       FileInputStream fin;
       
-//      try {
-//         fin = new FileInputStream("someAddress");
-//         ObjectInputStream ois = new ObjectInputStream(fin);
-//         instance = (Gradebook) ois.readObject();
-//         ois.close();
-//         LOGGER.info("Done loading gradebook");
-//         
-//      } catch (IOException | ClassNotFoundException e) {
-//         LOGGER.warning("Error in loading gradebook: " + e.getStackTrace());
-//      }
+      try {
+    	 f = new File("currentGradebook");
+    	 if (f.exists()) {
+    		 fin = new FileInputStream("currentGradebook");
+    		 ObjectInputStream ois = new ObjectInputStream(fin);
+    		 instance = (Gradebook) ois.readObject();
+    		 ois.close();
+    	 } else {
+    		 instance = new Gradebook(true);
+    	 }
+    	 LOGGER.info("Done loading gradebook");
+      } catch (IOException e) {
+         LOGGER.warning("Error in loading gradebook: ");
+         e.printStackTrace();
+      } catch (ClassNotFoundException e)  {
+         LOGGER.warning("Error in loading gradebook: " + e.getStackTrace());
+      }
+
    }
    
    public void saveGradebook() {
       FileOutputStream fout;
       
       try {
-         fout = new FileOutputStream("someAddress");
+         fout = new FileOutputStream("currentGradebook");
          ObjectOutputStream oos = new ObjectOutputStream(fout);
          oos.writeObject(instance);
          oos.close();
          LOGGER.info("Done saving gradebook");
          
       } catch (IOException e) {
-         LOGGER.warning("Error in saving gradebook: " + e.getStackTrace());
+         LOGGER.warning("Error in saving gradebook: ");
+         e.printStackTrace();
       }
    }
    
    public Teacher getTeacher() {
       return teacher;
-   }
-   
-   public void setTeacher(Teacher teacher) {
-      this.teacher = teacher;
    }
    
    public ArrayList<SpreadsheetCourse> getCourses() {

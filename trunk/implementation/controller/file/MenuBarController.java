@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
+import model.gradebook.Gradebook;
 import view.ViewUtility;
 
 /**
@@ -13,8 +14,17 @@ import view.ViewUtility;
  */
 public class MenuBarController
 {
+   Gradebook gradebook;
+   
    @FXML 
    private MenuBar menuBar;
+   
+   @FXML
+   public void saveGradebook() {
+	   System.out.println("Pressed save!");
+	   gradebook = Gradebook.getInstance();
+	   gradebook.saveGradebook();
+   }
 
    //Interesting idea in tutorial to block other GUI until this screen
    //is canceled, also return boolean returning whether an edit was made
@@ -99,4 +109,57 @@ public class MenuBarController
         ViewUtility.showPage(loader, AnchorPane.class, "Graphs");
     }
 
+    @FXML
+    public void viewAddCategory() {
+        System.out.println("Add Category clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/addCategory.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Add Category");
+    }
+
+    @FXML
+    public void viewEditCategory() {
+        System.out.println("Edit Category clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/editCategory.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Edit Category");
+    }
+
+    @FXML
+    public void viewDeleteCategory() {
+        System.out.println("Delete Category clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/deleteCategory.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Delete Category");
+    }
+
+    @FXML
+    public void viewAddAssignment() {
+        System.out.println("Add Assignment clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/addAssignment.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Add Assignment");
+    }
+
+    @FXML
+    public void viewEditAssignment() {
+        System.out.println("Edit Assignment clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/editAssignment.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Edit Assignment");
+    }
+
+    @FXML
+    public void viewDeleteAssignment() {
+        System.out.println("Delete Assignment clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/deleteAssignment.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Delete Assignment");
+    }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPaneEditAssignment" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="335.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.assignments_categories.EditCategoryController">
+  <children>
+    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="335.0" prefWidth="600.0">
+      <children>
+        <HBox alignment="CENTER" layoutX="142.0" layoutY="275.0" prefHeight="36.0" prefWidth="316.0">
+          <children>
+            <Button id="saveCategoryBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleEditCategoryEdit" text="Edit" textAlignment="LEFT">
+              <HBox.margin>
+                <Insets left="50.0" fx:id="x1" />
+              </HBox.margin>
+            </Button>
+            <Button id="categoryCancelbotton" fx:id="btnCancleEditCategory" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleEditCategoryCancel" text="Cancel" textAlignment="LEFT" HBox.margin="$x1" />
+          </children>
+        </HBox>
+        <TableView layoutX="14.0" layoutY="14.0" prefHeight="245.0" prefWidth="280.0">
+          <columns>
+            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="279.0" text="Categories" fx:id="editCategoryList" />
+          </columns>
+        </TableView>
+        <Label id="lblEditAssignment" fx:id="lblEditCategoryDetails" layoutX="315.0" layoutY="39.0" pickOnBounds="false" prefHeight="220.0" prefWidth="233.0" text="" underline="false" />
+        <Label layoutX="326.0" layoutY="18.0" prefHeight="21.0" prefWidth="233.0" text="Details" textFill="BLACK" />
+      </children>
+    </AnchorPane>
+  </children>
+</AnchorPane>

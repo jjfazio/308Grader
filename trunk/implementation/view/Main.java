@@ -31,15 +31,17 @@ public class Main extends Application
 		
 		gradebook = Gradebook.getInstance();
 		
-		SpreadsheetCourse course = new SpreadsheetCourse();
-		course.setCourseInfo(new CourseInfo("308", "adfad", "01", "asdf"));
-		
-		SpreadsheetCourse course2 = new SpreadsheetCourse();
-		course2.setCourseInfo(new CourseInfo("309", "fasdfadf", "02", "adfasdf"));
-		
-		gradebook.addSpreadsheetCourse(course);
-		gradebook.addSpreadsheetCourse(course2);
-		gradebook.setCurrentCourse(course);
+		if (gradebook.getCourses() == null) {
+			SpreadsheetCourse course = new SpreadsheetCourse();
+			course.setCourseInfo(new CourseInfo("308", "adfad", "01", "asdf"));
+			
+			SpreadsheetCourse course2 = new SpreadsheetCourse();
+			course2.setCourseInfo(new CourseInfo("309", "fasdfadf", "02", "adfasdf"));
+			
+			gradebook.addSpreadsheetCourse(course);
+			gradebook.addSpreadsheetCourse(course2);
+			gradebook.setCurrentCourse(course);
+		}
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("./file/MenuBar.fxml"));
 		rootLayout = (BorderPane) ViewUtility.loadView(loader);

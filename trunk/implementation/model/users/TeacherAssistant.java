@@ -1,5 +1,7 @@
 package model.users;
 
+import java.io.Serializable;
+
 import model.file.TaPermissions;
 
 /**
@@ -9,7 +11,7 @@ import model.file.TaPermissions;
  * @author jamesfazio
  *
  */
-public class TeacherAssistant {
+public class TeacherAssistant implements Serializable {
    String id;
    String firstName;
    String lastName;
