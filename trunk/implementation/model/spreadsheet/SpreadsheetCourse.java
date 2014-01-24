@@ -7,7 +7,6 @@ import model.assignments_categories.Category;
 import model.file.Settings;
 import model.users.Student;
 
-import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion.Setting;
 
 /**
  * A SpreadsheetCourse contains all related information associated with 

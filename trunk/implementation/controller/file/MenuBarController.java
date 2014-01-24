@@ -9,7 +9,7 @@ import view.ViewUtility;
 
 /**
  * This class controls the Menu Bar. Any action done on the menu bar
- * will be handled here.
+ * will be handled here. ooga booga
  * @author jfazio erikowen jdilanchian kfeutz kbackers
  */
 public class MenuBarController
