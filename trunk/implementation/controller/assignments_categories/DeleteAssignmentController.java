@@ -1,13 +1,22 @@
 package controller.assignments_categories;
 
+import javafx.fxml.FXML;
+
 /**
- * Created by jib on 1/23/14.
+ * @author Jirbert Dilanchian on 1/23/14.
  */
 public class DeleteAssignmentController {
+
+    public DeleteAssignmentController() {
+
+    }
+
+    @FXML
     private void handleDeleteAssignmentDelete() {
 
     }
 
+    @FXML
     private void handleDeleteAssignmentCancel() {
 
     }
