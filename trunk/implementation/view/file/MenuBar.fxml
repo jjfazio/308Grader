@@ -53,9 +53,9 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Students" fx:id="StudentMenu">
           <items>
-            <MenuItem mnemonicParsing="false" text="Add Student" fx:id="AddStudentMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Edit Student" fx:id="EditStudentMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Delete Student" fx:id="DeleteStudentMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewAddStudentDialog" text="Add Student" fx:id="AddStudentMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewEditStudentListDialog" text="Edit Student" fx:id="EditStudentMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewDeleteStudentListDialog" text="Delete Student" fx:id="DeleteStudentMenuItem" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Assignments" fx:id="AsgnMenu">
