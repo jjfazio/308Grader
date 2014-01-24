@@ -11,13 +11,13 @@ import javax.sql.rowset.CachedRowSet;
 public class AddCategoryController {
 
     @FXML
-    public void handleSaveCategory() {
+    public void handleAddCategorySave() {
         Category newCategory = new Category();
 
     }
 
     @FXML
-    public void handleCancelCategory() {
+    public void handleAddCategoryCancel() {
 
     }
 }

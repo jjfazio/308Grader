@@ -12,7 +12,6 @@
 <AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="599.0" prefHeight="223.0" prefWidth="645.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.assignments_categories.AddCategoryController">
   <children>
     <AnchorPane layoutX="86.0" layoutY="180.0" prefHeight="36.0" prefWidth="470.0" />
-    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="237.0" prefWidth="645.0" />
     <VBox layoutX="10.0" layoutY="24.0" prefHeight="166.0" prefWidth="283.0">
       <children>
         <Label graphicTextGap="4.0" text="Name" VBox.vgrow="ALWAYS">
@@ -47,12 +46,12 @@
     </VBox>
     <HBox alignment="CENTER" layoutX="125.0" layoutY="176.0" prefHeight="36.0" prefWidth="316.0">
       <children>
-        <Button id="saveCategoryBotton" fx:id="addCategorySaveBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleSaveCategory" text="Save" textAlignment="LEFT">
+        <Button id="saveCategoryBotton" fx:id="addCategorySaveBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleAddCategorySave" text="Save" textAlignment="LEFT">
           <HBox.margin>
             <Insets left="50.0" fx:id="x4" />
           </HBox.margin>
         </Button>
-        <Button id="categoryCancelbotton" fx:id="addCategoryCancelbotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleCancelCategory" text="Cancel" textAlignment="LEFT" HBox.margin="$x4" />
+        <Button id="categoryCancelbotton" fx:id="addCategoryCancelbotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleAddCategoryCancel" text="Cancel" textAlignment="LEFT" HBox.margin="$x4" />
       </children>
     </HBox>
   </children>
