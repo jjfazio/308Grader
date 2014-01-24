@@ -25,7 +25,13 @@ public class AddAssignmentController {
     public AddAssignmentController() {
     }
 
-    private void handleAssignmentSave() {
+    @FXML
+    private void handleAddAssignmentSave() {
+
+    }
+
+    @FXML
+    private void handleAddAssignmentCancel() {
 
     }
 }
