@@ -1,5 +1,6 @@
 package model.spreadsheet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import model.assignments_categories.Category;
@@ -15,7 +16,7 @@ import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion.
  *
  */
 
-public class SpreadsheetCourse {
+public class SpreadsheetCourse implements Serializable {
    
    /**
     * {@link CourseInfo} related to the course.

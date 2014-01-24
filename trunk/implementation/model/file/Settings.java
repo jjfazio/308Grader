@@ -1,11 +1,13 @@
 package model.file;
 
+import java.io.Serializable;
+
 /**
  * Settings Object for a given SpreadsheetCourse.
  * @author jamesfazio
  *
  */
-public class Settings {
+public class Settings implements Serializable {
 	
    /*
     *  Value specifiying if students can view grades before the final grade is posted	
