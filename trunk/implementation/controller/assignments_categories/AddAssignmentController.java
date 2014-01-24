@@ -27,6 +27,10 @@ public class AddAssignmentController {
     public AddAssignmentController() {
     }
 
+
+    /**
+     * Adds an assignment to the collection of assignment of the parent Category.
+     */
     @FXML
     private void handleAddAssignmentSave() {
         System.out.println("Save button Clicked!");
@@ -36,9 +40,12 @@ public class AddAssignmentController {
 
     }
 
+    /**
+     * Closes the Add Assignment page without saving anything.
+     */
+
     @FXML
     private void handleAddAssignmentCancel() {
         System.out.println("Cancel button Clicked!");
-
     }
 }

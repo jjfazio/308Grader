@@ -16,6 +16,9 @@ public class DeleteAssignmentController {
 
     }
 
+    /**
+     * Removes an assignment from the collection of assignments of the parrent category.
+     */
     @FXML
     private void handleDeleteAssignmentDelete() {
         System.out.println("Delete button Clicked!");
@@ -25,6 +28,9 @@ public class DeleteAssignmentController {
         parCategory.removeAssignment(dAssignment);
     }
 
+    /**
+     * Closes the Delete Assignment page without doing any changes.
+     */
     @FXML
     private void handleDeleteAssignmentCancel() {
         System.out.println("Cancel button Clicked!");

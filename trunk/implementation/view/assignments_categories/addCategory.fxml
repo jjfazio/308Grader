@@ -9,9 +9,8 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="599.0" prefHeight="223.0" prefWidth="645.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.assignments_categories.AddCategoryController">
+<AnchorPane id="AnchorPane" fx:id="addCategoryAnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="599.0" prefHeight="223.0" prefWidth="645.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.assignments_categories.AddCategoryController">
   <children>
-    <AnchorPane layoutX="86.0" layoutY="180.0" prefHeight="36.0" prefWidth="470.0" />
     <VBox layoutX="10.0" layoutY="24.0" prefHeight="166.0" prefWidth="283.0">
       <children>
         <Label graphicTextGap="4.0" text="Name" VBox.vgrow="ALWAYS">
