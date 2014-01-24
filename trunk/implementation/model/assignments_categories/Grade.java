@@ -1,11 +1,14 @@
 package model.assignments_categories;
 
+import java.io.Serializable;
+import java.util.Date;
+
 
 /**
  * Grade contains a Course, an Assignment, a Date, and a Score, along with
  * methods available to change this data
  */
-abstract public class Grade {
+public class Grade implements Serializable {
    Assignment assign;
    Date turnedIn;
    Double score;
