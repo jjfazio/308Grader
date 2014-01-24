@@ -53,19 +53,19 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Students" fx:id="StudentMenu">
           <items>
-            <MenuItem mnemonicParsing="false" text="Add Student" fx:id="AddStudentMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Edit Student" fx:id="EditStudentMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Delete Student" fx:id="DeleteStudentMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewAddStudentDialog" text="Add Student" fx:id="AddStudentMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewEditStudentListDialog" text="Edit Student" fx:id="EditStudentMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewDeleteStudentListDialog" text="Delete Student" fx:id="DeleteStudentMenuItem" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Assignments" fx:id="AsgnMenu">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#viewAddCategory" text="Add Category" fx:id="AddCatMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Edit Category" fx:id="EditCatMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Delete Category" fx:id="DeleteCatMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Add Assignment" fx:id="AddAsgnMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Edit Assignment" fx:id="EditAsgnMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Delete Assignment" fx:id="DeleteAsgnMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewEditCategory" text="Edit Category" fx:id="EditCatMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewDeleteCategory" text="Delete Category" fx:id="DeleteCatMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewAddAssignment" text="Add Assignment" fx:id="AddAsgnMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewEditAssignment" text="Edit Assignment" fx:id="EditAsgnMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewDeleteAssignment" text="Delete Assignment" fx:id="DeleteAsgnMenuItem" />
           </items>
         </Menu>
       </menus>

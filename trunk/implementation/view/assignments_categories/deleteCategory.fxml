@@ -9,18 +9,18 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPaneEditAssignment" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="335.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPaneEditAssignment" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="335.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.assignments_categories.DeleteCategoryController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="335.0" prefWidth="600.0">
       <children>
         <HBox alignment="CENTER" layoutX="142.0" layoutY="275.0" prefHeight="36.0" prefWidth="316.0">
           <children>
-            <Button id="saveCategoryBotton" fx:id="btnDeleteCategory" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleDeleteCategory" text="Delete" textAlignment="LEFT">
+            <Button id="saveCategoryBotton" fx:id="btnDeleteCategory" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleDeleteCategoryDelete" text="Delete" textAlignment="LEFT">
               <HBox.margin>
                 <Insets left="50.0" fx:id="x1" />
               </HBox.margin>
             </Button>
-            <Button id="categoryCancelbotton" fx:id="btnCancleDeleteAssignment" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleCancelDeleteAssignment" text="Cancel" textAlignment="LEFT" HBox.margin="$x1" />
+            <Button id="categoryCancelbotton" fx:id="btnCancleDeleteAssignment" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleDeleteCategoryCancel" text="Cancel" textAlignment="LEFT" HBox.margin="$x1" />
           </children>
         </HBox>
         <TableView layoutX="14.0" layoutY="14.0" prefHeight="245.0" prefWidth="280.0">

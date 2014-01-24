@@ -6,18 +6,30 @@ import model.assignments_categories.Category;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- * Created by jib on 1/23/14.
+ * @author Jirbert Dilanchian
  */
 public class AddCategoryController {
 
     @FXML
-    public void handleSaveCategory() {
+    private String name;
+
+    @FXML
+    private int weight;
+
+    @FXML
+    private Category parentCategory;
+
+    @FXML
+    public void handleAddCategorySave() {
+        System.out.println("Save button Clicked!");
         Category newCategory = new Category();
+        Category topCategory = new Category();
+        topCategory.addSubCategory(newCategory);
 
     }
 
     @FXML
-    public void handleCancelCategory() {
-
+    public void handleAddCategoryCancel() {
+        System.out.println("Cancel button Clicked!");
     }
 }

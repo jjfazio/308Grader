@@ -118,4 +118,48 @@ public class MenuBarController
         ViewUtility.showPage(loader, AnchorPane.class, "Add Category");
     }
 
+    @FXML
+    public void viewEditCategory() {
+        System.out.println("Edit Category clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/editCategory.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Edit Category");
+    }
+
+    @FXML
+    public void viewDeleteCategory() {
+        System.out.println("Delete Category clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/deleteCategory.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Delete Category");
+    }
+
+    @FXML
+    public void viewAddAssignment() {
+        System.out.println("Add Assignment clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/addAssignment.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Add Assignment");
+    }
+
+    @FXML
+    public void viewEditAssignment() {
+        System.out.println("Edit Assignment clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/editAssignment.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Edit Assignment");
+    }
+
+    @FXML
+    public void viewDeleteAssignment() {
+        System.out.println("Delete Assignment clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/deleteAssignment.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Delete Assignment");
+    }
 }
