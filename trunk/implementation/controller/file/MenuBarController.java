@@ -99,4 +99,13 @@ public class MenuBarController
         ViewUtility.showPage(loader, AnchorPane.class, "Graphs");
     }
 
+    @FXML
+    public void viewAddCategory() {
+        System.out.println("Add Category clicked!");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("./../../view/assignments_categories/addCategory.fxml"));
+
+        ViewUtility.showPage(loader, AnchorPane.class, "Add Category");
+    }
+
 }
