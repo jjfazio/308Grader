@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
+import model.gradebook.Gradebook;
 import view.ViewUtility;
 
 /**
@@ -13,8 +14,17 @@ import view.ViewUtility;
  */
 public class MenuBarController
 {
+   Gradebook gradebook;
+   
    @FXML 
    private MenuBar menuBar;
+   
+   @FXML
+   public void saveGradebook() {
+	   System.out.println("Pressed save!");
+	   gradebook = Gradebook.getInstance();
+	   gradebook.saveGradebook();
+   }
 
    //Interesting idea in tutorial to block other GUI until this screen
    //is canceled, also return boolean returning whether an edit was made
