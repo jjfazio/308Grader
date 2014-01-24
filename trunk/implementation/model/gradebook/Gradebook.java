@@ -2,10 +2,10 @@ package model.gradebook;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import model.spreadsheet.SpreadsheetCourse;
@@ -30,7 +30,7 @@ public class Gradebook implements Serializable{
 	
 	private Gradebook() {
 	   System.out.println("Congrats, you created a Gradebook!");
-	   loadGradebook();
+	  // loadGradebook();
 	}
 	
 	public static Gradebook getInstance() {
@@ -267,23 +267,23 @@ public class Gradebook implements Serializable{
    private void loadGradebook() {
       FileInputStream fin;
       
-//      try {
-//         fin = new FileInputStream("someAddress");
-//         ObjectInputStream ois = new ObjectInputStream(fin);
-//         instance = (Gradebook) ois.readObject();
-//         ois.close();
-//         LOGGER.info("Done loading gradebook");
-//         
-//      } catch (IOException | ClassNotFoundException e) {
-//         LOGGER.warning("Error in loading gradebook: " + e.getStackTrace());
-//      }
+      try {
+         fin = new FileInputStream("someAddress");
+         ObjectInputStream ois = new ObjectInputStream(fin);
+         instance = (Gradebook) ois.readObject();
+         ois.close();
+         LOGGER.info("Done loading gradebook");
+         
+      } catch (IOException | ClassNotFoundException e) {
+         LOGGER.warning("Error in loading gradebook: " + e.getStackTrace());
+      }
    }
    
    public void saveGradebook() {
       FileOutputStream fout;
       
       try {
-         fout = new FileOutputStream("someAddress");
+         fout = new FileOutputStream("gradebook");
          ObjectOutputStream oos = new ObjectOutputStream(fout);
          oos.writeObject(instance);
          oos.close();
@@ -296,10 +296,6 @@ public class Gradebook implements Serializable{
    
    public Teacher getTeacher() {
       return teacher;
-   }
-   
-   public void setTeacher(Teacher teacher) {
-      this.teacher = teacher;
    }
    
    public ArrayList<SpreadsheetCourse> getCourses() {

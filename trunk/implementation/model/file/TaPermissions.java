@@ -1,12 +1,14 @@
 package model.file;
 
+import java.io.Serializable;
+
 /**
  * Permissions object for a Teacher's Assistant.
  * Contains pertinent information about what operations
  * a Teacher's assistant can perform.
  *
  */
-public class TaPermissions {
+public class TaPermissions implements Serializable{
 	/*
 	 * Value specifying if a TA is allowed to download roster from SIS
 	 */

@@ -1,10 +1,12 @@
 package model.spreadsheet;
 
+import java.io.Serializable;
+
 /**
  * Object representing a LatePolicy for an overall class or individual
  * assignment.
  */
-public class LatePolicy {
+public class LatePolicy implements Serializable {
    /**
     * Boolean that indicates whether graceDays are enabled. Grace Days
     * are days that a student have to turn in an assignment without penalty.

@@ -1,4 +1,5 @@
 package model.assignments_categories;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -8,7 +9,7 @@ import java.util.Collection;
  * The weight represents what portion of a student's final grade this category is worth. 
  */
 
-public class Category {
+public class Category implements Serializable {
    Category parentCategory;
    String name;
    Collection<Assignment> assignments;

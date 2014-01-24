@@ -1,5 +1,6 @@
 package model.assignments_categories;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import model.spreadsheet.GradingScheme;
@@ -9,7 +10,7 @@ import model.spreadsheet.LatePolicy;
  * Assignment contains a name, a weight, a gradeType, and a set of statistics
  * along with methods to change these fields
  */
-abstract public class Assignment {
+public class Assignment implements Serializable {
    String name;
    Double percentOfCategory;
    Integer maxPoints;
@@ -54,7 +55,9 @@ abstract public class Assignment {
    //
    (assignment.percentCurve.equals(amountCurved));
    @*/
-   abstract void adjustAssignmentCurve(Double amountCurved);
+   public void adjustAssignmentCurve(Double amountCurved) {
+	   
+   }
 
    public String getName() {
       return name;
