@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="462.9998558593725" prefWidth="384.99988474121346" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane prefHeight="462.9998558593725" prefWidth="384.99988474121346" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.spreadsheet.AddClassController">
   <!-- TODO Add Nodes -->
   <children>
     <VBox layoutX="0.0" layoutY="0.0" prefHeight="462.9998779296875" prefWidth="384.9998779296875">
@@ -32,7 +32,7 @@
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Grading Scheme:" />
-            <ComboBox promptText="Create...">
+            <ComboBox promptText="">
               <items>
                 <FXCollections fx:factory="observableArrayList">
                   <String fx:value="Item 1" />
@@ -41,12 +41,13 @@
                 </FXCollections>
               </items>
             </ComboBox>
+            <Button mnemonicParsing="false" onAction="#handleCreateNewGradingSchemeButton" text="Create New" />
           </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Teacher's Assistant:" />
-            <ComboBox promptText="Create...">
+            <ComboBox promptText="">
               <items>
                 <FXCollections fx:factory="observableArrayList">
                   <String fx:value="Item 1" />
@@ -55,6 +56,7 @@
                 </FXCollections>
               </items>
             </ComboBox>
+            <Button mnemonicParsing="false" onAction="#handleCreateNewTeacherAssistantButton" text="Create New" />
           </children>
         </HBox>
         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -78,7 +80,7 @@
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
-            <Button mnemonicParsing="false" text="Create" />
+            <Button mnemonicParsing="false" onAction="#handleCreateButton" text="Create" />
           </children>
         </HBox>
       </children>

@@ -36,6 +36,7 @@ public class CourseInfo implements Serializable{
         this.quarter = quarter;
         this.number = number;
         this.dept = dept;
+        System.out.println("Created a new CourseInfo for a SpreadsheetCourse");
     }
 
 
