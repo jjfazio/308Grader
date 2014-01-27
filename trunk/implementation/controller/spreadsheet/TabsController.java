@@ -48,7 +48,7 @@ public class TabsController {
          }
 
          loader = new FXMLLoader(getClass().getResource(
-            "./../../view/spreadsheet/GradeSheet.fxml"));
+            "/view/spreadsheet/GradeSheet.fxml"));
          content = (AnchorPane) ViewUtility.loadView(loader);
          tab.setContent(content);
          tab.setUserData(course);

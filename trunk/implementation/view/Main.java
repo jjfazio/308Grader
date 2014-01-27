@@ -43,7 +43,7 @@ public class Main extends Application
 			gradebook.setCurrentCourse(course);
 		}
 		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("./file/MenuBar.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/file/MenuBar.fxml"));
 		rootLayout = (BorderPane) ViewUtility.loadView(loader);
 		Scene scene = new Scene(rootLayout);
 		primaryStage.setScene(scene);
@@ -58,7 +58,7 @@ public class Main extends Application
      */
     public void showTabs() {
        // Load the fxml file and set into the center of the main layout
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("./spreadsheet/Tabs.fxml"));
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/spreadsheet/Tabs.fxml"));
        AnchorPane tabs = (AnchorPane) ViewUtility.loadView(loader);
        rootLayout.setCenter(tabs);
     }
