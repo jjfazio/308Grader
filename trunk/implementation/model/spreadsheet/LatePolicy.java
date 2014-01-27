@@ -7,13 +7,16 @@ import java.io.Serializable;
  * assignment.
  */
 public class LatePolicy implements Serializable {
-   /**
-    * Boolean that indicates whether graceDays are enabled. Grace Days
-    * are days that a student have to turn in an assignment without penalty.
-    * If late days are assigned at a category level, no sub-categories can
-    * override the amount of graceDays. Multiple same level categories can
-    * have different amounts of graceDays.
-    */
+
+    private static final long serialVersionUID = 433070988168712411L;
+
+    /**
+     * Boolean that indicates whether graceDays are enabled. Grace Days
+     * are days that a student have to turn in an assignment without penalty.
+     * If late days are assigned at a category level, no sub-categories can
+     * override the amount of graceDays. Multiple same level categories can
+     * have different amounts of graceDays.
+     */
    Boolean graceDaysEnabled;
    
    /**

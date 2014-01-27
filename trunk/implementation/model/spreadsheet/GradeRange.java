@@ -9,18 +9,20 @@ import java.io.Serializable;
  *
  */
 public class GradeRange implements Serializable {
-   /**
-    * The letter grade the GradeRange represents, ex A or A-, must not be null.
-    */
-   String letterGrade;
-   
-   /**
-    * The low number of the GradeRange, must not be null.
-    */
-   Double low;
-   
-   /**
-    * The high number of the GradeRange, must not be null.
-    */
-   Double high;
+    private static final long serialVersionUID = -3966549869734563187L;
+
+    /**
+     * The letter grade the GradeRange represents, ex A or A-, must not be null.
+     */
+    String letterGrade;
+
+    /**
+     * The low number of the GradeRange, must not be null.
+     */
+    Double low;
+
+    /**
+     * The high number of the GradeRange, must not be null.
+     */
+    Double high;
 }

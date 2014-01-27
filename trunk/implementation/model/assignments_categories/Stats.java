@@ -9,11 +9,12 @@ import java.io.Serializable;
  */
 
 public class Stats implements Serializable {
-	Double mean;
+    Double mean;
 	Double median;
 	Double mode;
 	Double range;
 	Double standardDeviation;
 	Double highScore;
 	Double lowScore;
+	private static final long serialVersionUID = -8588414581936027698L;
 }

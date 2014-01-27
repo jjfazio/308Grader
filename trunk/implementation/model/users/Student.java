@@ -17,7 +17,9 @@ import model.spreadsheet.SpreadsheetCourse;
  */
 
 public class Student implements Serializable {
-   String userName;
+
+    private static final long serialVersionUID = -5678516983224746371L;
+    String userName;
    String firstName;
    String middleName;
    String lastName;

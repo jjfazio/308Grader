@@ -11,8 +11,10 @@ import controller.graph.*;
 import view.ViewUtility;
 
 /**
- * This class controls the Menu Bar. Any action done on the menu bar
- * will be handled here. ooga booga
+ * The MenuBar controller controls menu bar actions. Any time
+ * the menu bar is clicked the action is performed here. Most
+ * menu items simply bring up another view, others perform some
+ * logic
  * @author jfazio erikowen jdilanchian kfeutz kbackers
  */
 public class MenuBarController
