@@ -16,36 +16,38 @@ import model.users.Student;
  */
 
 public class SpreadsheetCourse implements Serializable {
-   
-   /**
-    * {@link CourseInfo} related to the course.
-    */
-   private CourseInfo courseInfo;
 
-   /**
-    * Top level category.
-    */
-   private Category topCategory;
+    private static final long serialVersionUID = -2177807641688753638L;
 
-   /**
-    * A list of {@link Student}.
-    */
-   private ArrayList<Student> studentRoster;
+    /**
+     * {@link CourseInfo} related to the course.
+     */
+    private CourseInfo courseInfo;
 
-   /**
-    * The {@link GradingScheme} associated with the course.
-    */
-   private GradingScheme gradingDistribution;
+    /**
+     * Top level category.
+     */
+    private Category topCategory;
 
-   /**
-    * The {@link LatePolicy} associated with the course.
-    */
-   private LatePolicy latePolicy;
+    /**
+     * A list of {@link Student}.
+     */
+    private ArrayList<Student> studentRoster;
 
-   /**
-    * The {@link Setting} associated with the course.
-    */
-   private Settings settings;
+    /**
+     * The {@link GradingScheme} associated with the course.
+     */
+    private GradingScheme gradingDistribution;
+
+    /**
+     * The {@link LatePolicy} associated with the course.
+     */
+    private LatePolicy latePolicy;
+
+    /**
+     * The {@link Setting} associated with the course.
+     */
+    private Settings settings;
    
 
     /**
@@ -56,6 +58,14 @@ public class SpreadsheetCourse implements Serializable {
       System.out.println("Created a Spreadsheet Course!");
       topCategory = new Category();      
    }
+   
+   public SpreadsheetCourse(CourseInfo ci, GradingScheme gs, LatePolicy lp) {
+	      System.out.println("Creating a Spreadsheet Course!");
+	      topCategory = new Category();
+	      courseInfo = ci;
+	      gradingDistribution = gs;
+	      latePolicy = lp;
+	   }
 
 
     /**

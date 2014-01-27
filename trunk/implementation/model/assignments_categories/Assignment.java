@@ -15,6 +15,7 @@ import model.spreadsheet.LatePolicy;
  * along with methods to change these fields
  */
 public class Assignment implements Serializable {
+    
    String name;
    Double percentOfCategory;
    Integer maxPoints;
@@ -23,6 +24,8 @@ public class Assignment implements Serializable {
    LatePolicy policy;
    Boolean hasElectronicTurnin;
    Double percentCurve;
+   private static final long serialVersionUID = -2343709981975028696L;
+   
 
    /**
     * Default constructor of Assignment which creates an assignment with predefined values.

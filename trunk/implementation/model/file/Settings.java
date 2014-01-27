@@ -8,8 +8,8 @@ import java.io.Serializable;
  *
  */
 public class Settings implements Serializable {
-	
-   /*
+
+/*
     *  Value specifiying if students can view grades before the final grade is posted	
     */
    Boolean studentsCanViewBeforeFinalGrade;
@@ -25,4 +25,5 @@ public class Settings implements Serializable {
    Boolean canOverrideGrades;
    
    //More settings might exist
+   private static final long serialVersionUID = -7661213772368159182L;
 }

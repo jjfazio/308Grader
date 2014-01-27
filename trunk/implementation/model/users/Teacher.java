@@ -9,7 +9,8 @@ import java.io.Serializable;
  */
 
 public class Teacher implements Serializable {
-	String first_name;
+    private static final long serialVersionUID = 8078832822412193181L;
+    String first_name;
 	String last_name;
 	String username;
 }
