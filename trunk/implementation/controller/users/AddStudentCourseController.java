@@ -6,22 +6,24 @@ import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 
-/**
+/****
+ *
  * This class represents the communication between
  * the add student course dialog and the actual Student
  * object.  
  *
- * @author Kevin Feutz
+ * @author      Kevin Feutz     (kfeutz@calpoly.edu)
  */
 
 public class AddStudentCourseController {
     
-    /**
-     * The list of all courses currently taught by the instructor
-     */
+    /** The list of all courses currently taught by the instructor */
     @FXML
     private ListView<CourseInfo> coursesList;
 
+    /**
+     * Contructor for this class
+     */
     public AddStudentCourseController() {
     }
 
@@ -33,7 +35,10 @@ public class AddStudentCourseController {
      */ 
     @FXML
     private void handleSelectButton() {
-        //call a method in student.java model to add a course to a student
+        /*
+         * Call a method in student.java model
+         * to add a course to a student
+         */
         Student tempStudent = new Student();
         tempStudent.addCourse(new SpreadsheetCourse());
     }
