@@ -67,10 +67,10 @@ public class Student implements Serializable {
      *
      * post: Grade grade is mapped to Assignment assignment
      *
-     * @param   Assignment assignment       The Assignment in which the passed
-     *                                      grade will be mapped to.
-     * @param   Grade grade                 The Grade that is being added to
-     *                                      this Student.
+     * @param   assignment       The Assignment in which the passed
+     *                           grade will be mapped to.
+     * @param   grade            The Grade that is being added to
+     *                           this Student.
      *
      */
 
@@ -117,8 +117,8 @@ public class Student implements Serializable {
      * post:     This Student's HashMap no longer contains a mapping from the passed
      *           Assignment to its corresponding grade.
      *
-     * @param    Assignment assignment      The Assignment which maps to the correct
-     *                                      grade to be removed
+     * @param    assignment      The Assignment which maps to the correct
+     *                           grade to be removed
      *
      */
 
@@ -153,10 +153,10 @@ public class Student implements Serializable {
      *
      * post:    Grade oldGrade changes to and now equals Grade newGrade
      *
-     * @param    Grade oldGrade     The Grade that will be editted by this
-     *                              method
-     * @param    Grade newGrade     The Grade containing the new value for
-     *                              oldGrade
+     * @param    oldGrade     The Grade that will be editted by this
+     *                        method
+     * @param    newGrade     The Grade containing the new value for
+     *                        oldGrade
      *
      */
 
@@ -193,9 +193,9 @@ public class Student implements Serializable {
      * post:    The passed SpreadsheetCourse is now in this Student's
      *          collection of SpreadsheetCourses
      *
-     * @param   SpreadsheetCourse course    The SpreadsheetCourse to add
-     *                                      to this Student's collection of
-     *                                      SpreadsheetCourses
+     * @param   course    The SpreadsheetCourse to add
+     *                    to this Student's collection of
+     *                    SpreadsheetCourses
      *
      */
     public void addCourse(SpreadsheetCourse course) {
@@ -223,9 +223,9 @@ public class Student implements Serializable {
      * post:    The passed SpreadsheetCourse is now not in this Student's
      *          collection of SpreadsheetCourses
      *
-     * @param   SpreadsheetCourse course    The SpreadsheetCourse to remove
-     *                                      from this Student's collection of
-     *                                      SpreadsheetCourses
+     * @param   course    The SpreadsheetCourse to remove
+     *                    from this Student's collection of
+     *                    SpreadsheetCourses
      *
      */
     public void removeCourse(SpreadsheetCourse course) {
@@ -244,7 +244,7 @@ public class Student implements Serializable {
      * post:    This Student contains data matching the passed
      *          newStudentInfo's info
      *
-     * @param   Student newStudentInfo      Contains data to be copied
+     * @param   newStudentInfo              Contains data to be copied
      *                                      over to this Student
      *
      */ 
@@ -261,7 +261,7 @@ public class Student implements Serializable {
      *
      * post:    The correct Grade value is returned
      *
-     * @param   Assingment assign   The assignment that maps to the desired
+     * @param   assign              The assignment that maps to the desired
      *                              Grade in this Student's collection of
      *                              Grades
      * @return  Grade               The Grade mapped to by the passed Assignment
@@ -282,8 +282,8 @@ public class Student implements Serializable {
     /**
      * Sets this Student's username to the passed String
      *
-     * @param   String userName     The new username to set to
-     *                              this Student
+     * @param   userName     The new username to set to
+     *                       this Student
      */
     public void setUserName(String userName) {
         this.userName = userName;
@@ -302,7 +302,7 @@ public class Student implements Serializable {
      * Changes this Student's current first name to the passed
      * String
      *
-     * @param   String firstName    The representation of the first
+     * @param   firstName    The representation of the first
      *                              name of this Student
      */
     public void setFirstName(String firstName) {
@@ -322,8 +322,8 @@ public class Student implements Serializable {
      * Changes this Student's current middle name to the passed
      * String
      *
-     * @param   String middleName   The new middle name to set to
-     *                              this Student
+     * @param   middleName   The new middle name to set to
+     *                       this Student
      */
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
@@ -338,6 +338,13 @@ public class Student implements Serializable {
         return lastName;
     }
 
+    /**
+     * Changes this Student's current last name to the passed
+     * String
+     *
+     * @param   lastName   The new last name to set to
+     *                     this Student
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -351,6 +358,13 @@ public class Student implements Serializable {
         return id;
     }
 
+    /**
+     * Changes this Student's current id to the passed
+     * String
+     *
+     * @param   id           The new id to set to
+     *                       this Student
+     */
     public void setId(String id) {
         this.id = id;
     }
@@ -364,38 +378,94 @@ public class Student implements Serializable {
         return major;
     }
 
+    /**
+     * Changes this Student's current major to the passed
+     * String
+     *
+     * @param   major      The new major to set to
+     *                     this Student
+     */
     public void setMajor(String major) {
         this.major = major;
     }
 
+    /**
+     * Retrieves and returns this Student's grade level
+     *
+     * @return  String      The grade level of this Student
+     */
     public String getGradeLevel() {
         return gradeLevel;
     }
 
+    /**
+     * Changes this Student's current grade level to the passed
+     * String
+     *
+     * @param   gradeLevel   The new grade level to set to
+     *                       this Student
+     */
     public void setGradeLevel(String gradeLevel) {
         this.gradeLevel = gradeLevel;
     }
 
+    /**
+     * Retrieves and returns this Student's email
+     *
+     * @return  String      The email address of this Student
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Changes this Student's current email to the passed
+     * String
+     *
+     * @param   email   The new email to set to
+     *                  this Student
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Retrieves and returns this Student's phone number
+     *
+     * @return  String      The phone number of this Student
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    /**
+     * Changes this Student's current phone number to the passed
+     * String
+     *
+     * @param   phoneNumber  The new phone number to set to
+     *                       this Student
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Retrieves and returns this Student's enrolled courses
+     *
+     * @return  ArrayList      The collection of SpreadSheetCourses
+     *                         belonging to this student
+     */
     public ArrayList<SpreadsheetCourse> getCoursesEnrolled() {
         return coursesEnrolled;
     }
 
+    /**
+     * Retrieves and returns this Student's grades
+     *
+     * @return  HashMap      The map containing links to this
+     *                       Student's assignments and grades for
+     *                       each assignment
+     */
     public HashMap<Assignment, Grade> getGrades() {
         return grades;
     }
