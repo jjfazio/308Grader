@@ -1,5 +1,9 @@
 package model.assignments_categories;
 
+/**
+ * @author Jirbert Dilanchian
+ */
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,14 +22,29 @@ public class Assignment implements Serializable {
    Date dueDate;
    GradingScheme gScheme;
    LatePolicy policy;
-   Boolean hasElectrionicTurnin;
+   Boolean hasElectronicTurnin;
    Double percentCurve;
    private static final long serialVersionUID = -2343709981975028696L;
    
+
+   /**
+    * Default constructor of Assignment which creates an assignment with predefined values.
+    */
    public Assignment() {
       this("changeName", 100.0, 100, new Date(), new GradingScheme(), new
        LatePolicy(), false);
    }
+
+    /**
+     * Constructor for an assignment.
+     * @param name name of the assignment to be created.
+     * @param percentOfCategory weight of the assignment based on percentage from its parent category.
+     * @param maxPoints maximum number of points each student can get on that assignment.
+     * @param dueDate the date that the assignment is due.
+     * @param gScheme the grading scheme that would be used for this assignment.
+     * @param latePolicy the late policy defined for this assignment.
+     * @param hasElectronicTurnin if the assignment should be turned in electronically or not.
+     */
    
    public Assignment(String name, Double percentOfCategory, Integer maxPoints,
     Date dueDate, GradingScheme gScheme, LatePolicy latePolicy, 
@@ -36,7 +55,7 @@ public class Assignment implements Serializable {
       this.dueDate = dueDate;
       this.gScheme = gScheme;
       this.policy = latePolicy;
-      this.hasElectrionicTurnin = hasElectronicTurnin;
+      this.hasElectronicTurnin = hasElectronicTurnin;
       
       //this.gScheme = defaultGScheme;
    }
@@ -61,75 +80,229 @@ public class Assignment implements Serializable {
 	   
    }
 
+    /**
+     * Returns the name of the assignment.
+     * @return the name of the assignment.
+     */
+
    public String getName() {
       return name;
    }
 
+    /**
+     * Defined the name of the assignment.
+     * @param name the string which becomes the name of the assignment.
+     */
+    /*@
+    requires
+    //
+    //The name variable is not empty or null.
+    //
+    (name != null && !name.equals(""));
+
+    ensures
+    //
+    //the name of the Category is changes to match the name variable.
+    //
+    (name.equals(this.name));
+    @*/
    public void setName(String name) {
       this.name = name;
    }
 
+   /**
+    * Returns the percentage of the assignment from the parent category.
+    * @return percentage of the assignment from the parent category
+    */
    public Double getPercentOfCategory() {
       return percentOfCategory;
    }
-   
-   //requires work
-//   public void setPercentOfCategory() {
-//      
-//   }
 
+    /**
+     * Sets the percentage of the assignment from the parent category.
+     * @param percent sets the percentage of the assignment from the parent category.
+     */
+    /*@
+     requires
+     //
+     // percent is greater or equal to zero.
+     //
+     (percent >= 0);
+     ensures
+     //
+     // percentOfCategory is equal to percent.
+     //
+     (percent == this.percentOfCategory);
+     @*/
+
+   public void setPercentOfCategory(double percent) {
+       this.percentOfCategory = percent;
+   }
+
+    /**
+     * Returns the maximum points available for the assignment.
+     * @return the maximum points available for the assignment.
+     */
    public Integer getMaxPoints() {
       return maxPoints;
    }
 
-   //requires work
-//   public void setMaxPoints(Integer maxPoints) {
-//      this.maxPoints = maxPoints;
-//   }
 
+    /**
+     * Sets the maximum points available for the assignment.
+     * @param maxPoints sets the maximum points available for the assignment.
+     */
+    /*@
+    requires
+    //
+    // maxPoints is greater or equal to zero.
+    //
+    (maxPoint >= 0);
+
+    ensures
+    //
+    // maxPoints of the assignment is equal to the maxPoints of argument list of the method.
+    //
+    (this.maxPoints == maxPoints);
+    @*/
+
+   public void setMaxPoints(Integer maxPoints) {
+       this.maxPoints = maxPoints;
+   }
+
+    /**
+     * Returns the due date of the assignment.
+     * @return the due date of the assignment.
+     */
    public Date getDueDate() {
       return dueDate;
    }
 
-   //requires work
-//   public void setDueDate(Date dueDate) {
-//      this.dueDate = dueDate;
-//   }
+    /**
+     * Sets the due date of the assignment.
+     * @param dueDate sets the due date of the assignment.
+     */
+    /*@
+     requires
+     //
+     // the due date is a date the same as current date or a date in future.
+     //
+     (this.dueDate.compareTo(Date curDate = new Date));
+     ensures
+     //
+     // this.dueDate.equal to the dueDate
+     //
+     (this.dueDate.compareTo(dueDate) == 0)
+     @*/
+   public void setDueDate(Date dueDate) { //work on date
+      this.dueDate = dueDate;
+   }
 
+    /**
+     * Returns the grading scheme used for the assignment.
+     * @return the grading scheme used for the assignment.
+     */
    public GradingScheme getgScheme() {
       return gScheme;
    }
 
+    /**
+     * Sets the grading scheme for the assignment.
+     * @param gScheme grading scheme that is being used for the assignment.
+     */
+    /*@
+     ensure
+     //
+     // the gScheme of the assignment is changed to gScheme of the argument.
+     //
+     (this.gScheme.equals(gScheme));
+     @*/
    public void setgScheme(GradingScheme gScheme) {
       this.gScheme = gScheme;
    }
 
+    /**
+     * Returns the late policy of the assignment.
+     * @return the late policy of the assignment.
+     */
    public LatePolicy getPolicy() {
       return policy;
    }
 
-   //probably can't set after assignment given
-//   public void setPolicy(LatePolicy policy) {
-//      this.policy = policy;
-//   }
+    /**
+     * Sets the late policy of the assignment.
+     * @param policy the late policy of the assignment,
+     */
+    /*@
+    requires
+    //
+    // policy is not null.
+    //
+    (policy != null);
+    ensures
+    //
+    // the late policy is equal to policy.
+    //
+    (this.policy.equals(policy));
+     @*/
 
-   public Boolean getHasElectrionicTurnin() {
-      return hasElectrionicTurnin;
+   public void setPolicy(LatePolicy policy) {
+      this.policy = policy;
    }
 
-   //probably should be set in beginning
-//   public void setHasElectrionicTurnin(Boolean hasElectrionicTurnin) {
-//      this.hasElectrionicTurnin = hasElectrionicTurnin;
-//   }
+    /**
+     * Returns true if the assignment should be turned in electronically.
+     * @return true if the assignment should be turned in electronically.
+     */
+   public Boolean getHasElectronicTurnin() {
+      return hasElectronicTurnin;
+   }
 
+    /**
+     * Defines if the assignment should be turned in electronically.
+     * @param hasElectronicTurnin defines if the assignment should be turned in electronically.
+     */
+    /*@
+     requires
+     //
+     // hasElectronicTurnin is not null.
+     //
+     (hasElectronicTurnin != null);
+     ensures
+     //
+     // hasElectronicTurn of the assignment is set with the value of hasElectronicTurnin in the arguments.
+     //
+     requires
+     //
+     // hasElectronicTurnin is not null.
+     //
+     (hasElectronicTurnin != null);
+     @*/
+
+   public void setHasElectrionicTurnin(Boolean hasElectronicTurnin) {
+      this.hasElectronicTurnin = hasElectronicTurnin;
+   }
+
+    /**
+     * Returns the percentCurve of the assignment.
+     * @return the percentCurve of the assignment.
+     */
    public Double getPercentCurve() {
       return percentCurve;
    }
 
+    /**
+     * Sets the percentCurve value of the assignment.
+     * @param percentCurve the percentCurve that is used for the assignment.
+     */
+    /*@
+     requires
+     //
+     // percentCurve is not null.
+     //
+     (percentCurve != null);
+     @*/
    public void setPercentCurve(Double percentCurve) {
       this.percentCurve = percentCurve;
    }
-   
-   
-
 }
