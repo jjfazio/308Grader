@@ -15,15 +15,50 @@ import model.spreadsheet.LatePolicy;
  * along with methods to change these fields
  */
 public class Assignment implements Serializable {
-    
+
+   /*
+   * The name of the assignment. It cannot be empty string or null.
+   */
    String name;
+
+   /*
+    * The percentage value that the assignment covers from parent category.
+    */
    Double percentOfCategory;
+
+   /*
+    * Maximum number of points available for the assignment. It cannot be less than zero.
+    */
    Integer maxPoints;
+
+   /*
+    * The due date for the assignment. It should not be before the current date of the computer.
+    */
    Date dueDate;
+
+   /*
+    * Grading scheme used for the assignment.
+    */
    GradingScheme gScheme;
+
+   /*
+    * Late policy used for the assignment.
+    */
    LatePolicy policy;
+
+   /*
+    * Controls if the assignment is being turned in electronically or not.
+    */
    Boolean hasElectronicTurnin;
+
+   /*
+    * Sets the curve value of the assignment. It cannot be less than zero.
+    */
    Double percentCurve;
+
+   /*
+    * Serializing number needed to serialize the assignment.
+    */
    private static final long serialVersionUID = -2343709981975028696L;
    
 
