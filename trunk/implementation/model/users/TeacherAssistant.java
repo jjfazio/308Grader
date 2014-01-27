@@ -21,4 +21,12 @@ public class TeacherAssistant implements Serializable {
    {
 	   System.out.println("Created a new TA");
    }
+   
+   public TeacherAssistant(String id, String first, String last, TaPermissions p)
+   {
+	   this.id = id;
+	   firstName = first;
+	   lastName = last;
+	   permissions = p;
+   }
 }

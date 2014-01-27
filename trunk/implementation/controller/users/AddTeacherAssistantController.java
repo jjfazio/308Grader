@@ -14,10 +14,11 @@ import model.users.TeacherAssistant;
 public class AddTeacherAssistantController {
 	
     @FXML
-    private String SchemeName;
+    private String FisrtName;
     @FXML
-    private String Section;
+    private String LastName;
     @FXML
+    private String ID;
 
     private Stage primaryStage;
 
