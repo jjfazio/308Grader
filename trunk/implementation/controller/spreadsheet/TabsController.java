@@ -48,7 +48,7 @@ public class TabsController {
          }
 
          loader = new FXMLLoader(getClass().getResource(
-            "./../../view/spreadsheet/GradeSheet.fxml"));
+            "/view/spreadsheet/GradeSheet.fxml"));
          content = (AnchorPane) ViewUtility.loadView(loader);
          tab.setContent(content);
          tab.setUserData(course);
@@ -62,7 +62,12 @@ public class TabsController {
          new TabListener());
    }
    
-   
+   /**
+    * Listens for a tab change. When a tab is clicked the
+    * current SpreadsheetCourse is set in the Gradebook.
+    * @author jamesfazio
+    *
+    */
    private class TabListener implements ChangeListener<Tab> {
       @Override
       public void changed(ObservableValue<? extends Tab> arg0, Tab oldTab,

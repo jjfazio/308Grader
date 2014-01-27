@@ -10,6 +10,8 @@ import model.users.TeacherAssistant;
  * methods to manipulate these fields
  */
 public class CourseInfo implements Serializable{
+    private static final long serialVersionUID = 8576375778985622591L;
+
     /**
      * The name of the course, for example 'Intro to Databases', must not be null
      */
@@ -36,6 +38,7 @@ public class CourseInfo implements Serializable{
         this.quarter = quarter;
         this.number = number;
         this.dept = dept;
+        System.out.println("Created a new CourseInfo for a SpreadsheetCourse");
     }
 
 

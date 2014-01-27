@@ -13,4 +13,7 @@ public class Grade implements Serializable {
    Date turnedIn;
    Double score;
    String letterGrade; //prob should be an enum
+   
+   private static final long serialVersionUID = -4121067889826371429L;
+   
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="301.999977929685" prefWidth="384.99988474121346" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.spreadsheet.AddGradingSchemeController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <VBox alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="333.0" prefWidth="385.0">
+      <children>
+        <HBox alignment="CENTER" prefHeight="55.0" prefWidth="385.0">
+          <children>
+            <TableView prefHeight="55.0" prefWidth="278.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Symbol" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Percentage Range" />
+              </columns>
+            </TableView>
+          </children>
+        </HBox>
+        <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="385.0">
+          <children>
+            <Button mnemonicParsing="false" onAction="#handlePlusButton" text="+" />
+          </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="79.0" prefWidth="385.0">
+          <children>
+            <Label text="Scheme Name:" />
+            <TextField id="schemeName" prefWidth="200.0" />
+          </children>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="55.0" prefWidth="385.0">
+          <children>
+            <Button mnemonicParsing="false" onAction="#handleCreateButton" text="Create" />
+          </children>
+        </HBox>
+      </children>
+    </VBox>
+  </children>
+</AnchorPane>
