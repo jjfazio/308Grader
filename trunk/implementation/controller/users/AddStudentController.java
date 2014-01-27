@@ -61,7 +61,7 @@ public class AddStudentController {
     @FXML
     private void handleAddCourseButton() {
        FXMLLoader loader = new FXMLLoader(getClass().getResource(
-          "./../../view/users/AddStudentCourse.fxml"));
+          "/view/users/AddStudentCourse.fxml"));
        ViewUtility.showPage(loader, AnchorPane.class, "Add Course");
        //open the add course dialog
     }

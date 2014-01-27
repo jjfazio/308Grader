@@ -78,7 +78,7 @@ public class GraphAndAdjustCurveController {
     @FXML
     private void handleAddCustomCurveButton() {
         System.out.println("Add custom curve button pressed");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./../../view/graph/CustomCurveAdjuster.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/graph/CustomCurveAdjuster.fxml"));
         ViewUtility.showPage(loader, AnchorPane.class, "Custom Curve Adjuster");
 
     }

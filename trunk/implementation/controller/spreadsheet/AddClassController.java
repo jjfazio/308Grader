@@ -55,7 +55,7 @@ public class AddClassController {
     @FXML
     private void handleCreateNewGradingSchemeButton() {
        FXMLLoader loader = new FXMLLoader(getClass().getResource(
-          "./../../view/spreadsheet/AddGradingScheme.fxml"));
+          "/view/spreadsheet/AddGradingScheme.fxml"));
        ViewUtility.showPage(loader, AnchorPane.class, "Create Grading Scheme");
     }
 
@@ -66,7 +66,7 @@ public class AddClassController {
     @FXML
     private void handleCreateNewTeacherAssistantButton() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                "./../../view/users/AddTeacherAssistant.fxml"));
+                "/view/users/AddTeacherAssistant.fxml"));
         ViewUtility.showPage(loader, AnchorPane.class, "Create Teacher Assistant");
     }
 }
