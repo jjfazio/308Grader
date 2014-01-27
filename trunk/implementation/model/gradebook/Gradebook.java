@@ -12,35 +12,67 @@ import java.util.logging.Logger;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Teacher;
 
-/**
- * A Gradebook is the overarching object of the grader.
- *	It includes a collection spreadsheetCourses that all have a user, a teacher, in common. 
- *	It is derived from the Teacher's View as show in section 1.1 of the requirements. 
- * @author jamesfazio
+/****
+ *  A Gradebook is the overarching object of the grader.
+ *	It includes a teacher who "owns" the gradebook, a collection
+ *  of {@link model.spreadsheet.SpreadsheetCourse}s that the 
+ *  teacher teaches, and the current SpreadsheetCourse the
+ *  teacher is editing. This class also contains a static reference
+ *  to itself so it can only be instantiated once.
+ *  @author jamesfazio
  */
 
 public class Gradebook implements Serializable{
    
-   //possibly be implemented as HashMap
+    /**
+     * List of the {@link model.spreadsheet.SpreadsheetCourse}s
+     * taught in the Gradebook.
+     */
 	private ArrayList<SpreadsheetCourse> courses;
+	
+	/**
+	 * Current {@link model.spreadsheet.SpreadsheetCourse} being used.
+	 */
 	private SpreadsheetCourse currentCourse;
+	
+	/**
+	 * {@link model.users.Teacher} Teacher who owns the gradebook.
+	 */
 	private Teacher teacher;
+	
+	/**
+	 * Static reference to the Gradebook, used to ensure the Gradebook
+	 * is only instantiated once.
+	 */
 	private static Gradebook instance;
+	
 	private static final Logger LOGGER =
 	 Logger.getLogger(Gradebook.class.getName());
 	
-	//Loads the gradebook from a file
+	/**
+	 * Called once at the beginning of the application to 
+	 * load the Gradebook.
+	 */
 	private Gradebook() {
-	   System.out.println("Congrats, you created a Gradebook!");
+	   System.out.println("Congrats, you loaded a Gradebook!");
 	   loadGradebook();
 	}
 	
-	// Called when there is no previous gradebook
-	// Only called once
+	/**
+	 * Called if the Gradebook has never been saved before, the
+	 * first time the user uses the application.
+	 * @param firstTime
+	 */
 	private Gradebook(boolean firstTime) {
-		
+	    System.out.println("Congrats, you loaded a Gradebook!");
 	}
 	
+	/**
+	 * Returns a reference to the Gradebook. The Gradebook
+	 * is only instantiated once, every time after a reference
+	 * to the already created Gradebook is returned.
+	 * @return - Reference to the Gradebook
+	 */
 	public static Gradebook getInstance() {
 	   if (instance == null)
 	      new Gradebook();
@@ -49,10 +81,8 @@ public class Gradebook implements Serializable{
 	}
 	
 	
-	/**
-    * Adds a SpreadsheetCourse to the Gradebook. Each instance of the Grader Tool
-    * only has one Gradebook. The Gradebook is the top level Object that contains a list of
-    * SpreadsheetCourses and a Teacher.
+  /**
+    * Adds a SpreadsheetCourse to the Gradebook.
     * @param course - The Spreadsheet course being added to the Gradebook
     */
    /*@
@@ -129,12 +159,14 @@ public class Gradebook implements Serializable{
       courses.add(course);
    }
    
-   public SpreadsheetCourse getSpreadsheetCourse(Integer key) {
-      
-//      if (courses.containsKey(key)) 
-//         return courses.get(key);
-      
-      return null;
+   /**
+    * This method returns a SpreadsheetCourse based off of some keys.
+    * These keys have not been figured out yet.
+    * @return - The SpreadsheetCourse searched for.
+    */
+   public SpreadsheetCourse getSpreadsheetCourse() {
+       System.out.println("Getting Spreadsheet course");
+       return null;
    }
    
    /**
@@ -170,12 +202,13 @@ public class Gradebook implements Serializable{
    }
    
    /**
-    * Edit an existing SpreadsheetCourse in the Gradebook. The old and new SpreadsheetCourses 
-    * must not be the same. The old SpreadsheetCourse must be in the Gradebook. The new 
-    * SpreadsheetCourse must meet the same conditions as the the conditions for
-    * addSpreadsheetCourse.
+    * Edit an existing SpreadsheetCourse in the Gradebook. The old and
+    * new SpreadsheetCourses  must not be the same. The old SpreadsheetCourse
+    * must be in the Gradebook. The new SpreadsheetCourse must meet the same
+    * conditions as the the conditions foraddSpreadsheetCourse.
     * @param oldCourse - The old SpreadsheetCourse to be modified
-    * @param newCourse - The new SpreadsheetCourse that will take the place of the oldCourse
+    * @param newCourse - The new SpreadsheetCourse that will take the place of
+    * the oldCourse
     */
    /*@
      
@@ -272,7 +305,12 @@ public class Gradebook implements Serializable{
       return false;
    }
    
-   public void loadGradebook() {
+   /**
+    * Loads the Gradebook from a file. The Gradebook
+    * and all of its fields are serializable, so the Gradebook
+    * can be directly loaded from the file.
+    */
+   private void loadGradebook() {
 	  File f;
       FileInputStream fin;
       
@@ -296,6 +334,11 @@ public class Gradebook implements Serializable{
 
    }
    
+   /**
+    * Saves the Gradebook to a file. The Gradebook and all of 
+    * its fields are serializable, so it can be directly stored
+    * into a file.
+    */
    public void saveGradebook() {
       FileOutputStream fout;
       
@@ -312,18 +355,34 @@ public class Gradebook implements Serializable{
       }
    }
    
+   /**
+    * Returns the Teacher of the Gradebook.
+    * @return - the Teacher of the Gradebook.
+    */
    public Teacher getTeacher() {
       return teacher;
    }
    
+   /**
+    * Returns the courses in the Gradebook.
+    * @return - the courses in the Gradebook.
+    */
    public ArrayList<SpreadsheetCourse> getCourses() {
       return courses;
    }
 
+   /**
+    * Returns the current course in the Gradebook.
+    * @return - the current course in the Gradebook.
+    */
    public SpreadsheetCourse getCurrentCourse() {
       return currentCourse;
    }
 
+   /**
+    * Sets the current SpreadsheetCourse to the course supplied.
+    * @param currentCourse - The course to be set as the current one.
+    */
    public void setCurrentCourse(SpreadsheetCourse currentCourse) {
       System.out.println("Setting current course to: " +
          currentCourse.getCourseInfo().getCourseName());
