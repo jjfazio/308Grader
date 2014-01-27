@@ -52,9 +52,6 @@ public class DeleteStudentListController {
 
     @FXML
     private void initialize() {
-        studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
-        studentUsernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("username"));
-        enrolledCourseColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("courseEnrolled"));
     }
 
     /*
