@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
+import model.assignments_categories.Assignment;
+import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
+import controller.graph.*;
 import view.ViewUtility;
 
 /**
@@ -106,6 +109,16 @@ public class MenuBarController
     	FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/view/graph/GraphAndAdjustCurve.fxml"));
 
+    	GraphAndAdjustCurveController controller = (GraphAndAdjustCurveController)loader.getController();
+    	
+    	//If a category is selected, create a graph based on the current category
+    	//controller.setCategory(new Category());
+    	
+    	//controller.toString();
+    	
+    	//If an assignment is selected, create a graph based on the current assignment
+    	//controller.setAssignment(new Assignment());
+    	
         ViewUtility.showPage(loader, AnchorPane.class, "Graphs");
     }
 
@@ -159,7 +172,7 @@ public class MenuBarController
         System.out.println("Delete Assignment clicked!");
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/view/assignments_categories/deleteAssignment.fxml"));
-
+        
         ViewUtility.showPage(loader, AnchorPane.class, "Delete Assignment");
     }
 }

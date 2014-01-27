@@ -38,4 +38,6 @@ public class CustomCurveAdjusterController {
     private void handleApplyCurveButtonPressed() {
         System.out.println("Apply curve button pressed");
     }
+    
+    
 }

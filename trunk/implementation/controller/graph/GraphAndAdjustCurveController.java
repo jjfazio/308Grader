@@ -1,5 +1,8 @@
 package controller.graph;
 
+import model.assignments_categories.Assignment;
+import model.assignments_categories.Category;
+import model.graph.Graph;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
@@ -36,8 +39,18 @@ public class GraphAndAdjustCurveController {
     @FXML
     private BarChart barChart;
     
+    private Graph graph;
+    
     public GraphAndAdjustCurveController() {
-    	
+    	this.graph = new Graph();
+    }
+    
+    public void setCategory(Category cat) {
+    	this.graph.setCategory(cat);
+    }
+    
+    public void setAssignment(Assignment ass) {
+    	this.graph.setAssignment(ass);
     }
     
     /**
@@ -89,6 +102,8 @@ public class GraphAndAdjustCurveController {
     @FXML
     private void handleSaveCurvedGradesButton() {
         System.out.println("Add custom curve button pressed");
+        int percentCurve = Integer.parseInt(this.percentCurve.getText());
+        this.graph.applyStandardCurve(percentCurve);
 
     }
     
