@@ -11,6 +11,7 @@ import model.spreadsheet.LatePolicy;
  * along with methods to change these fields
  */
 public class Assignment implements Serializable {
+    
    String name;
    Double percentOfCategory;
    Integer maxPoints;
@@ -19,6 +20,7 @@ public class Assignment implements Serializable {
    LatePolicy policy;
    Boolean hasElectrionicTurnin;
    Double percentCurve;
+   private static final long serialVersionUID = -2343709981975028696L;
    
    public Assignment() {
       this("changeName", 100.0, 100, new Date(), new GradingScheme(), new

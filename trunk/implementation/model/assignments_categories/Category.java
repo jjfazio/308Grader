@@ -10,6 +10,7 @@ import java.util.Collection;
  */
 
 public class Category implements Serializable {
+
    Category parentCategory;
    String name;
    Collection<Assignment> assignments;
@@ -17,6 +18,7 @@ public class Category implements Serializable {
    Double percentofparent;
    Double percentCurve;
    
+   private static final long serialVersionUID = -2031231263976839850L;
    /**
     * If no paramaters are provided the default top level category is created.
     */

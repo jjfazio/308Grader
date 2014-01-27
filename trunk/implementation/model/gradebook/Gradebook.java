@@ -1,10 +1,12 @@
 package model.gradebook;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -23,7 +25,8 @@ import model.users.Teacher;
  */
 
 public class Gradebook implements Serializable{
-   
+
+
     /**
      * List of the {@link model.spreadsheet.SpreadsheetCourse}s
      * taught in the Gradebook.
@@ -49,6 +52,7 @@ public class Gradebook implements Serializable{
 	private static final Logger LOGGER =
 	 Logger.getLogger(Gradebook.class.getName());
 	
+	private static final long serialVersionUID = 4568797145557381794L;
 	/**
 	 * Called once at the beginning of the application to 
 	 * load the Gradebook.
@@ -303,6 +307,22 @@ public class Gradebook implements Serializable{
 //      return modified;
       
       return false;
+   }
+   
+   public void clearGradebook() {
+       File f = new File("currentGradebook");
+       PrintWriter writer;
+    try
+    {
+        writer = new PrintWriter(f);
+        writer.print("");
+        writer.close();
+    }
+    catch (FileNotFoundException e)
+    {
+        System.out.println("Error clearing file");
+        e.printStackTrace();
+    }
    }
    
    /**
