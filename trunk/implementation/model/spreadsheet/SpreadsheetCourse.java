@@ -56,6 +56,14 @@ public class SpreadsheetCourse implements Serializable {
       System.out.println("Created a Spreadsheet Course!");
       topCategory = new Category();      
    }
+   
+   public SpreadsheetCourse(CourseInfo ci, GradingScheme gs, LatePolicy lp) {
+	      System.out.println("Creating a Spreadsheet Course!");
+	      topCategory = new Category();
+	      courseInfo = ci;
+	      gradingDistribution = gs;
+	      latePolicy = lp;
+	   }
 
 
     /**

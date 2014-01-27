@@ -48,4 +48,19 @@ public class TaPermissions implements Serializable{
 	* Value specifying if a TA is allowed to adjust settings for a course
 	*/
    Boolean canAdjustCourseSettings;
+   
+   /**
+    * Default constructor that sets all permissions to false
+    */
+   public TaPermissions()
+   {
+	   canDownloadRoster = false;
+	   canPostGrades = false;
+	   canCreateCategories = false;
+	   canCreateAssignmnets = false;
+	   canEditStudents = false;
+	   canAddStudents = false;
+	   canAdjustCurve = false;
+	   canAdjustCourseSettings = false;
+   }
 }
