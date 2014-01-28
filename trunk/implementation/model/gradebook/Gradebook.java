@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.logging.Logger;
 
 import model.spreadsheet.SpreadsheetCourse;
@@ -24,7 +25,7 @@ import model.users.Teacher;
  *  @author jamesfazio
  */
 
-public class Gradebook implements Serializable{
+public class Gradebook extends Observable implements Serializable{
 
 
     /**
@@ -161,6 +162,8 @@ public class Gradebook implements Serializable{
       }
       
       courses.add(course);
+      setChanged();
+      notifyObservers();
    }
    
    /**

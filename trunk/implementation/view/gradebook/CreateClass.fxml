@@ -14,19 +14,19 @@
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Name:" />
-            <TextField prefWidth="200.0" />
+            <TextField fx:id="courseName" prefWidth="200.0" />
           </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Section:" />
-            <TextField prefWidth="200.0" />
+            <TextField fx:id="courseSection" prefWidth="200.0" />
           </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Term:" />
-            <TextField prefWidth="200.0" />
+            <TextField fx:id="courseTerm" prefWidth="200.0" />
           </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

@@ -1,5 +1,8 @@
 package controller.spreadsheet;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -16,11 +19,12 @@ import view.ViewUtility;
  * This class controls any actions done to the Tabs.
  * @author jamesfazio
  */
-public class TabsController {
+public class TabsController implements Observer {
    private Gradebook gradebook;
-
+   
    @FXML
    private TabPane tabs;
+   
 
    /**
     * This method is called when the view is loaded.
@@ -30,36 +34,38 @@ public class TabsController {
     */
    @FXML
    private void initialize() {
-      Tab tab;
-      SpreadsheetController controller;
-      AnchorPane content;
-      FXMLLoader loader;
-      
-      SingleSelectionModel<Tab> selectionModel = tabs.getSelectionModel();
       gradebook = Gradebook.getInstance();
-
-      for (SpreadsheetCourse course : gradebook.getCourses()) {
-         tab =
-            new Tab(course.getCourseInfo().getCourseName() + "-"
-               + course.getCourseInfo().getNumber());
-
-         if (gradebook.getCurrentCourse().equals(course)) {
-            selectionModel.select(tab);
-         }
-
-         loader = new FXMLLoader(getClass().getResource(
-            "/view/spreadsheet/GradeSheet.fxml"));
-         content = (AnchorPane) ViewUtility.loadView(loader);
-         tab.setContent(content);
-         tab.setUserData(course);
-         controller = loader.getController();
-         controller.setSpreadsheet(course);
-
-         tabs.getTabs().add(tab);
-      }
-      
       tabs.getSelectionModel().selectedItemProperty().addListener(
-         new TabListener());
+              new TabListener());
+      loadTabs();
+   }
+   
+   
+   private void loadTabs() 
+   {
+       Tab tab;
+       SpreadsheetController controller;
+       AnchorPane content;
+       FXMLLoader loader;
+       SingleSelectionModel<Tab> selectionModel = tabs.getSelectionModel();
+       tabs.getTabs().clear();
+       
+       for (SpreadsheetCourse course : gradebook.getCourses()) {
+           tab =
+              new Tab(course.getCourseInfo().getCourseName() + "-"
+                 + course.getCourseInfo().getNumber());
+
+               
+               loader = new FXMLLoader(getClass().getResource(
+                       "/view/spreadsheet/GradeSheet.fxml"));
+               content = (AnchorPane) ViewUtility.loadView(loader);
+               tab.setContent(content);
+               tab.setUserData(course);
+               controller = loader.getController();
+               controller.setSpreadsheet(course);
+               
+               tabs.getTabs().add(tab);
+        }
    }
    
    /**
@@ -72,10 +78,19 @@ public class TabsController {
       @Override
       public void changed(ObservableValue<? extends Tab> arg0, Tab oldTab,
          Tab newTab) {
-         System.out.println(newTab.getText() + " tab selected!");
-         
-         gradebook.setCurrentCourse((SpreadsheetCourse) newTab.getUserData()); 
+          if (newTab != null) {
+              System.out.println(newTab.getText() + " tab selected!");
+              
+              gradebook.setCurrentCourse((SpreadsheetCourse) newTab.getUserData()); 
+              
+          }
       }
    }
+
+@Override
+public void update(Observable o, Object arg)
+{
+    loadTabs();
+}
 
 }
