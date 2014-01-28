@@ -7,18 +7,25 @@ import javafx.scene.control.Button;
 import view.ViewUtility;
 
 /**
+ * Controller class for the custom curve adjuster view.
  * 
  * @author Erik Owen
  *
  */
 public class CustomCurveAdjusterController {
+	/**cancel button which closes the window when clicked*/
 	@FXML
     private Button cancelButton;
+	/**apply curve button which submits the curved grades when clicked*/
     @FXML
     private Button applyCurveButton;
+    /**bar chart object*/
     @FXML
     private BarChart barChart;
     
+    /**
+     * Creates a new CustomCurveAdjusterController
+     */
     public CustomCurveAdjusterController() {
     	
     }

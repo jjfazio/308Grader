@@ -15,40 +15,66 @@ import javafx.scene.layout.AnchorPane;
 import view.ViewUtility;
 
 /**
+ * Controller class which manages the GraphAndAdjustCurve view.
  * 
  * @author Erik Owen
  *
  */
 public class GraphAndAdjustCurveController {
+	/**Checkbox indicating whether or not the bar chart is visible*/
     @FXML
     private CheckBox barChartCheckBox;
+    /**Checkbox indicating whether or not the pie chart is visible*/
     @FXML
     private CheckBox pieChartCheckBox;
+    /**Radio button making bar chart y-axis increment by one percent*/
     @FXML
     private RadioButton onePercentGranularity;
+    /**Radio button making bar chart y-axis increment by ten percent*/
     @FXML
     private RadioButton tenPercentGranularity;
+    /**TextField where user can enter overall percent curve*/
     @FXML
     private TextField percentCurve;
+    /**Button which opens up the custom curve adjuster view when clicked*/
     @FXML
     private Button addCustomCurveButton;
+    /**Button which sends all the grades back to the spreadsheet*/
     @FXML
     private Button saveCurvedGradesButton;
+    /**Pie chart object*/
     @FXML
     private PieChart pieChart;
+    /**Bar chart object*/
     @FXML
     private BarChart barChart;
-    
+    /**An instance of the graph model class*/
     private Graph graph;
     
+    /**
+     * Creates a new instance of GraphAndAdjstCurveController
+     * and initializes a new graph class.
+     */
     public GraphAndAdjustCurveController() {
     	this.graph = new Graph();
     }
     
+    /**
+     * Setter method which passes category scores
+     * to the graph model instance.
+     * 
+     * @param cat the current category being viewed on the graphs
+     */
     public void setCategory(Category cat) {
     	this.graph.setCategory(cat);
     }
     
+    /**
+     * Setter method which passes the assignment scores
+     * to the graph model instance.
+     * 
+     * @param ass the current assignment being viewed on the graphs
+     */
     public void setAssignment(Assignment ass) {
     	this.graph.setAssignment(ass);
     }
