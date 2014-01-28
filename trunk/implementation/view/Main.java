@@ -1,5 +1,7 @@
 package view;
 
+import java.util.Observer;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -73,6 +75,7 @@ public class Main extends Application
        // Load the fxml file and set into the center of the main layout
        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/spreadsheet/Tabs.fxml"));
        AnchorPane tabs = (AnchorPane) ViewUtility.loadView(loader);
+       gradebook.addObserver((Observer) loader.getController());
        rootLayout.setCenter(tabs);
     }
 

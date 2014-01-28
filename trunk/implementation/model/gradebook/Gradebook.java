@@ -25,7 +25,7 @@ import model.users.Teacher;
  *  @author jamesfazio
  */
 
-public class Gradebook implements Serializable{
+public class Gradebook extends Observable implements Serializable{
 
 
     /**
@@ -162,6 +162,8 @@ public class Gradebook implements Serializable{
       }
       
       courses.add(course);
+      setChanged();
+      notifyObservers();
    }
    
    /**

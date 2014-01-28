@@ -1,5 +1,8 @@
 package controller.spreadsheet;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
@@ -20,7 +23,7 @@ import view.ViewUtility;
  * @author Kevin Backers      
  */
 
-public class AddClassController {
+public class AddClassController  {
     @FXML
     private TextField courseName;
     @FXML
@@ -52,7 +55,7 @@ public class AddClassController {
          * in the model package
          */
     	CourseInfo courseInfo = new CourseInfo(courseName.getText(),
-    	        courseTerm.getText(), courseName.getText(), courseName.getText());
+    	        courseSection.getText(), courseSection.getText(), courseName.getText());
     	SpreadsheetCourse course = new SpreadsheetCourse(courseInfo,
     	        new GradingScheme(), new LatePolicy());
     	

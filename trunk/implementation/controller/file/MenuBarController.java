@@ -4,11 +4,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
-import model.assignments_categories.Assignment;
-import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
-import controller.graph.*;
 import view.ViewUtility;
+import controller.graph.GraphAndAdjustCurveController;
 
 /**
  * The MenuBar controller controls menu bar actions. Any time
