@@ -2,11 +2,14 @@ package controller.spreadsheet;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.gradebook.Gradebook;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
+import model.spreadsheet.SpreadsheetCourse;
 import model.users.TeacherAssistant;
 import view.ViewUtility;
 
@@ -19,21 +22,24 @@ import view.ViewUtility;
 
 public class AddClassController {
     @FXML
-    private String Name;
+    private TextField courseName;
     @FXML
-    private String Section;
+    private TextField courseSection;
     @FXML
-    private String Term;
+    private TextField courseTerm;
     @FXML
     private GradingScheme gradingScheme;
     @FXML
     private TeacherAssistant ta;
     @FXML
     private LatePolicy latePolicy;
+    
+    private Gradebook gradebook;
 
     private Stage primaryStage;
 
     public AddClassController() {
+        gradebook = Gradebook.getInstance();
     }
 
     /**
@@ -45,7 +51,12 @@ public class AddClassController {
         /* call addStudent function in spreadsheetcourse.java
          * in the model package
          */
-    	CourseInfo sampleCourseInfo = new CourseInfo(Name, Term, Name, Name);
+    	CourseInfo courseInfo = new CourseInfo(courseName.getText(),
+    	        courseTerm.getText(), courseName.getText(), courseName.getText());
+    	SpreadsheetCourse course = new SpreadsheetCourse(courseInfo,
+    	        new GradingScheme(), new LatePolicy());
+    	
+    	gradebook.addSpreadsheetCourse(course);
     }
 
     /**

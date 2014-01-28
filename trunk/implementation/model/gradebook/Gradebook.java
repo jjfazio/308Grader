@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.logging.Logger;
 
 import model.spreadsheet.SpreadsheetCourse;
