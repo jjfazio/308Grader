@@ -124,7 +124,7 @@ public class AddStudentController {
      */
     @FXML
     private void handleDeleteCourseButton() {
-        Student tempStudent = new Student();
+        Student tempStudent = new Student("","","","","","");
         tempStudent.removeCourse(new SpreadsheetCourse());
     }
 }
