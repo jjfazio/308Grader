@@ -1,10 +1,17 @@
 package controller.users;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.gradebook.Gradebook;
+import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 import view.ViewUtility;
@@ -58,6 +65,21 @@ public class AddStudentController {
     @FXML
     private String gradeLevel;
 
+    @FXML
+    private ListView<String> viewCourseList;
+
+    private static ObservableList<String> courseData = FXCollections.observableArrayList();
+
+    @FXML
+    private void initialize() {
+
+        viewCourseList.setItems(courseData);
+    }
+
+    protected static void addCourseToDialog(CourseInfo courseToAdd)
+    {
+        courseData.add(courseToAdd.getCourseName() + "-" + courseToAdd.getNumber());
+    }
     /**
      * Contructor for this class
      */
@@ -92,6 +114,8 @@ public class AddStudentController {
          */
        ViewUtility.showPage(loader, AnchorPane.class, "Add Course");
     }
+
+
 
     /**
      * Called when the user clicks on the delete course button in the
