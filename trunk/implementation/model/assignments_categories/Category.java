@@ -25,7 +25,13 @@ public class Category implements Serializable {
    public Category () {
       this(null, 100.0, "Total");
    }
-   
+
+    /**
+     * Constructor of category for when the user create a new category.
+     * @param parentCategory the higher level category which the current category defines some percentage of its points.
+     * @param percentOfParent the percentage of points which the current category assigns for parent category.
+     * @param name name of the category.
+     */
    public Category(Category parentCategory, Double percentOfParent, String name) {
       this.parentCategory = parentCategory;
       this.percentofparent = percentOfParent;
@@ -298,6 +304,10 @@ public class Category implements Serializable {
       
    }
 
+    /**
+     * Returns the parent category of the current category.
+     * @return the parent category of the current category.
+     */
    public Category getParentCategory() {
       return parentCategory;
    }
@@ -306,13 +316,36 @@ public class Category implements Serializable {
 //      this.parentCategory = parentCategory;
 //   }
 
+    /**
+     * Returns the name of the category.
+     * @return Returns the name of the category.
+     */
    public String getName() {
       return name;
    }
 
+    /**
+     * Sets the name of the category
+     * @param name the that becomes the name of the category.
+     */
+    /*@
+     requires
+     //
+     // the name is not null or empty string.
+     //
+     (!name.equals(null) && !name.equals(""));
+
+     ensures
+     //
+     // name of the category has changed to name argument.
+     //
+     (this.name.equals(name));
+     @*/
+
    public void setName(String name) {
       this.name = name;
    }
+
 
    public Double getPercentofparent() {
       return percentofparent;
@@ -326,10 +359,12 @@ public class Category implements Serializable {
       return percentCurve;
    }
 
+
+    /**
+     *
+     * @param percentCurve
+     */
    public void setPercentCurve(Double percentCurve) {
       this.percentCurve = percentCurve;
    }
-   
-   
-    
 }
