@@ -98,7 +98,7 @@ public class AddStudentController {
          * in the model package
          */
         SpreadsheetCourse sampleCourse = new SpreadsheetCourse();
-        sampleCourse.addStudent(new Student());
+        sampleCourse.addStudent(new Student("","","","","",""));
     }
 
     /**
