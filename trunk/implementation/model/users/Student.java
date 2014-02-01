@@ -52,7 +52,15 @@ public class Student implements Serializable {
     /**
      * Class constructor that takes in
      */
-    public Student() {
+    public Student(String userName, String firstName, String lastName,
+            String id, String major, String gradeLevel)
+    {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.id = id;
+        this.major = major;
+        this.gradeLevel = gradeLevel;
     }
 
     /**
