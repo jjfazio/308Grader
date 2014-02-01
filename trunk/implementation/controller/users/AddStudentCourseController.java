@@ -75,7 +75,7 @@ public class AddStudentCourseController {
          */
         int indexSelected = viewCourseList.getSelectionModel().getSelectedIndex();
         AddStudentController.addCourseToDialog(courseList.get(indexSelected).getCourseInfo());
-        Student tempStudent = new Student();
+        Student tempStudent = new Student("","","","","","");
         tempStudent.addCourse(courseList.get(indexSelected));
     }
 }
