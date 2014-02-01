@@ -133,7 +133,7 @@ public class Assignment implements Serializable {
     //
     //The name variable is not empty or null.
     //
-    (name != null && !name.equals(""));
+    (!name.equals(null) && !name.equals(""));
 
     ensures
     //
