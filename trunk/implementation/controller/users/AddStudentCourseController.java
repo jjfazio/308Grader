@@ -32,7 +32,9 @@ public class AddStudentCourseController {
 
     private ObservableList<String> courseData;
 
-    private ArrayList<SpreadsheetCourse> courseList;
+    private static ArrayList<SpreadsheetCourse> courseList;
+
+    private static ArrayList<SpreadsheetCourse> studentCourseList = new ArrayList<>();
     /**
      * Contructor for this class
      */
@@ -75,7 +77,17 @@ public class AddStudentCourseController {
          */
         int indexSelected = viewCourseList.getSelectionModel().getSelectedIndex();
         AddStudentController.addCourseToDialog(courseList.get(indexSelected).getCourseInfo());
-        Student tempStudent = new Student("","","","","","");
-        tempStudent.addCourse(courseList.get(indexSelected));
+        studentCourseList.add(courseList.get(indexSelected));
+    }
+
+    /**
+     * This method returns the course list to be added to this student
+     *
+     * @return  ArrayList   The collection of SpreadsheetCourses to be added
+     *                      to this student
+     */
+    protected static ArrayList<SpreadsheetCourse> getCourseList()
+    {
+        return studentCourseList;
     }
 }
