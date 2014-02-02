@@ -66,7 +66,7 @@ public class SpreadsheetCourse implements Serializable {
 	      latePolicy = lp;
 	      System.out.println("Creating a Spreadsheet Course named: " + 
 	      courseInfo.getCourseName());
-	   }
+    }
 
 
     /**
