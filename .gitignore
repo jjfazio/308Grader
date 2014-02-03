@@ -3,3 +3,4 @@
 /.svn
 .checkstyle
 org.eclipse.jdt.ui.prefs
+/bin

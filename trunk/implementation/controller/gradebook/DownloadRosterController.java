@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import model.gradebook.Gradebook;
@@ -25,6 +26,9 @@ public class DownloadRosterController
     @FXML
     private CheckBox combineCheckBox;
     
+    @FXML 
+    private ListView listView;
+    
     @FXML
     private void initialize()
     {
@@ -43,6 +47,7 @@ public class DownloadRosterController
     {
         TreeItem<String> root = new TreeItem<String>("Select Classes");
         TreeItem item;
+        CheckBox checkbox;
         List<CourseInfo> courses;
         
         for (String courseNumber : courseDB.getCourseNumbers())
@@ -52,7 +57,9 @@ public class DownloadRosterController
             
             for (CourseInfo info : courses)
             {
-                item.getChildren().add(new TreeItem<CheckBox>(new CheckBox("Section " +info.getSection())));
+                checkbox = new CheckBox("Section " + info.getSection());
+                checkbox.setUserData(info);
+                item.getChildren().add(new TreeItem<CheckBox>(checkbox));
                 item.setExpanded(true);
             }
             

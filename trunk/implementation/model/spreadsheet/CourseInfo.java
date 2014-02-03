@@ -28,6 +28,8 @@ public class CourseInfo implements Serializable{
      * The course number, for example '365', must not be null
      */
     private String number;
+    
+    private int year;
 
     /**
      * The dept the course belongs to, for example CPE, must not be null
@@ -36,12 +38,13 @@ public class CourseInfo implements Serializable{
     private Collection<TeacherAssistant> teacherAssistants;
     
     public CourseInfo(String name, String quarter, String section, String number,
-            String dept) {
+            String dept, int year) {
         this.courseName = name;
         this.quarter = quarter;
         this.number = number;
         this.section = section;
         this.dept = dept;
+        this.year = year;
         System.out.println("Created a new CourseInfo for a SpreadsheetCourse");
     }
 
