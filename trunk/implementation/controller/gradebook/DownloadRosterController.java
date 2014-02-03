@@ -1,15 +1,20 @@
 package controller.gradebook;
 
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import model.gradebook.Gradebook;
+import model.spreadsheet.CourseDB;
+import model.spreadsheet.CourseInfo;
 
 public class DownloadRosterController
 {
     private Gradebook gradebook;
+    private CourseDB courseDB;
     
     @FXML
     private TreeView<String> classTreeView;
@@ -24,6 +29,7 @@ public class DownloadRosterController
     private void initialize()
     {
         gradebook = Gradebook.getInstance();
+        courseDB = CourseDB.getInstance();
         loadTreeItems();
     }
     
@@ -36,25 +42,22 @@ public class DownloadRosterController
     private void loadTreeItems()
     {
         TreeItem<String> root = new TreeItem<String>("Select Classes");
-        TreeItem classes308 = new TreeItem<String>("308");
-        TreeItem classes309 = new TreeItem<String>("309");
-        TreeItem classes365 = new TreeItem<String>("365");
+        TreeItem item;
+        List<CourseInfo> courses;
         
-        classes308.getChildren().add(new TreeItem<CheckBox>(new CheckBox("Section 1")));
-        classes308.getChildren().add(new TreeItem<CheckBox>(new CheckBox("Section 2")));
-        
-        classes309.getChildren().add(new TreeItem<CheckBox>(new CheckBox("Section 1")));
-        classes309.getChildren().add(new TreeItem<CheckBox>(new CheckBox("Section 2")));
-        
-        classes365.getChildren().add(new TreeItem<CheckBox>(new CheckBox("Section 1")));
-        
-        
-        classes308.setExpanded(true);
-        classes309.setExpanded(true);
-        classes365.setExpanded(true);
-        
-        
-        root.getChildren().addAll(classes308, classes309, classes365);
+        for (String courseNumber : courseDB.getCourseNumbers())
+        {
+            item = new TreeItem<String>(courseNumber);
+            courses = courseDB.getCoursesByNumber(courseNumber);
+            
+            for (CourseInfo info : courses)
+            {
+                item.getChildren().add(new TreeItem<CheckBox>(new CheckBox("Section " +info.getSection())));
+                item.setExpanded(true);
+            }
+            
+            root.getChildren().add(item);
+        }
         root.setExpanded(true);
         classTreeView.setRoot(root);
         classTreeView.setShowRoot(true);

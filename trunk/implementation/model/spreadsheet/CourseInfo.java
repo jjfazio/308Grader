@@ -177,6 +177,11 @@ public class CourseInfo implements Serializable{
     {
         return dept;
     }
+    
+    public String getSection()
+    {
+        return section;
+    }
 
     public Collection<TeacherAssistant> getTeacherAssistants()
     {

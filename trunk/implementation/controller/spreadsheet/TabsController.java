@@ -52,8 +52,8 @@ public class TabsController implements Observer {
        
        for (SpreadsheetCourse course : gradebook.getCourses()) {
            tab =
-              new Tab(course.getCourseInfo().getCourseName() + "-"
-                 + course.getCourseInfo().getNumber());
+              new Tab(course.getCourseInfo().getNumber() + "-"
+                 + course.getCourseInfo().getSection());
 
                
                loader = new FXMLLoader(getClass().getResource(

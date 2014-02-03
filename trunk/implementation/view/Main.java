@@ -9,8 +9,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.gradebook.Gradebook;
+import model.spreadsheet.CourseDB;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
+import model.users.StudentDB;
 
 /**
  * Starting point for the application. For now constructs a gradebook
@@ -44,14 +46,16 @@ public class Main extends Application
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("GraderTool");
 		
+		
 		gradebook = Gradebook.getInstance();
 		
 		if (gradebook.getCourses() == null) {
+		    
 			SpreadsheetCourse course = new SpreadsheetCourse();
-			course.setCourseInfo(new CourseInfo("Software Engineering 1", "spring", "308", "01", "Computer Science"));
+			course.setCourseInfo(new CourseInfo("Software Engineering 1", "spring", "01", "308", "Computer Science"));
 			
 			SpreadsheetCourse course2 = new SpreadsheetCourse();
-			course2.setCourseInfo(new CourseInfo("Software Engineering 2", "spring", "309", "01", "Computer Science"));
+			course2.setCourseInfo(new CourseInfo("Software Engineering 2", "spring", "02", "309", "Computer Science"));
 			
 			gradebook.addSpreadsheetCourse(course);
 			gradebook.addSpreadsheetCourse(course2);
