@@ -28,8 +28,8 @@ public class SpreadsheetController {
 
     @FXML
     private void initialize() {
-        studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName" + ", " + "firstName"));
-        usernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("username"));
+        studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("userName"));
         userIDColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("id"));
         studentTable.setItems(Gradebook.getInstance().getCourses().get(0).getStudentList());
     }
