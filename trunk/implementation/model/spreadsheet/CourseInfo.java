@@ -21,11 +21,15 @@ public class CourseInfo implements Serializable{
      * The quarter this class is being taught, must not be null
      */
     private String quarter;
+    
+    private String section;
 
     /**
      * The course number, for example '365', must not be null
      */
     private String number;
+    
+    private int year;
 
     /**
      * The dept the course belongs to, for example CPE, must not be null
@@ -33,11 +37,14 @@ public class CourseInfo implements Serializable{
     private String dept;
     private Collection<TeacherAssistant> teacherAssistants;
     
-    public CourseInfo(String name, String quarter, String number, String dept) {
+    public CourseInfo(String name, String quarter, String section, String number,
+            String dept, int year) {
         this.courseName = name;
         this.quarter = quarter;
         this.number = number;
+        this.section = section;
         this.dept = dept;
+        this.year = year;
         System.out.println("Created a new CourseInfo for a SpreadsheetCourse");
     }
 
@@ -172,6 +179,11 @@ public class CourseInfo implements Serializable{
     public String getDept()
     {
         return dept;
+    }
+    
+    public String getSection()
+    {
+        return section;
     }
 
     public Collection<TeacherAssistant> getTeacherAssistants()
