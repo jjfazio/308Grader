@@ -10,9 +10,9 @@
   <children>
     <TableView fx:id="studentTable" editable="true" prefHeight="350.0000999999975" prefWidth="520.0" tableMenuButtonVisible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <columns>
-        <TableColumn prefWidth="75.0" text="Column X" fx:id="studentNameColumn" />
-        <TableColumn prefWidth="75.0" text="Column X" fx:id="usernameColumn" />
-        <TableColumn prefWidth="75.0" text="Column X" fx:id="userIDColumn" />
+        <TableColumn prefWidth="75.0" text="Student Name" fx:id="studentNameColumn" />
+        <TableColumn prefWidth="75.0" text="Username" fx:id="usernameColumn" />
+        <TableColumn prefWidth="75.0" text="University ID" fx:id="userIDColumn" />
       </columns>
     </TableView>
   </children>
