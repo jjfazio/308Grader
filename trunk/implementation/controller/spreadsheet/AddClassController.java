@@ -53,7 +53,7 @@ public class AddClassController  {
          */
     	CourseInfo courseInfo = new CourseInfo(courseName.getText(),
     	        courseSection.getText(), courseSection.getText(), 
-    	        courseSection.getText(), courseName.getText());
+    	        courseSection.getText(), courseName.getText(), 1999);
     	SpreadsheetCourse course = new SpreadsheetCourse(courseInfo,
     	        new GradingScheme(), new LatePolicy());
     	
