@@ -16,7 +16,7 @@ import model.spreadsheet.SpreadsheetCourse;
 
 public class AddGradingSchemeController {
     @FXML
-    private TextField SchemeName;
+    private TextField schemeName;
 
     private Stage primaryStage;
 
@@ -38,9 +38,12 @@ public class AddGradingSchemeController {
         
         // TODO: get list of graderanges from table in GUI
         // for now, just create a named schemes
-    	GradingScheme tempGradingScheme = new GradingScheme(SchemeName.getText());
+    	GradingScheme tempGradingScheme = new GradingScheme(schemeName.getText());
+    	System.out.println("scheme name: " + schemeName.getText());
+    	
+    	// need to set course to the one being made here
     	course.setGradingDistribution(tempGradingScheme);
-    	System.out.println("added grading scheme: " + SchemeName.getText() + " to course: " + course.getCourseInfo().getCourseName());
+    	System.out.println("added grading scheme: " + schemeName.getText() + " to course: " + course.getCourseInfo().getCourseName());
     }
 
     /**
