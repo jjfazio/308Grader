@@ -25,4 +25,11 @@ public class GradeRange implements Serializable {
      * The high number of the GradeRange, must not be null.
      */
     Double high;
+    
+    public GradeRange(String letter, double low, double high)
+    {
+        letterGrade = letter;
+        this.low = low;
+        this.high = high;
+    }
 }
