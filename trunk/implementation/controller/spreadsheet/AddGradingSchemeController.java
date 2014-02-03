@@ -1,8 +1,11 @@
 package controller.spreadsheet;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.gradebook.Gradebook;
 import model.spreadsheet.GradingScheme;
+import model.spreadsheet.SpreadsheetCourse;
 
 /**
  * This class represents the interaction between the add grading scheme dialog
@@ -13,14 +16,17 @@ import model.spreadsheet.GradingScheme;
 
 public class AddGradingSchemeController {
     @FXML
-    private String SchemeName;
-    @FXML
-    private String Section;
-    @FXML
+    private TextField SchemeName;
 
     private Stage primaryStage;
 
+    private Gradebook gradebook;
+    
+    private SpreadsheetCourse course;
+    
     public AddGradingSchemeController() {
+        gradebook = Gradebook.getInstance();
+        course = gradebook.getCurrentCourse();
     }
 
     /**
@@ -29,10 +35,12 @@ public class AddGradingSchemeController {
      */
     @FXML
     private void handleCreateButton() {
-        /* call addStudent function in spreadsheetcourse.java
-         * in the model package
-         */
-    	GradingScheme tempGradingScheme = new GradingScheme();
+        
+        // TODO: get list of graderanges from table in GUI
+        // for now, just create a named schemes
+    	GradingScheme tempGradingScheme = new GradingScheme(SchemeName.getText());
+    	course.setGradingDistribution(tempGradingScheme);
+    	System.out.println("added grading scheme: " + SchemeName.getText() + " to course: " + course.getCourseInfo().getCourseName());
     }
 
     /**
