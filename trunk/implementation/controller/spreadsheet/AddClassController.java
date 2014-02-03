@@ -57,7 +57,12 @@ public class AddClassController  {
         /* call addStudent function in spreadsheetcourse.java
          * in the model package
          */
-        int courseYearInt = Integer.parseInt(courseYear.getText());
+        
+        int courseYearInt = 0;
+        if(!courseYear.getText().equals(""))
+        {
+            courseYearInt = Integer.parseInt(courseYear.getText());
+        }
     	CourseInfo courseInfo = new CourseInfo(courseName.getText(),
     	        courseQuarter.getText(), courseSection.getText(), 
     	        courseNumber.getText(), courseDepartment.getText(), courseYearInt);
