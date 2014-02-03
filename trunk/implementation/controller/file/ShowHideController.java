@@ -67,7 +67,7 @@ public class ShowHideController {
       treeView.setRoot(root);
       treeView.setShowRoot(true);
       
-      treeView = new TreeView(root);
+     // treeView = new TreeView(root);
       
       
       

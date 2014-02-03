@@ -48,10 +48,10 @@ public class Main extends Application
 		
 		if (gradebook.getCourses() == null) {
 			SpreadsheetCourse course = new SpreadsheetCourse();
-			course.setCourseInfo(new CourseInfo("308", "adfad", "01", "asdf"));
+			course.setCourseInfo(new CourseInfo("Software Engineering 1", "spring", "308", "01", "Computer Science"));
 			
 			SpreadsheetCourse course2 = new SpreadsheetCourse();
-			course2.setCourseInfo(new CourseInfo("309", "fasdfadf", "02", "adfasdf"));
+			course2.setCourseInfo(new CourseInfo("Software Engineering 2", "spring", "309", "01", "Computer Science"));
 			
 			gradebook.addSpreadsheetCourse(course);
 			gradebook.addSpreadsheetCourse(course2);

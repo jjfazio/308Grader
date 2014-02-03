@@ -175,4 +175,14 @@ public class MenuBarController
         
         ViewUtility.showPage(loader, AnchorPane.class, "Delete Assignment");
     }
+    
+    @FXML
+    public void viewDownloadRoster() {
+        System.out.println("Download Roster Clicked");
+        
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/view/gradebook/DownloadRoster.fxml"));
+        
+        ViewUtility.showPage(loader, AnchorPane.class, "Download Roster from SIS");
+    }
 }
