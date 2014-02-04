@@ -2,10 +2,13 @@ package model.spreadsheet;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.assignments_categories.Category;
 import model.file.Settings;
 import model.users.Student;
+
+import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion.Setting;
 
 
 /**
@@ -120,6 +123,10 @@ public class SpreadsheetCourse implements Serializable {
     @*/
     public void addStudent(Student student) {
         System.out.println("In SpreadsheetCourse.addStudent");
+    }
+    
+    public void addStudents(List<Student> students) {
+        studentRoster.addAll(students);
     }
 
     /**
@@ -244,10 +251,6 @@ public class SpreadsheetCourse implements Serializable {
 
    public ArrayList<Student> getStudentRoster() {
       return studentRoster;
-   }
-
-   public void setStudentRoster(ArrayList<Student> studentRoster) {
-      this.studentRoster = studentRoster;
    }
 
    public GradingScheme getGradingDistribution() {

@@ -25,12 +25,12 @@ public class StudentDB
     
     public static StudentDB getInstance() {
         if (instance == null)
-           new StudentDB();
+           instance = new StudentDB();
         
         return instance;
      }
     
-    public List<Student> getStudentsForClass(SpreadsheetCourse course)
+    public List<Student> getStudentsForClass(CourseInfo course)
     {
         return courseStudentMap.get(course);
     }
