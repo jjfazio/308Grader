@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.assignments_categories.Category;
 import model.file.Settings;
 import model.users.Student;
@@ -37,6 +39,7 @@ public class SpreadsheetCourse implements Serializable {
      */
     private ArrayList<Student> studentRoster;
 
+    private ObservableList<Student> observableStudentRoster;
     /**
      * The {@link GradingScheme} associated with the course.
      */
@@ -59,6 +62,7 @@ public class SpreadsheetCourse implements Serializable {
    
    public SpreadsheetCourse() {
       System.out.println("Created a Spreadsheet Course!");
+      this.observableStudentRoster = FXCollections.observableArrayList();
       topCategory = new Category();      
    }
    
@@ -237,6 +241,18 @@ public class SpreadsheetCourse implements Serializable {
        
     }
 
+    /**
+     * This method adds a student to the student observable list
+     *
+     * @return
+     */
+    public void addStudentObservable(Student studentToAdd) {
+        this.observableStudentRoster.add(studentToAdd);
+    }
+
+    public ObservableList<Student> getStudentList() {
+        return this.observableStudentRoster;
+    }
    public CourseInfo getCourseInfo() {
       return courseInfo;
    }

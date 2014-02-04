@@ -9,9 +9,26 @@ public class GradingScheme implements Serializable {
     Boolean plusMinusEnabled;
     
     List<GradeRange> gradeRanges;
+    
+    String schemeName;
 
     public GradingScheme()
     {
         System.out.println("Creted a new grading scheme");
+    }
+    
+    public GradingScheme(List<GradeRange> ranges, String name)
+    {
+        plusMinusEnabled = true;
+        gradeRanges = ranges;
+        schemeName = name;
+        System.out.println("Creted a new grading scheme with name: " + name);
+    }
+    
+    public GradingScheme(String name)
+    {
+        plusMinusEnabled = true;
+        schemeName = name;
+        System.out.println("Creted a new grading scheme with name: " + name);
     }
 }

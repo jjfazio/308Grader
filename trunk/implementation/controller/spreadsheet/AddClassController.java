@@ -24,9 +24,15 @@ public class AddClassController  {
     @FXML
     private TextField courseName;
     @FXML
+    private TextField courseDepartment;
+    @FXML
+    private TextField courseNumber;
+    @FXML
     private TextField courseSection;
     @FXML
-    private TextField courseTerm;
+    private TextField courseQuarter;
+    @FXML
+    private TextField courseYear;
     @FXML
     private GradingScheme gradingScheme;
     @FXML
@@ -51,9 +57,15 @@ public class AddClassController  {
         /* call addStudent function in spreadsheetcourse.java
          * in the model package
          */
+        
+        int courseYearInt = 0;
+        if(!courseYear.getText().equals(""))
+        {
+            courseYearInt = Integer.parseInt(courseYear.getText());
+        }
     	CourseInfo courseInfo = new CourseInfo(courseName.getText(),
-    	        courseSection.getText(), courseSection.getText(), 
-    	        courseSection.getText(), courseName.getText(), 1999);
+    	        courseQuarter.getText(), courseSection.getText(), 
+    	        courseNumber.getText(), courseDepartment.getText(), courseYearInt);
     	SpreadsheetCourse course = new SpreadsheetCourse(courseInfo,
     	        new GradingScheme(), new LatePolicy());
     	

@@ -29,7 +29,7 @@
         <HBox alignment="CENTER" prefHeight="79.0" prefWidth="385.0">
           <children>
             <Label text="Scheme Name:" />
-            <TextField id="schemeName" prefWidth="200.0" />
+            <TextField fx:id="schemeName" prefWidth="200.0" />
           </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="55.0" prefWidth="385.0">
