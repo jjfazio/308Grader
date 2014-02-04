@@ -23,6 +23,17 @@ import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 import model.users.StudentDB;
 
+/**
+ * Controller for downloading a roster to a SpreadsheetCourse.
+ * A user chooses from a list of SIS classes they have access to
+ * and selects a Gradebook SpreadsheetCourse to download to.
+ * Does error checking to make sure a user has a Gradebook
+ * SpreadsheetCourse selected and if a user has multiple
+ * SIS classes selected a dialog appears to make sure
+ * they want to combine rosters.
+ * @author jamesfazio
+ *
+ */
 public class DownloadRosterController
 {
     private Gradebook gradebook;
@@ -47,6 +58,10 @@ public class DownloadRosterController
     
     
     @FXML
+    /**
+     * Called by FXML when view is loaded. Grabs
+     * SIS courses and Gradebook courses and initializes views.
+     */
     private void initialize()
     {
         gradebook = Gradebook.getInstance();
@@ -59,6 +74,11 @@ public class DownloadRosterController
     }
     
     @FXML
+    /**
+     * Called when a user presses the download button.
+     * Takes the student rosters from the selected SIS classes
+     * and puts them into the selected Gradebook class.
+     */
     public void downloadRoster()
     {
         List<Student> students = new ArrayList<Student>();
@@ -66,6 +86,7 @@ public class DownloadRosterController
         DialogResponse choice;
         int selectedSISCount = 0;
         
+        // Look for selected SISClasses
         for (int i = 0; i < selectedSISClasses.size(); i++)
         {
             if (selectedSISClasses.get(i).selectedProperty().getValue())
@@ -75,33 +96,41 @@ public class DownloadRosterController
             }
         }
         
+        // If the user selected more than one SIS course
+        // prompt them with a warning
         if (selectedSISCount > 1) {
             choice = Dialogs.showConfirmDialog(getStage(),
                     "Do you wish to merge multiple SIS classes into"
                     + "one Spreadsheet Course?", "Confirm Dialog", "Multiple "
                             + "SIS classes chosen");
             
+            // If the user decides they don't want multiple SIS
+            // rosters in one Gradebook class, return
             if (choice != DialogResponse.YES)
                 return;
         }
         
+        // The user selected a Gradebook Course
         if (!listView.getSelectionModel().isEmpty())
             selectedCourse = createdCourses.get(listView.getSelectionModel()
                 .getSelectedIndex());
+        // The user has not selected a Gradebook Course
         else {
             Dialogs.showErrorDialog(getStage(), "You must select a course to download "
                     + "the roster into", "Error", "Choose a course");
             return;
         }
         
-        
         selectedCourse.addStudents(students);
     }
     
+    /**
+     * Sets up the listview with SpreadsheetCourses in the Gradebook
+     */
     private void loadListView()
     {
         createdCoursesObs = FXCollections.observableArrayList();
-        createdCourses = Gradebook.getInstance().getCourses();
+        createdCourses = gradebook.getCourses();
         
         for(SpreadsheetCourse currentCourse: createdCourses)
         {
@@ -112,6 +141,9 @@ public class DownloadRosterController
         listView.setItems(createdCoursesObs);
     }
     
+    /**
+     * Sets up the TreeView with courses in SIS
+     */
     private void loadTreeItems()
     {
         CheckBoxTreeItem<String> root = new CheckBoxTreeItem<String>("Select Classes");
@@ -147,6 +179,10 @@ public class DownloadRosterController
         
     }
     
+    /**
+     * Get the stage of this view
+     * @return the stage of this view
+     */
     private Stage getStage() {
         return (Stage) root.getScene().getWindow();
     }

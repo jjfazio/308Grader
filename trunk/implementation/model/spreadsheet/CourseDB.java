@@ -3,7 +3,12 @@ package model.spreadsheet;
 import java.util.ArrayList;
 import java.util.List;
 
-//name quarter section number dept
+/**
+ * This acts as the SIS server and has courses the user can
+ * download rosters from.
+ * @author jamesfazio
+ *
+ */
 public class CourseDB
 {
     private List<CourseInfo> courses;
@@ -27,11 +32,20 @@ public class CourseDB
         return instance;
     }
     
+    /**
+     * Gets all of the courses in SIS
+     * @return List of CourseInfo objects
+     */
     public List<CourseInfo> getAllCourses()
     {
         return courses;
     }
     
+    /**
+     * Gets all of the course numbers in SIS. For example
+     * '308', '309', '365'.
+     * @return List of courseNumbers
+     */
     public List<String> getCourseNumbers()
     {
         List<String> desired = new ArrayList<String>();
@@ -46,6 +60,13 @@ public class CourseDB
         return desired;
     }
     
+    /**
+     * Returns all of the courses for a courseNumber.
+     * For example '308' might have multiple sections offered
+     * in one quarter.
+     * @param courseNumber The courseNumber of the sections
+     * @return List of CourseInfo objects
+     */
     public List<CourseInfo> getCoursesByNumber(String courseNumber)
     {
         List<CourseInfo> desired = new ArrayList<CourseInfo>();

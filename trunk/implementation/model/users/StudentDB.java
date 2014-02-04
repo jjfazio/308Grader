@@ -11,6 +11,12 @@ import java.util.Scanner;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
 
+/**
+ * Class that maps courses to a list of students.
+ * Used for the download roster functionality.
+ * @author jamesfazio
+ *
+ */
 public class StudentDB
 {
     private Map<CourseInfo, List<Student>> courseStudentMap;
@@ -30,11 +36,19 @@ public class StudentDB
         return instance;
      }
     
+    /**
+     * Gets the list of students for a Course
+     * @param course The course you want students for
+     * @return List of students for a Course
+     */
     public List<Student> getStudentsForClass(CourseInfo course)
     {
         return courseStudentMap.get(course);
     }
     
+    /**
+     * Reads the students from the Script created file.
+     */
     private void generateStudents()
     {
         Scanner scanner = null;

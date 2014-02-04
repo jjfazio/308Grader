@@ -9,6 +9,13 @@ import java.util.Random;
 import model.spreadsheet.CourseDB;
 import model.spreadsheet.CourseInfo;
 
+/**
+ * Script for creating a file with student data.
+ * This data will be used for the download roster action in the
+ * menu.
+ * @author jamesfazio
+ *
+ */
 public class StudentDBScript
 {
     private static final String FILE_NAME = "studentDB.txt";
@@ -19,6 +26,12 @@ public class StudentDBScript
         createDBFile();
     }
     
+    /**
+     * Creates the text file with student data. Each line
+     * of the file contains a student user name, first name,
+     * last name, id, major, grade level and an SIS course 
+     * they will appear on the roster for.
+     */
     public static void createDBFile()
     {
         PrintWriter writer = null;
@@ -37,8 +50,6 @@ public class StudentDBScript
                 file.createNewFile();
             writer = new PrintWriter(file);
             
-            //String name, String quarter, String section, String number,
-            //String dept
             for (int i = 0; i < studentCount; i++)
             {
                 course = courses.get(rand.nextInt(courses.size()));
