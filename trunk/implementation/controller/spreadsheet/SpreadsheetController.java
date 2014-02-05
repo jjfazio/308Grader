@@ -1,5 +1,6 @@
 package controller.spreadsheet;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,16 +20,25 @@ import model.users.Student;
  */
 public class SpreadsheetController implements Observer {
     @FXML
-    private TableView<Student> studentTable;
+    private TableView<Student> table;
 
     @FXML
-    private TableColumn<Student, String> studentNameColumn;
+    private TableColumn<Student, String> firstNameColumn;
+    
+    @FXML
+    private TableColumn<Student, String> lastNameColumn;
 
     @FXML
     private TableColumn<Student, String> usernameColumn;
 
     @FXML
     private TableColumn<Student, String> userIDColumn;
+    
+    @FXML
+    private TableColumn<Student, String> yearColumn;
+    
+    @FXML
+    private TableColumn<Student, String> majorColumn;
     
     private SpreadsheetCourse course;
     
@@ -37,9 +47,12 @@ public class SpreadsheetController implements Observer {
     @FXML
     private void initialize() {
         studentList = FXCollections.observableArrayList();
-        studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("userName"));
         userIDColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("id"));
+        yearColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("gradeLevel"));
+        majorColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("major"));
     }
 
 
@@ -50,7 +63,7 @@ public class SpreadsheetController implements Observer {
     */
    public void setSpreadsheet(SpreadsheetCourse course) {
       this.course = course;
-      loadContent();
+      loadContent(course.getStudentRoster());
       
       System.out.println("Set up spreadsheet for " + course.getCourseInfo().getCourseName());
    }
@@ -58,13 +71,14 @@ public class SpreadsheetController implements Observer {
 
    @Override
    public void update(Observable o, Object arg) {
-       loadContent();
+       if (course.isStudentAdded())
+           loadContent(course.getAddedStudents());
    }
    
-   private void loadContent() {
-       studentList.clear();
-       studentList.addAll(course.getStudentRoster());
-       studentTable.setItems(studentList);
+   private void loadContent(List<Student> students) {
+      // studentList.clear();
+       studentList.addAll(students);
+       table.setItems(studentList);
    }
 
 }
