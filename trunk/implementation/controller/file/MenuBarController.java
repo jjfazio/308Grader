@@ -108,7 +108,7 @@ public class MenuBarController
     	System.out.println("View Graphs clicked!");
     	FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/view/graph/GraphAndAdjustCurve.fxml"));
-
+    	AnchorPane pane = (AnchorPane)ViewUtility.loadView(loader);
     	GraphAndAdjustCurveController controller = (GraphAndAdjustCurveController)loader.getController();
     	
     	//If a category is selected, create a graph based on the current category
@@ -119,7 +119,7 @@ public class MenuBarController
     	//If an assignment is selected, create a graph based on the current assignment
     	//controller.setAssignment(new Assignment());
     	
-        ViewUtility.showPage(loader, AnchorPane.class, "Graphs");
+        ViewUtility.showPage(pane, "Graphs");
     }
 
     @FXML
