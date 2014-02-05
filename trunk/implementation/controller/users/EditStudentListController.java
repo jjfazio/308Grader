@@ -35,6 +35,10 @@ public class EditStudentListController {
     @FXML
     private TableColumn<Student, String>  studentNameColumn;
 
+    /** First column of the table, the students' last name */
+    @FXML
+    private TableColumn<Student, String>  studentLastNameColumn;
+
     /** Second column of the table, the students' usernames */
     @FXML
     private TableColumn<Student, String>  studentUsernameColumn;
@@ -64,6 +68,7 @@ public class EditStudentListController {
     @FXML
     private void initialize() {
         studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
+        studentLastNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
         studentUsernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("userName"));
         enrolledCourseColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("courseEnrolled"));
 
