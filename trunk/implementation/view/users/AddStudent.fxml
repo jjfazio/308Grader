@@ -23,7 +23,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="193.0">
                       <children>
-                        <TextField id="firstName" alignment="CENTER_LEFT" prefWidth="178.0" />
+                        <TextField fx:id="firstName" alignment="CENTER_LEFT" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -37,7 +37,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField id="middleName" prefWidth="178.0" />
+                        <TextField fx:id="middleName" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -51,7 +51,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField id="lastName" prefWidth="178.0" />
+                        <TextField fx:id="lastName" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -65,7 +65,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField id="username" prefWidth="178.0" />
+                        <TextField fx:id="username" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -79,7 +79,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField id="studentId" prefWidth="178.0" />
+                        <TextField fx:id="studentId" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -93,7 +93,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField id="major" prefWidth="179.0" />
+                        <TextField fx:id="major" prefWidth="179.0" />
                       </children>
                     </HBox>
                   </children>
@@ -107,7 +107,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField id="email" prefWidth="178.0" />
+                        <TextField fx:id="email" prefWidth="178.0" />
                       </children>
                     </HBox>
                   </children>
@@ -123,7 +123,7 @@
                 <VBox prefHeight="180.0" prefWidth="282.0">
                   <children>
                     <Label prefWidth="156.0" text="Course(s) Enrolled:" />
-                    <ListView prefHeight="169.0" prefWidth="282.0" />
+                    <ListView fx:id="viewCourseList" prefHeight="169.0" prefWidth="282.0" />
                   </children>
                 </VBox>
                 <HBox prefHeight="45.0" prefWidth="282.0">
@@ -149,7 +149,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                       <children>
-                        <TextField id="phoneNumber" prefWidth="200.0" />
+                        <TextField fx:id="phoneNumber" prefWidth="200.0" />
                       </children>
                     </HBox>
                   </children>
@@ -163,7 +163,7 @@
                     </HBox>
                     <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="189.0">
                       <children>
-                        <TextField id="gradeLevel" prefWidth="200.0" />
+                        <TextField fx:id="gradeLevel" prefWidth="200.0" />
                       </children>
                     </HBox>
                   </children>

@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public class Settings implements Serializable {
 
-/*
+    /*
     *  Value specifiying if students can view grades before the final grade is posted	
     */
    Boolean studentsCanViewBeforeFinalGrade;

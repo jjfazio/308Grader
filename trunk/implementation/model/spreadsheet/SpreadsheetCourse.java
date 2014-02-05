@@ -2,11 +2,15 @@ package model.spreadsheet;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
 
 import javafx.scene.control.ComboBox;
 import model.assignments_categories.Category;
 import model.file.Settings;
 import model.users.Student;
+
+import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion.Setting;
 
 
 /**
@@ -16,7 +20,7 @@ import model.users.Student;
  *
  */
 
-public class SpreadsheetCourse implements Serializable {
+public class SpreadsheetCourse extends Observable implements Serializable {
 
     private static final long serialVersionUID = -2177807641688753638L;
 
@@ -33,7 +37,7 @@ public class SpreadsheetCourse implements Serializable {
     /**
      * A list of {@link Student}.
      */
-    private ArrayList<Student> studentRoster;
+    private List<Student> studentRoster;
 
     /**
      * The {@link GradingScheme} associated with the course.
@@ -61,7 +65,8 @@ public class SpreadsheetCourse implements Serializable {
    
    public SpreadsheetCourse() {
       System.out.println("Created a Spreadsheet Course!");
-      topCategory = new Category();      
+      topCategory = new Category();  
+      studentRoster = new ArrayList<Student>();
    }
    
    public SpreadsheetCourse(CourseInfo ci, GradingScheme gs, LatePolicy lp) {
@@ -73,7 +78,8 @@ public class SpreadsheetCourse implements Serializable {
 	      latePolicy = lp;
 	      System.out.println("Creating a Spreadsheet Course named: " + 
 	      courseInfo.getCourseName());
-	   }
+	      studentRoster = new ArrayList<Student>();
+    }
 
 
     /**
@@ -126,7 +132,16 @@ public class SpreadsheetCourse implements Serializable {
                   studentInCourse.equals(student) || \old(this.studentRoster).contains(studentInCourse));
     @*/
     public void addStudent(Student student) {
+        studentRoster.add(student);
+        setChanged();
+        notifyObservers();
         System.out.println("In SpreadsheetCourse.addStudent");
+    }
+    
+    public void addStudents(List<Student> students) {
+        studentRoster.addAll(students);
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -249,12 +264,8 @@ public class SpreadsheetCourse implements Serializable {
       return topCategory;
    }
 
-   public ArrayList<Student> getStudentRoster() {
+   public List<Student> getStudentRoster() {
       return studentRoster;
-   }
-
-   public void setStudentRoster(ArrayList<Student> studentRoster) {
-      this.studentRoster = studentRoster;
    }
 
    public GradingScheme getGradingDistribution() {

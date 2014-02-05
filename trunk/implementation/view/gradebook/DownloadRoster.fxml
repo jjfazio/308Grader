@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" alignment="TOP_CENTER" prefHeight="442.0000999999975" prefWidth="341.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.gradebook.DownloadRosterController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <TreeView fx:id="classTreeView" prefHeight="236.0" prefWidth="279.0" />
+    <Label text="Download to existing course">
+      <VBox.margin>
+        <Insets bottom="10.0" />
+      </VBox.margin>
+    </Label>
+    <ListView fx:id="listView" disable="false" editable="false" prefHeight="200.0" prefWidth="200.0" />
+    <Button fx:id="downloadButton" alignment="CENTER" cancelButton="false" contentDisplay="CENTER" defaultButton="false" disable="false" mnemonicParsing="false" onAction="#downloadRoster" text="Download" underline="false">
+      <VBox.margin>
+        <Insets bottom="10.0" top="10.0" />
+      </VBox.margin>
+    </Button>
+  </children>
+</VBox>

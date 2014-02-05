@@ -1,10 +1,19 @@
 package controller.users;
 
+
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.gradebook.Gradebook;
+import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 import view.ViewUtility;
@@ -24,40 +33,58 @@ import view.ViewUtility;
 public class AddStudentController {
     /** Contains the first name of the student */
     @FXML
-    private String firstName;
+    private TextField firstName;
 
     /** Contains the middle name of the student */
     @FXML
-    private String middleName;
+    private TextField middleName;
 
     /** Contains the last name of the student */
     @FXML
-    private String lastName;
+    private TextField lastName;
 
     /** Contains the username of the student */
     @FXML
-    private String username;
+    private TextField username;
 
     /** Contains the student id as a string */
     @FXML
-    private String studentId;
+    private TextField studentId;
 
     /** Contains the student's current major */
     @FXML
-    private String major;
+    private TextField major;
 
     /** Contains the student's email address */
     @FXML
-    private String email;
+    private TextField email;
 
     /** Contains the student's phone number */
     @FXML
-    private String phoneNumber;
+    private TextField phoneNumber;
 
     /** Contains the student's current grade level */
     @FXML
-    private String gradeLevel;
+    private TextField gradeLevel;
 
+    @FXML
+    private ListView<String> viewCourseList;
+
+    /** Holds the list of courses to hold in the course list */
+    private static ObservableList<String> courseData = FXCollections.observableArrayList();
+
+    private ArrayList<SpreadsheetCourse> courseList;
+
+    @FXML
+    private void initialize() {
+
+        viewCourseList.setItems(courseData);
+    }
+
+    protected static void addCourseToDialog(CourseInfo courseToAdd)
+    {
+        courseData.add(courseToAdd.getCourseName() + "-" + courseToAdd.getNumber());
+    }
     /**
      * Contructor for this class
      */
@@ -75,8 +102,14 @@ public class AddStudentController {
          * call addStudent function in SpreadsheetCourse.java
          * in the model package
          */
-        SpreadsheetCourse sampleCourse = new SpreadsheetCourse();
-        sampleCourse.addStudent(new Student());
+        courseList = AddStudentCourseController.getCourseList();
+        for(SpreadsheetCourse currentCourses: courseList)
+        {
+           if(currentCourses != null)
+               currentCourses.addStudent(new Student(username.getText(),
+                   firstName.getText(), lastName.getText(),
+                   studentId.getText(), major.getText(), gradeLevel.getText()));
+        }
     }
 
     /**
@@ -93,6 +126,8 @@ public class AddStudentController {
        ViewUtility.showPage(loader, AnchorPane.class, "Add Course");
     }
 
+
+
     /**
      * Called when the user clicks on the delete course button in the
      * add student dialog.  This will remove a course from this Student's
@@ -100,7 +135,7 @@ public class AddStudentController {
      */
     @FXML
     private void handleDeleteCourseButton() {
-        Student tempStudent = new Student();
+        Student tempStudent = new Student("","","","","","");
         tempStudent.removeCourse(new SpreadsheetCourse());
     }
 }

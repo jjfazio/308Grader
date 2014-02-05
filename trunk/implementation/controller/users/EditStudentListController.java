@@ -71,7 +71,7 @@ public class EditStudentListController {
          * Call editStudentInfo method in Student model class
          * to make the data change.
          */
-        Student tempStudent = new Student();
+        Student tempStudent = new Student("","","","","","");
         tempStudent.editStudentInfo(tempStudent);
     }
 }

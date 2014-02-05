@@ -45,7 +45,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Classes" fx:id="ClassMenu">
           <items>
-            <MenuItem mnemonicParsing="false" text="Download Roster" fx:id="DownloadRosterMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewDownloadRoster" text="Download Roster" fx:id="DownloadRosterMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#classAdd" text="Add Class" fx:id="AddClassMenuItem" />
             <MenuItem mnemonicParsing="false" text="Edit Class" fx:id="EditClassMenuItem" />
             <MenuItem mnemonicParsing="false" text="Delete Class" fx:id="DeleteClassMenuItem" />

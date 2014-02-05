@@ -57,6 +57,6 @@ public class DeleteStudentListController {
          * calls deletestudent method in spreadsheetcourse model class
          */
         SpreadsheetCourse tempSpreadsheet = new SpreadsheetCourse();
-        tempSpreadsheet.deleteStudent(new Student());
+        tempSpreadsheet.deleteStudent(new Student("","","","","",""));
     }
 }
