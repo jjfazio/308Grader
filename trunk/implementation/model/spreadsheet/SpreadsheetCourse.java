@@ -3,6 +3,7 @@ package model.spreadsheet;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javafx.scene.control.ComboBox;
 import model.assignments_categories.Category;
 import model.file.Settings;
 import model.users.Student;
@@ -48,7 +49,11 @@ public class SpreadsheetCourse implements Serializable {
      * The {@link Setting} associated with the course.
      */
     private Settings settings;
-   
+
+    /**
+     * The {@link addCategoryParentName} associated with the course.
+     */
+    private ComboBox addCategoryParentName;
 
     /**
      * Adds category of assignments in the spread sheet which organizes the assignments into groups.
@@ -61,6 +66,8 @@ public class SpreadsheetCourse implements Serializable {
    
    public SpreadsheetCourse(CourseInfo ci, GradingScheme gs, LatePolicy lp) {
 	      topCategory = new Category();
+          //Shows the top category in the drop down list,
+        //  addCategoryParentName.setValue(topCategory.getName());
 	      courseInfo = ci;
 	      gradingDistribution = gs;
 	      latePolicy = lp;
