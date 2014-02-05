@@ -35,7 +35,7 @@ public class ViewUtility
    }
    
    /**
-    * Displays a new window to the screen.
+    * Loads and displays a new window to the screen.
     * @param loader - The loader that contains the view to be loaded
     * @param clazz - The class type of the view being loaded (example:
     * AnchorPane, BorderLayout, HBox.. )
@@ -56,6 +56,11 @@ public class ViewUtility
       
    }
    
+   /**
+    * Shows an already loaded view to the screen.
+    * @param parent The loaded view to be displayed.
+    * @param title The title of the new screen being displayed.
+    */
    public static <T extends Parent> void showPage(T parent, String title) {
        Scene scene;
        Stage stage = new Stage();

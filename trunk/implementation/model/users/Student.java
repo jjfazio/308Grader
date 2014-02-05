@@ -22,32 +22,32 @@ import model.spreadsheet.SpreadsheetCourse;
 
 public class Student implements Serializable {
     /** Contains the username of the student */
-    String userName;
+    private String userName;
     /** Contains the first name of the student */
-    String firstName;
+    private String firstName;
     /** Contains the middle name of the student */
-    String middleName;
+    private String middleName;
     /** Contains the last name of the student */
-    String lastName;
+    private String lastName;
     /** Contains the student id as a string */
-    String id;
+    private String id;
     /** Contains the student's current major */
-    String major;
+    private String major;
     /** Contains the student's current grade level */
-    String gradeLevel;
+    private String gradeLevel;
     /** Contains the student's email address */
-    String email;
+    private String email;
     /** Contains the student's phone number */
-    String phoneNumber;
+    private String phoneNumber;
    
     /** Contains the collection of courses that the student is enrolled */
-    ArrayList<SpreadsheetCourse> coursesEnrolled;
+    private ArrayList<SpreadsheetCourse> coursesEnrolled;
 
     /**
-     * Contains a linke between an assignment and the student's grade on
+     * Contains a link between an assignment and the student's grade on
      * that assignment
      */
-    HashMap<Assignment, Grade> grades;
+    private HashMap<Assignment, Grade> grades;
 
     /**
      * Class constructor that takes in
