@@ -1,6 +1,9 @@
 package controller.spreadsheet;
 
+import javax.swing.table.TableColumn;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.gradebook.Gradebook;
@@ -17,6 +20,15 @@ import model.spreadsheet.SpreadsheetCourse;
 public class AddGradingSchemeController {
     @FXML
     private TextField schemeName;
+    /*
+    @FXML
+    private TableView schemeTable;
+    @FXML
+    private TableColumn colSymbols;
+    @FXML
+    private TableColumn colLowPercent;
+    @FXML
+    private TableColumn colHighPercent; */
 
     private Stage primaryStage;
 
