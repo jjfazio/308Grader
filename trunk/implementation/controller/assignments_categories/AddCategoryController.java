@@ -1,11 +1,16 @@
 package controller.assignments_categories;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.assignments_categories.Category;
+import model.gradebook.Gradebook;
+import model.spreadsheet.SpreadsheetCourse;
 
 import javax.sql.rowset.CachedRowSet;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * @author Jirbert Dilanchian
@@ -13,13 +18,52 @@ import java.awt.*;
 public class AddCategoryController {
 
     @FXML
-    private String name;
+    private TextField addCategoryName;
 
     @FXML
-    private int weight;
+    private TextField addCategoryWeight;
 
     @FXML
-    private Category parentCategory;
+    private ComboBox addCategoryParentName;
+
+    /**
+     * Called by FXML when view is loaded. Reloads all of the
+     * categories.
+     */
+    @FXML
+    private void initialize() {
+        addCategoryParentName.getItems().clear();
+//        Category nCategory = new Category(Gradebook.getInstance().getCurrentCourse().getTopCategory(),
+//                45.0, "newCategory");
+        fillCombo(Gradebook.getInstance().getCurrentCourse().getTopCategory());
+    }
+
+    @FXML
+    private void fillCombo(Category theCat) {
+        addCategoryParentName.getItems().add(theCat.getName());
+        if((ArrayList<Category>)theCat.getSubCategories() != null){
+            for(Category x : (ArrayList<Category>)theCat.getSubCategories()) {
+                fillCombo(x);
+            }
+        }
+    }
+
+    @FXML
+    private Category findCategory(String name, Category cat) {
+        Category catLookingFor = null;
+        if(cat.getName().equals(name)) {
+            catLookingFor =  cat;
+        }
+        if((ArrayList<Category>)cat.getSubCategories() != null && catLookingFor == null){
+            for(Category x : (ArrayList<Category>)cat.getSubCategories()) {
+                if(catLookingFor == null) {
+                    findCategory(name, x);
+                }
+            }
+        }
+        return catLookingFor;
+    }
+
 
     /**
      * Adds a new category to the collection of categories of the parent category
@@ -27,9 +71,12 @@ public class AddCategoryController {
     @FXML
     public void handleAddCategorySave() {
         System.out.println("Save button Clicked!");
-        Category newCategory = new Category();
-        Category topCategory = new Category();
-        topCategory.addSubCategory(newCategory);
+        System.out.println(addCategoryParentName.getValue().toString());
+
+        Category parCategory = findCategory(addCategoryParentName.getValue().toString().trim(),
+                Gradebook.getInstance().getCurrentCourse().getTopCategory());
+        Category newCategory = new Category(parCategory,
+                Double.parseDouble(addCategoryWeight.getText()), addCategoryName.getText());
     }
 
     /**

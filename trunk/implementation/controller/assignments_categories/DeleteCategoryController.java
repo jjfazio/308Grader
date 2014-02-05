@@ -29,6 +29,15 @@ public class DeleteCategoryController {
     @FXML
     public void handleDeleteCategoryCancel() {
         System.out.println("Cancel button Clicked!");
+        /*
+         * cboVet.getSelectionModel().clearSelection();
+cboVet.getItems.clear();
+do something like this...
+
+parentNode.getChildren().remove(cboVet);
+cboVet = new ComboBox();  // do whatever else you need to format your ComboBox
+parentNode.add(cboVet);
+         */
 
     }
 }
