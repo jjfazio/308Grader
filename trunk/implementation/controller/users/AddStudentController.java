@@ -110,6 +110,14 @@ public class AddStudentController {
                    firstName.getText(), lastName.getText(),
                    studentId.getText(), major.getText(), gradeLevel.getText()));
         }
+        Stage stage = (Stage) firstName.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void handleCancelButton() {
+        Stage stage = (Stage) firstName.getScene().getWindow();
+        stage.close();
     }
 
     /**
