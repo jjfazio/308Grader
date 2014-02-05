@@ -19,16 +19,25 @@ import model.users.Student;
  */
 public class SpreadsheetController implements Observer {
     @FXML
-    private TableView<Student> studentTable;
+    private TableView<Student> table;
 
     @FXML
-    private TableColumn<Student, String> studentNameColumn;
+    private TableColumn<Student, String> firstNameColumn;
+    
+    @FXML
+    private TableColumn<Student, String> lastNameColumn;
 
     @FXML
     private TableColumn<Student, String> usernameColumn;
 
     @FXML
     private TableColumn<Student, String> userIDColumn;
+    
+    @FXML
+    private TableColumn<Student, String> yearColumn;
+    
+    @FXML
+    private TableColumn<Student, String> majorColumn;
     
     private SpreadsheetCourse course;
     
@@ -37,9 +46,12 @@ public class SpreadsheetController implements Observer {
     @FXML
     private void initialize() {
         studentList = FXCollections.observableArrayList();
-        studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("userName"));
         userIDColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("id"));
+        yearColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("gradeLevel"));
+        majorColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("major"));
     }
 
 
@@ -64,7 +76,7 @@ public class SpreadsheetController implements Observer {
    private void loadContent() {
        studentList.clear();
        studentList.addAll(course.getStudentRoster());
-       studentTable.setItems(studentList);
+       table.setItems(studentList);
    }
 
 }
