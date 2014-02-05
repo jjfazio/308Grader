@@ -1,12 +1,17 @@
 package controller.users;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.gradebook.Gradebook;
 import model.users.Student;
 import model.spreadsheet.SpreadsheetCourse;
+
+import java.util.ArrayList;
 
 /****
  *
@@ -42,6 +47,10 @@ public class EditStudentListController {
     @FXML
     private TableColumn<Student, CheckBox> checkBoxColumn;
 
+    private static ObservableList<Student> allStudents = FXCollections.observableArrayList();
+
+    private ArrayList<SpreadsheetCourse> allCourses;
+
     /**
      * Contructor for this class
      */
@@ -54,9 +63,16 @@ public class EditStudentListController {
      */
     @FXML
     private void initialize() {
-        studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
-        studentUsernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("username"));
+        studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
+        studentUsernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("userName"));
         enrolledCourseColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("courseEnrolled"));
+
+        allCourses = Gradebook.getInstance().getCourses();
+        for(SpreadsheetCourse currentCourse : allCourses)
+        {
+            allStudents.addAll(currentCourse.getStudentRoster());
+        }
+        studentTable.setItems(allStudents);
     }
 
     /**

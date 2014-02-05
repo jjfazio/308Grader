@@ -77,7 +77,7 @@ public class AddStudentController {
 
     @FXML
     private void initialize() {
-
+        courseData.removeAll();
         viewCourseList.setItems(courseData);
     }
 
