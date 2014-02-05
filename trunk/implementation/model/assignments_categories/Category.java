@@ -40,7 +40,14 @@ public class Category implements Serializable {
       if (parentCategory != null)
          parentCategory.addSubCategory(this);
    }
-   
+
+   /**
+    * Return the subcategories of current category.
+    * @return Return the subcategories of current category.
+    */
+    public Collection<Category> getSubCategories(){
+        return subCategories;
+    }
    
    /**
     * Adds assignments to the spreadsheet under the specified category

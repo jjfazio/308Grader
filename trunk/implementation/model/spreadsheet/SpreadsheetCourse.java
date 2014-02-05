@@ -32,7 +32,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     /**
      * Top level category.
      */
-    private static Category topCategory;
+    private Category topCategory;
 
     /**
      * A list of {@link Student}.
@@ -53,8 +53,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
      * The {@link Setting} associated with the course.
      */
     private Settings settings;
-
-
 
     /**
      * Adds category of assignments in the spread sheet which organizes the assignments into groups.
@@ -257,7 +255,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
       this.courseInfo = courseInfo;
    }
 
-   public static Category getTopCategory() {
+   public Category getTopCategory() {
       return topCategory;
    }
 
