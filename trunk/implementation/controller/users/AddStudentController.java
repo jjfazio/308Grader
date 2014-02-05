@@ -106,7 +106,8 @@ public class AddStudentController {
         for(SpreadsheetCourse currentCourses: courseList)
         {
            if(currentCourses != null)
-           currentCourses.addStudentObservable(new Student(username.getText(), firstName.getText(), lastName.getText(),
+               currentCourses.addStudent(new Student(username.getText(),
+                   firstName.getText(), lastName.getText(),
                    studentId.getText(), major.getText(), gradeLevel.getText()));
         }
     }

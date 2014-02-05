@@ -1,10 +1,14 @@
 package controller.spreadsheet;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 
@@ -13,7 +17,7 @@ import model.users.Student;
  * done to a spreadsheet will happen here
  * @author jamesfazio
  */
-public class SpreadsheetController {
+public class SpreadsheetController implements Observer {
     @FXML
     private TableView<Student> studentTable;
 
@@ -25,16 +29,18 @@ public class SpreadsheetController {
 
     @FXML
     private TableColumn<Student, String> userIDColumn;
+    
+    private SpreadsheetCourse course;
+    
+    private ObservableList<Student> studentList;
 
     @FXML
     private void initialize() {
+        studentList = FXCollections.observableArrayList();
         studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("userName"));
         userIDColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("id"));
-        studentTable.setItems(Gradebook.getInstance().getCourses().get(0).getStudentList());
     }
-
-   private SpreadsheetCourse course;
 
 
    /**
@@ -44,6 +50,21 @@ public class SpreadsheetController {
     */
    public void setSpreadsheet(SpreadsheetCourse course) {
       this.course = course;
+      loadContent();
+      
       System.out.println("Set up spreadsheet for " + course.getCourseInfo().getCourseName());
    }
+
+
+   @Override
+   public void update(Observable o, Object arg) {
+       loadContent();
+   }
+   
+   private void loadContent() {
+       studentList.clear();
+       studentList.addAll(course.getStudentRoster());
+       studentTable.setItems(studentList);
+   }
+
 }

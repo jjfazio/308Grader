@@ -45,7 +45,6 @@ public class CourseInfo implements Serializable{
         this.section = section;
         this.dept = dept;
         this.year = year;
-        System.out.println("Created a new CourseInfo for a SpreadsheetCourse");
     }
 
 
@@ -189,6 +188,95 @@ public class CourseInfo implements Serializable{
     public Collection<TeacherAssistant> getTeacherAssistants()
     {
         return teacherAssistants;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((courseName == null) ? 0 : courseName.hashCode());
+        result = prime * result + ((dept == null) ? 0 : dept.hashCode());
+        result = prime * result + ((number == null) ? 0 : number.hashCode());
+        result = prime * result + ((quarter == null) ? 0 : quarter.hashCode());
+        result = prime * result + ((section == null) ? 0 : section.hashCode());
+        result = prime
+                * result
+                + ((teacherAssistants == null) ? 0 : teacherAssistants
+                        .hashCode());
+        result = prime * result + year;
+        return result;
+    }
+
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CourseInfo other = (CourseInfo) obj;
+        if (courseName == null)
+        {
+            if (other.courseName != null)
+                return false;
+        }
+        else if (!courseName.equals(other.courseName))
+            return false;
+        if (dept == null)
+        {
+            if (other.dept != null)
+                return false;
+        }
+        else if (!dept.equals(other.dept))
+            return false;
+        if (number == null)
+        {
+            if (other.number != null)
+                return false;
+        }
+        else if (!number.equals(other.number))
+            return false;
+        if (quarter == null)
+        {
+            if (other.quarter != null)
+                return false;
+        }
+        else if (!quarter.equals(other.quarter))
+            return false;
+        if (section == null)
+        {
+            if (other.section != null)
+                return false;
+        }
+        else if (!section.equals(other.section))
+            return false;
+        if (teacherAssistants == null)
+        {
+            if (other.teacherAssistants != null)
+                return false;
+        }
+        else if (!teacherAssistants.equals(other.teacherAssistants))
+            return false;
+        if (year != other.year)
+            return false;
+        return true;
+    }
+    
+    
+
+
+    @Override
+    public String toString()
+    {
+        return "CourseInfo [courseName=" + courseName + ", quarter=" + quarter
+                + ", section=" + section + ", number=" + number + ", year="
+                + year + ", dept=" + dept + ", teacherAssistants="
+                + teacherAssistants + "]";
     }
     
 }
