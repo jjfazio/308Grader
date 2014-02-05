@@ -80,7 +80,7 @@ public class AddClassController  {
     private void handleCreateNewGradingSchemeButton() {
        FXMLLoader loader = new FXMLLoader(getClass().getResource(
           "/view/spreadsheet/AddGradingScheme.fxml"));
-       ViewUtility.showPage(loader, AnchorPane.class, "Create Grading Scheme");
+       ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Create Grading Scheme");
     }
 
     /**
@@ -91,6 +91,6 @@ public class AddClassController  {
     private void handleCreateNewTeacherAssistantButton() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
                 "/view/users/AddTeacherAssistant.fxml"));
-        ViewUtility.showPage(loader, AnchorPane.class, "Create Teacher Assistant");
+        ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Create Teacher Assistant");
     }
 }

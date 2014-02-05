@@ -1,5 +1,6 @@
 package controller.spreadsheet;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -62,7 +63,7 @@ public class SpreadsheetController implements Observer {
     */
    public void setSpreadsheet(SpreadsheetCourse course) {
       this.course = course;
-      loadContent();
+      loadContent(course.getStudentRoster());
       
       System.out.println("Set up spreadsheet for " + course.getCourseInfo().getCourseName());
    }
@@ -70,12 +71,13 @@ public class SpreadsheetController implements Observer {
 
    @Override
    public void update(Observable o, Object arg) {
-       loadContent();
+       if (course.isStudentAdded())
+           loadContent(course.getAddedStudents());
    }
    
-   private void loadContent() {
-       studentList.clear();
-       studentList.addAll(course.getStudentRoster());
+   private void loadContent(List<Student> students) {
+      // studentList.clear();
+       studentList.addAll(students);
        table.setItems(studentList);
    }
 

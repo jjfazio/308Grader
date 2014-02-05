@@ -123,7 +123,7 @@ public class AddStudentController {
         /*
          * Shows the Add Course dialog box
          */
-       ViewUtility.showPage(loader, AnchorPane.class, "Add Course");
+       ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Add Course");
     }
 
 
@@ -135,7 +135,7 @@ public class AddStudentController {
      */
     @FXML
     private void handleDeleteCourseButton() {
-        Student tempStudent = new Student("","","","","","");
-        tempStudent.removeCourse(new SpreadsheetCourse());
+//        Student tempStudent = new Student("","","","","","");
+//        tempStudent.removeCourse(new SpreadsheetCourse());
     }
 }

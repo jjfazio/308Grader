@@ -40,7 +40,7 @@ public class ViewUtility
     * AnchorPane, BorderLayout, HBox.. )
     * @param title - The title of the new window
     */
-   public static <T extends Parent> void showPage(FXMLLoader loader,
+   public static <T extends Parent> void loadAndShowPage(FXMLLoader loader,
       Class<T> clazz, String title) {
       T page;
       Stage stage;
@@ -52,5 +52,15 @@ public class ViewUtility
       scene = new Scene(page);
       stage.setScene(scene);
       stage.show();
+   }
+   
+   public static void showPage(Parent parent, String title) {
+       Scene scene;
+       Stage stage = new Stage();
+       
+       stage.setTitle(title);
+       scene = new Scene(parent);
+       stage.setScene(scene);
+       stage.show();
    }
 }

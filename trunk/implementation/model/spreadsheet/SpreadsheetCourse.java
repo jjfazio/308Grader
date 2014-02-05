@@ -37,6 +37,13 @@ public class SpreadsheetCourse extends Observable implements Serializable {
      * A list of {@link Student}.
      */
     private List<Student> studentRoster;
+    
+    /**
+     * A list of students that got newly added to the
+     * SpreadsheetCourse. This list will assist the view
+     * in not having to do a full refresh
+     */
+    private List<Student> addedStudents;
 
     /**
      * The {@link GradingScheme} associated with the course.
@@ -52,17 +59,11 @@ public class SpreadsheetCourse extends Observable implements Serializable {
      * The {@link Setting} associated with the course.
      */
     private Settings settings;
-   
+    
 
     /**
      * Adds category of assignments in the spread sheet which organizes the assignments into groups.
      */
-   
-   public SpreadsheetCourse() {
-      System.out.println("Created a Spreadsheet Course!");
-      topCategory = new Category();  
-      studentRoster = new ArrayList<Student>();
-   }
    
    public SpreadsheetCourse(CourseInfo ci, GradingScheme gs, LatePolicy lp) {
 	      topCategory = new Category();
@@ -71,7 +72,9 @@ public class SpreadsheetCourse extends Observable implements Serializable {
 	      latePolicy = lp;
 	      System.out.println("Creating a Spreadsheet Course named: " + 
 	      courseInfo.getCourseName());
+	      topCategory = new Category();
 	      studentRoster = new ArrayList<Student>();
+	      addedStudents = new ArrayList<Student>();
     }
 
 
@@ -126,13 +129,16 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     @*/
     public void addStudent(Student student) {
         studentRoster.add(student);
+        addedStudents.add(student);
+        
         setChanged();
         notifyObservers();
-        System.out.println("In SpreadsheetCourse.addStudent");
     }
     
     public void addStudents(List<Student> students) {
         studentRoster.addAll(students);
+        addedStudents.addAll(students);
+        
         setChanged();
         notifyObservers();
     }
@@ -244,114 +250,127 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     public void adjustCourseCurve(Double amountCurved) {
        
     }
-
-   public CourseInfo getCourseInfo() {
-      return courseInfo;
-   }
-
-   public void setCourseInfo(CourseInfo courseInfo) {
-      this.courseInfo = courseInfo;
-   }
-
-   public Category getTopCategory() {
-      return topCategory;
-   }
-
-   public List<Student> getStudentRoster() {
-      return studentRoster;
-   }
-
-   public GradingScheme getGradingDistribution() {
-      return gradingDistribution;
-   }
-
-   public void setGradingDistribution(GradingScheme gradingDistribution) {
-      this.gradingDistribution = gradingDistribution;
-   }
-
-   public LatePolicy getLatePolicy() {
-      return latePolicy;
-   }
-
-   public void setLatePolicy(LatePolicy latePolicy) {
-      this.latePolicy = latePolicy;
-   }
-
-   public Settings getSettings() {
-      return settings;
-   }
-
-   public void setSettings(Settings settings) {
-      this.settings = settings;
-   }
-
-   //generated
-   @Override
-   public int hashCode() {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((topCategory == null) ? 0 : topCategory.hashCode());
-      result = prime * result
-            + ((courseInfo == null) ? 0 : courseInfo.hashCode());
-      result = prime
-            * result
-            + ((gradingDistribution == null) ? 0 : gradingDistribution
-                  .hashCode());
-      result = prime * result
-            + ((latePolicy == null) ? 0 : latePolicy.hashCode());
-      result = prime * result + ((settings == null) ? 0 : settings.hashCode());
-      result = prime * result
-            + ((studentRoster == null) ? 0 : studentRoster.hashCode());
-      return result;
-   }
-
-
-   //generated
-   @Override
-   public boolean equals(Object obj) {
-      if (this == obj)
-         return true;
-      if (obj == null)
-         return false;
-      if (getClass() != obj.getClass())
-         return false;
-      SpreadsheetCourse other = (SpreadsheetCourse) obj;
-      if (topCategory == null) {
-         if (other.topCategory != null)
-            return false;
-      } else if (!topCategory.equals(other.topCategory))
-         return false;
-      if (courseInfo == null) {
-         if (other.courseInfo != null)
-            return false;
-      } else if (!courseInfo.equals(other.courseInfo))
-         return false;
-      if (gradingDistribution == null) {
-         if (other.gradingDistribution != null)
-            return false;
-      } else if (!gradingDistribution.equals(other.gradingDistribution))
-         return false;
-      if (latePolicy == null) {
-         if (other.latePolicy != null)
-            return false;
-      } else if (!latePolicy.equals(other.latePolicy))
-         return false;
-      if (settings == null) {
-         if (other.settings != null)
-            return false;
-      } else if (!settings.equals(other.settings))
-         return false;
-      if (studentRoster == null) {
-         if (other.studentRoster != null)
-            return false;
-      } else if (!studentRoster.equals(other.studentRoster))
-         return false;
-      return true;
-   }
-   
-   
     
+    public Boolean isStudentAdded() 
+    {
+        return !addedStudents.isEmpty();
+    }
     
+    /**
+     * Gets the students recently added. Whenever this method gets called
+     * it clears the recently added students so no duplicates occur.
+     * @return List of recently added {@link Student}
+     */
+    public List<Student> getAddedStudents()
+    {
+        List<Student> temp = new ArrayList<Student>(addedStudents);
+        addedStudents.clear();
+        return temp;
+    }
     
+
+    public CourseInfo getCourseInfo() {
+        return courseInfo;
+    }
+
+    public void setCourseInfo(CourseInfo courseInfo) {
+        this.courseInfo = courseInfo;
+    }
+
+    public Category getTopCategory() {
+        return topCategory;
+    }
+
+    public List<Student> getStudentRoster() {
+        return studentRoster;
+    }
+
+    public GradingScheme getGradingDistribution() {
+        return gradingDistribution;
+    }
+
+    public void setGradingDistribution(GradingScheme gradingDistribution) {
+        this.gradingDistribution = gradingDistribution;
+    }
+
+    public LatePolicy getLatePolicy() {
+        return latePolicy;
+    }
+
+    public void setLatePolicy(LatePolicy latePolicy) {
+        this.latePolicy = latePolicy;
+    }
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
+
+    //generated
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((topCategory == null) ? 0 : topCategory.hashCode());
+        result = prime * result
+                + ((courseInfo == null) ? 0 : courseInfo.hashCode());
+        result = prime
+                * result
+                + ((gradingDistribution == null) ? 0 : gradingDistribution
+                        .hashCode());
+        result = prime * result
+                + ((latePolicy == null) ? 0 : latePolicy.hashCode());
+        result = prime * result + ((settings == null) ? 0 : settings.hashCode());
+        result = prime * result
+                + ((studentRoster == null) ? 0 : studentRoster.hashCode());
+        return result;
+    }
+
+
+    //generated
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SpreadsheetCourse other = (SpreadsheetCourse) obj;
+        if (topCategory == null) {
+            if (other.topCategory != null)
+                return false;
+        } else if (!topCategory.equals(other.topCategory))
+            return false;
+        if (courseInfo == null) {
+            if (other.courseInfo != null)
+                return false;
+        } else if (!courseInfo.equals(other.courseInfo))
+            return false;
+        if (gradingDistribution == null) {
+            if (other.gradingDistribution != null)
+                return false;
+        } else if (!gradingDistribution.equals(other.gradingDistribution))
+            return false;
+        if (latePolicy == null) {
+            if (other.latePolicy != null)
+                return false;
+        } else if (!latePolicy.equals(other.latePolicy))
+            return false;
+        if (settings == null) {
+            if (other.settings != null)
+                return false;
+        } else if (!settings.equals(other.settings))
+            return false;
+        if (studentRoster == null) {
+            if (other.studentRoster != null)
+                return false;
+        } else if (!studentRoster.equals(other.studentRoster))
+            return false;
+        return true;
+    }
     
 } 
