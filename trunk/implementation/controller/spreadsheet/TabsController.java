@@ -62,6 +62,7 @@ public class TabsController implements Observer {
                tab.setContent(content);
                tab.setUserData(course);
                controller = loader.getController();
+               course.addObserver(controller);
                controller.setSpreadsheet(course);
                
                tabs.getTabs().add(tab);
