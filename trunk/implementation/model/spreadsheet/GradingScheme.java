@@ -14,7 +14,7 @@ public class GradingScheme implements Serializable {
 
     public GradingScheme()
     {
-        System.out.println("Creted a new grading scheme");
+        System.out.println("Created a new grading scheme");
     }
     
     public GradingScheme(List<GradeRange> ranges, String name)
@@ -22,7 +22,7 @@ public class GradingScheme implements Serializable {
         plusMinusEnabled = true;
         gradeRanges = ranges;
         schemeName = name;
-        System.out.println("Creted a new grading scheme with name: " + name);
+        System.out.println("Created a new grading scheme with name: " + name);
     }
     
     public GradingScheme(String name)
@@ -31,4 +31,5 @@ public class GradingScheme implements Serializable {
         schemeName = name;
         System.out.println("Creted a new grading scheme with name: " + name);
     }
+    
 }

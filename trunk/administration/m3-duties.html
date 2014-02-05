@@ -22,34 +22,51 @@
         
     <tr>
         <td valign=top>Kevin Feutz
-        <td valign=top>
-        <td valign=top>
-        <td valign=top>
-        <td valign=top>
+        <td valign=top>Add a student to a course.
+        <td valign=top>controller/users/AddStudentController.java, view/users/AddStudent.fxml, controller/users/AddStudentCourseController,
+        view/users/AddStudentCourse.fxml
+        <td valign=top>On the main menu bar, select Students->Add Students, AddStudent dialog will appear.  Fill in information, select Add Course button, select the course in which the student will be added, click Select button.  Select Confirm Add button.
+        <td valign=top>Student will appear in the main spreadsheet correlating to the course that was included in the "Course(s) Enrolled:" section.  Select the appropriate tab to view that course's roster.
     <tr>
         <td valign=top>Jirbert Dilanchian
-        <td valign=top>
-        <td valign=top>
-        <td valign=top>
-        <td valign=top>
+        <td valign=top>Add Category of assignments to the spreadsheet.
+        <td valign=top>controller/assignments_categories/AddCategoryController
+            view/assignment_categories/addAssignment.fxml
+        <td valign=top>On the menu bar, select Assignment->Add Category, Add Category dialoge will appear. Till in the information, and select the "save" botton.
+        <td valign=top>a new category appears in the spreadsheet and it will subcategory of its parrent category.
     <tr>
         <td valign=top>Kevin Backers
-        <td valign=top>
-        <td valign=top>
-        <td valign=top>
-        <td valign=top>
+        <td valign=top>Add a class.
+        <td valign=top>controller/AddClassController.java, view/AddGradingScheme.fxml
+        <td valign=top>Select Classes -> Add Class menu item. Then fill in the dialog (Grading Scheme and Late Policy are still in progress). 
+        <td valign=top>Confirm in the spreadsheet on the main view that another tab has been added titled with the course number and section from the dialog. Confirm it persists by selecting File -> Save, closing the application, and reopening and seeing the tab is still there.
     <tr>
         <td valign=top>James Fazio
-        <td valign=top> 
-		<td valign=top>
-        <td valign=top>
-        <td valign=top> 
+        <td valign=top> Save Gradebook. Download Student Roster. Change Courses.
+		<td valign=top> controller/spreadsheet/SpreadsheetController 
+            controller/spreadsheet/TabsController controller/gradebook/DownloadRosterController model/spreadsheet/SpreadsheetCourse
+            model/spreadsheet/CourseDB model/users/StudentDB
+        <td valign=top> 1. Download Student roster
+                            <br> Menu -> Classes -> DownloadRoster
+                            <br> Select Classes from SIS to download from
+                            <br> Select an existing SpreadsheetCourse to be downloaded to
+                            <br> Press the Download Button
+                            <br> Students appear in Spreadsheet
+                            <br>
+                        2. Save Class
+                            <br> Menu -> File -> Save
+                            <br> Quit program
+                            <br> Reopen and all previous changes persist
+                        3. Change Course
+                            <br> Select different course on Tab
+                            <br> Can repeat step 1 and 2
+        <td valign=top> Validation described in step situation 1 and 2. Further validation in the DownloadRoster class. If you do not select a SpreadsheetCourse an error message will appear. If you select multiple SIS classes a warning dialog will appear
     <tr>
         <td valign=top>Erik Owen
-        <td valign=top>
-        <td valign=top>
-        <td valign=top>
-        <td valign=top>
+        <td valign=top>The 'View Graphs' window is the main focus for M3.
+        <td valign=top>All files in implementation/controller/graph, implementation/model/graph, implementation/view/graph
+        <td valign=top>After selecting a particular assignment column, click on the 'View Graphs' button below the table.
+        <td valign=top>Toggling the 'View Grades As' check boxes should make graphs disappear and reappear. Different graphs should appear for different assignments that are selected on the main page. However, this assumes that the different columns and sub-columns in the table have been implemented, and there is data in the table.
     <tr>
 </table>
 <br>
