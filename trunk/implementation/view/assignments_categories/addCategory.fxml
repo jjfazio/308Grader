@@ -13,7 +13,7 @@
   <children>
     <VBox layoutX="10.0" layoutY="24.0" prefHeight="166.0" prefWidth="283.0">
       <children>
-        <Label graphicTextGap="4.0" text="Name" VBox.vgrow="ALWAYS">
+        <Label graphicTextGap="4.0" text="Category" VBox.vgrow="ALWAYS">
           <font>
             <Font size="16.0" fx:id="x1" />
           </font>
@@ -21,7 +21,7 @@
             <Insets left="10.0" top="10.0" fx:id="x2" />
           </VBox.margin>
         </Label>
-        <Label font="$x1" graphicTextGap="4.0" text="Category" VBox.margin="$x2" VBox.vgrow="ALWAYS" />
+        <Label font="$x1" graphicTextGap="4.0" text="Name" VBox.margin="$x2" VBox.vgrow="ALWAYS" />
         <Label font="$x1" graphicTextGap="4.0" text="Weight (%)" VBox.margin="$x2" VBox.vgrow="ALWAYS" />
       </children>
     </VBox>

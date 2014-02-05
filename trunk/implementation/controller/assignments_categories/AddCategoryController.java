@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.assignments_categories.Category;
+import model.spreadsheet.SpreadsheetCourse;
 
 import javax.sql.rowset.CachedRowSet;
 import java.awt.*;
@@ -33,21 +34,23 @@ public class AddCategoryController {
 
     public void handleAddCategorySave() {
         System.out.println("Save button Clicked!");
-//        addCategoryParentName.setValue("Hello");
-//        addCategoryParentName.setValue("Stupid");
-//        addCategoryParentName.setValue("World");
         if (this.flag == 0) {
             addCategoryParentName.getItems().clear();
-
         }
-        ArrayList<String> = new ArrayList<String>();
-        addCategoryParentName.
 
-    //    System.out.println(addCategoryName.getText() + "  " + addCategoryWeight.getText() + addCategoryParentName.getValue());
-    //    Category cat = new Category();
-    //    Category newCategory = new Category(cat, Double.parseDouble(addCategoryWeight.getText()), addCategoryName.getText());
-//        topCategory.addSubCategory(newCategory);
+        if(addCategoryParentName.getValue().equals("TopCategory")){
+            Category newCategory = new Category(SpreadsheetCourse.getTopCategory(),
+                Double.parseDouble(addCategoryWeight.getText()), addCategoryName.getText());
+            SpreadsheetCourse.getTopCategory().addSubCategory(newCategory);
+        }
+        else
+        {
+//            findCategory(addCategoryParentName.getValue());
+        }
     }
+
+
+
 
     /**
      * Closes the Add Category page without doing any changes.
