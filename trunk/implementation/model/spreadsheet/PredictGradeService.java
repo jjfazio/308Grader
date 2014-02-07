@@ -6,6 +6,7 @@ import model.users.Student;
  * The Predict Grade page contains methods which give students the ability to predict their score or
  * analyze their grades in their class's respective spreadsheet.
  */
+// not implemented
 abstract class PredictGradePage {
 
     /**

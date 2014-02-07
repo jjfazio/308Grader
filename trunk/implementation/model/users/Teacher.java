@@ -8,7 +8,6 @@ import java.io.Serializable;
  *	Additionally, they have a username. 
  *  @author erikowen
  */
-
 public class Teacher implements Serializable {
     private static final long serialVersionUID = 8078832822412193181L;
     
@@ -23,9 +22,19 @@ public class Teacher implements Serializable {
         this.lastName = lastName;
         this.userName = userName;
     }
-    
-    
-	
-	
-	
+
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    public String getUserName()
+    {
+        return userName;
+    }
 }
