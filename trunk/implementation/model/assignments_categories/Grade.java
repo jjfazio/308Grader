@@ -16,4 +16,15 @@ public class Grade implements Serializable {
    
    private static final long serialVersionUID = -4121067889826371429L;
    
+   public Grade(Assignment assign, Date turnedIn, Double score, String letterGrade) {
+	   this.assign = assign;
+	   this.turnedIn = turnedIn;
+	   this.score = score;
+	   this.letterGrade = letterGrade;
+   }
+   
+   public Double getScore() {
+	   return this.score;
+   }
+   
 }

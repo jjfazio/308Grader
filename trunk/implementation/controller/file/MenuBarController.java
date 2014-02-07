@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import model.assignments_categories.Assignment;
+import model.assignments_categories.Grade;
 import model.gradebook.Gradebook;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
@@ -122,7 +123,7 @@ public class MenuBarController
     	Assignment ass = null; /*new Assignment("HW 9", 30, 100, null, null, null, false);*/
     	List<Student> studentList = new ArrayList<Student>();
     	studentList.add(new Student(null, null, null, null, null, null));
-    	controller.setAssignment(ass);
+    	controller.setAssignment(ass, new ArrayList<Student>());
     	
         ViewUtility.showPage(pane, "Graphs");
     }
