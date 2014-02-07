@@ -1,7 +1,6 @@
 package controller.users;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -12,7 +11,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.gradebook.Gradebook;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
@@ -77,7 +75,7 @@ public class AddStudentController {
 
     @FXML
     private void initialize() {
-
+        courseData.removeAll();
         viewCourseList.setItems(courseData);
     }
 
@@ -110,6 +108,14 @@ public class AddStudentController {
                    firstName.getText(), lastName.getText(),
                    studentId.getText(), major.getText(), gradeLevel.getText()));
         }
+        Stage stage = (Stage) firstName.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void handleCancelButton() {
+        Stage stage = (Stage) firstName.getScene().getWindow();
+        stage.close();
     }
 
     /**
@@ -123,7 +129,7 @@ public class AddStudentController {
         /*
          * Shows the Add Course dialog box
          */
-       ViewUtility.showPage(loader, AnchorPane.class, "Add Course");
+       ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Add Course");
     }
 
 
@@ -135,7 +141,7 @@ public class AddStudentController {
      */
     @FXML
     private void handleDeleteCourseButton() {
-        Student tempStudent = new Student("","","","","","");
-        tempStudent.removeCourse(new SpreadsheetCourse());
+//        Student tempStudent = new Student("","","","","","");
+//        tempStudent.removeCourse(new SpreadsheetCourse());
     }
 }

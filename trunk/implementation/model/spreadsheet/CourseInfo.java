@@ -8,6 +8,7 @@ import model.users.TeacherAssistant;
 /**
  * Course contains a courseName, a quarter, a number, and a dept along with 
  * methods to manipulate these fields
+ * @author kevinbackers
  */
 public class CourseInfo implements Serializable{
     private static final long serialVersionUID = 8576375778985622591L;
@@ -22,6 +23,9 @@ public class CourseInfo implements Serializable{
      */
     private String quarter;
     
+    /**
+     * Section of the course
+     */
     private String section;
 
     /**

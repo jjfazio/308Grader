@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.stage.Stage;
 import model.gradebook.Gradebook;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
@@ -78,6 +79,15 @@ public class AddStudentCourseController {
         int indexSelected = viewCourseList.getSelectionModel().getSelectedIndex();
         AddStudentController.addCourseToDialog(courseList.get(indexSelected).getCourseInfo());
         studentCourseList.add(courseList.get(indexSelected));
+
+        Stage stage = (Stage) viewCourseList.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void handleCancelButton() {
+        Stage stage = (Stage) viewCourseList.getScene().getWindow();
+        stage.close();
     }
 
     /**

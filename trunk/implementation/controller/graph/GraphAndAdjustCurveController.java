@@ -1,12 +1,22 @@
 package controller.graph;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.graph.Graph;
+import model.graph.Range;
+import model.users.Student;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
@@ -65,8 +75,8 @@ public class GraphAndAdjustCurveController {
      * 
      * @param cat the current category being viewed on the graphs
      */
-    public void setCategory(Category cat) {
-    	this.graph.setCategory(cat);
+    public void setCategory(Category cat, List<Student> students) {
+    	this.graph.setCategory(cat, students);
     }
     
     /**
@@ -75,8 +85,29 @@ public class GraphAndAdjustCurveController {
      * 
      * @param ass the current assignment being viewed on the graphs
      */
-    public void setAssignment(Assignment ass) {
-    	this.graph.setAssignment(ass);
+    public void setAssignment(Assignment ass, List<Student> students) {
+    	this.graph.setAssignment(ass, students);
+    	HashMap<Range, Integer> scoreMap = graph.getAssignmentData();
+    	final String[] grade = {"0 - 10", "10 - 20", "20 - 30", "30 - 40",
+    		"40 - 50", "50 - 60", "60 - 70", "70 - 80", "80 - 90",
+    		"90 - 100", "100+"};
+        final CategoryAxis yAxis = new CategoryAxis();
+        final NumberAxis xAxis = new NumberAxis();
+        //final BarChart<Number,String> bc = new BarChart<Number,String>(xAxis,yAxis);
+        this.barChart = new BarChart<Number,String>(xAxis,yAxis);
+        this.barChart.setTitle(ass.getName() + " Grade Distribution BarChart");
+        yAxis.setLabel("Grade (%)");
+        yAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(grade)));
+        XYChart.Series<Number,String> series1 = new XYChart.Series<Number,String>();
+        series1.setName("Number of Students");
+        Range[] ranges = Range.values();
+        
+        for(int ndx = 0; ndx < scoreMap.size(); ndx ++) {
+        	series1.getData().add(new XYChart.Data<Number, 
+        		String>(scoreMap.get(ranges[ndx]), grade[ndx]));
+        }
+        
+        this.barChart.getData().add(series1);
     }
     
     /**
@@ -118,7 +149,7 @@ public class GraphAndAdjustCurveController {
     private void handleAddCustomCurveButton() {
         System.out.println("Add custom curve button pressed");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/graph/CustomCurveAdjuster.fxml"));
-        ViewUtility.showPage(loader, AnchorPane.class, "Custom Curve Adjuster");
+        ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Custom Curve Adjuster");
 
     }
     

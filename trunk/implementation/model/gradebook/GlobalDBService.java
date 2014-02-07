@@ -7,6 +7,7 @@ package model.gradebook;
  * @author jamesfazio
  *
  */
+// not implemeted
 public abstract class GlobalDBService {
    
    /**

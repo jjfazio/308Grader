@@ -17,23 +17,23 @@ public class LatePolicy implements Serializable {
      * override the amount of graceDays. Multiple same level categories can
      * have different amounts of graceDays.
      */
-   Boolean graceDaysEnabled;
+   private Boolean graceDaysEnabled;
    
    /**
     * The amount of time a student has before they start to get deducted.
     * The decayRate is an amount of time in hours.
     */
-   Integer decayRate;
+   private Integer decayRate;
    
    /**
     * The amount of percentage deducted from a student's grade if they turn in 
     * and assignment late. If the decayRate is 1 hour and the decayPercentage is
     * 10% a student will lose 20% if they turn in an assignment 2 hours late.
     */
-   Double decayPercentage;
+   private Double decayPercentage;
    
    /**
     * The amount of graceDays a student has.
     */
-   Integer graceDays;
+   private Integer graceDays;
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -34,13 +35,13 @@ public class ViewUtility
    }
    
    /**
-    * Displays a new window to the screen.
+    * Loads and displays a new window to the screen.
     * @param loader - The loader that contains the view to be loaded
     * @param clazz - The class type of the view being loaded (example:
     * AnchorPane, BorderLayout, HBox.. )
     * @param title - The title of the new window
     */
-   public static <T extends Parent> void showPage(FXMLLoader loader,
+   public static <T extends Parent> void loadAndShowPage(FXMLLoader loader,
       Class<T> clazz, String title) {
       T page;
       Stage stage;
@@ -52,5 +53,21 @@ public class ViewUtility
       scene = new Scene(page);
       stage.setScene(scene);
       stage.show();
+      
+   }
+   
+   /**
+    * Shows an already loaded view to the screen.
+    * @param parent The loaded view to be displayed.
+    * @param title The title of the new screen being displayed.
+    */
+   public static <T extends Parent> void showPage(T parent, String title) {
+       Scene scene;
+       Stage stage = new Stage();
+       
+       stage.setTitle(title);
+       scene = new Scene(parent);
+       stage.setScene(scene);
+       stage.show();
    }
 }
