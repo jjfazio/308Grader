@@ -36,4 +36,41 @@ public class LatePolicy implements Serializable {
     * The amount of graceDays a student has.
     */
    private Integer graceDays;
+
+   public LatePolicy(Boolean graceDaysEnabled, Integer decayRate,
+           Double decayPercentage, Integer graceDays)
+   {
+       super();
+       this.graceDaysEnabled = graceDaysEnabled;
+       this.decayRate = decayRate;
+       this.decayPercentage = decayPercentage;
+       this.graceDays = graceDays;
+   }
+   
+   public LatePolicy()
+   {
+       
+   }
+
+   public Boolean getGraceDaysEnabled()
+   {
+       return graceDaysEnabled;
+   }
+
+   public Integer getDecayRate()
+   {
+       return decayRate;
+   }
+
+   public Double getDecayPercentage()
+   {
+       return decayPercentage;
+   }
+
+   public Integer getGraceDays()
+   {
+       return graceDays;
+   }
+   
+   
 }

@@ -3,14 +3,19 @@ package model.spreadsheet;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 
+ * @author kevinbackers
+ *
+ */
 public class GradingScheme implements Serializable {
     private static final long serialVersionUID = 5306127170696546118L;
     
-    Boolean plusMinusEnabled;
+    private Boolean plusMinusEnabled;
     
-    List<GradeRange> gradeRanges;
+    private List<GradeRange> gradeRanges;
     
-    String schemeName;
+    private String schemeName;
 
     public GradingScheme()
     {
@@ -30,6 +35,21 @@ public class GradingScheme implements Serializable {
         plusMinusEnabled = true;
         schemeName = name;
         System.out.println("Creted a new grading scheme with name: " + name);
+    }
+
+    public Boolean getPlusMinusEnabled()
+    {
+        return plusMinusEnabled;
+    }
+
+    public List<GradeRange> getGradeRanges()
+    {
+        return gradeRanges;
+    }
+
+    public String getSchemeName()
+    {
+        return schemeName;
     }
     
 }
