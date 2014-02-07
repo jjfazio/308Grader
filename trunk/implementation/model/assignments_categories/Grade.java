@@ -7,6 +7,7 @@ import java.util.Date;
 /**
  * Grade contains a Course, an Assignment, a Date, and a Score, along with
  * methods available to change this data
+ * @autho ericowen
  */
 public class Grade implements Serializable {
    Assignment assign;
@@ -49,5 +50,4 @@ public class Grade implements Serializable {
    {
        return letterGrade;
    }
-   
 }
