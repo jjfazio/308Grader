@@ -6,11 +6,26 @@ import java.io.Serializable;
  *	A Teacher represents the main user of the gradebook. 
  *	They are made up of a name, which is broken down into first name and last name.
  *	Additionally, they have a username. 
+ *  @author erikowen
  */
 
 public class Teacher implements Serializable {
     private static final long serialVersionUID = 8078832822412193181L;
-    String first_name;
-	String last_name;
-	String username;
+    
+    private String firstName;
+	private String lastName;
+	private String userName;
+	
+    public Teacher(String firstName, String lastName, String userName)
+    {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+    }
+    
+    
+	
+	
+	
 }
