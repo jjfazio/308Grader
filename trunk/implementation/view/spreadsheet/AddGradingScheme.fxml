@@ -13,17 +13,20 @@
       <children>
         <HBox alignment="CENTER" prefHeight="55.0" prefWidth="371.0">
           <children>
-            <TableView editable="true" prefHeight="55.0" prefWidth="370.9998779296875" tableMenuButtonVisible="false" HBox.hgrow="NEVER">
+            <TableView fx:id="rangesTable" editable="true" prefHeight="55.0" prefWidth="370.9998779296875" tableMenuButtonVisible="false" HBox.hgrow="NEVER">
               <columns>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="152.0" text="Symbol" fx:id="colSymbols" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Low %" fx:id="colLowPercent" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="98.0" text="High %" fx:id="colHighPercent" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="108.0" text="Symbol" fx:id="colSymbols" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="117.0" text="Low %" fx:id="colLowPercent" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="117.0" text="High %" fx:id="colHighPercent" />
               </columns>
             </TableView>
           </children>
         </HBox>
-        <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="385.0">
+        <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="378.0">
           <children>
+            <TextField fx:id="newSymbol" prefWidth="200.0" />
+            <TextField fx:id="newLowPercent" prefWidth="200.0" />
+            <TextField fx:id="newHighPercent" prefWidth="200.0" />
             <Button mnemonicParsing="false" onAction="#handlePlusButton" text="+" />
           </children>
         </HBox>
