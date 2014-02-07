@@ -9,6 +9,7 @@ import java.util.Collection;
  *
  */
 
+//currently unimplemented
 public abstract class LoginService {
 	Collection<UserRecord> users;
    /**

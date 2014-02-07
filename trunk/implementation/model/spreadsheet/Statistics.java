@@ -8,6 +8,7 @@ import model.assignments_categories.Category;
 import model.assignments_categories.Grade;
 import model.users.Student;
 
+// not yet implemented
 public class Statistics {
    
    public static Double averageAssignments(List<Student> students,

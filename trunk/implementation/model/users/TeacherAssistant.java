@@ -9,8 +9,8 @@ import model.file.TaPermissions;
  * multiple Teacher's Assistant. Each Teacher Assistant
  * can have different permissions 
  * @author jamesfazio
- *
  */
+
 public class TeacherAssistant implements Serializable {
 
     private static final long serialVersionUID = 3855894657641156555L;
@@ -31,5 +31,25 @@ public class TeacherAssistant implements Serializable {
         firstName = first;
         lastName = last;
         permissions = p;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    public TaPermissions getPermissions()
+    {
+        return permissions;
     }
 }
