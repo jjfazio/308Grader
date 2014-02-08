@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +15,9 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
+import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 
@@ -48,7 +51,7 @@ public class SpreadsheetController implements Observer {
     private SpreadsheetCourse course;
     
     private ObservableList<Student> studentList;
-
+    
     @FXML
     private void initialize() {
         studentList = FXCollections.observableArrayList();
@@ -58,6 +61,7 @@ public class SpreadsheetController implements Observer {
         userIDColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("id"));
         yearColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("gradeLevel"));
         majorColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("major"));
+        
     }
 
 
@@ -79,6 +83,28 @@ public class SpreadsheetController implements Observer {
        if (course.isStudentAdded())
            loadStudentContent(course.getAddedStudents());
    }
+   
+   //coming soon to a theater near you
+//   private void loadGradeColumns()
+//   {
+//       Category top = course.getTopCategory();
+//       List<Assignment> assigns = top.getAssignments();
+//       TableColumn<Student, String> assignCol;
+//       
+//       for (Assignment assign : assigns)
+//       {
+//           assignCol = new TableColumn<Student, String>();
+//           assignCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Student, String>, ObservableValue<String>>() {
+//
+//               @Override
+//               public ObservableValue<String> call(TableColumn.CellDataFeatures<Student, String> student) {
+//                   
+//                   return new SimpleStringProperty("");
+//               }
+//           });
+//       }
+//       
+//   }
    
    private void loadStudentContent(List<Student> students) {
       // studentList.clear();
