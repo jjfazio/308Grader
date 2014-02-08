@@ -98,11 +98,11 @@ public class GraphAndAdjustCurveController {
         //final BarChart<Number,String> bc = new BarChart<Number,String>(xAxis,yAxis);
         this.barChart.getXAxis().setAutoRanging(true);
         this.barChart.getYAxis().setAutoRanging(true);
-        this.barChart.setTitle(ass.getName() + " Grade Distribution BarChart");
-        yAxis.setLabel("Grade (%)");
+        this.barChart.setTitle(ass.getName() + " Grade Distribution Bar Chart");
+        yAxis.setLabel("Number of Students");
         yAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(grade)));
         Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
-        series1.setName("Number of Students");
+        //series1.setName("Grade (%)");
         Range[] ranges = Range.values();
         
         for(int ndx = 0; ndx < scoreMap.size(); ndx ++) {
@@ -110,7 +110,17 @@ public class GraphAndAdjustCurveController {
         		Integer>(grade[ndx], scoreMap.get(ranges[ndx])));
         }
         
+        this.barChart.setLegendVisible(false);
+        this.barChart.getYAxis().setLabel("Number of Students");
+        this.barChart.getXAxis().setLabel("Grade (%)");
         this.barChart.getData().add(series1);
+        
+        for(int ndx = 0; ndx < scoreMap.size(); ndx++) {
+        	this.pieChart.getData().add(new PieChart.Data(grade[ndx], scoreMap.get(ranges[ndx])));
+        }
+        this.pieChart.setTitle(ass.getName() + " Grade Distribution Pie Chart");
+        this.pieChart.setVisible(true);
+        this.pieChart.setLabelsVisible(true);
         
     }
     
