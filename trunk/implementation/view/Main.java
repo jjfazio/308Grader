@@ -2,6 +2,7 @@ package view;
 
 import java.util.Observer;
 
+import scripts.StudentDBScript;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -45,6 +46,9 @@ public class Main extends Application
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("GraderTool");
+		
+		//for jar
+		StudentDBScript.createDBFile();
 		
 		
 		gradebook = Gradebook.getInstance();

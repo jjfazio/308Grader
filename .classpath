@@ -7,6 +7,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/Users/jamesfazio/External Jars/javafx-dialogs-0.0.3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/kevinbackers/Desktop/CSC 309/javafx-dialogs-0.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
