@@ -112,7 +112,7 @@ public class AddGradingSchemeController implements Observer {
        // insert grade ranges into the table
        //rangesTable.setItems();
         
-       update();
+       //update();
        System.out.println("Plus button pressed for new row");
     }
     
