@@ -47,10 +47,12 @@ public class AddCategoryController {
     }
 
     @FXML
-    private Category findCategory(String name, Category cat) {
+    private void findCategory(String name, Category cat) {
         Category catLookingFor = null;
         if(cat.getName().equals(name)) {
             catLookingFor =  cat;
+            Category newCategory = new Category(catLookingFor,
+                    Double.parseDouble(addCategoryWeight.getText()), addCategoryName.getText());
         }
         if((ArrayList<Category>)cat.getSubCategories() != null && catLookingFor == null){
             for(Category x : (ArrayList<Category>)cat.getSubCategories()) {
@@ -59,7 +61,7 @@ public class AddCategoryController {
                 }
             }
         }
-        return catLookingFor;
+
     }
 
 
@@ -69,10 +71,10 @@ public class AddCategoryController {
     @FXML
     public void handleAddCategorySave() {
         System.out.println("Save button Clicked!");
-        Category parCategory = findCategory(addCategoryParentName.getValue().toString().trim(),
+        /*Category parCategory = */findCategory(addCategoryParentName.getValue().toString().trim(),
                 Gradebook.getInstance().getCurrentCourse().getTopCategory());
-        Category newCategory = new Category(parCategory,
-                Double.parseDouble(addCategoryWeight.getText()), addCategoryName.getText());
+//        Category newCategory = new Category(parCategory,
+//                Double.parseDouble(addCategoryWeight.getText()), addCategoryName.getText());
 //in mygrading spreadsheet
         // table.getcolums().get(0).getcolumns.add(e)
         //table column to tableview
