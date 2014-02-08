@@ -95,10 +95,10 @@ public class Graph implements Serializable {
 		
 		for(Student stud : this.studentList) {
 			HashMap<Assignment, Grade> studGrades = stud.getGrades();
-			if(studGrades.containsKey(this.ass))
+			if(studGrades.get(this.ass) != null)
 			{
 				Grade studGrade = studGrades.get(this.ass);
-				double percentScore = studGrade.getScore() / this.ass.getMaxPoints().doubleValue();
+				double percentScore = (studGrade.getScore() / this.ass.getMaxPoints().doubleValue()) * 100;
 				if(percentScore < TEN) {
 					nums[0]++;
 				}

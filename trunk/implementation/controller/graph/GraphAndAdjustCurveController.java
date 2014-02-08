@@ -17,6 +17,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
@@ -57,7 +58,7 @@ public class GraphAndAdjustCurveController {
     private PieChart pieChart;
     /**Bar chart object*/
     @FXML
-    private BarChart barChart;
+    private BarChart<String, Integer> barChart;
     /**An instance of the graph model class*/
     private Graph graph;
     
@@ -93,21 +94,24 @@ public class GraphAndAdjustCurveController {
     		"90 - 100", "100+"};
         final CategoryAxis yAxis = new CategoryAxis();
         final NumberAxis xAxis = new NumberAxis();
+        //this.barChart = new BarChart<Number, String>(xAxis, yAxis);
         //final BarChart<Number,String> bc = new BarChart<Number,String>(xAxis,yAxis);
-        this.barChart = new BarChart<Number,String>(xAxis,yAxis);
+        this.barChart.getXAxis().setAutoRanging(true);
+        this.barChart.getYAxis().setAutoRanging(true);
         this.barChart.setTitle(ass.getName() + " Grade Distribution BarChart");
         yAxis.setLabel("Grade (%)");
         yAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(grade)));
-        XYChart.Series<Number,String> series1 = new XYChart.Series<Number,String>();
+        Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
         series1.setName("Number of Students");
         Range[] ranges = Range.values();
         
         for(int ndx = 0; ndx < scoreMap.size(); ndx ++) {
-        	series1.getData().add(new XYChart.Data<Number, 
-        		String>(scoreMap.get(ranges[ndx]), grade[ndx]));
+        	series1.getData().add(new XYChart.Data<String, 
+        		Integer>(grade[ndx], scoreMap.get(ranges[ndx])));
         }
         
         this.barChart.getData().add(series1);
+        
     }
     
     /**

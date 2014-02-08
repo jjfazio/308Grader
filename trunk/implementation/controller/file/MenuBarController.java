@@ -128,16 +128,16 @@ public class MenuBarController
     	erik.addGrade(ass, new Grade(ass, new Date(), 95.0, "A"));
     	
     	Student james = new Student("jfazio", "james", "fazio", "32456", "SE", "Junior");
-    	erik.addGrade(ass, new Grade(ass, new Date(), 99.0, "A"));
+    	james.addGrade(ass, new Grade(ass, new Date(), 99.0, "A"));
     	
     	Student kevin = new Student("kfeutz", "kevin", "feutz", "84145", "SE", "Junior");
-    	erik.addGrade(ass, new Grade(ass, new Date(), 77.0, "C"));
+    	kevin.addGrade(ass, new Grade(ass, new Date(), 77.0, "C"));
     	
     	Student kevin2 = new Student("kbackers", "kevin", "backers", "1232465", "SE", "Senior");
-    	erik.addGrade(ass, new Grade(ass, new Date(), 88.0, "B"));
+    	kevin2.addGrade(ass, new Grade(ass, new Date(), 88.0, "B"));
     	
     	Student jirbert = new Student("jdilanch", "Jirbert", "Dilanchian", "25642", "SE", "Junior");
-    	erik.addGrade(ass, new Grade(ass, new Date(), 82.0, "A"));
+    	jirbert.addGrade(ass, new Grade(ass, new Date(), 82.0, "A"));
     	
     	studentList.add(erik);
     	studentList.add(james);
@@ -146,7 +146,6 @@ public class MenuBarController
     	studentList.add(jirbert);
     	
     	controller.setAssignment(ass, studentList);
-    	
         ViewUtility.showPage(pane, "Graphs");
     }
 
