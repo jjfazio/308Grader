@@ -145,6 +145,13 @@ public class MenuBarController
     	studentList.add(kevin2);
     	studentList.add(jirbert);
     	
+    	System.out.println("Assignment being passed to Graph and Curve page: " + ass.getName());
+    	System.out.println("Students/scores passed to Graph and Curve page: ");
+    	for(Student stud : studentList) {
+    		System.out.println("Student: " + stud.getFirstName() + ", Score: " + stud.getGrades().get(ass).getScore());
+    	}
+    	System.out.println();
+    	
     	controller.setAssignment(ass, studentList);
         ViewUtility.showPage(pane, "Graphs");
     }
