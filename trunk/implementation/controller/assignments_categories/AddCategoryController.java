@@ -7,10 +7,18 @@ import javafx.stage.Stage;
 import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
+import javafx.scene.control.Dialogs;
+import javafx.scene.control.Dialogs.DialogResponse;
 
 import javax.sql.rowset.CachedRowSet;
 import java.awt.*;
 import java.util.ArrayList;
+
+
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Jirbert Dilanchian
@@ -36,6 +44,10 @@ public class AddCategoryController {
         fillCombo(Gradebook.getInstance().getCurrentCourse().getTopCategory());
     }
 
+    /**
+     * Filles the comboBox on add Category dialogue.
+     * @param theCat The category which name is going to be added to the list
+     */
     @FXML
     private void fillCombo(Category theCat) {
         addCategoryParentName.getItems().add(theCat.getName());
@@ -46,6 +58,11 @@ public class AddCategoryController {
         }
     }
 
+    /**
+     * Locates the parent category in the arraylist of subCategories and adds the new category to it.
+     * @param name The name of the parent category.
+     * @param cat The new category to be added to parent category
+     */
     @FXML
     private void findCategory(String name, Category cat) {
         Category catLookingFor = null;
@@ -71,13 +88,10 @@ public class AddCategoryController {
     @FXML
     public void handleAddCategorySave() {
         System.out.println("Save button Clicked!");
-        /*Category parCategory = */findCategory(addCategoryParentName.getValue().toString().trim(),
+        findCategory(addCategoryParentName.getValue().toString().trim(),
                 Gradebook.getInstance().getCurrentCourse().getTopCategory());
-//        Category newCategory = new Category(parCategory,
-//                Double.parseDouble(addCategoryWeight.getText()), addCategoryName.getText());
-//in mygrading spreadsheet
-        // table.getcolums().get(0).getcolumns.add(e)
-        //table column to tableview
+        Stage stage = (Stage) addCategoryName.getScene().getWindow();
+        stage.close();
 
     }
 
@@ -87,5 +101,7 @@ public class AddCategoryController {
     @FXML
     public void handleAddCategoryCancel() {
         System.out.println("Cancel button Clicked!");
+        Stage stage = (Stage) addCategoryName.getScene().getWindow();
+        stage.close();
     }
 }
