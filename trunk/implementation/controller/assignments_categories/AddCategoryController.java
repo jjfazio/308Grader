@@ -33,8 +33,6 @@ public class AddCategoryController {
     @FXML
     private void initialize() {
         addCategoryParentName.getItems().clear();
-//        Category nCategory = new Category(Gradebook.getInstance().getCurrentCourse().getTopCategory(),
-//                45.0, "newCategory");
         fillCombo(Gradebook.getInstance().getCurrentCourse().getTopCategory());
     }
 
@@ -71,12 +69,14 @@ public class AddCategoryController {
     @FXML
     public void handleAddCategorySave() {
         System.out.println("Save button Clicked!");
-        System.out.println(addCategoryParentName.getValue().toString());
-
         Category parCategory = findCategory(addCategoryParentName.getValue().toString().trim(),
                 Gradebook.getInstance().getCurrentCourse().getTopCategory());
         Category newCategory = new Category(parCategory,
                 Double.parseDouble(addCategoryWeight.getText()), addCategoryName.getText());
+//in mygrading spreadsheet
+        // table.getcolums().get(0).getcolumns.add(e)
+        //table column to tableview
+
     }
 
     /**
