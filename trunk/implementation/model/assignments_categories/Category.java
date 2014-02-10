@@ -310,7 +310,7 @@ public class Category implements Serializable {
    (!category.parentCategory.contains(category));
    @*/
    public void removeCategory(Category category) {
-      
+        subCategories.remove(category);
    }
 
     /**

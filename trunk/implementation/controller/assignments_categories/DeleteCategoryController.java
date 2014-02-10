@@ -1,7 +1,13 @@
 package controller.assignments_categories;
 
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
 import model.assignments_categories.Category;
+import model.gradebook.Gradebook;
+import javafx.scene.control.*;
+
+//import javax.swing.text.html.ListView;
+import java.util.ArrayList;
 
 /**
  * @author Jirbert Dilanchian
@@ -10,6 +16,92 @@ public class DeleteCategoryController {
 
     @FXML
     private Category delCategory;
+    @FXML
+    private ListView<String> deleteCategoryList;
+
+    /**
+     * Called by FXML when view is loaded. Reloads all of the
+     * categories.
+     */
+    @FXML
+    private void initialize() {
+        ArrayList<String> categoryNames = new ArrayList<String>();
+        fillList(Gradebook.getInstance().getCurrentCourse().getTopCategory(), categoryNames);
+        deleteCategoryList.getItems().setAll(categoryNames);
+    }
+
+    /**
+     * Fills the viewList of delete Category page
+     * @param theCat name of the list which we get the name.
+     * @param categoryNames List of the names of categories
+     */
+    @FXML
+    private void fillList(Category theCat, ArrayList<String> categoryNames) {
+        //addCategoryParentName.getItems().add(theCat.getName());
+        if (!theCat.getName().trim().equals("Total"))
+        {
+            categoryNames.add(theCat.getName());
+        }
+
+        if((ArrayList<Category>)theCat.getSubCategories() != null){
+            for(Category x : (ArrayList<Category>)theCat.getSubCategories()) {
+                fillList(x, categoryNames);
+            }
+        }
+    }
+
+    /**
+     * Finds the parent category of current category
+     * @param name Name of the child category
+     * @param cat The category that we check if it's our target category
+     */
+    @FXML
+    public void findParentCategory(String name, Category cat)
+    {
+       // Category temp = null;
+        if(cat.getSubCategories() != null ){
+            for(Category x : cat.getSubCategories()) {
+                if(x.getName().trim().equals(name)){
+                    setTempCategory(cat);
+                }
+                else {
+                    findParentCategory(name, x);
+                }
+            }
+        }
+    }
+
+    // temporary Category variable used to store child and parent categories
+    private Category tempCategory;
+
+    /**
+     * Setter method to set tempCategory;
+     * @param x The category to be assigned to temp category
+     */
+    @FXML
+    public void setTempCategory(Category x){
+        tempCategory = x;
+    }
+
+
+    /**
+     * Finds the category selected from the list.
+     * @param name Name of the category to be found
+     * @param cat  The category that we check if it's our target category
+     */
+    @FXML
+    public void findChildCategory(String name, Category cat) {
+        if(cat.getName().equals(name)){
+            tempCategory = cat;
+        }
+
+        if(cat.getSubCategories() != null ){
+            for(Category x : cat.getSubCategories()) {
+                 findChildCategory(name, x);
+            }
+        }
+    }
+
 
     /**
      * Removes a category from the collection of categories of the parent Category.
@@ -17,10 +109,17 @@ public class DeleteCategoryController {
     @FXML
     public void handleDeleteCategoryDelete() {
         System.out.println("Delete button Clicked!");
-        Category parCategory = new Category();
-        Category childCategory = new Category();
-        parCategory.addSubCategory(childCategory);
-        parCategory.removeCategory(childCategory);
+        String name = "";
+        Category parentCategory;
+        Category childCategory = null;
+        name = deleteCategoryList.getSelectionModel().getSelectedItem();
+        findParentCategory(name, Gradebook.getInstance().getCurrentCourse().getTopCategory());
+        parentCategory = tempCategory;
+        findChildCategory(name, Gradebook.getInstance().getCurrentCourse().getTopCategory());
+        childCategory = tempCategory;
+        parentCategory.removeCategory(childCategory);
+        Stage stage = (Stage) deleteCategoryList.getScene().getWindow();
+        stage.close();
     }
 
     /**
@@ -29,16 +128,8 @@ public class DeleteCategoryController {
     @FXML
     public void handleDeleteCategoryCancel() {
         System.out.println("Cancel button Clicked!");
-        /*
-         * cboVet.getSelectionModel().clearSelection();
-cboVet.getItems.clear();
-do something like this...
-
-parentNode.getChildren().remove(cboVet);
-cboVet = new ComboBox();  // do whatever else you need to format your ComboBox
-parentNode.add(cboVet);
-         */
-
+        Stage stage = (Stage) deleteCategoryList.getScene().getWindow();
+        stage.close();
     }
 }
 
