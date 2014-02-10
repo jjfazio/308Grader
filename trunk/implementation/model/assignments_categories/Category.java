@@ -37,6 +37,7 @@ public class Category implements Serializable {
       this.parentCategory = parentCategory;
       this.percentofparent = percentOfParent;
       this.name = name;
+      this.assignments = new ArrayList<Assignment>();
       
       if (parentCategory != null)
          parentCategory.addSubCategory(this);

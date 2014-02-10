@@ -62,6 +62,7 @@ public class Student implements Serializable {
         this.id = id;
         this.major = major;
         this.gradeLevel = gradeLevel;
+        this.grades = new HashMap<Assignment, Grade>();
     }
 
     /**
