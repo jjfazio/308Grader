@@ -2,6 +2,7 @@ package model.assignments_categories;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * A category is a way for a teacher to group different assignments. 
@@ -13,7 +14,7 @@ public class Category implements Serializable {
 
    Category parentCategory;
    String name;
-   Collection<Assignment> assignments;
+   List<Assignment> assignments;
    Collection<Category> subCategories;
    Double percentofparent;
    Double percentCurve;
@@ -36,6 +37,7 @@ public class Category implements Serializable {
       this.parentCategory = parentCategory;
       this.percentofparent = percentOfParent;
       this.name = name;
+      this.assignments = new ArrayList<Assignment>();
       
       if (parentCategory != null)
          parentCategory.addSubCategory(this);
@@ -351,6 +353,10 @@ public class Category implements Serializable {
 
    public void setName(String name) {
       this.name = name;
+   }
+   
+   public List<Assignment> getAssignments() {
+       return assignments;
    }
 
 

@@ -21,6 +21,7 @@ import model.spreadsheet.SpreadsheetCourse;
  */
 
 public class Student implements Serializable {
+    private static final long serialVersionUID = -8406703381469829460L;
     /** Contains the username of the student */
     private String userName;
     /** Contains the first name of the student */
@@ -61,6 +62,7 @@ public class Student implements Serializable {
         this.id = id;
         this.major = major;
         this.gradeLevel = gradeLevel;
+        this.grades = new HashMap<Assignment, Grade>();
     }
 
     /**

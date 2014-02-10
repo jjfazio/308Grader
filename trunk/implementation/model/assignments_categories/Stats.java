@@ -8,6 +8,7 @@ import java.io.Serializable;
  *	The actual types of stats may change depending on customer's preference as we proceed.
  */
 
+//Currently unimplemented
 public class Stats implements Serializable {
     Double mean;
 	Double median;

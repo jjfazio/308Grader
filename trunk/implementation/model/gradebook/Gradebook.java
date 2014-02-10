@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.logging.Logger;
 
+import scripts.StudentDBScript;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Teacher;
 
@@ -69,6 +70,7 @@ public class Gradebook extends Observable implements Serializable{
 	 * @param firstTime
 	 */
 	private Gradebook(boolean firstTime) {
+	   // StudentDBScript.createDBFile();
 	    System.out.println("Congrats, you loaded a Gradebook!");
 	}
 	

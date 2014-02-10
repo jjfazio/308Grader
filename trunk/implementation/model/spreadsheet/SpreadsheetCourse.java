@@ -17,6 +17,7 @@ import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion.
  * a Course. A SpreadsheetCourse has courseInfo, categories, a studentRoster,
  * a GradingDistribution, a LatePolicy, and Settings.
  *
+ * @author jamesfazio
  */
 
 public class SpreadsheetCourse extends Observable implements Serializable {

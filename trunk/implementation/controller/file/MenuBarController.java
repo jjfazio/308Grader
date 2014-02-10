@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import model.assignments_categories.Assignment;
+import model.assignments_categories.Grade;
 import model.gradebook.Gradebook;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
@@ -119,11 +120,39 @@ public class MenuBarController
     	AnchorPane pane = (AnchorPane)ViewUtility.loadView(loader);
     	GraphAndAdjustCurveController controller = (GraphAndAdjustCurveController)loader.getController();
     	
-    	Assignment ass = null; /*new Assignment("HW 9", 30, 100, null, null, null, false);*/
+    	Assignment ass = new Assignment();
+    	ass.setName("HW09");
     	List<Student> studentList = new ArrayList<Student>();
-    	studentList.add(new Student(null, null, null, null, null, null));
-    	controller.setAssignment(ass);
     	
+    	Student erik = new Student("ejowen", "erik", "owen", "10370", "SE", "Junior");
+    	erik.addGrade(ass, new Grade(ass, new Date(), 95.0, "A"));
+    	
+    	Student james = new Student("jfazio", "james", "fazio", "32456", "SE", "Junior");
+    	james.addGrade(ass, new Grade(ass, new Date(), 99.0, "A"));
+    	
+    	Student kevin = new Student("kfeutz", "kevin", "feutz", "84145", "SE", "Junior");
+    	kevin.addGrade(ass, new Grade(ass, new Date(), 77.0, "C"));
+    	
+    	Student kevin2 = new Student("kbackers", "kevin", "backers", "1232465", "SE", "Senior");
+    	kevin2.addGrade(ass, new Grade(ass, new Date(), 88.0, "B"));
+    	
+    	Student jirbert = new Student("jdilanch", "Jirbert", "Dilanchian", "25642", "SE", "Junior");
+    	jirbert.addGrade(ass, new Grade(ass, new Date(), 82.0, "A"));
+    	
+    	studentList.add(erik);
+    	studentList.add(james);
+    	studentList.add(kevin);
+    	studentList.add(kevin2);
+    	studentList.add(jirbert);
+    	
+    	System.out.println("Assignment being passed to Graph and Curve page: " + ass.getName());
+    	System.out.println("Students/scores passed to Graph and Curve page: ");
+    	for(Student stud : studentList) {
+    		System.out.println("Student: " + stud.getFirstName() + ", Score: " + stud.getGrades().get(ass).getScore());
+    	}
+    	System.out.println();
+    	
+    	controller.setAssignment(ass, studentList);
         ViewUtility.showPage(pane, "Graphs");
     }
 

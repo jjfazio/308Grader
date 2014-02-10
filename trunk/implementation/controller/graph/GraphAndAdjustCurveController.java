@@ -1,12 +1,23 @@
 package controller.graph;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.graph.Graph;
+import model.graph.Range;
+import model.users.Student;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
@@ -47,7 +58,7 @@ public class GraphAndAdjustCurveController {
     private PieChart pieChart;
     /**Bar chart object*/
     @FXML
-    private BarChart barChart;
+    private BarChart<String, Integer> barChart;
     /**An instance of the graph model class*/
     private Graph graph;
     
@@ -65,8 +76,8 @@ public class GraphAndAdjustCurveController {
      * 
      * @param cat the current category being viewed on the graphs
      */
-    public void setCategory(Category cat) {
-    	this.graph.setCategory(cat);
+    public void setCategory(Category cat, List<Student> students) {
+    	this.graph.setCategory(cat, students);
     }
     
     /**
@@ -75,8 +86,42 @@ public class GraphAndAdjustCurveController {
      * 
      * @param ass the current assignment being viewed on the graphs
      */
-    public void setAssignment(Assignment ass) {
-    	this.graph.setAssignment(ass);
+    public void setAssignment(Assignment ass, List<Student> students) {
+    	this.graph.setAssignment(ass, students);
+    	HashMap<Range, Integer> scoreMap = graph.getAssignmentData();
+    	final String[] grade = {"0 - 10", "10 - 20", "20 - 30", "30 - 40",
+    		"40 - 50", "50 - 60", "60 - 70", "70 - 80", "80 - 90",
+    		"90 - 100", "100+"};
+        final CategoryAxis yAxis = new CategoryAxis();
+        final NumberAxis xAxis = new NumberAxis();
+        //this.barChart = new BarChart<Number, String>(xAxis, yAxis);
+        //final BarChart<Number,String> bc = new BarChart<Number,String>(xAxis,yAxis);
+        this.barChart.getXAxis().setAutoRanging(true);
+        this.barChart.getYAxis().setAutoRanging(true);
+        this.barChart.setTitle(ass.getName() + " Grade Distribution Bar Chart");
+        yAxis.setLabel("Number of Students");
+        yAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(grade)));
+        Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
+        //series1.setName("Grade (%)");
+        Range[] ranges = Range.values();
+        
+        for(int ndx = 0; ndx < scoreMap.size(); ndx ++) {
+        	series1.getData().add(new XYChart.Data<String, 
+        		Integer>(grade[ndx], scoreMap.get(ranges[ndx])));
+        }
+        
+        this.barChart.setLegendVisible(false);
+        this.barChart.getYAxis().setLabel("Number of Students");
+        this.barChart.getXAxis().setLabel("Grade (%)");
+        this.barChart.getData().add(series1);
+        
+        for(int ndx = 0; ndx < scoreMap.size(); ndx++) {
+        	this.pieChart.getData().add(new PieChart.Data(grade[ndx], scoreMap.get(ranges[ndx])));
+        }
+        this.pieChart.setTitle(ass.getName() + " Grade Distribution Pie Chart");
+        this.pieChart.setVisible(true);
+        this.pieChart.setLabelsVisible(true);
+        
     }
     
     /**
