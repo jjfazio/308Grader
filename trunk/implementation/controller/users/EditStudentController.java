@@ -186,6 +186,11 @@ public class EditStudentController {
             errorMessage += "* First Name must contain only alphabetic characters\n\n";
             firstNameWarning.setText("*");
         }
+        else if(firstName.getText().length() == 0)
+        {
+            errorMessage += "* First Name field cannot be blank\n\n";
+            firstNameWarning.setText("*");
+        }
         else
         {
             firstNameWarning.setText("");
@@ -193,6 +198,11 @@ public class EditStudentController {
         if(!lastName.getText().matches("[a-zA-Z]*"))
         {
             errorMessage += "* Last Name must contain only alphabetic characters\n\n";
+            lastNameWarning.setText("*");
+        }
+        else if(lastName.getText().length() == 0)
+        {
+            errorMessage += "* Last Name field cannot be blank\n\n";
             lastNameWarning.setText("*");
         }
         else
