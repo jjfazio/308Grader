@@ -50,13 +50,9 @@
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Grading Scheme:" />
-            <ComboBox promptText="">
+            <ComboBox fx:id="gradingSchemes" promptText="">
               <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1" />
-                  <String fx:value="Item 2" />
-                  <String fx:value="Item 3" />
-                </FXCollections>
+                <FXCollections fx:factory="observableArrayList" />
               </items>
             </ComboBox>
             <Button mnemonicParsing="false" onAction="#handleCreateNewGradingSchemeButton" text="Create New" />
@@ -65,13 +61,9 @@
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Teacher's Assistant:" />
-            <ComboBox promptText="">
+            <ComboBox fx:id="teacherAssistants" minWidth="-1.0" promptText="None" HBox.hgrow="ALWAYS">
               <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1" />
-                  <String fx:value="Item 2" />
-                  <String fx:value="Item 3" />
-                </FXCollections>
+                <FXCollections fx:factory="observableArrayList" />
               </items>
             </ComboBox>
             <Button mnemonicParsing="false" onAction="#handleCreateNewTeacherAssistantButton" text="Create New" />
@@ -99,6 +91,7 @@
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Button mnemonicParsing="false" onAction="#handleCreateButton" text="Create" />
+            <Button mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
           </children>
         </HBox>
       </children>

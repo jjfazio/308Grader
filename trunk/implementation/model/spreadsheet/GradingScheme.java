@@ -1,11 +1,12 @@
 package model.spreadsheet;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
- * @author kevinbackers
+ * Represents a grading scheme which is a list of ranges and symbols for each range.
+ * @author Kevin Backers
  *
  */
 public class GradingScheme implements Serializable {
@@ -19,7 +20,16 @@ public class GradingScheme implements Serializable {
 
     public GradingScheme()
     {
+        gradeRanges = new ArrayList<GradeRange>();
         System.out.println("Created a new grading scheme");
+        /** Set to default scheme */
+        gradeRanges.add(new GradeRange("A", 90.0, 100.0));
+        gradeRanges.add(new GradeRange("B", 80.0, 89.9));
+        gradeRanges.add(new GradeRange("C", 70.0, 79.9));
+        gradeRanges.add(new GradeRange("D", 60.0, 69.9));
+        gradeRanges.add(new GradeRange("F", 0.0, 59.9));
+        schemeName = "Default";
+        plusMinusEnabled = false;
     }
     
     public GradingScheme(List<GradeRange> ranges, String name)
@@ -48,6 +58,11 @@ public class GradingScheme implements Serializable {
     }
 
     public String getSchemeName()
+    {
+        return schemeName;
+    }
+    
+    public String toString()
     {
         return schemeName;
     }

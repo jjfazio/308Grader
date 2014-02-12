@@ -1,15 +1,23 @@
 package controller.spreadsheet;
 
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.CheckBoxTreeItem;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.gradebook.Gradebook;
+import model.spreadsheet.CourseDB;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
 import model.spreadsheet.SpreadsheetCourse;
+import model.users.StudentDB;
 import model.users.TeacherAssistant;
 import view.ViewUtility;
 
@@ -36,16 +44,37 @@ public class AddClassController  {
     @FXML
     private GradingScheme gradingScheme;
     @FXML
+    private ComboBox<GradingScheme> gradingSchemes;
+    @FXML
     private TeacherAssistant ta;
+    @FXML
+    private ComboBox<TeacherAssistant> teacherAssistants;
     @FXML
     private LatePolicy latePolicy;
     
     private Gradebook gradebook;
 
     private Stage primaryStage;
+    
+    private ObservableList<GradingScheme> schemesObs;
 
     public AddClassController() {
         gradebook = Gradebook.getInstance();
+       
+    }
+    
+    @FXML
+    /**
+     * Called by FXML when view is loaded. Sets
+     * the default grading scheme and TA.
+     */
+    private void initialize()
+    {
+        schemesObs = FXCollections.observableArrayList();
+        GradingScheme defaultGS = new GradingScheme();
+        schemesObs.add(defaultGS);
+        gradingSchemes.getItems().clear();
+        gradingSchemes.setItems(schemesObs);
     }
 
     /**
@@ -67,7 +96,7 @@ public class AddClassController  {
     	        courseQuarter.getText(), courseSection.getText(), 
     	        courseNumber.getText(), courseDepartment.getText(), courseYearInt);
     	SpreadsheetCourse course = new SpreadsheetCourse(courseInfo,
-    	        new GradingScheme(), new LatePolicy());
+    	        gradingSchemes.getValue(), new LatePolicy());
     	
     	gradebook.addSpreadsheetCourse(course);
     }
@@ -92,5 +121,15 @@ public class AddClassController  {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
                 "/view/users/AddTeacherAssistant.fxml"));
         ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Create Teacher Assistant");
+    }
+    
+    /**
+     * Called when the user clicks on the "Cancel" button
+     * Closes the Create Class dialog
+     */
+    @FXML
+    private void handleCancelButton() {
+        primaryStage = (Stage) courseName.getScene().getWindow();
+        primaryStage.close();
     }
 }
