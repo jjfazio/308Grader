@@ -95,11 +95,12 @@ public class AddStudentController {
     /** Holds the list of courses to hold in the course list */
     private static ObservableList<String> courseData = FXCollections.observableArrayList();
 
-    private ArrayList<SpreadsheetCourse> courseList;
+    private static ArrayList<SpreadsheetCourse> courseList;
 
     @FXML
     private void initialize() {
         courseData.clear();
+        courseList = new ArrayList<SpreadsheetCourse>();
         if(courseList != null)
         {
             courseList.clear();
@@ -110,6 +111,7 @@ public class AddStudentController {
     protected static void addCourseToDialog(CourseInfo courseToAdd)
     {
         courseData.add(courseToAdd.getCourseName() + "-" + courseToAdd.getNumber());
+        courseList.add(AddStudentCourseController.getCourseSelected());
     }
     /**
      * Contructor for this class
@@ -157,7 +159,7 @@ public class AddStudentController {
         {
             studentIdWarning.setText("");
         }
-        courseList = AddStudentCourseController.getCourseList();
+        //courseList = AddStudentCourseController.getCourseList();
         System.out.println("courseList size = " + courseList.size());
         if(courseList.size() == 0)
         {
@@ -226,6 +228,7 @@ public class AddStudentController {
         if(indexOfClick >= 0 && indexOfClick < courseData.size())
         {
             courseData.remove(indexOfClick);
+            courseList.remove(indexOfClick);
         }
     }
 

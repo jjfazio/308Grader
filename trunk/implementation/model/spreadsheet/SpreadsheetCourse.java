@@ -61,7 +61,9 @@ public class SpreadsheetCourse extends Observable implements Serializable {
      */
     private Settings settings;
     
+    private boolean isStudentDeleted = false;
 
+    private Student studentToDelete;
     /**
      * Adds category of assignments in the spread sheet which organizes the assignments into groups.
      */
@@ -148,8 +150,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
      * Change the given old Student to the given new Student.  The old and the new student records must not be the same.
      * The old student record must already be in the current studentRoster.  The new student must meet the same conditions
      * as for the input to the addStudent operation.
-     * @param oldStudent
-     * @param newStudent
      */
    /*@
      requires
@@ -200,8 +200,10 @@ public class SpreadsheetCourse extends Observable implements Serializable {
                   (\old(this.studentRoster).contains(studentInCourse) &&
                      !studentInCourse.equals(oldStudent)));
      @*/
-    public void editStudent(Student oldStudent, Student newStudent) {
-       System.out.println("In SpreadsheetCourse.editStudent");      
+    public void editStudent() {
+       System.out.println("In SpreadsheetCourse.editStudent");
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -227,7 +229,17 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     @*/
 
     public void deleteStudent(Student student) {
-       System.out.println("In SpreadsheetCourse.deleteStudent");
+        System.out.println("In SpreadsheetCourse.deleteStudent");
+        isStudentDeleted = true;
+        studentToDelete = student;
+        studentRoster.remove(student);
+        addedStudents.remove(student);
+        setChanged();
+        notifyObservers();
+    }
+
+    public Student getStudentToDelete() {
+        return studentToDelete;
     }
        
        /* TODO: CHANGE JML */
@@ -255,6 +267,12 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     public Boolean isStudentAdded() 
     {
         return !addedStudents.isEmpty();
+    }
+
+    public Boolean isStudentDeleted() {
+        boolean holder = isStudentDeleted;
+        isStudentDeleted = false;
+        return holder;
     }
     
     /**

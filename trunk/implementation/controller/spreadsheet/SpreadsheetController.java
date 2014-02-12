@@ -83,6 +83,9 @@ public class SpreadsheetController implements Observer {
    public void update(Observable o, Object arg) {
        if (course.isStudentAdded())
            loadStudentContent(course.getAddedStudents());
+       if (course.isStudentDeleted())  {
+           removeStudentContent(course.getStudentToDelete());
+       }
    }
    
    // currently won't work if total has no subcategories
@@ -132,7 +135,9 @@ public class SpreadsheetController implements Observer {
 
    }
    
-
+   private void removeStudentContent(Student studentToRemove) {
+       studentList.remove(studentToRemove);
+   }
 
    private void loadStudentContent(List<Student> students) {
        // studentList.clear();

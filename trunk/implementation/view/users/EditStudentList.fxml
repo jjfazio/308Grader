@@ -27,7 +27,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="87.0" prefWidth="300.0">
               <children>
-                <Button mnemonicParsing="false" text="Cancel" />
+                <Button mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
               </children>
             </VBox>
           </children>
