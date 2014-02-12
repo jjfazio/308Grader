@@ -7,6 +7,8 @@ import model.assignments_categories.Assignment;
 import model.assignments_categories.Grade;
 import model.spreadsheet.SpreadsheetCourse;
 
+import static java.lang.String.copyValueOf;
+
 /****
  *
  * Class Student is composed of a first name, last name, username, id, email,
@@ -40,6 +42,9 @@ public class Student implements Serializable {
     private String email;
     /** Contains the student's phone number */
     private String phoneNumber;
+
+    /** Contains the formatted list of courses for use by models */
+    private String formattedCourseList;
    
     /** Contains the collection of courses that the student is enrolled */
     private ArrayList<SpreadsheetCourse> coursesEnrolled;
@@ -478,6 +483,17 @@ public class Student implements Serializable {
      */
     public HashMap<Assignment, Grade> getGrades() {
         return grades;
+    }
+
+    public String getFormattedCourseList()
+    {
+        String courseList = "";
+        for(SpreadsheetCourse currentCourse : coursesEnrolled)
+        {
+            courseList += currentCourse.getCourseInfo().getNumber() + " - "
+                    + currentCourse.getCourseInfo().getSection() + "\n";
+        }
+        return courseList;
     }
 }
 

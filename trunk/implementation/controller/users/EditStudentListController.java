@@ -76,7 +76,7 @@ public class EditStudentListController {
         studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
         studentLastNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
         studentUsernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("userName"));
-        enrolledCourseColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("formattedCourseList "));
+        enrolledCourseColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("formattedCourseList"));
 
         gradeBook = Gradebook.getInstance();
         allStudents.clear();

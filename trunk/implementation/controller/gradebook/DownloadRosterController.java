@@ -122,6 +122,13 @@ public class DownloadRosterController
         }
         
         selectedCourse.addStudents(students);
+
+        /** Adds the selected course to each students collection of enrolled courses */
+        for(int index = 0; index < students.size(); index++)
+        {
+            students.get(index).addCourse(selectedCourse);
+        }
+
         getStage().close();
     }
     
