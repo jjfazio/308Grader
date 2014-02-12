@@ -3,13 +3,16 @@ package model.spreadsheet;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+
+import controller.spreadsheet.AddClassController;
 
 /**
  * Represents a grading scheme which is a list of ranges and symbols for each range.
  * @author Kevin Backers
  *
  */
-public class GradingScheme implements Serializable {
+public class GradingScheme extends Observable implements Serializable {
     private static final long serialVersionUID = 5306127170696546118L;
     
     private Boolean plusMinusEnabled;
@@ -20,6 +23,7 @@ public class GradingScheme implements Serializable {
 
     public GradingScheme()
     {
+        
         gradeRanges = new ArrayList<GradeRange>();
         System.out.println("Created a new grading scheme");
         /** Set to default scheme */
@@ -30,14 +34,21 @@ public class GradingScheme implements Serializable {
         gradeRanges.add(new GradeRange("F", 0.0, 59.9));
         schemeName = "Default";
         plusMinusEnabled = false;
+        
+        setChanged();
+        notifyObservers();
     }
     
     public GradingScheme(List<GradeRange> ranges, String name)
     {
+       
         plusMinusEnabled = true;
         gradeRanges = ranges;
         schemeName = name;
         System.out.println("Created a new grading scheme with name: " + name);
+        
+        setChanged();
+        notifyObservers();
     }
     
     public GradingScheme(String name)
@@ -45,6 +56,9 @@ public class GradingScheme implements Serializable {
         plusMinusEnabled = true;
         schemeName = name;
         System.out.println("Creted a new grading scheme with name: " + name);
+        
+        setChanged();
+        notifyObservers();
     }
 
     public Boolean getPlusMinusEnabled()
@@ -65,6 +79,13 @@ public class GradingScheme implements Serializable {
     public String toString()
     {
         return schemeName;
+    }
+    
+    public void addRange(GradeRange range) {
+        gradeRanges.add(range);
+        
+        setChanged();
+        notifyObservers();
     }
     
 }
