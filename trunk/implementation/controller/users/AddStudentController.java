@@ -99,7 +99,11 @@ public class AddStudentController {
 
     @FXML
     private void initialize() {
-        courseData.removeAll();
+        courseData.clear();
+        if(courseList != null)
+        {
+            courseList.clear();
+        }
         viewCourseList.setItems(courseData);
     }
 
@@ -154,6 +158,7 @@ public class AddStudentController {
             studentIdWarning.setText("");
         }
         courseList = AddStudentCourseController.getCourseList();
+        System.out.println("courseList size = " + courseList.size());
         if(courseList.size() == 0)
         {
             errorMessage += "* You must select at least one course to which the student will be added\n\n";
@@ -165,12 +170,16 @@ public class AddStudentController {
         }
         if(errorMessage.length() <= 0)
         {
+            Student studentToAdd = new Student(username.getText(),
+                    firstName.getText(), lastName.getText(),
+                    studentId.getText(), major.getText(), gradeLevel.getText());
             for(SpreadsheetCourse currentCourses: courseList)
             {
-                if(currentCourses != null)
-                    currentCourses.addStudent(new Student(username.getText(),
-                firstName.getText(), lastName.getText(),
-                studentId.getText(), major.getText(), gradeLevel.getText()));
+                if(!currentCourses.getStudentRoster().contains(studentToAdd))
+                {
+                    currentCourses.addStudent(studentToAdd);
+                    studentToAdd.addCourse(currentCourses);
+                }
             }
             Stage stage = getStage();
             stage.close();

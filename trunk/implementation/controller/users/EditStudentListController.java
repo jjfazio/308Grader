@@ -1,5 +1,7 @@
 package controller.users;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,6 +9,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import model.gradebook.Gradebook;
 import model.users.Student;
 import model.spreadsheet.SpreadsheetCourse;
@@ -55,6 +58,9 @@ public class EditStudentListController {
 
     private ArrayList<SpreadsheetCourse> allCourses;
 
+    /** Holds the instance of the gradebook */
+    private Gradebook gradeBook;
+
     /**
      * Contructor for this class
      */
@@ -70,13 +76,16 @@ public class EditStudentListController {
         studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
         studentLastNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
         studentUsernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("userName"));
-        enrolledCourseColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("courseEnrolled"));
+        enrolledCourseColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("formattedCourseList "));
 
-        allCourses = Gradebook.getInstance().getCourses();
+        gradeBook = Gradebook.getInstance();
+        allStudents.clear();
+        ArrayList<SpreadsheetCourse> allCourses = gradeBook.getCourses();
         for(SpreadsheetCourse currentCourse : allCourses)
         {
-            allStudents.addAll(currentCourse.getStudentRoster());
+             allStudents.addAll(currentCourse.getStudentRoster());
         }
+
         studentTable.setItems(allStudents);
     }
 

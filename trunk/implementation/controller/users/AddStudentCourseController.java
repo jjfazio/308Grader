@@ -44,6 +44,10 @@ public class AddStudentCourseController {
 
     @FXML
     private void initialize() {
+        if(studentCourseList != null)
+        {
+            studentCourseList.clear();
+        }
         viewCourseList.setItems(this.getCourseInfoList());
     }
 
