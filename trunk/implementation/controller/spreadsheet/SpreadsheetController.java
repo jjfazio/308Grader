@@ -168,6 +168,11 @@ public class SpreadsheetController implements Observer {
 
    }
    
+
+   /**
+    * Loads the given list of students into the Spreadsheet
+    * @param studentToRemove
+    */
    private void removeStudentContent(Student studentToRemove) {
        studentList.remove(studentToRemove);
    }
