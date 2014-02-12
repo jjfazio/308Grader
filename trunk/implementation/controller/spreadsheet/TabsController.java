@@ -88,10 +88,13 @@ public class TabsController implements Observer {
       }
    }
 
-@Override
-public void update(Observable o, Object arg)
-{
-    loadTabs();
-}
+   @Override
+   /**
+    * Called when a new class gets added to the gradebook.
+    */
+   public void update(Observable o, Object arg)
+   {
+       loadTabs();
+   }
 
 }
