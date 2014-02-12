@@ -1,6 +1,7 @@
 package controller.assignments_categories;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
 import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
  */
 public class DeleteCategoryController {
 
+    @FXML
+    private Parent root;
     @FXML
     private Category delCategory;
     @FXML
@@ -128,8 +131,13 @@ public class DeleteCategoryController {
     @FXML
     public void handleDeleteCategoryCancel() {
         System.out.println("Cancel button Clicked!");
-        Stage stage = (Stage) deleteCategoryList.getScene().getWindow();
-        stage.close();
+//        Stage stage = (Stage) deleteCategoryList.getScene().getWindow();
+        Dialogs.showWarningDialog(getStage(), "Careful with the next step!", "Warning Dialog", "title");
+        getStage().close();
+    }
+
+    public Stage getStage() {
+        return (Stage) root.getScene().getWindow();
     }
 }
 

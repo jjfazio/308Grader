@@ -1,4 +1,6 @@
 package model.assignments_categories;
+import javafx.fxml.FXML;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -380,4 +382,6 @@ public class Category implements Serializable {
    public void setPercentCurve(Double percentCurve) {
       this.percentCurve = percentCurve;
    }
+
+
 }

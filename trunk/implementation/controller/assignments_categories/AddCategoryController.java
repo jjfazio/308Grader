@@ -58,12 +58,12 @@ public class AddCategoryController {
         }
     }
 
+
     /**
      * Locates the parent category in the arraylist of subCategories and adds the new category to it.
      * @param name The name of the parent category.
      * @param cat The new category to be added to parent category
      */
-    @FXML
     private void findCategory(String name, Category cat) {
         Category catLookingFor = null;
         if(cat.getName().equals(name)) {
@@ -78,7 +78,6 @@ public class AddCategoryController {
                 }
             }
         }
-
     }
 
 
