@@ -11,15 +11,20 @@ import javafx.scene.control.TreeView;
  * @author jamesfazio
  */
 public class ShowHideController {
+    
    @FXML
+   /** TreeView that holds the options for show/hide */
    private TreeView<String> treeView;
 
+   /** The built in columns that show by default */
    private final String[] builtInColumns = { "Username", "First Name",
       "Last Name", "Major", "Grade", "Student ID" };
 
+   /** The built in rows that show by default */
    private final String[] builtInRows = { "Mean", "Standard Deviation",
       "Students Graded" };
 
+   /** The built in total assignment points */
    private final String[] builtInOther = { "Show Total Assignment Points" };
 
    /**
@@ -66,10 +71,5 @@ public class ShowHideController {
       root.setExpanded(true);
       treeView.setRoot(root);
       treeView.setShowRoot(true);
-      
-     // treeView = new TreeView(root);
-      
-      
-      
    }
 }
