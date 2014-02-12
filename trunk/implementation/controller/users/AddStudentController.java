@@ -110,8 +110,11 @@ public class AddStudentController {
 
     protected static void addCourseToDialog(CourseInfo courseToAdd)
     {
-        courseData.add(courseToAdd.getCourseName() + "-" + courseToAdd.getNumber());
-        courseList.add(AddStudentCourseController.getCourseSelected());
+        if(!courseList.contains(AddStudentCourseController.getCourseSelected()))
+        {
+            courseData.add(courseToAdd.getCourseName() + "-" + courseToAdd.getNumber());
+            courseList.add(AddStudentCourseController.getCourseSelected());
+        }
     }
     /**
      * Contructor for this class

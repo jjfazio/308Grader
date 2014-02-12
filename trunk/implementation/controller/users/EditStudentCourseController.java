@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 public class EditStudentCourseController {
 
+    private static SpreadsheetCourse courseSelected;
     /** The list of all courses currently taught by the instructor */
     @FXML
     private ListView<String> viewCourseList;
@@ -81,8 +82,8 @@ public class EditStudentCourseController {
          * to add a course to a student
          */
         int indexSelected = viewCourseList.getSelectionModel().getSelectedIndex();
-        EditStudentController.addCourseToDialog(courseList.get(indexSelected).getCourseInfo());
-        studentCourseList.add(courseList.get(indexSelected));
+        courseSelected = courseList.get(indexSelected);
+        EditStudentController.addCourseToDialog(courseList.get(indexSelected));
 
         Stage stage = (Stage) viewCourseList.getScene().getWindow();
         stage.close();
@@ -100,8 +101,8 @@ public class EditStudentCourseController {
      * @return  ArrayList   The collection of SpreadsheetCourses to be added
      *                      to this student
      */
-    protected static ArrayList<SpreadsheetCourse> getCourseList()
+    protected static SpreadsheetCourse getCourseSelected()
     {
-        return studentCourseList;
+        return courseSelected;
     }
 }

@@ -21,9 +21,9 @@ import view.ViewUtility;
 
 /****
  *
- * Class AddStudentController represents the interaction
- * between the add student dialog and the various methods
- * needed in the model package.  Class AddStudentController
+ * Class EditStudentController represents the interaction
+ * between the edit student dialog and the various methods
+ * needed in the model package.  Class EditStudentController
  * contains all fields similar to the Student class, each of
  * which correspond to an entry field in the view package
  *
@@ -85,6 +85,7 @@ public class EditStudentController {
     @FXML
     private TextField gradeLevel;
 
+    /** Contains the view of the courses for the display */
     @FXML
     private ListView<String> viewCourseList;
 
@@ -95,15 +96,18 @@ public class EditStudentController {
     /** Holds the list of courses to hold in the course list */
     private static ObservableList<String> courseData = FXCollections.observableArrayList();
 
-    private ArrayList<SpreadsheetCourse> courseList;
+    /** Holds the list of spreadsheet courses */
+    private static ArrayList<SpreadsheetCourse> courseList;
 
+    /** Holds the original list of spreadsheet courses */
     private ArrayList<SpreadsheetCourse> oldCourseList;
-
-
 
     /** Holds the reference for the student we wish to edit */
     Student studentToEdit;
 
+    /**
+     * Initializes the edit student screen.
+     */
     @FXML
     protected void initialize() {
         courseData.clear();
@@ -114,10 +118,16 @@ public class EditStudentController {
         viewCourseList.setItems(courseData);
     }
 
+    /**
+     * This method takes in a student and assigns all of the
+     * text fields and other displays to the passed student's
+     * fields.
+     *
+     * @param studToEdit    The student that is being editted.
+     */
     protected void initData(Student studToEdit)
     {
         studentToEdit = studToEdit;
-        System.out.println("I MADE iT IN HERE");
         firstName.setText(studentToEdit.getFirstName());
         middleName.setText(studentToEdit.getMiddleName());
         lastName.setText(studentToEdit.getLastName());
@@ -128,20 +138,29 @@ public class EditStudentController {
 
         oldCourseList = new ArrayList<SpreadsheetCourse>();
         ArrayList<SpreadsheetCourse> coursesEnrolled = studentToEdit.getCoursesEnrolled();
+        courseList = new ArrayList<SpreadsheetCourse>();
         for(SpreadsheetCourse currentCourse : coursesEnrolled)
         {
             oldCourseList.add(currentCourse);
-            addCourseToDialog(currentCourse.getCourseInfo());
+            addCourseToDialog(currentCourse);
         }
         phoneNumber.setText(studentToEdit.getPhoneNumber());
         gradeLevel.setText(studentToEdit.getGradeLevel());
-        courseList = EditStudentCourseController.getCourseList();
-
     }
 
-    protected static void addCourseToDialog(CourseInfo courseToAdd)
+    /**
+     * This method adds a course to the dialog list of courses
+     *
+     * @param courseToAdd   The course to add to the dialog list
+     */
+    protected static void addCourseToDialog(SpreadsheetCourse courseToAdd)
     {
-        courseData.add(courseToAdd.getCourseName() + "-" + courseToAdd.getNumber());
+        if(!courseList.contains(courseToAdd))
+        {
+            courseData.add(courseToAdd.getCourseInfo().getCourseName()
+                + "-" + courseToAdd.getCourseInfo().getNumber());
+            courseList.add(courseToAdd);
+        }
     }
     /**
      * Contructor for this class
@@ -189,9 +208,6 @@ public class EditStudentController {
         {
             studentIdWarning.setText("");
         }
-        courseList = EditStudentCourseController.getCourseList();
-        System.out.println("courseList size = " + courseList.size());
-        System.out.println("old courseList size = " + oldCourseList.size());
         if(courseList.size() == 0)
         {
             errorMessage += "* You must select at least one course to which the student will be added\n\n";
@@ -244,6 +260,9 @@ public class EditStudentController {
         }
     }
 
+    /**
+     * Closes the stage when the cancel button is selected
+     */
     @FXML
     private void handleCancelButton() {
         Stage stage = (Stage) firstName.getScene().getWindow();
@@ -264,8 +283,6 @@ public class EditStudentController {
         ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Add Course");
     }
 
-
-
     /**
      * Called when the user clicks on the delete course button in the
      * add student dialog.  This will remove a course from this Student's
@@ -279,10 +296,9 @@ public class EditStudentController {
         if(indexOfClick >= 0 && indexOfClick < courseData.size())
         {
             courseData.remove(indexOfClick);
+            courseList.remove(indexOfClick);
         }
     }
-
-
 
     /**
      * This method gets the root stage of the view
