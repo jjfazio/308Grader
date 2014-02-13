@@ -87,7 +87,6 @@ public class Graph implements Serializable {
 	
 	public HashMap<Range, Integer> getAssignmentData() {
 		HashMap<Range, Integer> map = new HashMap<Range, Integer>();
-		Integer one = new Integer(0);
 		int[] nums= {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		int zero = 0, ten = 0, twenty = 0, thirty = 0, fourty = 0, fifty = 0,
 			sixty = 0, seventy = 0, eighty = 0, ninety = 0, hundred = 0;
