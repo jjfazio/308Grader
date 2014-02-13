@@ -50,13 +50,9 @@
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Grading Scheme:" />
-            <ComboBox promptText="">
+            <ComboBox fx:id="gradingSchemes" promptText="">
               <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1" />
-                  <String fx:value="Item 2" />
-                  <String fx:value="Item 3" />
-                </FXCollections>
+                <FXCollections fx:factory="observableArrayList" />
               </items>
             </ComboBox>
             <Button mnemonicParsing="false" onAction="#handleCreateNewGradingSchemeButton" text="Create New" />
@@ -65,13 +61,9 @@
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Teacher's Assistant:" />
-            <ComboBox promptText="">
+            <ComboBox fx:id="teacherAssistants" minWidth="-1.0" promptText="None" HBox.hgrow="ALWAYS">
               <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1" />
-                  <String fx:value="Item 2" />
-                  <String fx:value="Item 3" />
-                </FXCollections>
+                <FXCollections fx:factory="observableArrayList" />
               </items>
             </ComboBox>
             <Button mnemonicParsing="false" onAction="#handleCreateNewTeacherAssistantButton" text="Create New" />
@@ -82,16 +74,20 @@
             <Label text="Late Policy:" />
             <VBox alignment="TOP_LEFT" prefHeight="67.0" prefWidth="192.9998779296875">
               <children>
-                <RadioButton disable="false" focusTraversable="true" mnemonicParsing="false" selected="true" text="None" underline="false" />
                 <HBox prefHeight="22.0" prefWidth="193.0">
                   <children>
-                    <RadioButton mnemonicParsing="false" prefWidth="71.0" text="Decay" />
-                    <TextField prefWidth="41.0" />
+                    <RadioButton fx:id="decay" mnemonicParsing="false" prefWidth="71.0" text="Decay" />
+                    <TextField fx:id="decayPercentage" prefWidth="41.0" />
                     <Label prefWidth="29.0" text="per" />
-                    <TextField prefWidth="41.0" />
+                    <TextField fx:id="decayRate" prefWidth="41.0" />
                   </children>
                 </HBox>
-                <RadioButton mnemonicParsing="false" text="Allotment" />
+                <HBox alignment="TOP_LEFT" prefHeight="22.0" prefWidth="193.0">
+                  <children>
+                    <RadioButton id="decay" fx:id="graceDays" mnemonicParsing="false" prefWidth="-1.0" text="Grace days" />
+                    <TextField id="decayPercentage" fx:id="numberOfGraceDays" prefWidth="41.0" promptText="0" text="" />
+                  </children>
+                </HBox>
               </children>
             </VBox>
           </children>
@@ -99,6 +95,7 @@
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Button mnemonicParsing="false" onAction="#handleCreateButton" text="Create" />
+            <Button mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
           </children>
         </HBox>
       </children>

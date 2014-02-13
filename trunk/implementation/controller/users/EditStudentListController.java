@@ -61,8 +61,10 @@ public class EditStudentListController {
     @FXML
     private TableColumn<Student, CheckBox> checkBoxColumn;
 
+    /** Contains the observable list of students */
     private static ObservableList<Student> allStudents = FXCollections.observableArrayList();
 
+    /** Contants the courses taught by the instructor */
     private ArrayList<SpreadsheetCourse> allCourses;
 
     /** Holds the instance of the gradebook */

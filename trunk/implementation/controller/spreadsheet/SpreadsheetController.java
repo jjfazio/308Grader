@@ -115,6 +115,7 @@ public class SpreadsheetController implements Observer {
        topCol = new TableColumn<Student, String>(course.getTopCategory().getName());
        addCols(topCol, course.getTopCategory());
        table.getColumns().add(topCol);
+       
    }
    
    /**
