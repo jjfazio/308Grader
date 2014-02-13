@@ -101,7 +101,7 @@ public class GraphAndAdjustCurveController {
     }
     
     private void setBarChart(Assignment ass, String granularity) {
-    	HashMap<Range, Integer> scoreMap = graph.getAssignmentData();
+    	Map<String, Integer> scoreMap = graph.getAssignmentBarChartData(granularity);
     	final String[] grade = {"0 - 10 %", "10 - 20 %", "20 - 30 %", "30 - 40 %",
     		"40 - 50 %", "50 - 60 %", "60 - 70 %", "70 - 80 %", "80 - 90 %",
     		"90 - 100 %", "100+ %"};
@@ -135,12 +135,6 @@ public class GraphAndAdjustCurveController {
     
     private void setPieChart(Assignment ass) {
     	Map<String, Integer> scoreMap = graph.getAssignmentPieChartData();
-    	//HashMap<Range, Integer> scoreMap = graph.getAssignmentPieChartData();
-    	/*final String[] grade = {"0 - 10 %", "10 - 20 %", "20 - 30 %", "30 - 40 %",
-    		"40 - 50 %", "50 - 60 %", "60 - 70 %", "70 - 80 %", "80 - 90 %",
-    		"90 - 100 %", "100+ %"};
-
-        Range[] ranges = Range.values();*/
         
     	for(String gradeStr : scoreMap.keySet()) {
     		if(scoreMap.get(gradeStr) > 0) {
@@ -148,13 +142,6 @@ public class GraphAndAdjustCurveController {
         		this.pieChart.getData().add(data);
     		}
     	}
-    	
-//        for(int ndx = 0; ndx < scoreMap.size(); ndx++) {
-//        	if(scoreMap.get(ranges[ndx]) > 0) {
-//        		PieChart.Data data = new PieChart.Data(grade[ndx], scoreMap.get(ranges[ndx]));
-//        		this.pieChart.getData().add(data);
-//        	}
-//        }
         
         this.pieChart.setTitle(ass.getName() + " Grade Distribution Pie Chart");
         this.pieChart.setLegendVisible(false);
