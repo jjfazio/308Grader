@@ -69,7 +69,7 @@ public class AddAssignmentController {
     @FXML
     private void initialize() {
         addAssignmentCategory.getItems().clear();
-        fillComboCategoryNames(Gradebook.getInstance().getCurrentCourse().getTopCategory());
+        fillComboCategoryNames(Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot());
     }
 
     /**
@@ -92,7 +92,7 @@ public class AddAssignmentController {
     private void handleAddAssignmentSave() {
         System.out.println("Save button Clicked!");
         addAssignment(addAssignmentCategory.getValue().toString(),
-                Gradebook.getInstance().getCurrentCourse().getTopCategory());
+                Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot());
     }
 
     /**

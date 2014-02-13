@@ -30,7 +30,7 @@ public class DeleteAssignmentController {
     @FXML
     private void initialize() {
         ArrayList<String> assignmentNames = new ArrayList<String>();
-        fillList(Gradebook.getInstance().getCurrentCourse().getTopCategory(), assignmentNames);
+        fillList(Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot(), assignmentNames);
         deleteAssignmentList.getItems().setAll(assignmentNames);
     }
 
