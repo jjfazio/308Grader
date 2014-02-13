@@ -7,6 +7,8 @@ import model.assignments_categories.Assignment;
 import model.assignments_categories.Grade;
 import model.spreadsheet.SpreadsheetCourse;
 
+import static java.lang.String.copyValueOf;
+
 /****
  *
  * Class Student is composed of a first name, last name, username, id, email,
@@ -40,6 +42,9 @@ public class Student implements Serializable {
     private String email;
     /** Contains the student's phone number */
     private String phoneNumber;
+
+    /** Contains the formatted list of courses for use by models */
+    private String formattedCourseList;
    
     /** Contains the collection of courses that the student is enrolled */
     private ArrayList<SpreadsheetCourse> coursesEnrolled;
@@ -478,6 +483,74 @@ public class Student implements Serializable {
      */
     public HashMap<Assignment, Grade> getGrades() {
         return grades;
+    }
+
+    public String getFormattedCourseList()
+    {
+        String courseList = "";
+        for(SpreadsheetCourse currentCourse : coursesEnrolled)
+        {
+            courseList += currentCourse.getCourseInfo().getNumber() + " - "
+                    + currentCourse.getCourseInfo().getSection() + "\n";
+        }
+        return courseList;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Student other = (Student) obj;
+        if (firstName == null) {
+            if (other.firstName != null)
+                return false;
+        } else if (!firstName.equals(other.firstName))
+            return false;
+        if (middleName == null) {
+            if (other.middleName != null)
+                return false;
+        } else if (!middleName.equals(other.middleName))
+            return false;
+        if (lastName == null) {
+            if (other.lastName != null)
+                return false;
+        } else if (!lastName.equals(other.lastName))
+            return false;
+        if (userName == null) {
+            if (other.userName != null)
+                return false;
+        } else if (!userName.equals(other.userName))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (major == null) {
+            if (other.major != null)
+                return false;
+        } else if (!major.equals(other.major))
+            return false;
+        if (gradeLevel == null) {
+            if (other.gradeLevel != null)
+                return false;
+        } else if (!gradeLevel.equals(other.gradeLevel))
+            return false;
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        } else if (!email.equals(other.email))
+            return false;
+        if (phoneNumber == null) {
+            if (other.phoneNumber != null)
+                return false;
+        } else if (!phoneNumber.equals(other.phoneNumber))
+            return false;
+        return true;
     }
 }
 

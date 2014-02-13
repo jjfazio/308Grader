@@ -26,12 +26,15 @@ import controller.graph.GraphAndAdjustCurveController;
  */
 public class MenuBarController
 {
+   /** Instance of the Gradebook */
    Gradebook gradebook;
    
    @FXML 
+   /** Menu Bar of the view */
    private MenuBar menuBar;
    
    @FXML
+   /** Controller for saving a gradebook */
    public void saveGradebook() {
 	   System.out.println("Pressed save!");
 	   gradebook = Gradebook.getInstance();
@@ -211,6 +214,7 @@ public class MenuBarController
     }
     
     @FXML
+    /** Controller for download roster menu item */
     public void viewDownloadRoster() {
         System.out.println("Download Roster Clicked");
         

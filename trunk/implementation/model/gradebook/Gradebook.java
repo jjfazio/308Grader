@@ -13,6 +13,7 @@ import java.util.Observable;
 import java.util.logging.Logger;
 
 import scripts.StudentDBScript;
+import model.spreadsheet.GradingScheme;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Teacher;
 
@@ -34,6 +35,12 @@ public class Gradebook extends Observable implements Serializable{
      * taught in the Gradebook.
      */
 	private ArrayList<SpreadsheetCourse> courses;
+	
+	/**
+     * List of the {@link model.spreadsheet.GradingScheme}s
+     * taught in the Gradebook.
+     */
+    private ArrayList<GradingScheme> gradingSchemes;
 	
 	/**
 	 * Current {@link model.spreadsheet.SpreadsheetCourse} being used.
@@ -313,6 +320,23 @@ public class Gradebook extends Observable implements Serializable{
       
       return false;
    }
+   
+   
+   public ArrayList<GradingScheme> getGradingSchemes() {
+       return gradingSchemes;
+    }
+   
+   public void addGradingScheme(GradingScheme scheme) {
+       if (gradingSchemes == null) {
+          gradingSchemes = new ArrayList<GradingScheme>();
+       }
+       
+       gradingSchemes.add(scheme);
+       setChanged();
+       notifyObservers();
+    }
+   
+   
    
    public void clearGradebook() {
        File f = new File("currentGradebook");

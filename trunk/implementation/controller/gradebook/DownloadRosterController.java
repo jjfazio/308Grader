@@ -36,24 +36,38 @@ import model.users.StudentDB;
  */
 public class DownloadRosterController
 {
+    /** Instance of the Gradebook */
     private Gradebook gradebook;
+    
+    /** CourseDB that holds SIS courses */
     private CourseDB courseDB;
+    
+    /** StudentDB that holds SIS students */
     private StudentDB studentDB;
-    private ObservableList<String> createdCoursesObs;
+    
+    /** List of SIS classes */
     private List<CheckBoxTreeItem<String>> selectedSISClasses;
+    
+    /** List of created Courses */
     private List<SpreadsheetCourse> createdCourses;
+    
+    /** List of available SIS classes */
     private List<CourseInfo> availableSISClasses;
     
     @FXML 
+    /** The root of the layout */
     private Parent root;
     
     @FXML
+    /** The TreeView that holds SIS classes */
     private TreeView<String> classTreeView;
     
     @FXML
+    /** Download SIS roster button */
     private Button downloadButton;
     
     @FXML 
+    /** View that holds created courses */
     private ListView<String> listView;
     
     
@@ -122,6 +136,13 @@ public class DownloadRosterController
         }
         
         selectedCourse.addStudents(students);
+
+        /** Adds the selected course to each students collection of enrolled courses */
+        for(int index = 0; index < students.size(); index++)
+        {
+            students.get(index).addCourse(selectedCourse);
+        }
+
         getStage().close();
     }
     
@@ -130,7 +151,7 @@ public class DownloadRosterController
      */
     private void loadListView()
     {
-        createdCoursesObs = FXCollections.observableArrayList();
+        ObservableList<String> createdCoursesObs = FXCollections.observableArrayList();
         createdCourses = gradebook.getCourses();
         
         for(SpreadsheetCourse currentCourse: createdCourses)

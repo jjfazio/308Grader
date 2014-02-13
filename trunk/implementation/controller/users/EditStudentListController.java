@@ -1,16 +1,26 @@
 package controller.users;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 import model.gradebook.Gradebook;
 import model.users.Student;
 import model.spreadsheet.SpreadsheetCourse;
+import view.ViewUtility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /****
@@ -51,9 +61,14 @@ public class EditStudentListController {
     @FXML
     private TableColumn<Student, CheckBox> checkBoxColumn;
 
+    /** Contains the observable list of students */
     private static ObservableList<Student> allStudents = FXCollections.observableArrayList();
 
+    /** Contants the courses taught by the instructor */
     private ArrayList<SpreadsheetCourse> allCourses;
+
+    /** Holds the instance of the gradebook */
+    private Gradebook gradeBook;
 
     /**
      * Contructor for this class
@@ -70,13 +85,16 @@ public class EditStudentListController {
         studentNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
         studentLastNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
         studentUsernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("userName"));
-        enrolledCourseColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("courseEnrolled"));
+        enrolledCourseColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("formattedCourseList"));
 
-        allCourses = Gradebook.getInstance().getCourses();
+        gradeBook = Gradebook.getInstance();
+        allStudents.clear();
+        ArrayList<SpreadsheetCourse> allCourses = gradeBook.getCourses();
         for(SpreadsheetCourse currentCourse : allCourses)
         {
-            allStudents.addAll(currentCourse.getStudentRoster());
+             allStudents.addAll(currentCourse.getStudentRoster());
         }
+
         studentTable.setItems(allStudents);
     }
 
@@ -87,12 +105,32 @@ public class EditStudentListController {
      * entries.
      */
     @FXML
-    private void handleEditSelectedButton() {
+    private void handleEditSelectedButton() throws IOException {
         /*
          * Call editStudentInfo method in Student model class
          * to make the data change.
          */
-        Student tempStudent = new Student("","","","","","");
-        tempStudent.editStudentInfo(tempStudent);
+        int indexSelected = studentTable.getSelectionModel().getSelectedIndex();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                "/view/users/EditStudent.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene((Pane) loader.load()));
+        EditStudentController editStudentController =
+                loader.getController();
+        editStudentController.initData(allStudents.get(indexSelected));
+        /*
+         * Shows the Add Course dialog box
+         */
+        stage.show();
+    }
+
+    /**
+     * This method closes the dialog box when the cancel
+     * button is selected
+     */
+    @FXML
+    public void handleCancelButton() {
+        Stage stage = (Stage) studentTable.getScene().getWindow();
+        stage.close();
     }
 }

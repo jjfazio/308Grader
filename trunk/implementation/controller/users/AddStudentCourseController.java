@@ -36,6 +36,8 @@ public class AddStudentCourseController {
     private static ArrayList<SpreadsheetCourse> courseList;
 
     private static ArrayList<SpreadsheetCourse> studentCourseList = new ArrayList<>();
+
+    private static SpreadsheetCourse courseSelected = null;
     /**
      * Contructor for this class
      */
@@ -44,6 +46,10 @@ public class AddStudentCourseController {
 
     @FXML
     private void initialize() {
+        if(studentCourseList != null)
+        {
+            studentCourseList.clear();
+        }
         viewCourseList.setItems(this.getCourseInfoList());
     }
 
@@ -77,8 +83,8 @@ public class AddStudentCourseController {
          * to add a course to a student
          */
         int indexSelected = viewCourseList.getSelectionModel().getSelectedIndex();
+        courseSelected = courseList.get(indexSelected);
         AddStudentController.addCourseToDialog(courseList.get(indexSelected).getCourseInfo());
-        studentCourseList.add(courseList.get(indexSelected));
 
         Stage stage = (Stage) viewCourseList.getScene().getWindow();
         stage.close();
@@ -96,8 +102,8 @@ public class AddStudentCourseController {
      * @return  ArrayList   The collection of SpreadsheetCourses to be added
      *                      to this student
      */
-    protected static ArrayList<SpreadsheetCourse> getCourseList()
+    protected static SpreadsheetCourse getCourseSelected()
     {
-        return studentCourseList;
+        return courseSelected;
     }
 }
