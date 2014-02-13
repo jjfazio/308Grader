@@ -46,7 +46,7 @@ public class AddCategoryController {
      */
     private void loadTreeView()
     {
-        Category parent = course.getTopCategory();
+        Category parent = course.getCategoryContainer().getRoot();
         TreeItem<String> rootItem = new TreeItem<String>(parent.getName()
                 + " ( " + parent.getPercentofparent() + " )");
         
@@ -89,8 +89,7 @@ public class AddCategoryController {
         Double weight = Double.parseDouble(addCategoryWeight.getText());
         String categoryName = addCategoryName.getText();
         
-        
-        Category category = new Category(categoryMap.get(parentName),
+        course.getCategoryContainer().addCategory(categoryMap.get(parentName),
                 weight, categoryName);
         
         Stage stage = (Stage) addCategoryName.getScene().getWindow();

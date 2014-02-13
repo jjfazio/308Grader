@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Observable;
 
 import model.assignments_categories.Category;
+import model.assignments_categories.CategoryContainer;
 import model.file.Settings;
 import model.users.Student;
 
@@ -32,7 +33,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     /**
      * Top level category.
      */
-    private Category topCategory;
+    private CategoryContainer categoryContainer;
 
     /**
      * A list of {@link Student}.
@@ -69,13 +70,12 @@ public class SpreadsheetCourse extends Observable implements Serializable {
      */
    
    public SpreadsheetCourse(CourseInfo ci, GradingScheme gs, LatePolicy lp) {
-	      topCategory = new Category();
 	      courseInfo = ci;
 	      gradingDistribution = gs;
 	      latePolicy = lp;
 	      System.out.println("Creating a Spreadsheet Course named: " + 
 	      courseInfo.getCourseName());
-	      topCategory = new Category();
+	      categoryContainer = new CategoryContainer();
 	      studentRoster = new ArrayList<Student>();
 	      addedStudents = new ArrayList<Student>();
     }
@@ -296,8 +296,8 @@ public class SpreadsheetCourse extends Observable implements Serializable {
         this.courseInfo = courseInfo;
     }
 
-    public Category getTopCategory() {
-        return topCategory;
+    public CategoryContainer getCategoryContainer() {
+        return categoryContainer;
     }
 
     public List<Student> getStudentRoster() {
@@ -333,7 +333,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((topCategory == null) ? 0 : topCategory.hashCode());
+        result = prime * result + ((categoryContainer == null) ? 0 : categoryContainer.hashCode());
         result = prime * result
                 + ((courseInfo == null) ? 0 : courseInfo.hashCode());
         result = prime
@@ -359,10 +359,10 @@ public class SpreadsheetCourse extends Observable implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         SpreadsheetCourse other = (SpreadsheetCourse) obj;
-        if (topCategory == null) {
-            if (other.topCategory != null)
+        if (categoryContainer == null) {
+            if (other.categoryContainer != null)
                 return false;
-        } else if (!topCategory.equals(other.topCategory))
+        } else if (!categoryContainer.equals(other.categoryContainer))
             return false;
         if (courseInfo == null) {
             if (other.courseInfo != null)
