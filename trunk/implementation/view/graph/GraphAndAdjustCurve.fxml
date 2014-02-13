@@ -17,7 +17,7 @@
             <Font name="System Bold" size="21.0" />
           </font>
         </Label>
-        <SplitPane dividerPositions="0.632183908045977" focusTraversable="true" layoutX="132.0" layoutY="149.0" orientation="VERTICAL" prefHeight="176.0" prefWidth="160.0">
+        <SplitPane dividerPositions="0.632183908045977" focusTraversable="false" layoutX="132.0" layoutY="149.0" orientation="VERTICAL" prefHeight="176.0" prefWidth="160.0">
           <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
               <children>
@@ -39,8 +39,8 @@
                 <Pane layoutX="-20.0" layoutY="0.0" prefHeight="69.0" prefWidth="199.0">
                   <children>
                     <RadioButton fx:id="onePercentGranularity" alignment="TOP_LEFT" layoutX="39.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleOnePercentButtonPressed" text="1%" />
-                    <RadioButton fx:id="tenPercentGranularity" alignment="TOP_RIGHT" layoutX="113.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleTenPercentButtonPressed" text="10%" />
-                    <Label alignment="CENTER" layoutX="93.0" layoutY="40.0" text="or" />
+                    <RadioButton fx:id="tenPercentGranularity" alignment="TOP_RIGHT" layoutX="113.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleTenPercentButtonPressed" selected="true" text="10%" />
+                    <Label alignment="CENTER" layoutX="91.0" layoutY="40.0" text="or" />
                     <Label font="$x1" layoutX="39.0" layoutY="14.0" text="Interval Granularity" />
                   </children>
                 </Pane>
@@ -70,7 +70,7 @@
             <CategoryAxis animated="false" autoRanging="false" endMargin="15.0" gapStartAndEnd="true" label="Number of Students" side="BOTTOM" startMargin="0.0" tickLabelGap="1.0" tickLabelsVisible="true" />
           </xAxis>
           <yAxis>
-            <NumberAxis autoRanging="false" label="Grade" minorTickCount="1" side="LEFT" upperBound="100.0" />
+            <NumberAxis id="barChartNumberAxis" autoRanging="false" label="Grade" minorTickCount="1" side="LEFT" upperBound="100.0" />
           </yAxis>
         </BarChart>
         <PieChart id="PieChart" fx:id="pieChart" focusTraversable="true" layoutX="436.0" layoutY="387.0" legendVisible="true" prefHeight="325.0000999999975" prefWidth="354.0" title="Quiz 4 Grade Distribution Pie Chart" />
