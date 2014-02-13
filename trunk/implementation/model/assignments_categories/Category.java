@@ -39,8 +39,8 @@ public class Category implements Serializable {
       this.name = name;
       this.assignments = new ArrayList<Assignment>();
       
-      if (parentCategory != null)
-         parentCategory.addSubCategory(this);
+//      if (parentCategory != null)
+//         parentCategory.addSubCategory(this);
    }
 
    /**
@@ -371,8 +371,6 @@ public class Category implements Serializable {
    public Double getPercentCurve() {
       return percentCurve;
    }
-
-
     /**
      *
      * @param percentCurve
@@ -380,4 +378,61 @@ public class Category implements Serializable {
    public void setPercentCurve(Double percentCurve) {
       this.percentCurve = percentCurve;
    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Category other = (Category) obj;
+        if (assignments == null)
+        {
+            if (other.assignments != null)
+                return false;
+        }
+        else if (!assignments.equals(other.assignments))
+            return false;
+        if (name == null)
+        {
+            if (other.name != null)
+                return false;
+        }
+        else if (!name.equals(other.name))
+            return false;
+        if (parentCategory == null)
+        {
+            if (other.parentCategory != null)
+                return false;
+        }
+        else if (!parentCategory.equals(other.parentCategory))
+            return false;
+        if (percentCurve == null)
+        {
+            if (other.percentCurve != null)
+                return false;
+        }
+        else if (!percentCurve.equals(other.percentCurve))
+            return false;
+        if (percentofparent == null)
+        {
+            if (other.percentofparent != null)
+                return false;
+        }
+        else if (!percentofparent.equals(other.percentofparent))
+            return false;
+        if (subCategories == null)
+        {
+            if (other.subCategories != null)
+                return false;
+        }
+        else if (!subCategories.equals(other.subCategories))
+            return false;
+        return true;
+    }
+   
+   
 }
