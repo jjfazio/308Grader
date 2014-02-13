@@ -29,7 +29,8 @@ public class DeleteCategoryController {
     @FXML
     private void initialize() {
         ArrayList<String> categoryNames = new ArrayList<String>();
-        fillList(Gradebook.getInstance().getCurrentCourse().getTopCategory(), categoryNames);
+        fillList(Gradebook.getInstance().getCurrentCourse().
+                getCategoryContainer().getRoot(), categoryNames);
         deleteCategoryList.getItems().setAll(categoryNames);
     }
 
@@ -38,7 +39,6 @@ public class DeleteCategoryController {
      * @param theCat name of the list which we get the name.
      * @param categoryNames List of the names of categories
      */
-    @FXML
     private void fillList(Category theCat, ArrayList<String> categoryNames) {
         //addCategoryParentName.getItems().add(theCat.getName());
         if (!theCat.getName().trim().equals("Total"))
@@ -58,7 +58,6 @@ public class DeleteCategoryController {
      * @param name Name of the child category
      * @param cat The category that we check if it's our target category
      */
-    @FXML
     public void findParentCategory(String name, Category cat)
     {
        // Category temp = null;
@@ -92,7 +91,6 @@ public class DeleteCategoryController {
      * @param name Name of the category to be found
      * @param cat  The category that we check if it's our target category
      */
-    @FXML
     public void findChildCategory(String name, Category cat) {
         if(cat.getName().equals(name)){
             tempCategory = cat;
@@ -116,9 +114,11 @@ public class DeleteCategoryController {
         Category parentCategory;
         Category childCategory = null;
         name = deleteCategoryList.getSelectionModel().getSelectedItem();
-        findParentCategory(name, Gradebook.getInstance().getCurrentCourse().getTopCategory());
+        findParentCategory(name, Gradebook.getInstance().getCurrentCourse().
+                getCategoryContainer().getRoot());
         parentCategory = tempCategory;
-        findChildCategory(name, Gradebook.getInstance().getCurrentCourse().getTopCategory());
+        findChildCategory(name, Gradebook.getInstance().getCurrentCourse().
+                getCategoryContainer().getRoot());
         childCategory = tempCategory;
         parentCategory.removeCategory(childCategory);
         Stage stage = (Stage) deleteCategoryList.getScene().getWindow();
