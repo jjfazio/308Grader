@@ -45,7 +45,6 @@ public class DeleteCategoryController {
         {
             categoryNames.add(theCat.getName());
         }
-
         if((ArrayList<Category>)theCat.getSubCategories() != null){
             for(Category x : (ArrayList<Category>)theCat.getSubCategories()) {
                 fillList(x, categoryNames);
