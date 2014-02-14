@@ -25,7 +25,7 @@ public class GradingScheme extends Observable implements Serializable {
     {
         
         gradeRanges = new ArrayList<GradeRange>();
-        System.out.println("Created a new grading scheme");
+        
         /** Set to default scheme */
         gradeRanges.add(new GradeRange("A", 90.0, 100.0));
         gradeRanges.add(new GradeRange("B", 80.0, 89.9));
@@ -45,7 +45,7 @@ public class GradingScheme extends Observable implements Serializable {
         plusMinusEnabled = true;
         gradeRanges = ranges;
         schemeName = name;
-        System.out.println("Created a new grading scheme with name: " + name);
+        //System.out.println("Created a new grading scheme with name: " + name);
         
         setChanged();
         notifyObservers();
@@ -55,7 +55,7 @@ public class GradingScheme extends Observable implements Serializable {
     {
         plusMinusEnabled = true;
         schemeName = name;
-        System.out.println("Creted a new grading scheme with name: " + name);
+        //System.out.println("Creted a new grading scheme with name: " + name);
         
         setChanged();
         notifyObservers();
