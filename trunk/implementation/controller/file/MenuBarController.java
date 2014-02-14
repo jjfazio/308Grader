@@ -184,7 +184,7 @@ public class MenuBarController
     	System.out.println();
     	
     	controller.setAssignment(ass, studentList, "10%");
-        ViewUtility.showPage(pane, "Graphs");
+        ViewUtility.showPage(pane, "Graphs & Adjust Curves");
     }
 
     @FXML

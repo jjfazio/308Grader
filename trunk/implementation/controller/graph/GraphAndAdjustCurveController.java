@@ -212,8 +212,13 @@ public class GraphAndAdjustCurveController {
     private void handleAddCustomCurveButton() {
         System.out.println("Add custom curve button pressed");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/graph/CustomCurveAdjuster.fxml"));
-        ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Custom Curve Adjuster");
+        //ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Custom Curve Adjuster");
 
+    	AnchorPane pane = (AnchorPane)ViewUtility.loadView(loader);
+    	CustomCurveAdjusterController controller = (CustomCurveAdjusterController)loader.getController();
+    	Map<String, Integer> scoreMap = graph.getAssignmentBarChartData("1%");
+    	controller.setBarChart(ass, scoreMap, "1%");
+        ViewUtility.showPage(pane, "Custom Curve Adjustment");
     }
     
     /**
