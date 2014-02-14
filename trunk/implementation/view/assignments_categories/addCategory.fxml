@@ -9,49 +9,54 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="addCategoryAnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="599.0" prefHeight="223.0" prefWidth="645.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.assignments_categories.AddCategoryController">
+<AnchorPane id="AnchorPane" fx:id="addCategoryAnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="322.5" prefHeight="438.0" prefWidth="377.5" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.assignments_categories.AddCategoryController">
   <children>
-    <VBox layoutX="10.0" layoutY="24.0" prefHeight="166.0" prefWidth="283.0">
+    <VBox prefHeight="438.0" prefWidth="377.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <Label graphicTextGap="4.0" text="Category" VBox.vgrow="ALWAYS">
+        <Label contentDisplay="LEFT" text="Choose a Parent Category" textAlignment="LEFT">
           <font>
-            <Font size="16.0" fx:id="x1" />
+            <Font size="15.0" />
           </font>
           <VBox.margin>
-            <Insets left="10.0" top="10.0" fx:id="x2" />
+            <Insets left="10.0" top="10.0" />
           </VBox.margin>
         </Label>
-        <Label font="$x1" graphicTextGap="4.0" text="Name" VBox.margin="$x2" VBox.vgrow="ALWAYS" />
-        <Label font="$x1" graphicTextGap="4.0" text="Weight (%)" VBox.margin="$x2" VBox.vgrow="ALWAYS" />
+        <TreeView id="parentCategories" fx:id="treeView" prefHeight="277.0" prefWidth="378.0" />
+        <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="378.0">
+          <children>
+            <Label text="Name the Category">
+              <HBox.margin>
+                <Insets left="10.0" fx:id="x1" />
+              </HBox.margin>
+            </Label>
+            <TextField fx:id="addCategoryName" prefWidth="200.0" HBox.margin="$x1" />
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="378.0">
+          <children>
+            <Label text="Percent of Parent" HBox.margin="$x1" />
+            <TextField fx:id="addCategoryWeight" prefWidth="200.0">
+              <HBox.margin>
+                <Insets left="23.0" />
+              </HBox.margin>
+            </TextField>
+          </children>
+        </HBox>
+        <HBox alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="378.0">
+          <children>
+            <Button mnemonicParsing="false" onAction="#handleAddCategorySave" text="Save">
+              <HBox.margin>
+                <Insets bottom="10.0" right="20.0" />
+              </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleAddCategoryCancel" text="Cancel">
+              <HBox.margin>
+                <Insets bottom="10.0" left="30.0" />
+              </HBox.margin>
+            </Button>
+          </children>
+        </HBox>
       </children>
     </VBox>
-    <VBox layoutX="303.0" layoutY="26.0" maxWidth="-Infinity" prefHeight="150.0" prefWidth="283.0">
-      <children>
-        <ComboBox fx:id="addCategoryParentName" prefWidth="263.0">
-          <items>
-            <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Item 1" />
-              <String fx:value="Item 2" />
-              <String fx:value="Item 3" />
-            </FXCollections>
-          </items>
-          <VBox.margin>
-            <Insets left="10.0" right="10.0" top="10.0" fx:id="x3" />
-          </VBox.margin>
-        </ComboBox>
-        <TextField fx:id="addCategoryName" prefWidth="200.0" VBox.margin="$x3" />
-        <TextField fx:id="addCategoryWeight" prefWidth="200.0" VBox.margin="$x3" />
-      </children>
-    </VBox>
-    <HBox alignment="CENTER" layoutX="125.0" layoutY="176.0" prefHeight="36.0" prefWidth="316.0">
-      <children>
-        <Button id="saveCategoryBotton" fx:id="addCategorySaveBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleAddCategorySave" text="Save" textAlignment="LEFT">
-          <HBox.margin>
-            <Insets left="50.0" fx:id="x4" />
-          </HBox.margin>
-        </Button>
-        <Button id="categoryCancelbotton" fx:id="addCategoryCancelbotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleAddCategoryCancel" text="Cancel" textAlignment="LEFT" HBox.margin="$x4" />
-      </children>
-    </HBox>
   </children>
 </AnchorPane>

@@ -3,6 +3,7 @@ package model.graph;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.assignments_categories.*;
 import model.users.Student;
@@ -87,7 +88,6 @@ public class Graph implements Serializable {
 	
 	public HashMap<Range, Integer> getAssignmentData() {
 		HashMap<Range, Integer> map = new HashMap<Range, Integer>();
-		Integer one = new Integer(0);
 		int[] nums= {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		int zero = 0, ten = 0, twenty = 0, thirty = 0, fourty = 0, fifty = 0,
 			sixty = 0, seventy = 0, eighty = 0, ninety = 0, hundred = 0;
@@ -143,6 +143,29 @@ public class Graph implements Serializable {
 		return map;
 	}
 	
+	public Map<String, Integer> getAssignmentPieChartData() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("A", 0);
+		map.put("B", 0);
+		map.put("C", 0);
+		map.put("D", 0);
+		map.put("F", 0);	
+		
+		for(Student stud : this.studentList) {
+			HashMap<Assignment, Grade> studGrades = stud.getGrades();
+			if(studGrades.get(this.ass) != null) {
+				if(studGrades.get(this.ass).getLetterGrade() != null) {
+					int numThisScore = map.get(studGrades.get(this.ass).getLetterGrade());
+					numThisScore++;
+					map.put(studGrades.get(this.ass).getLetterGrade(), numThisScore);
+				}
+			}
+		}
+		
+		return map;
+	}
+	
 	public HashMap<Range, Integer> getCategoryData() {
 		HashMap<Range, Integer> map = new HashMap<Range, Integer>();
 		
@@ -150,4 +173,5 @@ public class Graph implements Serializable {
 		
 		return map;
 	}
+	
 }

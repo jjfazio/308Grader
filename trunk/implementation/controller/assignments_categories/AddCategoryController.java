@@ -1,24 +1,16 @@
 package controller.assignments_categories;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.stage.Stage;
 import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
-import javafx.scene.control.Dialogs;
-import javafx.scene.control.Dialogs.DialogResponse;
-
-import javax.sql.rowset.CachedRowSet;
-import java.awt.*;
-import java.util.ArrayList;
-
-
-
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Jirbert Dilanchian
@@ -32,7 +24,11 @@ public class AddCategoryController {
     private TextField addCategoryWeight;
 
     @FXML
-    private ComboBox addCategoryParentName;
+    private TreeView<String> treeView;
+    
+    private SpreadsheetCourse course;
+    
+    private Map<String, Category> categoryMap;
 
     /**
      * Called by FXML when view is loaded. Reloads all of the
@@ -40,45 +36,44 @@ public class AddCategoryController {
      */
     @FXML
     private void initialize() {
-        addCategoryParentName.getItems().clear();
-        fillCombo(Gradebook.getInstance().getCurrentCourse().getTopCategory());
+        categoryMap = new HashMap<String, Category>();
+        course = Gradebook.getInstance().getCurrentCourse();
+        loadTreeView();
     }
 
     /**
-     * Filles the comboBox on add Category dialogue.
-     * @param theCat The category which name is going to be added to the list
+     * Sets up the TreeView with courses in SIS
      */
-    @FXML
-    private void fillCombo(Category theCat) {
-        addCategoryParentName.getItems().add(theCat.getName());
-        if((ArrayList<Category>)theCat.getSubCategories() != null){
-            for(Category x : (ArrayList<Category>)theCat.getSubCategories()) {
-                fillCombo(x);
-            }
-        }
+    private void loadTreeView()
+    {
+        Category parent = course.getCategoryContainer().getRoot();
+        TreeItem<String> rootItem = new TreeItem<String>(parent.getName()
+                + " ( " + parent.getPercentofparent() + " )");
+        
+        addToTree(parent, rootItem);
+
+        
+        rootItem.setExpanded(true);
+        treeView.setRoot(rootItem);
+        treeView.setShowRoot(true);
+        
     }
-
-    /**
-     * Locates the parent category in the arraylist of subCategories and adds the new category to it.
-     * @param name The name of the parent category.
-     * @param cat The new category to be added to parent category
-     */
-    @FXML
-    private void findCategory(String name, Category cat) {
-        Category catLookingFor = null;
-        if(cat.getName().equals(name)) {
-            catLookingFor =  cat;
-            Category newCategory = new Category(catLookingFor,
-                    Double.parseDouble(addCategoryWeight.getText()), addCategoryName.getText());
-        }
-        if((ArrayList<Category>)cat.getSubCategories() != null && catLookingFor == null){
-            for(Category x : (ArrayList<Category>)cat.getSubCategories()) {
-                if(catLookingFor == null) {
-                    findCategory(name, x);
-                }
+    
+    private void addToTree(Category parent, TreeItem<String> rootItem)
+    {
+        TreeItem<String> curItem;
+        
+        categoryMap.put(parent.getName(), parent);
+        
+        if (parent.getSubCategories() != null && 
+                !parent.getSubCategories().isEmpty()) {
+            for (Category subCategory : parent.getSubCategories()) {
+                curItem = new TreeItem<String>(subCategory.getName()
+                        + " ( " + subCategory.getPercentofparent() + " %)");
+                rootItem.getChildren().add(curItem);
+                addToTree(subCategory, curItem);
             }
         }
-
     }
 
 
@@ -87,12 +82,18 @@ public class AddCategoryController {
      */
     @FXML
     public void handleAddCategorySave() {
-        System.out.println("Save button Clicked!");
-        findCategory(addCategoryParentName.getValue().toString().trim(),
-                Gradebook.getInstance().getCurrentCourse().getTopCategory());
+        String selectedCategory = treeView.getSelectionModel()
+                .getSelectedItem().getValue();
+        String parentName = selectedCategory.substring(0,
+                selectedCategory.indexOf("(")).trim();
+        Double weight = Double.parseDouble(addCategoryWeight.getText());
+        String categoryName = addCategoryName.getText();
+        
+        course.getCategoryContainer().addCategory(categoryMap.get(parentName),
+                weight, categoryName);
+        
         Stage stage = (Stage) addCategoryName.getScene().getWindow();
         stage.close();
-
     }
 
     /**

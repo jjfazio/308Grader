@@ -3,6 +3,7 @@ package controller.graph;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
@@ -20,9 +21,11 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import view.ViewUtility;
 
 /**
@@ -59,6 +62,9 @@ public class GraphAndAdjustCurveController {
     /**Bar chart object*/
     @FXML
     private BarChart<String, Integer> barChart;
+    /*Title of Page*/
+    @FXML
+    private Label graphAndAdjustCurveTitle;
     /**An instance of the graph model class*/
     private Graph graph;
     
@@ -87,22 +93,33 @@ public class GraphAndAdjustCurveController {
      * @param ass the current assignment being viewed on the graphs
      */
     public void setAssignment(Assignment ass, List<Student> students) {
+    	this.graphAndAdjustCurveTitle.setText(ass.getName() + " Graph & Curve Adjustment");
     	this.graph.setAssignment(ass, students);
+    	
+    	setBarChart(ass, "10%");
+    	setPieChart(ass);
+    }
+    
+    private void setBarChart(Assignment ass, String granularity) {
     	HashMap<Range, Integer> scoreMap = graph.getAssignmentData();
-    	final String[] grade = {"0 - 10", "10 - 20", "20 - 30", "30 - 40",
-    		"40 - 50", "50 - 60", "60 - 70", "70 - 80", "80 - 90",
-    		"90 - 100", "100+"};
-        final CategoryAxis yAxis = new CategoryAxis();
-        final NumberAxis xAxis = new NumberAxis();
-        //this.barChart = new BarChart<Number, String>(xAxis, yAxis);
-        //final BarChart<Number,String> bc = new BarChart<Number,String>(xAxis,yAxis);
+    	final String[] grade = {"0 - 10 %", "10 - 20 %", "20 - 30 %", "30 - 40 %",
+    		"40 - 50 %", "50 - 60 %", "60 - 70 %", "70 - 80 %", "80 - 90 %",
+    		"90 - 100 %", "100+ %"};
+    	int highestScore = 0;
+    	for(Integer score : scoreMap.values()) {
+    		if(score > highestScore) {
+    			highestScore = score;
+    		}
+    	}
+    	
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
         this.barChart.getXAxis().setAutoRanging(true);
         this.barChart.getYAxis().setAutoRanging(true);
         this.barChart.setTitle(ass.getName() + " Grade Distribution Bar Chart");
-        yAxis.setLabel("Number of Students");
-        yAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(grade)));
+        xAxis.setLabel("Number of Students");
+        xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(grade)));
         Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
-        //series1.setName("Grade (%)");
         Range[] ranges = Range.values();
         
         for(int ndx = 0; ndx < scoreMap.size(); ndx ++) {
@@ -114,14 +131,35 @@ public class GraphAndAdjustCurveController {
         this.barChart.getYAxis().setLabel("Number of Students");
         this.barChart.getXAxis().setLabel("Grade (%)");
         this.barChart.getData().add(series1);
+    }
+    
+    private void setPieChart(Assignment ass) {
+    	Map<String, Integer> scoreMap = graph.getAssignmentPieChartData();
+    	//HashMap<Range, Integer> scoreMap = graph.getAssignmentPieChartData();
+    	/*final String[] grade = {"0 - 10 %", "10 - 20 %", "20 - 30 %", "30 - 40 %",
+    		"40 - 50 %", "50 - 60 %", "60 - 70 %", "70 - 80 %", "80 - 90 %",
+    		"90 - 100 %", "100+ %"};
+
+        Range[] ranges = Range.values();*/
         
-        for(int ndx = 0; ndx < scoreMap.size(); ndx++) {
-        	this.pieChart.getData().add(new PieChart.Data(grade[ndx], scoreMap.get(ranges[ndx])));
-        }
+    	for(String gradeStr : scoreMap.keySet()) {
+    		if(scoreMap.get(gradeStr) > 0) {
+    			PieChart.Data data = new PieChart.Data(gradeStr, scoreMap.get(gradeStr));
+        		this.pieChart.getData().add(data);
+    		}
+    	}
+    	
+//        for(int ndx = 0; ndx < scoreMap.size(); ndx++) {
+//        	if(scoreMap.get(ranges[ndx]) > 0) {
+//        		PieChart.Data data = new PieChart.Data(grade[ndx], scoreMap.get(ranges[ndx]));
+//        		this.pieChart.getData().add(data);
+//        	}
+//        }
+        
         this.pieChart.setTitle(ass.getName() + " Grade Distribution Pie Chart");
+        this.pieChart.setLegendVisible(false);
         this.pieChart.setVisible(true);
         this.pieChart.setLabelsVisible(true);
-        
     }
     
     /**
@@ -129,6 +167,8 @@ public class GraphAndAdjustCurveController {
      */
     @FXML
     private void handleBarChartChecked() {
+    	boolean isVisible = this.barChart.isVisible();
+    	this.barChart.setVisible(!isVisible);
         System.out.println("Bar chart check box pressed");
     }
     
@@ -137,6 +177,8 @@ public class GraphAndAdjustCurveController {
      */
     @FXML
     private void handlePieChartChecked() {
+    	boolean isVisible = this.pieChart.isVisible();
+    	this.pieChart.setVisible(!isVisible);
         System.out.println("Pie chart check box pressed");
     }
     
@@ -146,6 +188,8 @@ public class GraphAndAdjustCurveController {
     @FXML
     private void handleOnePercentButtonPressed() {
         System.out.println("One percent button pressed");
+        this.onePercentGranularity.setSelected(true);
+        this.tenPercentGranularity.setSelected(false);
     }
     
     /**
@@ -154,6 +198,8 @@ public class GraphAndAdjustCurveController {
     @FXML
     private void handleTenPercentButtonPressed() {
         System.out.println("Ten percent buton pressed");
+        this.tenPercentGranularity.setSelected(true);
+        this.onePercentGranularity.setSelected(false);
     }
     
     /**

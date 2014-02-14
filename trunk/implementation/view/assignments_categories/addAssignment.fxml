@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.assignments_categories.AddAssignmentController">
+<AnchorPane fx:id="" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.assignments_categories.AddAssignmentController">
   <children>
     <Pane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
       <children>
@@ -45,10 +45,10 @@
       <children>
         <TextField fx:id="addAssignmentName" prefWidth="200.0">
           <VBox.margin>
-            <Insets left="10.0" right="10.0" top="10.0" fx:id="x4" />
+            <Insets left="10.0" right="10.0" top="10.0" fx:id="x5" />
           </VBox.margin>
         </TextField>
-        <ComboBox id="addAssignmentNameCategory" fx:id="addAssignmentCategory" prefWidth="260.0" VBox.margin="$x4">
+        <ComboBox fx:id="addAssignmentCategory" prefWidth="260.0" VBox.margin="$x5">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="Item 1" />
@@ -57,19 +57,26 @@
             </FXCollections>
           </items>
         </ComboBox>
-        <TextField fx:id="addAssignmentWeight" prefWidth="200.0" VBox.margin="$x4" />
-        <TextField fx:id="addAssignmentDueDate" prefWidth="200.0" VBox.margin="$x4" />
-        <TextField fx:id="addAssignmentPoints" prefWidth="200.0" VBox.margin="$x4" />
+        <TextField fx:id="addAssignmentWeight" prefWidth="200.0" VBox.margin="$x5" />
+        <TextField fx:id="addAssignmentDueDate" prefWidth="200.0" VBox.margin="$x5" />
+        <TextField fx:id="addAssignmentPoints" prefWidth="200.0" VBox.margin="$x5" />
       </children>
     </VBox>
     <VBox fx:id="gradeSchemeVBox" alignment="TOP_LEFT" layoutX="11.0" layoutY="196.0" mouseTransparent="false" pickOnBounds="true" prefHeight="74.0" prefWidth="266.0">
       <children>
-        <RadioButton id="defaultGradingScheme" fx:id="addAssignmentDefaultGradingScheme" mnemonicParsing="false" selected="true" text="Default Grading Scheme" VBox.margin="$x4">
+        <RadioButton id="defaultGradingScheme" fx:id="addAssignmentNDefaultGradingScheme" mnemonicParsing="false" selected="true" text="Default Grading Scheme">
           <toggleGroup>
             <ToggleGroup fx:id="GradingScheme" />
           </toggleGroup>
+          <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0" fx:id="x6" />
+          </VBox.margin>
         </RadioButton>
-        <RadioButton id="setGradingScheme" fx:id="addAssignmentSetGradingScheme" mnemonicParsing="false" text="Set Grading Scheme" toggleGroup="$GradingScheme" VBox.margin="$x4" />
+        <RadioButton id="setGradingScheme" fx:id="addAssignmentNSetGradingScheme" mnemonicParsing="false" text="Set Grading Scheme" toggleGroup="$GradingScheme">
+          <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0" fx:id="x7" />
+          </VBox.margin>
+        </RadioButton>
       </children>
       <padding>
         <Insets />
@@ -77,12 +84,19 @@
     </VBox>
     <VBox fx:id="latePolicyVBox" alignment="TOP_LEFT" layoutX="300.0" layoutY="196.0" mouseTransparent="false" pickOnBounds="true" prefHeight="74.0" prefWidth="266.0">
       <children>
-        <RadioButton id="defaultLatePolicy" fx:id="addAssignmentDefaultLatePolicy" mnemonicParsing="false" selected="true" text="Default Late Policy" VBox.margin="$x4">
+        <RadioButton id="defaultLatePolicy" fx:id="addAssignmentNDefaultLatePolicy" mnemonicParsing="false" selected="true" text="Default Late Policy">
           <toggleGroup>
             <ToggleGroup fx:id="LatePolicy" />
           </toggleGroup>
+          <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0" fx:id="x8" />
+          </VBox.margin>
         </RadioButton>
-        <RadioButton fx:id="addAssignmentSetLatePolicy" mnemonicParsing="false" text="Set Late Policy" toggleGroup="$LatePolicy" VBox.margin="$x4" />
+        <RadioButton id="addAssignmentSetLatePolicy" fx:id="addAssignmentNSetLatePolicy" mnemonicParsing="false" text="Set Late Policy" toggleGroup="$LatePolicy">
+          <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0" fx:id="x9" />
+          </VBox.margin>
+        </RadioButton>
       </children>
       <padding>
         <Insets />
