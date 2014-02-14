@@ -96,6 +96,9 @@ public class AddAssignmentController {
         System.out.println("Save button Clicked!");
         addAssignment(addAssignmentCategory.getValue().toString(),
                 currentCourse.getCategoryContainer().getRoot());
+
+        Stage stage = (Stage) addAssignmentName.getScene().getWindow();
+        stage.close();
     }
 
     /**
@@ -107,7 +110,6 @@ public class AddAssignmentController {
         Category catLookingFor = null;
         if(cat.getName().equals(name)) {
             catLookingFor =  cat;
-//            if(addAssignmentSetLatePolicy.isSelected() == false ){//&& addAssignmentSetGradingScheme.isSelected() == false) {
                 Assignment newAssignment = new Assignment(addAssignmentName.getText(),
                                                           Double.parseDouble(addAssignmentWeight.getText()),
                                                           Integer.parseInt(addAssignmentPoints.getText()),
@@ -116,9 +118,8 @@ public class AddAssignmentController {
 
                 currentCourse.getCategoryContainer().addAssignment(cat,
                         newAssignment);
-//            }
         }
-        if((ArrayList<Category>)cat.getSubCategories() != null && catLookingFor == null){
+        else if((ArrayList<Category>)cat.getSubCategories() != null && catLookingFor == null){
             for(Category x : (ArrayList<Category>)cat.getSubCategories()) {
                 if(catLookingFor == null) {
                     addAssignment(name, x);
@@ -133,5 +134,7 @@ public class AddAssignmentController {
     @FXML
     private void handleAddAssignmentCancel() {
         System.out.println("Cancel button Clicked!");
+        Stage stage = (Stage) addAssignmentName.getScene().getWindow();
+        stage.close();
     }
 }

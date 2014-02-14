@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
 import javafx.scene.control.*;
+import model.spreadsheet.SpreadsheetCourse;
 
 //import javax.swing.text.html.ListView;
 import java.util.ArrayList;
@@ -119,7 +120,10 @@ public class DeleteCategoryController {
         findChildCategory(name, Gradebook.getInstance().getCurrentCourse().
                 getCategoryContainer().getRoot());
         childCategory = tempCategory;
-        parentCategory.removeCategory(childCategory);
+        //parentCategory.removeCategory(childCategory);
+        Gradebook.getInstance().getCurrentCourse().getCategoryContainer().removeCategory(parentCategory, childCategory);
+
+
         Stage stage = (Stage) deleteCategoryList.getScene().getWindow();
         stage.close();
     }
@@ -130,8 +134,7 @@ public class DeleteCategoryController {
     @FXML
     public void handleDeleteCategoryCancel() {
         System.out.println("Cancel button Clicked!");
-//        Stage stage = (Stage) deleteCategoryList.getScene().getWindow();
-        Dialogs.showWarningDialog(getStage(), "Careful with the next step!", "Warning Dialog", "title");
+        Stage stage = (Stage) deleteCategoryList.getScene().getWindow();
         getStage().close();
     }
 

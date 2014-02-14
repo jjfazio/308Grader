@@ -2,6 +2,7 @@ package controller.assignments_categories;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
@@ -42,6 +43,10 @@ public class DeleteAssignmentController {
         System.out.println("Delete button Clicked!");
         String name = deleteAssignmentList.getSelectionModel().getSelectedItem();
         removeAssignment(name, Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot());
+
+        Stage stage = (Stage) deleteAssignmentList.getScene().getWindow();
+        stage.close();
+
     }
 
     /**
@@ -50,6 +55,8 @@ public class DeleteAssignmentController {
     @FXML
     private void handleDeleteAssignmentCancel() {
         System.out.println("Cancel button Clicked!");
+        Stage stage = (Stage) deleteAssignmentList.getScene().getWindow();
+        stage.close();
     }
 
 
@@ -67,8 +74,9 @@ public class DeleteAssignmentController {
         if(theCat.getAssignments() != null) {
             for(Assignment x : theCat.getAssignments()) {
                 if(x.getName().equals(name)) {
-                    theCat.removeAssignment(x);
-                    return;
+//                    theCat.removeAssignment(x);
+                    Gradebook.getInstance().getCurrentCourse().getCategoryContainer().deleteAssignment(theCat, x);
+                    break;
                 }
             }
         }
