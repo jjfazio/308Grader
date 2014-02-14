@@ -323,6 +323,11 @@ public class Gradebook extends Observable implements Serializable{
    
    
    public ArrayList<GradingScheme> getGradingSchemes() {
+       if(gradingSchemes == null)
+       {
+           System.out.println("tried getting empty scheme, made default");
+           addGradingScheme(new GradingScheme());
+       }
        return gradingSchemes;
     }
    
