@@ -51,6 +51,20 @@ public class CategoryContainer extends Observable implements Serializable
         notifyObservers();
     }
     
+    public void addAssignment(Category parent, Assignment assignment)
+    {
+        parent.addAssignment(assignment);
+        setChanged();
+        notifyObservers();
+    }
+    
+    public void deleteAssignment(Category parent, Assignment assignment)
+    {
+        parent.removeAssignment(assignment);
+        setChanged();
+        notifyObservers();
+    }
+    
     /**
      * Returns a reference to the top category
      * @return A reference to the top category

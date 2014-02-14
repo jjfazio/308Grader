@@ -10,35 +10,28 @@ import java.util.Date;
  * @autho ericowen
  */
 public class Grade implements Serializable {
-   Assignment assign;
-   Date turnedIn;
+   Date graded;
    Double score;
    String letterGrade; //prob should be an enum
    
    private static final long serialVersionUID = -4121067889826371429L;
    
-   public Grade(Assignment assign, Date turnedIn, Double score,
+   public Grade(Date graded, Double score,
            String letterGrade)
    {
-       this.assign = assign;
-       this.turnedIn = turnedIn;
+       this.graded = graded;
        this.score = score;
        this.letterGrade = letterGrade;
    }
 
-   public Assignment getAssign()
-   {
-       return assign;
-   }
-
    public Date getTurnedIn()
    {
-       return turnedIn;
+       return graded;
    }
 
    public void setTurnedIn(Date turnedIn)
    {
-       this.turnedIn = turnedIn;
+       this.graded = turnedIn;
    }
 
    public Double getScore()

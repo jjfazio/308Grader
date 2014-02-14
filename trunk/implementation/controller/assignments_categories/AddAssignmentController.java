@@ -34,6 +34,8 @@ import java.util.ArrayList;
  * @author Jirbert Dilanchian
  */
 public class AddAssignmentController {
+    
+    private SpreadsheetCourse currentCourse;
 
     @FXML
     private TextField addAssignmentName;
@@ -68,8 +70,9 @@ public class AddAssignmentController {
      */
     @FXML
     private void initialize() {
+        currentCourse = Gradebook.getInstance().getCurrentCourse();
         addAssignmentCategory.getItems().clear();
-        fillComboCategoryNames(Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot());
+        fillComboCategoryNames(currentCourse.getCategoryContainer().getRoot());
     }
 
     /**
@@ -92,7 +95,7 @@ public class AddAssignmentController {
     private void handleAddAssignmentSave() {
         System.out.println("Save button Clicked!");
         addAssignment(addAssignmentCategory.getValue().toString(),
-                Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot());
+                currentCourse.getCategoryContainer().getRoot());
     }
 
     /**
@@ -111,7 +114,8 @@ public class AddAssignmentController {
                                                           new Date(), new GradingScheme(), new LatePolicy(), false);
 
 
-                cat.addAssignment(newAssignment);
+                currentCourse.getCategoryContainer().addAssignment(cat,
+                        newAssignment);
 //            }
         }
         if((ArrayList<Category>)cat.getSubCategories() != null && catLookingFor == null){
