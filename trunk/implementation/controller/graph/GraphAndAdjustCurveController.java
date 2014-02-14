@@ -1,6 +1,7 @@
 package controller.graph;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,7 @@ public class GraphAndAdjustCurveController {
     private Label graphAndAdjustCurveTitle;
     /**An instance of the graph model class*/
     private Graph graph;
+    private Assignment ass;
     
     /**
      * Creates a new instance of GraphAndAdjstCurveController
@@ -92,48 +94,58 @@ public class GraphAndAdjustCurveController {
      * 
      * @param ass the current assignment being viewed on the graphs
      */
-    public void setAssignment(Assignment ass, List<Student> students) {
-    	this.graphAndAdjustCurveTitle.setText(ass.getName() + " Graph & Curve Adjustment");
-    	this.graph.setAssignment(ass, students);
-    	
-    	setBarChart(ass, "10%");
-    	setPieChart(ass);
+    public void setAssignment(Assignment assignment, List<Student> students, String granularity) {
+    	this.ass = assignment;
+    	this.graphAndAdjustCurveTitle.setText(assignment.getName() + " Graph & Curve Adjustment");
+    	this.graph.setAssignment(assignment, students);
+    	setBarChart(granularity);
+    	setPieChart();
     }
     
-    private void setBarChart(Assignment ass, String granularity) {
+    private void setBarChart(String granularity) {
     	Map<String, Integer> scoreMap = graph.getAssignmentBarChartData(granularity);
-    	final String[] grade = {"0 - 10 %", "10 - 20 %", "20 - 30 %", "30 - 40 %",
-    		"40 - 50 %", "50 - 60 %", "60 - 70 %", "70 - 80 %", "80 - 90 %",
-    		"90 - 100 %", "100+ %"};
-    	int highestScore = 0;
-    	for(Integer score : scoreMap.values()) {
-    		if(score > highestScore) {
-    			highestScore = score;
-    		}
-    	}
     	
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        this.barChart.getXAxis().setAutoRanging(true);
-        this.barChart.getYAxis().setAutoRanging(true);
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        
         this.barChart.setTitle(ass.getName() + " Grade Distribution Bar Chart");
         xAxis.setLabel("Number of Students");
-        xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(grade)));
-        Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
-        Range[] ranges = Range.values();
+        List<String> categories = Arrays.asList(scoreMap.keySet().toArray(new String[0]));
+        Collections.sort(categories);
+        xAxis.setCategories((FXCollections.<String>observableArrayList(categories)));
+        //Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
+        Series series1 = new XYChart.Series();
         
-        for(int ndx = 0; ndx < scoreMap.size(); ndx ++) {
-        	series1.getData().add(new XYChart.Data<String, 
-        		Integer>(grade[ndx], scoreMap.get(ranges[ndx])));
+        if(granularity.equals("1%")) {
+        	for(int ndx = 0; ndx < scoreMap.size(); ndx++) {
+        		String curPercentString = new Integer(ndx).toString();
+        		if(scoreMap.get(curPercentString) > 0) {
+        			series1.getData().add(new XYChart.Data<String, 
+        				Integer>(curPercentString, scoreMap.get(curPercentString)));
+        		}
+        	}
+        }
+        else {
+        	for(int ndx = 0; ndx < scoreMap.size(); ndx++) {
+        		String curPercentString = new Integer(ndx * 10).toString();
+        		if(scoreMap.containsKey(curPercentString)) {
+        			series1.getData().add(new XYChart.Data<String, 
+        				Integer>(curPercentString, scoreMap.get(curPercentString)));
+        		}
+        	}
         }
         
         this.barChart.setLegendVisible(false);
         this.barChart.getYAxis().setLabel("Number of Students");
         this.barChart.getXAxis().setLabel("Grade (%)");
+  
+        this.barChart.getData().clear();
         this.barChart.getData().add(series1);
+        this.barChart.getXAxis().setAutoRanging(true);
+        this.barChart.getYAxis().setAutoRanging(true);
     }
     
-    private void setPieChart(Assignment ass) {
+    private void setPieChart() {
     	Map<String, Integer> scoreMap = graph.getAssignmentPieChartData();
         
     	for(String gradeStr : scoreMap.keySet()) {
@@ -177,6 +189,8 @@ public class GraphAndAdjustCurveController {
         System.out.println("One percent button pressed");
         this.onePercentGranularity.setSelected(true);
         this.tenPercentGranularity.setSelected(false);
+        
+        setBarChart("1%");
     }
     
     /**
@@ -187,6 +201,8 @@ public class GraphAndAdjustCurveController {
         System.out.println("Ten percent buton pressed");
         this.tenPercentGranularity.setSelected(true);
         this.onePercentGranularity.setSelected(false);
+        
+        this.setBarChart("10%");
     }
     
     /**

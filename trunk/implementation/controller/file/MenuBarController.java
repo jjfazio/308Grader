@@ -155,7 +155,7 @@ public class MenuBarController
     	}
     	System.out.println();
     	
-    	controller.setAssignment(ass, studentList);
+    	controller.setAssignment(ass, studentList, "10%");
         ViewUtility.showPage(pane, "Graphs");
     }
 
