@@ -1,7 +1,7 @@
 package controller.spreadsheet;
 
+import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -10,16 +10,22 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.assignments_categories.CategoryContainer;
 import model.assignments_categories.Grade;
+import model.spreadsheet.GradingScheme;
+import model.spreadsheet.LatePolicy;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 
@@ -80,6 +86,8 @@ public class SpreadsheetController implements Observer {
         userIDColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("id"));
         yearColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("gradeLevel"));
         majorColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("major"));
+        
+        table.setEditable(true);
     }
 
 
@@ -145,7 +153,9 @@ public class SpreadsheetController implements Observer {
        for (Assignment assignment : category.getAssignments()) {
            assignmentCol = new TableColumn<Student, String>(assignment.getName());
            assignmentCol.setUserData(assignment);
+           assignmentCol.setCellFactory(TextFieldTableCell.<Student>forTableColumn());
            assignmentCol.setCellValueFactory(new MyCallBack());
+           assignmentCol.setOnEditCommit(new EditHandler());
            topCol.getColumns().add(assignmentCol);
        }
        
@@ -174,10 +184,34 @@ public class SpreadsheetController implements Observer {
            Assignment assign = (Assignment) param.getTableColumn().getUserData();
 
            return grades.containsKey(assign) ? 
-                   new SimpleStringProperty(String.format("%.1f",100d * grades.get(assign).getScore()))
-           :  new SimpleStringProperty(""); 
+                   new SimpleStringProperty(String.format("%.2f",grades.get(assign).getScore()))
+           :  new SimpleStringProperty(" - "); 
        }
 
+   }
+   
+   private class EditHandler implements EventHandler<CellEditEvent<Student, String>> {
+       @Override
+       public void handle(CellEditEvent<Student, String> studentCell)
+       {
+           Grade grade;
+           Assignment assign;
+           Date turnedIn;
+           Double score;
+           //change 
+           String letterGrade;
+           Student student;
+           
+           score = Double.parseDouble(studentCell.getNewValue());
+           letterGrade = "A";
+           turnedIn = new Date();
+           student = studentCell.getRowValue();
+           
+           assign = (Assignment) studentCell.getTableColumn().getUserData();
+           grade = new Grade(turnedIn, score, letterGrade);
+           
+           student.addGrade(assign, grade);
+       }
    }
    
 
