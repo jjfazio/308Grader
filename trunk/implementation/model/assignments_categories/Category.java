@@ -204,7 +204,9 @@ public class Category implements Serializable {
    !(assignments.contains(assignment));
     @*/
    public void removeAssignment(Assignment assignment) {
-      assignments.remove(assignment);
+       System.out.println("before remove assigment");
+       assignments.remove(assignment);
+       System.out.println("After remove assigment");
       //if an assignment is removed the other assignments percentages must 
       //be adjusted
    }

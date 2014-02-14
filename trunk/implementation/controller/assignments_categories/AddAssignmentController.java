@@ -126,11 +126,6 @@ public class AddAssignmentController {
             }
         }
     }
-//    public Assignment(String name, Double percentOfCategory, Integer maxPoints,
-//Date dueDate, GradingScheme gScheme, LatePolicy latePolicy,
-//    Boolean hasElectronicTurnin)
-
-
 
     /**
      * Closes the Add Assignment page without saving anything.
