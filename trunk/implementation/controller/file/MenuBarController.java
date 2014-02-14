@@ -128,7 +128,7 @@ public class MenuBarController
     	List<Student> studentList = new ArrayList<Student>();
     	
     	Student erik = new Student("ejowen", "erik", "owen", "10370", "SE", "Junior");
-    	erik.addGrade(ass, new Grade(new Date(), 95.0, "A"));
+    	erik.addGrade(ass, new Grade(new Date(), 88.11, "B"));
     	
     	Student james = new Student("jfazio", "james", "fazio", "32456", "SE", "Junior");
     	james.addGrade(ass, new Grade(new Date(), 99.0, "A"));
@@ -142,11 +142,39 @@ public class MenuBarController
     	Student jirbert = new Student("jdilanch", "Jirbert", "Dilanchian", "25642", "SE", "Junior");
     	jirbert.addGrade(ass, new Grade(new Date(), 82.0, "A"));
     	
+    	Student sally = new Student("slou", "Sally", "Lou", "32463", "SE", "Sophmore");
+    	sally.addGrade(ass, new Grade(new Date(), 85.0, "B"));
+    	
+    	Student steven = new Student("stevenShyinayga", "Steven", "Shinyagan", "46765", "SE", "Senior");
+    	steven.addGrade(ass, new Grade(new Date(), 85.0, "B"));
+    	
+    	Student patrick = new Student("pweston", "Patrick", "Weston", "234523456", "ME", "Junior");
+    	patrick.addGrade(ass, new Grade(new Date(), 95.2, "A"));
+    	
+    	Student jamesC = new Student("jcornsih", "James", "Cornish", "54634", "ME", "Junior");
+    	jamesC.addGrade(ass, new Grade(new Date(), 66.66, "D"));
+    	
+    	Student jake = new Student("jcosmo", "jake", "cosmo", "7856", "ME", "Junior");
+    	jake.addGrade(ass, new Grade(new Date(), 77.1, "C"));
+    	
+    	Student ferguson = new Student("fAnderz", "Ferguson", "Anderz", "63245", "CPE", "Freshmen");
+    	ferguson.addGrade(ass, new Grade(new Date(), 52.99, "F"));
+    	
+    	Student tommy = new Student("ttall", "Tommy", "Tall", "34673", "CE", "Sophmore");
+    	tommy.addGrade(ass, new Grade(new Date(), 85.88, "B"));
+    	
     	studentList.add(erik);
     	studentList.add(james);
     	studentList.add(kevin);
     	studentList.add(kevin2);
     	studentList.add(jirbert);
+    	studentList.add(sally);
+    	studentList.add(steven);
+    	studentList.add(patrick);
+    	studentList.add(jamesC);
+    	studentList.add(jake);
+    	studentList.add(ferguson);
+    	studentList.add(tommy);
     	
     	System.out.println("Assignment being passed to Graph and Curve page: " + ass.getName());
     	System.out.println("Students/scores passed to Graph and Curve page: ");
