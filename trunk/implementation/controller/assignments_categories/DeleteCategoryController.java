@@ -1,15 +1,14 @@
 package controller.assignments_categories;
 
+//import javax.swing.text.html.ListView;
+import java.util.ArrayList;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
-import javafx.scene.control.*;
-import model.spreadsheet.SpreadsheetCourse;
-
-//import javax.swing.text.html.ListView;
-import java.util.ArrayList;
 
 /**
  * @author Jirbert Dilanchian

@@ -4,6 +4,7 @@
 package implementation.model.gradebook;
 
 import static org.junit.Assert.*;
+import model.gradebook.Gradebook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +30,9 @@ public class GradebookTest
     @Test
     public void testGetInstance()
     {
+        Gradebook gradebook = Gradebook.getInstance();
+        
+        assertNotNull("Gradebook is null!", gradebook);
         fail("Not yet implemented");
     }
 
