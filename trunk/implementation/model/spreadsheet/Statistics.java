@@ -32,5 +32,27 @@ public class Statistics {
       
       return null;
    }
+   
+   public static Double medianAssignments(List<Student> students,
+           List<Assignment> assignments) {
+             List<Grade> grades = new ArrayList<Grade>();
+             
+             for (Assignment assign : assignments) {
+                for (Student student : students) {
+                   grades.add(student.getAssignmentGrade(assign));
+                }
+             }
+             
+             //do math
+             return null;
+          }
+          
+          public static Double MedianCategories(List<Student> students, 
+           List<Category> category) {
+             
+             //do math
+             
+             return null;
+          }
 
 }
