@@ -1,4 +1,5 @@
 package model.users;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,8 +7,8 @@ import java.util.HashMap;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Grade;
 import model.exception.BadDataException;
+import model.exception.StudentDataException;
 import model.spreadsheet.SpreadsheetCourse;
-import static java.lang.String.copyValueOf;
 
 /****
  *
@@ -59,15 +60,56 @@ public class Student implements Serializable {
      * Class constructor that takes in
      */
     public Student(String userName, String firstName, String lastName,
-            String id, String major, String gradeLevel)
+            String id, String major, String gradeLevel) throws StudentDataException
     {
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.id = id;
-        this.major = major;
-        this.gradeLevel = gradeLevel;
-        this.grades = new HashMap<Assignment, Grade>();
+        String errorMessage = "";
+        boolean isBadFirstName = false;
+        boolean isBadLastName = false;
+        boolean isBadId = false;
+
+        if(!firstName.matches("[a-zA-Z]*"))
+        {
+            errorMessage += "* First Name must contain only alphabetic characters\n\n";
+            isBadFirstName = true;
+        }
+        else if(firstName.length() == 0)
+        {
+            errorMessage += "* First Name field cannot be blank\n\n";
+            isBadFirstName = true;
+        }
+        if(!lastName.matches("[a-zA-Z]*"))
+        {
+            errorMessage += "* Last Name must contain only alphabetic characters\n\n";
+            isBadLastName = true;
+        }
+        else if(lastName.length() == 0)
+        {
+            errorMessage += "* Last Name field cannot be blank\n\n";
+            isBadLastName = true;
+        }
+        if(id.length() == 0)
+        {
+            errorMessage += "* Student ID is a required text entry field\n\n";
+            isBadId = true;
+        }
+        if(errorMessage.length() > 0)
+        {
+            StudentDataException exception = new StudentDataException(errorMessage);
+            exception.setBadFirstName(isBadFirstName);
+            exception.setBadLastName(isBadLastName);
+            exception.setBadId(isBadId);
+            throw exception;
+        }
+        else
+        {
+            this.userName = userName;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.id = id;
+            this.major = major;
+            this.gradeLevel = gradeLevel;
+            this.grades = new HashMap<Assignment, Grade>();
+        }
     }
 
     /**
@@ -89,7 +131,6 @@ public class Student implements Serializable {
      * @throws BadDataException 
      *
      */
-
      /*@
        requires
          //
@@ -494,6 +535,61 @@ public class Student implements Serializable {
      */
     public HashMap<Assignment, Grade> getGrades() {
         return grades;
+    }
+
+    public void editStudent(String first, String middle, String last,
+        String username, String studentId, String email, String major,
+        String gradeLevel, String phoneNumber) throws StudentDataException {
+
+        String errorMessage = "";
+        boolean isBadFirstName = false;
+        boolean isBadLastName = false;
+        boolean isBadId = false;
+
+        if(first.matches("[a-zA-Z]*"))
+        {
+            errorMessage += "* First Name must contain only alphabetic characters\n\n";
+            isBadFirstName = true;
+        }
+        else if(first.length() == 0)
+        {
+            errorMessage += "* First Name field cannot be blank\n\n";
+            isBadFirstName = true;
+        }
+        if(!last.matches("[a-zA-Z]*"))
+        {
+            errorMessage += "* Last Name must contain only alphabetic characters\n\n";
+            isBadLastName = true;
+        }
+        else if(last.length() == 0)
+        {
+            errorMessage += "* Last Name field cannot be blank\n\n";
+            isBadLastName = true;
+        }
+        if(studentId.length() == 0)
+        {
+            errorMessage += "* Student ID is a required text entry field\n\n";
+            isBadId = true;
+        }
+        if(errorMessage.length() > 0)
+        {
+            StudentDataException exception = new StudentDataException(errorMessage);
+            exception.setBadFirstName(isBadFirstName);
+            exception.setBadLastName(isBadLastName);
+            exception.setBadId(isBadId);
+            throw exception;
+        }
+        else {
+            this.setFirstName(first);
+            this.setMiddleName(middle);
+            this.setLastName(last);
+            this.setUserName(username);
+            this.setId(studentId);
+            this.setEmail(email);
+            this.setMajor(major);
+            this.setGradeLevel(gradeLevel);
+            this.setPhoneNumber(phoneNumber);
+        }
     }
 
     public String getFormattedCourseList()

@@ -3,6 +3,8 @@ package model.spreadsheet;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.exception.BadDataException;
+
 /**
  * This acts as the SIS server and has courses the user can
  * download rosters from.
@@ -17,11 +19,15 @@ public class CourseDB
     private CourseDB()
     {
         courses = new ArrayList<CourseInfo>();
-        courses.add(new CourseInfo("Software Engineering I", "spring", "01", "308", "Computer Science", 2014));
-        courses.add(new CourseInfo("Software Engineering I", "spring", "02", "308", "Computer Science", 2014));
-        courses.add(new CourseInfo("Software Engineering II", "spring", "01", "309", "Computer Science", 2014));
-        courses.add(new CourseInfo("Software Engineering I", "spring", "02", "309", "Computer Science", 2014));
-        courses.add(new CourseInfo("Intro To Databases", "spring", "02", "365", "Computer Science", 2014));
+        try {
+            courses.add(new CourseInfo("Software Engineering I", "spring", "01", "308", "Computer Science", 2014));
+            courses.add(new CourseInfo("Software Engineering I", "spring", "02", "308", "Computer Science", 2014));
+            courses.add(new CourseInfo("Software Engineering II", "spring", "01", "309", "Computer Science", 2014));
+            courses.add(new CourseInfo("Software Engineering I", "spring", "02", "309", "Computer Science", 2014));
+            courses.add(new CourseInfo("Intro To Databases", "spring", "02", "365", "Computer Science", 2014));
+        }catch (BadDataException e){
+            e.printStackTrace();
+        }
     }
     
     public static CourseDB getInstance()

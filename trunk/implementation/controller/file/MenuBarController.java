@@ -1,22 +1,24 @@
 package controller.file;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import controller.graph.GraphAndAdjustCurveController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Grade;
+<<<<<<< HEAD
 import model.exception.BadDataException;
+=======
+import model.exception.StudentDataException;
+>>>>>>> aecac2f7c2668efecb7227fe29c97eeaa4427a6d
 import model.gradebook.Gradebook;
-import model.spreadsheet.GradingScheme;
-import model.spreadsheet.LatePolicy;
 import model.users.Student;
 import view.ViewUtility;
-import controller.graph.GraphAndAdjustCurveController;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * The MenuBar controller controls menu bar actions. Any time
@@ -127,7 +129,13 @@ public class MenuBarController
     	Assignment ass = new Assignment();
     	ass.setName("HW09");
     	List<Student> studentList = new ArrayList<Student>();
+
+        try
+        {
+    	    Student erik = new Student("ejowen", "erik", "owen", "10370", "SE", "Junior");
+        	erik.addGrade(ass, new Grade(new Date(), 88.11, "B"));
     	
+<<<<<<< HEAD
     	Student erik = new Student("ejowen", "erik", "owen", "10370", "SE", "Junior");
     	erik.addGrade(ass, new Grade(new Date(), "88.11"));
     	
@@ -163,7 +171,7 @@ public class MenuBarController
     	
     	Student tommy = new Student("ttall", "Tommy", "Tall", "34673", "CE", "Sophmore");
     	tommy.addGrade(ass, new Grade(new Date(), "85.88"));
-    	
+
     	studentList.add(erik);
     	studentList.add(james);
     	studentList.add(kevin);
@@ -176,15 +184,20 @@ public class MenuBarController
     	studentList.add(jake);
     	studentList.add(ferguson);
     	studentList.add(tommy);
-    	
-    	System.out.println("Assignment being passed to Graph and Curve page: " + ass.getName());
-    	System.out.println("Students/scores passed to Graph and Curve page: ");
-    	for(Student stud : studentList) {
-    		System.out.println("Student: " + stud.getFirstName() + ", Score: " + stud.getGrades().get(ass).getScore());
-    	}
-    	System.out.println();
-    	
-    	controller.setAssignment(ass, studentList, "10%");
+        }
+        catch(StudentDataException exc)
+        {
+            System.out.println(exc.getMessage());
+        }
+
+        System.out.println("Assignment being passed to Graph and Curve page: " + ass.getName());
+        System.out.println("Students/scores passed to Graph and Curve page: ");
+        for(Student stud : studentList) {
+            System.out.println("Student: " + stud.getFirstName() + ", Score: " + stud.getGrades().get(ass).getScore());
+        }
+        System.out.println();
+
+        controller.setAssignment(ass, studentList, "10%");
         ViewUtility.showPage(pane, "Graphs & Adjust Curves");
     }
 

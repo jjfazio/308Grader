@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import model.exception.BadDataException;
+import model.exception.StudentDataException;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
 
@@ -82,7 +84,7 @@ public class StudentDB
                 
             }
         }
-        catch (FileNotFoundException e)
+        catch (FileNotFoundException | BadDataException | StudentDataException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
