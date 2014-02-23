@@ -21,12 +21,9 @@
         <Button id="categoryCancelbotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleDeleteAssignmentCancel" text="Cancel" textAlignment="LEFT" HBox.margin="$x1" />
       </children>
     </HBox>
-    <TableView layoutX="28.0" layoutY="19.0" prefHeight="245.0" prefWidth="280.0">
-      <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="279.0" text="Assignments" />
-      </columns>
-    </TableView>
     <Label id="lblEditAssignment" layoutX="329.0" layoutY="44.0" pickOnBounds="false" prefHeight="220.0" prefWidth="233.0" text="" underline="false" />
     <Label layoutX="329.0" layoutY="23.0" prefHeight="21.0" prefWidth="233.0" text="Details" textFill="BLACK" />
+    <ListView fx:id="deleteAssignmentList" layoutX="48.0" layoutY="64.0" prefHeight="200.0" prefWidth="200.0" />
+    <Label layoutX="48.0" layoutY="31.0" text="Assignments" />
   </children>
 </AnchorPane>

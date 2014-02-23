@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
+import model.assignments_categories.CategoryContainer;
 import model.assignments_categories.Grade;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
@@ -53,6 +54,8 @@ public class SpreadsheetController implements Observer {
     /** Year column in the table */
     private TableColumn<Student, String> yearColumn;
     
+    private TableColumn<Student, String> totalCategoryCol;
+    
     @FXML
     /** Major column in the table */
     private TableColumn<Student, String> majorColumn;
@@ -87,6 +90,11 @@ public class SpreadsheetController implements Observer {
     */
    public void setSpreadsheet(SpreadsheetCourse course) {
       this.course = course;
+      
+      totalCategoryCol = new TableColumn<Student, String>(
+              course.getCategoryContainer().getRoot().getName());
+      totalCategoryCol.setUserData(course.getCategoryContainer().getRoot());
+      
       loadStudentContent(course.getStudentRoster());
       loadGradeColumns();
       
@@ -102,19 +110,22 @@ public class SpreadsheetController implements Observer {
        // If new students got added to the spreadsheet
        if (course.isStudentAdded())
            loadStudentContent(course.getAddedStudents());
-       if (course.isStudentDeleted())  {
+       else if (course.isStudentDeleted())  {
            removeStudentContent(course.getStudentToDelete());
+       }
+       else if (o instanceof CategoryContainer) {
+           totalCategoryCol.getColumns().clear();
+           table.getColumns().remove(totalCategoryCol);
+           loadGradeColumns();
        }
    }
    
    // Load all of the category/assignment columns 
    private void loadGradeColumns()
    {
-       TableColumn<Student, String> topCol;
+       addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
+       table.getColumns().add(totalCategoryCol);
        
-       topCol = new TableColumn<Student, String>(course.getTopCategory().getName());
-       addCols(topCol, course.getTopCategory());
-       table.getColumns().add(topCol);
    }
    
    /**
@@ -142,6 +153,7 @@ public class SpreadsheetController implements Observer {
                !category.getSubCategories().isEmpty()) {
            for (Category subCategory : category.getSubCategories()) {
                subCatCol = new TableColumn<Student, String>(subCategory.getName());
+               subCatCol.setUserData(subCategory);
                topCol.getColumns().add(subCatCol);
                addCols(subCatCol, subCategory);
            }
