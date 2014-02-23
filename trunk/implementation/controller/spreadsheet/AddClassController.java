@@ -10,7 +10,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.exception.BadDataException;
+import model.exception.CourseDataException;
 import model.gradebook.Gradebook;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.GradingScheme;
@@ -134,8 +134,8 @@ public class AddClassController implements Observer {
         	        + course.getLatePolicy().getGraceDays() + " grace days and penalty of " + course.getLatePolicy().getDecayPercentage() 
         	        + "% per " + course.getLatePolicy().getDecayRate() + " day(s) and a gradings scheme of "
         	        + course.getGradingDistribution().toString());
-        } catch (BadDataException e) {
-            Dialogs.showErrorDialog(getStage(), e.getMessage(), "Error", "Course Info Error");
+        } catch (CourseDataException e) {
+            Dialogs.showErrorDialog(getStage(), e.getMessage(), "Input Data Error", "Course Error");
         }
     }
 

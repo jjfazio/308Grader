@@ -43,12 +43,33 @@ public class CourseInfo implements Serializable{
     private Collection<TeacherAssistant> teacherAssistants;
     
     public CourseInfo(String name, String quarter, String section, String number,
-            String dept, int year) throws BadDataException {
+            String dept, int year) throws CourseDataException {
+        String errorMessage = "";
+        boolean isBadName = false;
+        boolean isBadSection = false;
+        boolean isBadGradingScheme = false;
+        boolean isBadNumber = false;
+        
         if (name == null || name.equals(""))
         {
-            throw new BadDataException("Course Name can not be null");
-        } else if (section == null || section.equals("")){
-            throw new BadDataException("Course Section can not be null");
+            errorMessage += "Course Name can not be null\n";
+            isBadName = true;
+        }
+        if (section == null || section.equals("")){
+            errorMessage += "Course Section can not be null\n";
+            isBadSection = true;
+        } 
+        if (number == null || number.equals("")) {
+            errorMessage += "Course Number can not be null\n";
+            isBadNumber = true;
+        }
+        if (errorMessage.length() > 0) {
+            CourseDataException e = new CourseDataException(errorMessage);
+            e.setBadName(isBadName);
+            e.setBadSection(isBadSection);
+            e.setBadGradingScheme(isBadGradingScheme);
+            e.setBadNumber(isBadNumber);
+            throw e;
         } else {
             this.courseName = name;
             this.quarter = quarter;

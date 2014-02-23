@@ -7,6 +7,7 @@ import java.util.Observable;
 
 import model.assignments_categories.Category;
 import model.assignments_categories.CategoryContainer;
+import model.exception.CourseDataException;
 import model.file.Settings;
 import model.users.Student;
 
@@ -69,15 +70,23 @@ public class SpreadsheetCourse extends Observable implements Serializable {
      * Adds category of assignments in the spread sheet which organizes the assignments into groups.
      */
    
-   public SpreadsheetCourse(CourseInfo ci, GradingScheme gs, LatePolicy lp) {
-	      courseInfo = ci;
-	      gradingDistribution = gs;
-	      latePolicy = lp;
-	      System.out.println("Creating a Spreadsheet Course named: " + 
-	      courseInfo.getCourseName());
-	      categoryContainer = new CategoryContainer();
-	      studentRoster = new ArrayList<Student>();
-	      addedStudents = new ArrayList<Student>();
+   public SpreadsheetCourse(CourseInfo ci, GradingScheme gs, LatePolicy lp) throws CourseDataException {
+	      
+       if (gs == null)
+       {
+           CourseDataException e = new CourseDataException("Must select a grading scheme");
+           e.setBadGradingScheme(true);
+           throw e;
+       } else {
+           courseInfo = ci;
+           gradingDistribution = gs;
+           latePolicy = lp;
+           System.out.println("Creating a Spreadsheet Course named: " + 
+                   courseInfo.getCourseName());
+           categoryContainer = new CategoryContainer();
+           studentRoster = new ArrayList<Student>();
+           addedStudents = new ArrayList<Student>();
+       }
     }
 
 
