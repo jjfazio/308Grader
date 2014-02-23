@@ -3,7 +3,10 @@
  */
 package implementation.model.gradebook;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+import model.gradebook.Gradebook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,12 +18,15 @@ import org.junit.Test;
 public class GradebookTest
 {
 
+    private Gradebook gradebook;
+    
     /**
      * @throws java.lang.Exception
      */
     @Before
     public void setUp() throws Exception
     {
+        gradebook = Gradebook.getInstance();
     }
 
     /**
@@ -29,7 +35,10 @@ public class GradebookTest
     @Test
     public void testGetInstance()
     {
-        fail("Not yet implemented");
+        Gradebook gradebook2 = Gradebook.getInstance();
+        assertNotNull("Gradebook is null!", gradebook);
+        assertEquals(gradebook, gradebook2);
+        
     }
 
     /**
@@ -38,7 +47,7 @@ public class GradebookTest
     @Test
     public void testAddSpreadsheetCourse()
     {
-        fail("Not yet implemented");
+        
     }
 
     /**

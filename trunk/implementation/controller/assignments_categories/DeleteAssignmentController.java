@@ -2,6 +2,7 @@ package controller.assignments_categories;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
@@ -40,7 +41,12 @@ public class DeleteAssignmentController {
     @FXML
     private void handleDeleteAssignmentDelete() {
         System.out.println("Delete button Clicked!");
-//        tempCategory.removeAssignment();
+        String name = deleteAssignmentList.getSelectionModel().getSelectedItem();
+        removeAssignment(name, Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot());
+
+        Stage stage = (Stage) deleteAssignmentList.getScene().getWindow();
+        stage.close();
+
     }
 
     /**
@@ -49,6 +55,8 @@ public class DeleteAssignmentController {
     @FXML
     private void handleDeleteAssignmentCancel() {
         System.out.println("Cancel button Clicked!");
+        Stage stage = (Stage) deleteAssignmentList.getScene().getWindow();
+        stage.close();
     }
 
 
@@ -59,20 +67,22 @@ public class DeleteAssignmentController {
     /**
      * Finds the parent category of current category
      * @param name Name of the child category
-     * @param cat The category that we check if it's our target category
+     * @param theCat The category that we check if it's our target category
      */
     @FXML
-    public void findParentCategory(String name, Category cat)
-    {
-        // Category temp = null;
-        if(cat.getSubCategories() != null ){
-            for(Category x : cat.getSubCategories()) {
-                if(x.getName().trim().equals(name)){
-                    setTempCategory(cat);
+    public void removeAssignment(String name, Category theCat) {
+        if(theCat.getAssignments() != null) {
+            for(Assignment x : theCat.getAssignments()) {
+                if(x.getName().equals(name)) {
+//                    theCat.removeAssignment(x);
+                    Gradebook.getInstance().getCurrentCourse().getCategoryContainer().deleteAssignment(theCat, x);
+                    break;
                 }
-                else {
-                    findParentCategory(name, x);
-                }
+            }
+        }
+        if(theCat.getSubCategories() != null) {
+            for(Category y : theCat.getSubCategories()) {
+                removeAssignment(name, y);
             }
         }
     }
@@ -86,19 +96,16 @@ public class DeleteAssignmentController {
      */
     @FXML
     private void fillList(Category theCat, ArrayList<String> assignmentNames) {
-        if(theCat.getSubCategories() != null) {
-            System.out.println("found CAtegory");
-            for(Category cat : theCat.getSubCategories()) {
-                if (cat.getAssignments() != null) {
-                    System.out.println("first line found assignment");
-                    for(Assignment as : cat.getAssignments()) {
-                        assignmentNames.add(as.getName());
-
-
-                    }
-                }
-                fillList(cat, assignmentNames);
+        if(theCat.getAssignments() != null){
+            for (Assignment x : theCat.getAssignments()) {
+                assignmentNames.add(x.getName());
             }
         }
+        if(theCat.getSubCategories() != null) {
+            for (Category y : theCat.getSubCategories()) {
+                fillList(y, assignmentNames);
+            }
+        }
+
     }
 }
