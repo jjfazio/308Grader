@@ -1,5 +1,6 @@
 package controller.graph;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,12 +9,17 @@ import java.util.Map;
 
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
+import model.exception.BadDataException;
 import model.graph.Graph;
 import model.graph.Range;
+import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -22,11 +28,13 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import view.ViewUtility;
 
 /**
@@ -36,6 +44,8 @@ import view.ViewUtility;
  *
  */
 public class GraphAndAdjustCurveController {
+	@FXML
+	private AnchorPane root;
 	/**Checkbox indicating whether or not the bar chart is visible*/
     @FXML
     private CheckBox barChartCheckBox;
@@ -76,6 +86,11 @@ public class GraphAndAdjustCurveController {
      */
     public GraphAndAdjustCurveController() {
     	this.graph = new Graph();
+    }
+    
+    @FXML
+    private void initialize() {
+        this.addPercentCurveTextChangedListener();
     }
     
     /**
@@ -227,9 +242,47 @@ public class GraphAndAdjustCurveController {
     @FXML
     private void handleSaveCurvedGradesButton() {
         System.out.println("Add custom curve button pressed");
-        int percentCurve = Integer.parseInt(this.percentCurve.getText());
-        this.graph.applyStandardCurve(percentCurve);
+        System.out.println(this.percentCurve.getText() + " entered.");
+        try {
+        	this.graph.applyStandardCurve(percentCurve.getText().toString());
+        }
+        catch(BadDataException e) {
+        	System.out.println(e.getMessage());
+        	Dialogs.showErrorDialog(getStage(), "Invalid input: enter an integer."
+        	    , "Error", "Adjust Curve");
+        }
 
+    }
+    
+    /**
+     * Called when the text is changed in the add percent curve text field
+     */
+    private void addPercentCurveTextChangedListener() {
+    	this.percentCurve.textProperty().addListener(new ChangeListener<String>() {
+    		@Override
+    		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    			System.out.println("Percent curve text changed.");
+    			
+                if(newValue.length() > 2) {
+                    percentCurve.setText(oldValue);
+                }
+                
+    			if(percentCurve.getText().toString().isEmpty()) {
+    				saveCurvedGradesButton.setDisable(true);
+    			}
+    			else {
+    				saveCurvedGradesButton.setDisable(false);
+    			}
+    		}
+    	});
+    }
+    
+    /**
+     * Get the stage of this view
+     * @return the stage of this view
+     */
+    private Stage getStage() {
+        return (Stage) root.getScene().getWindow();
     }
     
 }

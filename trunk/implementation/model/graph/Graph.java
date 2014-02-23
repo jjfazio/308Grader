@@ -7,6 +7,7 @@ import java.util.Map;
 
 import model.assignments_categories.*;
 import model.users.Student;
+import model.exception.*;
 
 /**
  * Graph model class is where all the underlying functionality
@@ -84,7 +85,17 @@ public class Graph implements Serializable {
 	 * @param curveAmount the percent curve that the grades
 	 * will be adjusted by.
 	 */
-	public void applyStandardCurve(int curveAmount) {
+	public void applyStandardCurve(String curveString) throws BadDataException {
+		int curveAmount;
+		try {
+			curveAmount = Integer.parseInt(curveString);
+		}
+		catch(Exception e) {
+			throw new BadDataException("Invalid input, must enter an integer.");
+		}
+		
+		this.ass.setPercentCurve((double)curveAmount);
+		
 		System.out.println("Applied a " + curveAmount + "% curve");
 	}
 	
