@@ -534,7 +534,7 @@ public class Student implements Serializable {
         boolean isBadLastName = false;
         boolean isBadId = false;
 
-        if(first.matches("[a-zA-Z]*"))
+        if(!first.matches("[a-zA-Z]*"))
         {
             errorMessage += "* First Name must contain only alphabetic characters\n\n";
             isBadFirstName = true;
