@@ -7,6 +7,7 @@ import java.util.Map;
 
 import model.assignments_categories.*;
 import model.users.Student;
+import model.exception.*;
 
 /**
  * Graph model class is where all the underlying functionality
@@ -17,13 +18,16 @@ import model.users.Student;
  */
 public class Graph implements Serializable {
 	
+	/**The current category being examined in the graphs*/
 	private Category cat;
+	/**The current assignment being examined in the graphs*/
 	private Assignment ass;
+	/**The list of students in the class being examined in the graphs*/
 	private List<Student> studentList;
+	/**Constants representing the different grade ranges*/
 	private static final int TEN = 10, TWENTY = 20, THIRTY = 30, FOURTY = 40,
-		FIFTY = 50, SIXTY = 60, SEVENTY = 70, EIGHTY = 80, NINETY = 90, HUNDRED = 100;
-	private static final int HUNDRED_PERCENT = 100;
-	private static final int TEN_PERCENT_INCREMENT = 10;
+		FIFTY = 50, SIXTY = 60, SEVENTY = 70, EIGHTY = 80, NINETY = 90, HUNDRED = 100,
+		HUNDRED_PERCENT = 100, TEN_PERCENT_INCREMENT = 10;
 	
 	/**
 	 * Creates a new Graph instance with category and null
@@ -84,10 +88,27 @@ public class Graph implements Serializable {
 	 * @param curveAmount the percent curve that the grades
 	 * will be adjusted by.
 	 */
-	public void applyStandardCurve(int curveAmount) {
+	public void applyStandardCurve(String curveString) throws BadDataException {
+		int curveAmount;
+		try {
+			curveAmount = Integer.parseInt(curveString);
+		}
+		catch(Exception e) {
+			throw new BadDataException("Invalid input, must enter an integer.");
+		}
+		
+		this.ass.setPercentCurve((double)curveAmount);
+		
 		System.out.println("Applied a " + curveAmount + "% curve");
 	}
 	
+	/**
+	 * Accessor method to get the scores used in the bar chart graph
+	 * 
+	 * @param granularity either 1% or 10% interval granularity
+	 * @return a Map of the range (as a string) to an integer of the number
+	 * of students in that range.
+	 */
 	public Map<String, Integer> getAssignmentBarChartData(String granularity) {
 		Map<String, Integer> map;
 		
@@ -101,6 +122,13 @@ public class Graph implements Serializable {
 		return map;
 	}
 	
+	/**
+	 * Accessor method to get the scores for the bar chart graph with 1% interval
+	 * granularity
+	 * 
+	 * @return a map with the 1% score interval ranges to an integer with the number
+	 * of students in that range
+	 */
 	private Map<String, Integer> getOnePercentBarChartData() {
 		Map<String, Integer> returnMap = new HashMap<String, Integer>();
 		
@@ -126,6 +154,13 @@ public class Graph implements Serializable {
 		return returnMap;
 	}
 	
+	/**
+	 * Accessor method to get the scores for the bar chart graph with 10% interval
+	 * granularity
+	 * 
+	 * @return a map with the 10% score interval ranges to an integer with the number
+	 * of students in that range
+	 */
 	private Map<String, Integer> getTenPercentBarChartData() {
 		Map<String, Integer> returnMap = new HashMap<String, Integer>();
 		
@@ -152,6 +187,12 @@ public class Graph implements Serializable {
 		return returnMap;
 	}
 	
+	/**
+	 * Accessor method to get the data to initialize the pie chart graph
+	 * 
+	 * @return a map with a string representing the letter grade to the number
+	 * of students in that letter grade range.
+	 */
 	public Map<String, Integer> getAssignmentPieChartData() {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		
@@ -175,12 +216,12 @@ public class Graph implements Serializable {
 		return map;
 	}
 	
-	public HashMap<Range, Integer> getCategoryData() {
-		HashMap<Range, Integer> map = new HashMap<Range, Integer>();
-		
-		/*Implementation to come*/
-		
-		return map;
-	}
+//	public HashMap<Range, Integer> getCategoryData() {
+//		HashMap<Range, Integer> map = new HashMap<Range, Integer>();
+//		
+//		/*Implementation to come*/
+//		
+//		return map;
+//	}
 	
 }

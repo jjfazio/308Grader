@@ -1,13 +1,14 @@
 package model.users;
 
-import model.assignments_categories.Assignment;
-import model.assignments_categories.Grade;
-import model.exception.StudentDataException;
-import model.spreadsheet.SpreadsheetCourse;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import model.assignments_categories.Assignment;
+import model.assignments_categories.Grade;
+import model.exception.BadDataException;
+import model.exception.StudentDataException;
+import model.spreadsheet.SpreadsheetCourse;
 
 /****
  *
@@ -127,6 +128,7 @@ public class Student implements Serializable {
      *                           grade will be mapped to.
      * @param   grade            The Grade that is being added to
      *                           this Student.
+     * @throws BadDataException 
      *
      */
      /*@
@@ -147,7 +149,7 @@ public class Student implements Serializable {
               (this.grades.contains(gradeInSet)) <==>
                     gradeInSet.equals(grade) || \oldthis.grads.contains(gradeInSet));
      @*/
-    public void addGrade(Assignment assignment, Grade grade) {
+    public void addGrade(Assignment assignment, Grade grade) throws BadDataException {
         /*
          * Checks if this student's collection of grades is currently
          * empty.  If it is, a new HashMap collection is created
@@ -155,6 +157,16 @@ public class Student implements Serializable {
         if (grades == null) {
             grades = new HashMap<Assignment, Grade>();
         }
+        
+        if (grade == null) {
+            throw new BadDataException("You have not entered a real grade!");
+        }
+        
+        if (assignment == null) {
+            throw new BadDataException("The assignment you are trying to"
+                    + "add to does not exist!");
+        }
+            
         /*
          * Maps the passed Assignment to the passed Grade
          */

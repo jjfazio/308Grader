@@ -5,10 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.exception.BadDataException;
 import model.gradebook.Gradebook;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.GradingScheme;
@@ -105,30 +107,36 @@ public class AddClassController implements Observer {
             courseYearInt = Integer.parseInt(courseYear.getText());
         }
         
-    	CourseInfo courseInfo = new CourseInfo(courseName.getText(),
-    	        courseQuarter.getText(), courseSection.getText(), 
-    	        courseNumber.getText(), courseDepartment.getText(), courseYearInt);
-    	/** Make the late policy */
-    	LatePolicy lp = new LatePolicy();
-    	if(decay.isSelected())
-    	{
-    	   lp.setDecayRate(Integer.parseInt(decayRate.getText()));
-    	   lp.setDecayPercentage(Integer.parseInt(decayPercentage.getText()) * 1.0);
-    	}
-    	if(graceDays.isSelected())
-    	{
-    	    lp.setGraceDaysEnabled(true);
-    	    lp.setGraceDays(Integer.parseInt(numberOfGraceDays.getText()));
-    	}
-    	SpreadsheetCourse course = new SpreadsheetCourse(courseInfo,
-    	        gradingSchemes.getValue(), lp);
-    	
-    	gradebook.addSpreadsheetCourse(course);
-    	close();
-    	System.out.println("Course " + course.getCourseInfo().getCourseName() + " added with a late policy of " 
-    	        + course.getLatePolicy().getGraceDays() + " grace days and penalty of " + course.getLatePolicy().getDecayPercentage() 
-    	        + "% per " + course.getLatePolicy().getDecayRate() + " day(s) and a gradings scheme of "
-    	        + course.getGradingDistribution().toString());
+    	CourseInfo courseInfo;
+        try {
+            courseInfo = new CourseInfo(courseName.getText(),
+                     courseQuarter.getText(), courseSection.getText(), 
+                     courseNumber.getText(), courseDepartment.getText(), courseYearInt);
+            
+        	/** Make the late policy */
+        	LatePolicy lp = new LatePolicy();
+        	if(decay.isSelected())
+        	{
+        	   lp.setDecayRate(Integer.parseInt(decayRate.getText()));
+        	   lp.setDecayPercentage(Integer.parseInt(decayPercentage.getText()) * 1.0);
+        	}
+        	if(graceDays.isSelected())
+        	{
+        	    lp.setGraceDaysEnabled(true);
+        	    lp.setGraceDays(Integer.parseInt(numberOfGraceDays.getText()));
+        	}
+        	SpreadsheetCourse course = new SpreadsheetCourse(courseInfo,
+        	        gradingSchemes.getValue(), lp);
+        	
+        	gradebook.addSpreadsheetCourse(course);
+        	close();
+        	System.out.println("Course " + course.getCourseInfo().getCourseName() + " added with a late policy of " 
+        	        + course.getLatePolicy().getGraceDays() + " grace days and penalty of " + course.getLatePolicy().getDecayPercentage() 
+        	        + "% per " + course.getLatePolicy().getDecayRate() + " day(s) and a gradings scheme of "
+        	        + course.getGradingDistribution().toString());
+        } catch (BadDataException e) {
+            Dialogs.showErrorDialog(getStage(), e.getMessage(), "Error", "Course Info Error");
+        }
     }
 
     /**
@@ -172,5 +180,13 @@ public class AddClassController implements Observer {
         schemesObs.addAll(gradebook.getGradingSchemes());
         gradingSchemes.setItems(schemesObs);
         System.out.println("gs update called");
+    }
+    
+    /**
+     * Get the stage of this view
+     * @return the stage of this view
+     */
+    private Stage getStage() {
+        return (Stage) courseName.getScene().getWindow();
     }
 }

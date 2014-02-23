@@ -12,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -19,11 +21,13 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.assignments_categories.CategoryContainer;
 import model.assignments_categories.Grade;
+import model.exception.BadDataException;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
 import model.spreadsheet.SpreadsheetCourse;
@@ -35,6 +39,9 @@ import model.users.Student;
  * @author jamesfazio
  */
 public class SpreadsheetController implements Observer {
+    
+    @FXML
+    private Parent root;
     
     @FXML
     /** Table that represents the Spreadsheet */
@@ -194,23 +201,30 @@ public class SpreadsheetController implements Observer {
        @Override
        public void handle(CellEditEvent<Student, String> studentCell)
        {
-           Grade grade;
+           Grade grade = null;
            Assignment assign;
            Date turnedIn;
-           Double score;
-           //change 
-           String letterGrade;
+           String score;
            Student student;
            
-           score = Double.parseDouble(studentCell.getNewValue());
-           letterGrade = "A";
+           score = studentCell.getNewValue();
+           
            turnedIn = new Date();
            student = studentCell.getRowValue();
            
            assign = (Assignment) studentCell.getTableColumn().getUserData();
-           grade = new Grade(turnedIn, score, letterGrade);
-           
-           student.addGrade(assign, grade);
+           try
+           {
+               grade = new Grade(turnedIn, score);
+               student.addGrade(assign, grade);
+           }
+           catch (BadDataException e)
+           {
+               Dialogs.showErrorDialog(getStage(), e.getMessage());
+               studentCell.getTableColumn().setVisible(false);
+               studentCell.getTableColumn().setVisible(true);
+               // remove bad grade
+           }
        }
    }
    
@@ -231,5 +245,13 @@ public class SpreadsheetController implements Observer {
    private void loadStudentContent(List<Student> students) {
        studentList.addAll(students);
        table.setItems(studentList);
+   }
+   
+   /**
+    * Get the stage of this view
+    * @return the stage of this view
+    */
+   private Stage getStage() {
+       return (Stage) root.getScene().getWindow();
    }
 }

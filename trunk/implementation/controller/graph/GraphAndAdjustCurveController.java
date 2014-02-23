@@ -2,15 +2,16 @@ package controller.graph;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
+import model.exception.BadDataException;
 import model.graph.Graph;
-import model.graph.Range;
 import model.users.Student;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,11 +23,12 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import view.ViewUtility;
 
 /**
@@ -36,6 +38,9 @@ import view.ViewUtility;
  *
  */
 public class GraphAndAdjustCurveController {
+	/**Root anchorpane which all of the children nodes are in*/
+	@FXML
+	private AnchorPane root;
 	/**Checkbox indicating whether or not the bar chart is visible*/
     @FXML
     private CheckBox barChartCheckBox;
@@ -63,11 +68,12 @@ public class GraphAndAdjustCurveController {
     /**Bar chart object*/
     @FXML
     private BarChart<String, Integer> barChart;
-    /*Title of Page*/
+    /**Title of Page*/
     @FXML
     private Label graphAndAdjustCurveTitle;
     /**An instance of the graph model class*/
     private Graph graph;
+    /**The current assignment being viewed*/
     private Assignment ass;
     
     /**
@@ -76,6 +82,14 @@ public class GraphAndAdjustCurveController {
      */
     public GraphAndAdjustCurveController() {
     	this.graph = new Graph();
+    }
+    
+    /**
+     * Initializes the scene
+     */
+    @FXML
+    private void initialize() {
+        this.addPercentCurveTextChangedListener();
     }
     
     /**
@@ -102,6 +116,11 @@ public class GraphAndAdjustCurveController {
     	setPieChart();
     }
     
+    /**
+     * Sets the bar chart's data for the chosen assignment
+     * 
+     * @param granularity either 10% or 1% interval granularity
+     */
     private void setBarChart(String granularity) {
     	Map<String, Integer> scoreMap = graph.getAssignmentBarChartData(granularity);
     	
@@ -145,6 +164,9 @@ public class GraphAndAdjustCurveController {
         this.barChart.getYAxis().setAutoRanging(true);
     }
     
+    /**
+     * Sets the pie chart to have data for the chosen assignment
+     */
     private void setPieChart() {
     	Map<String, Integer> scoreMap = graph.getAssignmentPieChartData();
         
@@ -227,9 +249,47 @@ public class GraphAndAdjustCurveController {
     @FXML
     private void handleSaveCurvedGradesButton() {
         System.out.println("Add custom curve button pressed");
-        int percentCurve = Integer.parseInt(this.percentCurve.getText());
-        this.graph.applyStandardCurve(percentCurve);
+        System.out.println(this.percentCurve.getText() + " entered.");
+        try {
+        	this.graph.applyStandardCurve(percentCurve.getText().toString());
+        }
+        catch(BadDataException e) {
+        	System.out.println(e.getMessage());
+        	Dialogs.showErrorDialog(getStage(), "Invalid input: enter an integer."
+        	    , "Error", "Adjust Curve");
+        }
 
+    }
+    
+    /**
+     * Called when the text is changed in the add percent curve text field
+     */
+    private void addPercentCurveTextChangedListener() {
+    	this.percentCurve.textProperty().addListener(new ChangeListener<String>() {
+    		@Override
+    		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    			System.out.println("Percent curve text changed.");
+    			
+                if(newValue.length() > 2) {
+                    percentCurve.setText(oldValue);
+                }
+                
+    			if(percentCurve.getText().toString().isEmpty()) {
+    				saveCurvedGradesButton.setDisable(true);
+    			}
+    			else {
+    				saveCurvedGradesButton.setDisable(false);
+    			}
+    		}
+    	});
+    }
+    
+    /**
+     * Get the stage of this view
+     * @return the stage of this view
+     */
+    private Stage getStage() {
+        return (Stage) root.getScene().getWindow();
     }
     
 }

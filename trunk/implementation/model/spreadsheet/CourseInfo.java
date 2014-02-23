@@ -3,6 +3,7 @@ package model.spreadsheet;
 import java.io.Serializable;
 import java.util.Collection;
 
+import model.exception.*;
 import model.users.TeacherAssistant;
 
 /**
@@ -42,13 +43,20 @@ public class CourseInfo implements Serializable{
     private Collection<TeacherAssistant> teacherAssistants;
     
     public CourseInfo(String name, String quarter, String section, String number,
-            String dept, int year) {
-        this.courseName = name;
-        this.quarter = quarter;
-        this.number = number;
-        this.section = section;
-        this.dept = dept;
-        this.year = year;
+            String dept, int year) throws BadDataException {
+        if (name == null || name.equals(""))
+        {
+            throw new BadDataException("Course Name can not be null");
+        } else if (section == null || section.equals("")){
+            throw new BadDataException("Course Section can not be null");
+        } else {
+            this.courseName = name;
+            this.quarter = quarter;
+            this.number = number;
+            this.section = section;
+            this.dept = dept;
+            this.year = year;
+        }
     }
 
 

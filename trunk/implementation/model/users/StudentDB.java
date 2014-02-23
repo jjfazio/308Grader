@@ -1,11 +1,17 @@
 package model.users;
 
-import model.exception.StudentDataException;
-import model.spreadsheet.CourseInfo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+import model.exception.BadDataException;
+import model.exception.StudentDataException;
+import model.spreadsheet.CourseInfo;
+import model.spreadsheet.SpreadsheetCourse;
 
 /**
  * Class that maps courses to a list of students.
@@ -78,13 +84,12 @@ public class StudentDB
                 
             }
         }
-        catch (FileNotFoundException e)
+        catch (FileNotFoundException | BadDataException | StudentDataException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (StudentDataException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } finally
+        }
+        finally
         {
             if (scanner != null)
                 scanner.close();
