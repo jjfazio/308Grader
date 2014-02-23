@@ -3,6 +3,7 @@ package model.assignments_categories;
 import java.io.Serializable;
 import java.util.Observable;
 import model.exception.BadDataException;
+import java.lang.String;
 
 /**
  * Container that holds a reference to the top category which is essentially 
@@ -33,23 +34,27 @@ public class CategoryContainer extends Observable implements Serializable
      * @param percentOfParent Percent of the parent of the new category
      * @param name Name of the new category
      */
-    public void addCategory(Category parent, Double percentOfParent, String name) throws BadDataException
+    public void addCategory(Category parent, String percentOfParent, String name) throws BadDataException
     {
+        BadDataException addCategoryException;
+        String errors = "";
         if(name.equals("")) {
-            BadDataException b = new BadDataException("The Name field is empty");
-            throw b;
+            errors += "The Name field is empty.\n";
         }
-//        else if(percentOfParent.equals("")) {
-//            BadDataException b = new BadDataException("The Percent of Parent field is empty.");
-//            throw b;
-//        }
-//        else if(percentOfParent < 0 ) {
-//            BadDataException b = new BadDataException("The Percent of Parent can not be less than zero.");
-//            throw b;
-//        }0
+        if(parent == null) {
+            errors += "You need to choose parent category.\n";
+        }
+        if(percentOfParent.equals("")) {
+            errors += "The Percent of Parent field is empty.\n";
+        }
+        else if(!percentOfParent.matches("[0-9]+")) {
+            errors += "The Percent of Parent field should contain numbers.\n";
+        }
+        if(!errors.equals("")) {
+            throw addCategoryException = new BadDataException(errors);
+        }
         else {
-
-            parent.addSubCategory(new Category(parent, percentOfParent, name));
+            parent.addSubCategory(new Category(parent, Double.parseDouble(percentOfParent), name));
             setChanged();
             notifyObservers();
         }
