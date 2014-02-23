@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.exception.BadDataException;
 import model.gradebook.Gradebook;
 import model.spreadsheet.CourseDB;
 import model.spreadsheet.CourseInfo;
@@ -55,6 +56,7 @@ public class Main extends Application
 		
 		if (gradebook.getCourses() == null) {
 		    
+		    try {
 			CourseInfo courseInfo = new CourseInfo("Software Engineering 1", "spring", "01", "308", "Computer Science", 2014);
 			SpreadsheetCourse course = new SpreadsheetCourse(courseInfo, null, null);
 			
@@ -64,6 +66,11 @@ public class Main extends Application
 			gradebook.addSpreadsheetCourse(course);
 			gradebook.addSpreadsheetCourse(course2);
 			gradebook.setCurrentCourse(course);
+		    } catch (BadDataException e)
+		    {
+		        System.out.print(e);
+		    }
+		    
 		}
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/file/MenuBar.fxml"));
