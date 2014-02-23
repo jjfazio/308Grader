@@ -129,7 +129,6 @@ public class Student implements Serializable {
      *                           this Student.
      *
      */
-
      /*@
        requires
          //
@@ -524,6 +523,61 @@ public class Student implements Serializable {
      */
     public HashMap<Assignment, Grade> getGrades() {
         return grades;
+    }
+
+    public void editStudent(String first, String middle, String last,
+        String username, String studentId, String email, String major,
+        String gradeLevel, String phoneNumber) throws StudentDataException {
+
+        String errorMessage = "";
+        boolean isBadFirstName = false;
+        boolean isBadLastName = false;
+        boolean isBadId = false;
+
+        if(first.matches("[a-zA-Z]*"))
+        {
+            errorMessage += "* First Name must contain only alphabetic characters\n\n";
+            isBadFirstName = true;
+        }
+        else if(first.length() == 0)
+        {
+            errorMessage += "* First Name field cannot be blank\n\n";
+            isBadFirstName = true;
+        }
+        if(!last.matches("[a-zA-Z]*"))
+        {
+            errorMessage += "* Last Name must contain only alphabetic characters\n\n";
+            isBadLastName = true;
+        }
+        else if(last.length() == 0)
+        {
+            errorMessage += "* Last Name field cannot be blank\n\n";
+            isBadLastName = true;
+        }
+        if(studentId.length() == 0)
+        {
+            errorMessage += "* Student ID is a required text entry field\n\n";
+            isBadId = true;
+        }
+        if(errorMessage.length() > 0)
+        {
+            StudentDataException exception = new StudentDataException(errorMessage);
+            exception.setBadFirstName(isBadFirstName);
+            exception.setBadLastName(isBadLastName);
+            exception.setBadId(isBadId);
+            throw exception;
+        }
+        else {
+            this.setFirstName(first);
+            this.setMiddleName(middle);
+            this.setLastName(last);
+            this.setUserName(username);
+            this.setId(studentId);
+            this.setEmail(email);
+            this.setMajor(major);
+            this.setGradeLevel(gradeLevel);
+            this.setPhoneNumber(phoneNumber);
+        }
     }
 
     public String getFormattedCourseList()
