@@ -1,24 +1,21 @@
 package controller.file;
 
-import controller.graph.GraphAndAdjustCurveController;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Grade;
-<<<<<<< HEAD
 import model.exception.BadDataException;
-=======
 import model.exception.StudentDataException;
->>>>>>> aecac2f7c2668efecb7227fe29c97eeaa4427a6d
 import model.gradebook.Gradebook;
 import model.users.Student;
 import view.ViewUtility;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import controller.graph.GraphAndAdjustCurveController;
 
 /**
  * The MenuBar controller controls menu bar actions. Any time
@@ -119,7 +116,7 @@ public class MenuBarController
     }
     
     @FXML
-    public void viewGraphs() throws BadDataException {
+    public void viewGraphs() throws BadDataException, StudentDataException {
     	System.out.println("View Graphs clicked!");
     	FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/view/graph/GraphAndAdjustCurve.fxml"));
@@ -130,12 +127,7 @@ public class MenuBarController
     	ass.setName("HW09");
     	List<Student> studentList = new ArrayList<Student>();
 
-        try
-        {
-    	    Student erik = new Student("ejowen", "erik", "owen", "10370", "SE", "Junior");
-        	erik.addGrade(ass, new Grade(new Date(), 88.11, "B"));
     	
-<<<<<<< HEAD
     	Student erik = new Student("ejowen", "erik", "owen", "10370", "SE", "Junior");
     	erik.addGrade(ass, new Grade(new Date(), "88.11"));
     	
@@ -184,11 +176,6 @@ public class MenuBarController
     	studentList.add(jake);
     	studentList.add(ferguson);
     	studentList.add(tommy);
-        }
-        catch(StudentDataException exc)
-        {
-            System.out.println(exc.getMessage());
-        }
 
         System.out.println("Assignment being passed to Graph and Curve page: " + ass.getName());
         System.out.println("Students/scores passed to Graph and Curve page: ");
