@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -36,7 +37,6 @@ import java.util.ArrayList;
  */
 
 public class EditStudentListController {
-
     /** The entire table of students from the current spreadsheet to edit */
     @FXML
     private TableView<Student> studentTable;
@@ -69,6 +69,7 @@ public class EditStudentListController {
 
     /** Holds the instance of the gradebook */
     private Gradebook gradeBook;
+
 
     /**
      * Contructor for this class
@@ -122,6 +123,8 @@ public class EditStudentListController {
          * Shows the Add Course dialog box
          */
         stage.show();
+        stage = (Stage) studentTable.getScene().getWindow();
+        stage.close();
     }
 
     /**

@@ -1,8 +1,6 @@
 package controller.users;
 
 
-import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,10 +12,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.exception.StudentDataException;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 import view.ViewUtility;
+
+import java.util.ArrayList;
 
 /****
  *
@@ -129,49 +130,7 @@ public class AddStudentController {
      */
     @FXML
     private void handleConfirmAddButton() {
-        /** Will append the error message if one occurs */
         String errorMessage = "";
-        /*
-         * call addStudent function in SpreadsheetCourse.java
-         * in the model package
-         */
-        if(!firstName.getText().matches("[a-zA-Z]*"))
-        {
-            errorMessage += "* First Name must contain only alphabetic characters\n\n";
-            firstNameWarning.setText("*");
-        }
-        else if(firstName.getText().length() == 0)
-        {
-            errorMessage += "* First Name field cannot be blank\n\n";
-            firstNameWarning.setText("*");
-        }
-        else
-        {
-            firstNameWarning.setText("");
-        }
-        if(!lastName.getText().matches("[a-zA-Z]*"))
-        {
-            errorMessage += "* Last Name must contain only alphabetic characters\n\n";
-            lastNameWarning.setText("*");
-        }
-        else if(lastName.getText().length() == 0)
-        {
-            errorMessage += "* Last Name field cannot be blank\n\n";
-            lastNameWarning.setText("*");
-        }
-        else
-        {
-            lastNameWarning.setText("");
-        }
-        if(studentId.getText().length() == 0)
-        {
-            errorMessage += "* Student ID is a required text entry field\n\n";
-            studentIdWarning.setText("*");
-        }
-        else
-        {
-            studentIdWarning.setText("");
-        }
         if(courseList.size() == 0)
         {
             errorMessage += "* You must select at least one course to which the student will be added\n\n";
@@ -181,11 +140,14 @@ public class AddStudentController {
         {
             coursesEnrolledWarning.setText("");
         }
-        if(errorMessage.length() <= 0)
+        try
         {
             Student studentToAdd = new Student(username.getText(),
                     firstName.getText(), lastName.getText(),
                     studentId.getText(), major.getText(), gradeLevel.getText());
+            firstNameWarning.setText("");
+            lastNameWarning.setText("");
+            studentIdWarning.setText("");
             for(SpreadsheetCourse currentCourses: courseList)
             {
                 if(!currentCourses.getStudentRoster().contains(studentToAdd))
@@ -197,9 +159,34 @@ public class AddStudentController {
             Stage stage = getStage();
             stage.close();
         }
-        else
+        catch(StudentDataException exc)
         {
-            Dialogs.showWarningDialog(getStage(), errorMessage, "Invalid Student Input",
+            if(exc.isBadFirstName())
+            {
+                firstNameWarning.setText("*");
+            }
+            else
+            {
+                firstNameWarning.setText("");
+            }
+            if(exc.isBadLastName())
+            {
+                lastNameWarning.setText("*");
+            }
+            else
+            {
+                lastNameWarning.setText("");
+            }
+            if(exc.isBadId())
+            {
+                studentIdWarning.setText("*");
+            }
+            else
+            {
+                studentIdWarning.setText("");
+            }
+            Dialogs.showWarningDialog(getStage(), exc.getMessage() + errorMessage,
+                    "Invalid Student Input",
                     "Invalid Student Input");
         }
     }
