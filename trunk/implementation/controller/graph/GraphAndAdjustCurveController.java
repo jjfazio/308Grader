@@ -1,9 +1,7 @@
 package controller.graph;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,15 +9,12 @@ import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.exception.BadDataException;
 import model.graph.Graph;
-import model.graph.Range;
-import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -33,7 +28,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import view.ViewUtility;
 
@@ -44,6 +38,7 @@ import view.ViewUtility;
  *
  */
 public class GraphAndAdjustCurveController {
+	/**Root anchorpane which all of the children nodes are in*/
 	@FXML
 	private AnchorPane root;
 	/**Checkbox indicating whether or not the bar chart is visible*/
@@ -73,11 +68,12 @@ public class GraphAndAdjustCurveController {
     /**Bar chart object*/
     @FXML
     private BarChart<String, Integer> barChart;
-    /*Title of Page*/
+    /**Title of Page*/
     @FXML
     private Label graphAndAdjustCurveTitle;
     /**An instance of the graph model class*/
     private Graph graph;
+    /**The current assignment being viewed*/
     private Assignment ass;
     
     /**
@@ -88,6 +84,9 @@ public class GraphAndAdjustCurveController {
     	this.graph = new Graph();
     }
     
+    /**
+     * Initializes the scene
+     */
     @FXML
     private void initialize() {
         this.addPercentCurveTextChangedListener();
@@ -117,6 +116,11 @@ public class GraphAndAdjustCurveController {
     	setPieChart();
     }
     
+    /**
+     * Sets the bar chart's data for the chosen assignment
+     * 
+     * @param granularity either 10% or 1% interval granularity
+     */
     private void setBarChart(String granularity) {
     	Map<String, Integer> scoreMap = graph.getAssignmentBarChartData(granularity);
     	
@@ -160,6 +164,9 @@ public class GraphAndAdjustCurveController {
         this.barChart.getYAxis().setAutoRanging(true);
     }
     
+    /**
+     * Sets the pie chart to have data for the chosen assignment
+     */
     private void setPieChart() {
     	Map<String, Integer> scoreMap = graph.getAssignmentPieChartData();
         
