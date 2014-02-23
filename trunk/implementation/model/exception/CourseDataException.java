@@ -21,8 +21,8 @@ public class CourseDataException extends Exception {
         super(message);
     }
 
-    public void setBadName(boolean isBadFirst) {
-        this.badName = isBadFirst;
+    public void setBadName(boolean isBadName) {
+        this.badName = isBadName;
     }
 
     public void setBadSection(boolean isBadSection) {
@@ -38,11 +38,11 @@ public class CourseDataException extends Exception {
         this.badNumber = isBadNumber;
     }
 
-    public boolean isBadFirstName() {
+    public boolean isBadName() {
         return this.badName;
     }
 
-    public boolean isBadLastName() {
+    public boolean isBadSection() {
         return this.badSection;
     }
 
