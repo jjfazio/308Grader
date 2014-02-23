@@ -44,9 +44,11 @@ public class CourseInfo implements Serializable{
     
     public CourseInfo(String name, String quarter, String section, String number,
             String dept, int year) throws BadDataException {
-        if (name == null)
+        if (name == null || name.equals(""))
         {
             throw new BadDataException("Course Name can not be null");
+        } else if (section == null || section.equals("")){
+            throw new BadDataException("Course Section can not be null");
         } else {
             this.courseName = name;
             this.quarter = quarter;

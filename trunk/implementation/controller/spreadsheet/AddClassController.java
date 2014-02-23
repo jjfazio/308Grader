@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -134,7 +135,7 @@ public class AddClassController implements Observer {
         	        + "% per " + course.getLatePolicy().getDecayRate() + " day(s) and a gradings scheme of "
         	        + course.getGradingDistribution().toString());
         } catch (BadDataException e) {
-            System.out.println(e);
+            Dialogs.showErrorDialog(getStage(), e.getMessage(), "Error", "Course Info Error");
         }
     }
 
@@ -179,5 +180,13 @@ public class AddClassController implements Observer {
         schemesObs.addAll(gradebook.getGradingSchemes());
         gradingSchemes.setItems(schemesObs);
         System.out.println("gs update called");
+    }
+    
+    /**
+     * Get the stage of this view
+     * @return the stage of this view
+     */
+    private Stage getStage() {
+        return (Stage) courseName.getScene().getWindow();
     }
 }
