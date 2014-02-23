@@ -1,6 +1,6 @@
 package model.exception;
 
-class BadDataException extends Exception
+public class BadDataException extends Exception
 {
       //Parameterless Constructor
       public BadDataException() {}
