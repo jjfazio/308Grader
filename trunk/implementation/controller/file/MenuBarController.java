@@ -1,20 +1,21 @@
 package controller.file;
 
-import controller.graph.GraphAndAdjustCurveController;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Grade;
+import model.exception.BadDataException;
 import model.exception.StudentDataException;
 import model.gradebook.Gradebook;
 import model.users.Student;
 import view.ViewUtility;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import controller.graph.GraphAndAdjustCurveController;
 
 /**
  * The MenuBar controller controls menu bar actions. Any time
@@ -115,7 +116,7 @@ public class MenuBarController
     }
     
     @FXML
-    public void viewGraphs() {
+    public void viewGraphs() throws BadDataException, StudentDataException {
     	System.out.println("View Graphs clicked!");
     	FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/view/graph/GraphAndAdjustCurve.fxml"));
@@ -126,70 +127,64 @@ public class MenuBarController
     	ass.setName("HW09");
     	List<Student> studentList = new ArrayList<Student>();
 
-        try
-        {
-    	    Student erik = new Student("ejowen", "erik", "owen", "10370", "SE", "Junior");
-        	erik.addGrade(ass, new Grade(new Date(), 88.11, "B"));
     	
-    	    Student james = new Student("jfazio", "james", "fazio", "32456", "SE", "Junior");
-    	    james.addGrade(ass, new Grade(new Date(), 99.0, "A"));
+    	Student erik = new Student("ejowen", "erik", "owen", "10370", "SE", "Junior");
+    	erik.addGrade(ass, new Grade(new Date(), "88.11"));
     	
-    	    Student kevin = new Student("kfeutz", "kevin", "feutz", "84145", "SE", "Junior");
-    	    kevin.addGrade(ass, new Grade(new Date(), 77.0, "C"));
+    	Student james = new Student("jfazio", "james", "fazio", "32456", "SE", "Junior");
+    	james.addGrade(ass, new Grade(new Date(), "99.0"));
     	
-    	    Student kevin2 = new Student("kbackers", "kevin", "backers", "1232465", "SE", "Senior");
-    	    kevin2.addGrade(ass, new Grade(new Date(), 88.0, "B"));
+    	Student kevin = new Student("kfeutz", "kevin", "feutz", "84145", "SE", "Junior");
+    	kevin.addGrade(ass, new Grade(new Date(), "77.0"));
     	
-    	    Student jirbert = new Student("jdilanch", "Jirbert", "Dilanchian", "25642", "SE", "Junior");
-    	    jirbert.addGrade(ass, new Grade(new Date(), 82.0, "A"));
+    	Student kevin2 = new Student("kbackers", "kevin", "backers", "1232465", "SE", "Senior");
+    	kevin2.addGrade(ass, new Grade(new Date(), "88.0"));
     	
-    	    Student sally = new Student("slou", "Sally", "Lou", "32463", "SE", "Sophmore");
-    	    sally.addGrade(ass, new Grade(new Date(), 85.0, "B"));
+    	Student jirbert = new Student("jdilanch", "Jirbert", "Dilanchian", "25642", "SE", "Junior");
+    	jirbert.addGrade(ass, new Grade(new Date(), "82.0"));
     	
-    	    Student steven = new Student("stevenShyinayga", "Steven", "Shinyagan", "46765", "SE", "Senior");
-    	    steven.addGrade(ass, new Grade(new Date(), 85.0, "B"));
+    	Student sally = new Student("slou", "Sally", "Lou", "32463", "SE", "Sophmore");
+    	sally.addGrade(ass, new Grade(new Date(), "85.0"));
     	
-    	    Student patrick = new Student("pweston", "Patrick", "Weston", "234523456", "ME", "Junior");
-    	    patrick.addGrade(ass, new Grade(new Date(), 95.2, "A"));
+    	Student steven = new Student("stevenShyinayga", "Steven", "Shinyagan", "46765", "SE", "Senior");
+    	steven.addGrade(ass, new Grade(new Date(), "85.0"));
     	
-    	    Student jamesC = new Student("jcornsih", "James", "Cornish", "54634", "ME", "Junior");
-    	    jamesC.addGrade(ass, new Grade(new Date(), 66.66, "D"));
+    	Student patrick = new Student("pweston", "Patrick", "Weston", "234523456", "ME", "Junior");
+    	patrick.addGrade(ass, new Grade(new Date(), "95.2"));
     	
-    	    Student jake = new Student("jcosmo", "jake", "cosmo", "7856", "ME", "Junior");
-    	    jake.addGrade(ass, new Grade(new Date(), 77.1, "C"));
+    	Student jamesC = new Student("jcornsih", "James", "Cornish", "54634", "ME", "Junior");
+    	jamesC.addGrade(ass, new Grade(new Date(), "66.66"));
     	
-    	    Student ferguson = new Student("fAnderz", "Ferguson", "Anderz", "63245", "CPE", "Freshmen");
-    	    ferguson.addGrade(ass, new Grade(new Date(), 52.99, "F"));
+    	Student jake = new Student("jcosmo", "jake", "cosmo", "7856", "ME", "Junior");
+    	jake.addGrade(ass, new Grade(new Date(), "77.1"));
     	
-    	    Student tommy = new Student("ttall", "Tommy", "Tall", "34673", "CE", "Sophmore");
-    	    tommy.addGrade(ass, new Grade(new Date(), 85.88, "B"));
+    	Student ferguson = new Student("fAnderz", "Ferguson", "Anderz", "63245", "CPE", "Freshmen");
+    	ferguson.addGrade(ass, new Grade(new Date(), "52.99"));
+    	
+    	Student tommy = new Student("ttall", "Tommy", "Tall", "34673", "CE", "Sophmore");
+    	tommy.addGrade(ass, new Grade(new Date(), "85.88"));
 
-            studentList.add(erik);
-            studentList.add(james);
-            studentList.add(kevin);
-            studentList.add(kevin2);
-            studentList.add(jirbert);
-            studentList.add(sally);
-            studentList.add(steven);
-            studentList.add(patrick);
-            studentList.add(jamesC);
-            studentList.add(jake);
-            studentList.add(ferguson);
-            studentList.add(tommy);
+    	studentList.add(erik);
+    	studentList.add(james);
+    	studentList.add(kevin);
+    	studentList.add(kevin2);
+    	studentList.add(jirbert);
+    	studentList.add(sally);
+    	studentList.add(steven);
+    	studentList.add(patrick);
+    	studentList.add(jamesC);
+    	studentList.add(jake);
+    	studentList.add(ferguson);
+    	studentList.add(tommy);
+
+        System.out.println("Assignment being passed to Graph and Curve page: " + ass.getName());
+        System.out.println("Students/scores passed to Graph and Curve page: ");
+        for(Student stud : studentList) {
+            System.out.println("Student: " + stud.getFirstName() + ", Score: " + stud.getGrades().get(ass).getScore());
         }
-        catch(StudentDataException exc)
-        {
-            System.out.println(exc.getMessage());
-        }
-    	
-    	System.out.println("Assignment being passed to Graph and Curve page: " + ass.getName());
-    	System.out.println("Students/scores passed to Graph and Curve page: ");
-    	for(Student stud : studentList) {
-    		System.out.println("Student: " + stud.getFirstName() + ", Score: " + stud.getGrades().get(ass).getScore());
-    	}
-    	System.out.println();
-    	
-    	controller.setAssignment(ass, studentList, "10%");
+        System.out.println();
+
+        controller.setAssignment(ass, studentList, "10%");
         ViewUtility.showPage(pane, "Graphs & Adjust Curves");
     }
 

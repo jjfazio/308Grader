@@ -151,6 +151,12 @@ public class SpreadsheetCourse extends Observable implements Serializable {
         studentRoster.addAll(students);
         addedStudents.addAll(students);
         
+        /** Adds the selected course to each students collection of enrolled courses */
+        for(int index = 0; index < students.size(); index++)
+        {
+            students.get(index).addCourse(this);
+        }
+        
         setChanged();
         notifyObservers();
     }
