@@ -1,28 +1,24 @@
 package controller.spreadsheet;
 
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.gradebook.Gradebook;
-import model.spreadsheet.CourseDB;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
 import model.spreadsheet.SpreadsheetCourse;
-import model.users.StudentDB;
 import model.users.TeacherAssistant;
 import view.ViewUtility;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * This class represents the interaction between the add class dialog
