@@ -58,10 +58,13 @@ public class AddCategoryController {
     
     /**
      * Adds a new category to the collection of categories of the parent category
+     * If no Category is selected, it will choose
      */
     @FXML
     public void handleAddCategorySave() {
         Stage stage = (Stage) addCategoryName.getScene().getWindow();
+
+        treeView.getSelectionModel().select(0);
         String selectedCategory = treeView.getSelectionModel()
                 .getSelectedItem().getValue();
         String parentName = selectedCategory.substring(0,
