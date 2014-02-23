@@ -2,6 +2,7 @@ package model.assignments_categories;
 
 import java.io.Serializable;
 import java.util.Observable;
+import model.exception.BadDataException;
 
 /**
  * Container that holds a reference to the top category which is essentially 
@@ -32,11 +33,26 @@ public class CategoryContainer extends Observable implements Serializable
      * @param percentOfParent Percent of the parent of the new category
      * @param name Name of the new category
      */
-    public void addCategory(Category parent, Double percentOfParent, String name)
+    public void addCategory(Category parent, Double percentOfParent, String name) throws BadDataException
     {
-        parent.addSubCategory(new Category(parent, percentOfParent, name));
-        setChanged();
-        notifyObservers();
+        if(name.equals("")) {
+            BadDataException b = new BadDataException("The Name field is empty");
+            throw b;
+        }
+//        else if(percentOfParent.equals("")) {
+//            BadDataException b = new BadDataException("The Percent of Parent field is empty.");
+//            throw b;
+//        }
+//        else if(percentOfParent < 0 ) {
+//            BadDataException b = new BadDataException("The Percent of Parent can not be less than zero.");
+//            throw b;
+//        }0
+        else {
+
+            parent.addSubCategory(new Category(parent, percentOfParent, name));
+            setChanged();
+            notifyObservers();
+        }
     }
     
     /**

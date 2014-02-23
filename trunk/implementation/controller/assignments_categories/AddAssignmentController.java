@@ -114,8 +114,6 @@ public class AddAssignmentController {
                                                           Double.parseDouble(addAssignmentWeight.getText()),
                                                           Integer.parseInt(addAssignmentPoints.getText()),
                                                           new Date(), new GradingScheme(), new LatePolicy(), false);
-
-
                 currentCourse.getCategoryContainer().addAssignment(cat,
                         newAssignment);
         }
