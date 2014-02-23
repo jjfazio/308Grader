@@ -55,6 +55,8 @@ public class Assignment implements Serializable {
     * Sets the curve value of the assignment. It cannot be less than zero.
     */
    Double percentCurve;
+   
+   int id;
 
    /*
     * Serializing number needed to serialize the assignment.
@@ -92,6 +94,7 @@ public class Assignment implements Serializable {
       this.policy = latePolicy;
       this.hasElectronicTurnin = hasElectronicTurnin;
       
+      this.id = AssignmentDB.getInstance().getID();
       //this.gScheme = defaultGScheme;
    }
    
@@ -324,6 +327,11 @@ public class Assignment implements Serializable {
      */
    public Double getPercentCurve() {
       return percentCurve;
+   }
+   
+   public int getID()
+   {
+       return id;
    }
 
     /**

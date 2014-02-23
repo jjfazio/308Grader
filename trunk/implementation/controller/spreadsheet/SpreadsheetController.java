@@ -187,11 +187,11 @@ public class SpreadsheetController implements Observer {
        @Override
        public ObservableValue<String> call(CellDataFeatures<Student, String> param)
        {
-           HashMap<Assignment, Grade> grades = param.getValue().getGrades();
+           HashMap<Integer, Grade> grades = param.getValue().getGrades();
            Assignment assign = (Assignment) param.getTableColumn().getUserData();
 
-           return grades.containsKey(assign) ? 
-                   new SimpleStringProperty(String.format("%.2f",grades.get(assign).getScore()))
+           return grades.containsKey(assign.getID()) ? 
+                   new SimpleStringProperty(String.format("%.2f",grades.get(assign.getID()).getScore()))
            :  new SimpleStringProperty(" - "); 
        }
 
