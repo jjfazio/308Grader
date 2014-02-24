@@ -6,11 +6,13 @@ import java.util.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.exception.GradingSchemeDataException;
 import model.gradebook.Gradebook;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.SpreadsheetCourse;
@@ -53,11 +55,11 @@ public class AddGradingSchemeController implements Observer {
     @FXML
     private void initialize() {
         gradeRangeList = FXCollections.observableArrayList();
-        gradeRangeList.add(new GradeRange("A", 90.0, 100.0));
-        gradeRangeList.add(new GradeRange("B", 80.0, 89.9));
-        gradeRangeList.add(new GradeRange("C", 70.0, 79.9));
-        gradeRangeList.add(new GradeRange("D", 60.0, 69.9));
-        gradeRangeList.add(new GradeRange("F", 0.0, 59.9));
+        //gradeRangeList.add(new GradeRange("A", 90.0, 100.0));
+        //gradeRangeList.add(new GradeRange("B", 80.0, 89.9));
+        //gradeRangeList.add(new GradeRange("C", 70.0, 79.9));
+        //gradeRangeList.add(new GradeRange("D", 60.0, 69.9));
+        //gradeRangeList.add(new GradeRange("F", 0.0, 59.9));
         
         
         
@@ -97,16 +99,14 @@ public class AddGradingSchemeController implements Observer {
     @FXML
     private void handleCreateButton() {
         
-        // TODO: get list of graderanges from table in GUI
-        // for now, just create a named scheme
-    	GradingScheme tempGradingScheme = new GradingScheme(schemeName.getText());
-    	System.out.println("scheme name: " + schemeName.getText());
-    	
-    	// TODO: get the grading scheme into the combobox ? ?
-    	//course.setGradingDistribution(tempGradingScheme);
-    	gradebook.addGradingScheme(tempGradingScheme);
-    	close();
-    	System.out.println("added grading scheme: " + schemeName.getText() + " to the gradebook"); 
+        try {
+        	GradingScheme tempGradingScheme = new GradingScheme(rangesTable.getItems(), schemeName.getText());
+        	gradebook.addGradingScheme(tempGradingScheme);
+        	close();
+        	//System.out.println("added grading scheme: " + schemeName.getText() + " to the gradebook"); 
+        } catch (GradingSchemeDataException e) {
+            Dialogs.showErrorDialog(getStage(), e.getMessage(), "Input Data Error", "Grading Scheme Error");
+        }
     }
 
     /**
@@ -160,5 +160,13 @@ public class AddGradingSchemeController implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         
+    }
+    
+    /**
+     * Get the stage of this view
+     * @return the stage of this view
+     */
+    private Stage getStage() {
+        return (Stage) schemeName.getScene().getWindow();
     }
 }
