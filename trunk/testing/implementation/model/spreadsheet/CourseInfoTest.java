@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author jamesfazio
+ * @author Kevin Backers
  *
  */
 public class CourseInfoTest
@@ -96,7 +96,18 @@ public class CourseInfoTest
     }
 
     /**
-     * Test method for {@link model.spreadsheet.CourseInfo#getDept()}.
+     * Unit test getDept by calling getDept on a CourseInfo with a
+     * null and non-null section field. 
+     *                                                                    <pre>
+     *  Test
+     *  Case    Input                 Output          Remarks
+     * ====================================================================
+     *   1      CourseInfo.dept       null            Null case
+     *            == null
+     *
+     *   2      CourseInfo.dept       same non-null   Non-null case
+     *            =- non-null             value
+     *                                                                   </pre>
      */
     @Test
     public void testGetDept()
@@ -105,7 +116,18 @@ public class CourseInfoTest
     }
 
     /**
-     * Test method for {@link model.spreadsheet.CourseInfo#getSection()}.
+     * Unit test getSection by calling getSection on a CourseInfo with a
+     * null and non-null section field. 
+     *                                                                    <pre>
+     *  Test
+     *  Case    Input                   Output          Remarks
+     * ====================================================================
+     *   1      CourseInfo.section     null            Null case
+     *            == null
+     *
+     *   2      CourseInfo.section     same non-null   Non-null case
+     *            =- non-null           value
+     *                                                                   </pre>
      */
     @Test
     public void testGetSection()

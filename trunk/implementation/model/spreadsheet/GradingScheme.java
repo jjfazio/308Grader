@@ -120,10 +120,20 @@ public class GradingScheme extends Observable implements Serializable {
     }
     
     private boolean areValidRanges(List<GradeRange> ranges) {
-        return true;
+        return ranges.size() != 0;
     }
     
     private boolean isValidRangeToAdd(GradeRange newRange) {
         return true;
     }
+    
+    /*
+    public String getSymbolFromPercent(Double score) {
+        for (GradeRange r : gradeRanges)
+        {
+            //if (score > )
+        }
+    }*/
+    
+    
 }

@@ -134,6 +134,7 @@ public class AddClassController implements Observer {
         	        + course.getLatePolicy().getGraceDays() + " grace days and penalty of " + course.getLatePolicy().getDecayPercentage() 
         	        + "% per " + course.getLatePolicy().getDecayRate() + " day(s) and a gradings scheme of "
         	        + course.getGradingDistribution().toString());
+        	//System.out.println(course.getGradingDistribution().getGradeRanges().get(0).getHigh());
         } catch (CourseDataException e) {
             Dialogs.showErrorDialog(getStage(), e.getMessage(), "Input Data Error", "Course Error");
         }
