@@ -63,7 +63,7 @@ public class CategoryTree
     {
         Category parent = container.getRoot();
         root = new TreeItem<String>(parent.getName()
-                + " ( " + parent.getPercentofparent() + " )");
+                + " ( " + parent.getPercentOfParent() + " )");
         
         addToTree(parent, root);
         
@@ -79,7 +79,7 @@ public class CategoryTree
                 !parent.getSubCategories().isEmpty()) {
             for (Category subCategory : parent.getSubCategories()) {
                 curItem = new TreeItem<String>(subCategory.getName()
-                        + " ( " + subCategory.getPercentofparent() + " %)");
+                        + " ( " + subCategory.getPercentOfParent() + " %)");
                 rootItem.getChildren().add(curItem);
                 addToTree(subCategory, curItem);
             }
