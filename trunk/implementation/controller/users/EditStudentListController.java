@@ -1,25 +1,18 @@
 package controller.users;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import model.gradebook.Gradebook;
-import model.users.Student;
 import model.spreadsheet.SpreadsheetCourse;
-import view.ViewUtility;
+import model.users.Student;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,9 +50,6 @@ public class EditStudentListController {
     @FXML
     private TableColumn<Student, String>  enrolledCourseColumn;
 
-    /** Fourth column of the table, contains check boxes */
-    @FXML
-    private TableColumn<Student, CheckBox> checkBoxColumn;
 
     /** Contains the observable list of students */
     private static ObservableList<Student> allStudents = FXCollections.observableArrayList();
@@ -69,7 +59,6 @@ public class EditStudentListController {
 
     /** Holds the instance of the gradebook */
     private Gradebook gradeBook;
-
 
     /**
      * Contructor for this class
@@ -91,11 +80,19 @@ public class EditStudentListController {
         gradeBook = Gradebook.getInstance();
         allStudents.clear();
         ArrayList<SpreadsheetCourse> allCourses = gradeBook.getCourses();
+        ArrayList<Student> students = new ArrayList<Student>();
         for(SpreadsheetCourse currentCourse : allCourses)
         {
-             allStudents.addAll(currentCourse.getStudentRoster());
+            students.clear();
+            students.addAll(currentCourse.getStudentRoster());
+            for(Student currentStudent : students)
+            {
+                if(!allStudents.contains(currentStudent))
+                {
+                    allStudents.add(currentStudent);
+                }
+            }
         }
-
         studentTable.setItems(allStudents);
     }
 

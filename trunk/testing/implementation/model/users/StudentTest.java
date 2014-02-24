@@ -8,9 +8,28 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author jamesfazio
+/****
  *
+ * Class StudentTest is the companion testing class for class <a href=
+ * Student.html> Schedule </a>.  It implements the following module test plan:
+ *                                                                         <ul>
+ *                                                                      <p><li>
+ *     Phase 1: Unit test the constructor.
+ *                                                                      <p><li>
+ *     Phase 2: Unit test the addGrade method
+ *                                                                      <p><li>
+ *     Phase 3: Unit test the removeGrade method
+ *                                                                      <p><li>
+ *     Phase 4: Unit test the editGrade method
+ *                                                                      <p><li>
+ *     Phase 5: Unit test the addCourse method
+ *                                                                      <p><li>
+ *     Phase 6: Unit test the removeCourse method
+ *                                                                      <p><li>
+ *     Phase 7: Unit test the removeCourse method
+ *                                                                      <p><li>
+ *     Phase 7: Stress test by scheduling and deleting 100000 items.
+ *                                                                        </ul>
  */
 public class StudentTest
 {

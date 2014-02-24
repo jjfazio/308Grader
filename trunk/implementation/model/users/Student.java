@@ -1,15 +1,15 @@
 package model.users;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Grade;
 import model.exception.BadDataException;
 import model.exception.StudentDataException;
 import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /****
  *
@@ -57,8 +57,54 @@ public class Student implements Serializable {
     private HashMap<Integer, Grade> grades;
 
     /**
-     * Class constructor that takes in
+     * Class constructor that takes in a student's information
+     * and creates a new one
+     *
+     * @param   userName    The username of the new student
+     * @param   firstName   The first name of the new student
+     * @param   lastName    The last name of the new student
+     * @param   id          The id of the new student
+     * @param   major       The major of the new student
+     * @param   gradeLevel  The grade level of the new student
      */
+    /*@
+       requires
+          //
+          // First name is not empty and all alphabetic
+          //
+          first.length() > 0
+            &&
+          first.matches("[a-zA-Z]*")
+
+          //
+          // Last name is not empty and all alphabetic
+          //
+          last.length() > 0
+            &&
+          last.matches("[a-zA-Z]*")
+
+           //
+           // Student ID is not empty
+           //
+           studentId.length() > 0
+
+       ensures
+          //
+          // This student's fields are created with the correct passed
+          // values
+          //
+          this.userName.equals(userName)
+            &&
+          this.firstName.equals(first)
+            &&
+          this.lastName.equals(lastName)
+            &&
+          this.id.equals(id)
+            &&
+          this.major.equals(major)
+            &&
+          this.gradeLevel.equals(gradeLevel)
+    @*/
     public Student(String userName, String firstName, String lastName,
             String id, String major, String gradeLevel) throws StudentDataException
     {
@@ -133,7 +179,7 @@ public class Student implements Serializable {
      * @throws BadDataException 
      *
      */
-     /*@
+    /*@
        requires
          //
          // There is no Grade for the same assignment already in the collection
@@ -194,7 +240,6 @@ public class Student implements Serializable {
      *                           grade to be removed
      *
      */
-
     /*@
        requires
          //
@@ -234,7 +279,6 @@ public class Student implements Serializable {
      *                        oldGrade
      *
      */
-
     /*@
        requires
           //
@@ -255,6 +299,7 @@ public class Student implements Serializable {
                         !gradeInCollection.equals(oldGrade)));
     @*/
     public void editGrade(Grade oldGrade, Grade newGrade) {
+        oldGrade = newGrade;
     }
 
     /**
@@ -273,6 +318,26 @@ public class Student implements Serializable {
      *                    SpreadsheetCourses
      *
      */
+    /*@
+       requires
+         //
+         // There is no course for the same assignment already in the collection
+         //
+         (! (\exists SpreadsheetCourse courseInSet ;
+             this.coursesEnrolled.contains(course) ;
+             courseInSet.equals(course)))
+
+       ensures
+         //
+         // A SpreadsheetCourse is in the courses collection if
+         // and only if it is the new course to be added
+         // or it is in the input data.
+         //
+         (\forall SpreadsheetCourse courseInSet ;
+              (this.coursesEnrolled.contains(courseInSet)) <==>
+                    courseInSet.equals(course)
+                    || \old(this.coursesEnrolled).contains(courseInSet));
+     @*/
     public void addCourse(SpreadsheetCourse course) {
         /*
          * Checks if this Student's collection of courses
@@ -282,7 +347,6 @@ public class Student implements Serializable {
         if(coursesEnrolled == null) {
             coursesEnrolled = new ArrayList<SpreadsheetCourse>();
         }
-
         coursesEnrolled.add(course);
         System.out.println("In Student.addCourse");
     }
@@ -303,6 +367,24 @@ public class Student implements Serializable {
      *                    SpreadsheetCourses
      *
      */
+    /*@
+       requires
+         //
+         // The given SpreadsheetCourse is in courses enrolled collection
+         //
+         this.coursesEnrolled.contains(course);
+
+       ensures
+         //
+         // A SpreadsheetCourse is in the output this.coursesEnrolled
+         // if and only if it is not the existing SpreadsheetCourse
+         // to be deleted and it is in the input this.enrolledCourses.
+         //
+         (\forall SpreadsheetCourse courseInSet ;
+             this.coursesEnrolled.contains(course) <==>
+             !courseInSet.equals(course)
+             && \old(this.coursesEnrolled).contains(courseInSet));
+    @*/
     public void removeCourse(SpreadsheetCourse course) {
         if(coursesEnrolled != null && coursesEnrolled.contains(course))
             coursesEnrolled.remove(course);
@@ -313,18 +395,122 @@ public class Student implements Serializable {
      * This method  edits a Student's information.  This method will
      * call various setter methods in the Student class
      *
-     * pre:     Student newStudentInfo contains at least one different
+     * pre:     Student info contains at least one different
      *          field in Student and all of the fields are valid
      *
      * post:    This Student contains data matching the passed
-     *          newStudentInfo's info
+     *          info
      *
-     * @param   newStudentInfo              Contains data to be copied
-     *                                      over to this Student
+     * @param   first       The first name of the student
+     * @param   middle      The middle name of the student
+     * @param   last        The last name of the student
+     * @param   username    The username of the student
+     * @param   studentId   The ID of the student
+     * @param   email       The email of the student
+     * @param   major       The major of the student
+     * @param   gradeLevel  The grade level of the student
+     * @param   phoneNumber The phone number of the student
      *
-     */ 
-    public void editStudentInfo(Student newStudentInfo) {
-        System.out.println("In Student.editStudentInfo");
+     */
+    /*@
+       requires
+          //
+          // First name is not empty and all alphabetic
+          //
+          first.length() > 0
+            &&
+          first.matches("[a-zA-Z]*")
+
+          //
+          // Last name is not empty and all alphabetic
+          //
+          last.length() > 0
+            &&
+          last.matches("[a-zA-Z]*")
+
+           //
+           // Student ID is not empty
+           //
+           studentId.length() > 0
+
+       ensures
+          //
+          // This student's fields are changed to the correct passed
+          // values
+          //
+          !(\old(this).equals(this))
+            &&
+          this.firstName.equals(first)
+            &&
+          this.middleName.equals(middle)
+            &&
+          this.lastName.equals(last)
+            &&
+          this.userName.equals(username)
+            &&
+          this.id.equals(studentId)
+            &&
+          this.major.equals(major)
+            &&
+          this.email.equals(email)
+            &&
+          this.phoneNumber.equals(phoneNumber)
+            &&
+          this.gradeLevel.equals(gradeLevel)
+    @*/
+    public void editStudent(String first, String middle, String last,
+        String username, String studentId, String email, String major,
+        String gradeLevel, String phoneNumber) throws StudentDataException {
+
+        String errorMessage = "";
+        boolean isBadFirstName = false;
+        boolean isBadLastName = false;
+        boolean isBadId = false;
+
+        if(!first.matches("[a-zA-Z]*"))
+        {
+            errorMessage += "* First Name must contain only alphabetic characters\n\n";
+            isBadFirstName = true;
+        }
+        else if(first.length() == 0)
+        {
+            errorMessage += "* First Name field cannot be blank\n\n";
+            isBadFirstName = true;
+        }
+        if(!last.matches("[a-zA-Z]*"))
+        {
+            errorMessage += "* Last Name must contain only alphabetic characters\n\n";
+            isBadLastName = true;
+        }
+        else if(last.length() == 0)
+        {
+            errorMessage += "* Last Name field cannot be blank\n\n";
+            isBadLastName = true;
+        }
+        if(studentId.length() == 0)
+        {
+            errorMessage += "* Student ID is a required text entry field\n\n";
+            isBadId = true;
+        }
+        if(errorMessage.length() > 0)
+        {
+            StudentDataException exception = new StudentDataException(errorMessage);
+            exception.setBadFirstName(isBadFirstName);
+            exception.setBadLastName(isBadLastName);
+            exception.setBadId(isBadId);
+            throw exception;
+        }
+        else {
+            this.setFirstName(first);
+            this.setMiddleName(middle);
+            this.setLastName(last);
+            this.setUserName(username);
+            this.setId(studentId);
+            this.setEmail(email);
+            this.setMajor(major);
+            this.setGradeLevel(gradeLevel);
+            this.setPhoneNumber(phoneNumber);
+        }
     }
 
     /**
@@ -554,60 +740,6 @@ public class Student implements Serializable {
         return "";
     }
     
-    public void editStudent(String first, String middle, String last,
-        String username, String studentId, String email, String major,
-        String gradeLevel, String phoneNumber) throws StudentDataException {
-
-        String errorMessage = "";
-        boolean isBadFirstName = false;
-        boolean isBadLastName = false;
-        boolean isBadId = false;
-
-        if(first.matches("[a-zA-Z]*"))
-        {
-            errorMessage += "* First Name must contain only alphabetic characters\n\n";
-            isBadFirstName = true;
-        }
-        else if(first.length() == 0)
-        {
-            errorMessage += "* First Name field cannot be blank\n\n";
-            isBadFirstName = true;
-        }
-        if(!last.matches("[a-zA-Z]*"))
-        {
-            errorMessage += "* Last Name must contain only alphabetic characters\n\n";
-            isBadLastName = true;
-        }
-        else if(last.length() == 0)
-        {
-            errorMessage += "* Last Name field cannot be blank\n\n";
-            isBadLastName = true;
-        }
-        if(studentId.length() == 0)
-        {
-            errorMessage += "* Student ID is a required text entry field\n\n";
-            isBadId = true;
-        }
-        if(errorMessage.length() > 0)
-        {
-            StudentDataException exception = new StudentDataException(errorMessage);
-            exception.setBadFirstName(isBadFirstName);
-            exception.setBadLastName(isBadLastName);
-            exception.setBadId(isBadId);
-            throw exception;
-        }
-        else {
-            this.setFirstName(first);
-            this.setMiddleName(middle);
-            this.setLastName(last);
-            this.setUserName(username);
-            this.setId(studentId);
-            this.setEmail(email);
-            this.setMajor(major);
-            this.setGradeLevel(gradeLevel);
-            this.setPhoneNumber(phoneNumber);
-        }
-    }
 
     public String getFormattedCourseList()
     {
