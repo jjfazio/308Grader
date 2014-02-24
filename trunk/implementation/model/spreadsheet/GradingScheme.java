@@ -127,12 +127,13 @@ public class GradingScheme extends Observable implements Serializable {
         return true;
     }
     
+    /*
     public String getSymbolFromPercent(Double score) {
         for (GradeRange r : gradeRanges)
         {
-            if (score > )
+            //if (score > )
         }
-    }
+    }*/
     
     
 }
