@@ -8,6 +8,7 @@ import model.assignments_categories.Assignment;
 import model.assignments_categories.Grade;
 import model.exception.BadDataException;
 import model.exception.StudentDataException;
+import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
 
 /****
@@ -172,6 +173,10 @@ public class Student implements Serializable {
          * Maps the passed Assignment to the passed Grade
          */
         grades.put(assignment.getID(), grade);
+        
+        totalGrade += assignment.getPercentOfClass() * (grade.getScore() /assignment.getMaxPoints());
+        
+        
     }
 
     /**
@@ -207,8 +212,10 @@ public class Student implements Serializable {
              this.grades.contains(gradeInSet) <==>
              !gradeInSet.equals(grade) && \old(this.grades).contains(gradeInSet));
     @*/
-    public void removeGrade(Assignment assignment) {
+    public void removeGrade(Assignment assignment, double oldScore) {
         grades.remove(assignment);
+        
+        totalGrade -= assignment.getPercentOfClass() * (oldScore / assignment.getMaxPoints());
     }
 
     /**
@@ -537,7 +544,16 @@ public class Student implements Serializable {
     public HashMap<Integer, Grade> getGrades() {
         return grades;
     }
-
+    
+    public double getTotalGrade() {
+        return totalGrade;
+    }
+    
+    public String getLetterGrade() {
+        //return Gradebook.getInstance().g
+        return "";
+    }
+    
     public void editStudent(String first, String middle, String last,
         String username, String studentId, String email, String major,
         String gradeLevel, String phoneNumber) throws StudentDataException {
