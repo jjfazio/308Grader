@@ -41,7 +41,7 @@ public class Category implements Serializable {
       this.assignments = new ArrayList<Assignment>();
       
       if (parentCategory != null)
-          this.percentOfClass = parentCategory.percentOfClass * this.percentOfParent;
+          this.percentOfClass = (parentCategory.percentOfClass / 100.0) * this.percentOfParent;
       else
           this.percentOfClass = 100.0;
    }
