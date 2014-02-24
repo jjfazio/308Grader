@@ -67,7 +67,19 @@ public class SpreadsheetController implements Observer {
     /** Year column in the table */
     private TableColumn<Student, String> yearColumn;
     
+    @FXML
+    /** Column that holds the hierarchical structure of categories
+     *  and assignments
+     */
     private TableColumn<Student, String> totalCategoryCol;
+    
+    @FXML
+    /** Total Percentage grade column */
+    private TableColumn<Student, String> totalGradeColumn;
+    
+    @FXML
+    /** Total Grade Symbol grade column */
+    private TableColumn<Student, String> totalLetterColumn;
     
     @FXML
     /** Major column in the table */
@@ -87,12 +99,14 @@ public class SpreadsheetController implements Observer {
      */
     private void initialize() {
         studentList = FXCollections.observableArrayList();
+        
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("userName"));
         userIDColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("id"));
         yearColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("gradeLevel"));
         majorColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("major"));
+        totalGradeColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("totalGrade"));
         
         table.setEditable(true);
     }
@@ -106,12 +120,11 @@ public class SpreadsheetController implements Observer {
    public void setSpreadsheet(SpreadsheetCourse course) {
       this.course = course;
       
-      totalCategoryCol = new TableColumn<Student, String>(
-              course.getCategoryContainer().getRoot().getName());
+      //Set the user data to be the top category object
       totalCategoryCol.setUserData(course.getCategoryContainer().getRoot());
       
       loadStudentContent(course.getStudentRoster());
-      loadGradeColumns();
+      addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
       
       System.out.println("Set up spreadsheet for " + course.getCourseInfo().getCourseName());
    }
@@ -131,16 +144,9 @@ public class SpreadsheetController implements Observer {
        else if (o instanceof CategoryContainer) {
            totalCategoryCol.getColumns().clear();
            table.getColumns().remove(totalCategoryCol);
-           loadGradeColumns();
+           addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
+           table.getColumns().add(table.getColumns().size() - 2, totalCategoryCol);
        }
-   }
-   
-   // Load all of the category/assignment columns 
-   private void loadGradeColumns()
-   {
-       addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
-       table.getColumns().add(totalCategoryCol);
-       
    }
    
    /**
@@ -157,6 +163,8 @@ public class SpreadsheetController implements Observer {
        TableColumn<Student, String> assignmentCol;
        TableColumn<Student, String> subCatCol;
        
+       // Loop through all the assignments in this category 
+       // and add them as children columns
        for (Assignment assignment : category.getAssignments()) {
            assignmentCol = new TableColumn<Student, String>(assignment.getName());
            assignmentCol.setUserData(assignment);
@@ -166,6 +174,9 @@ public class SpreadsheetController implements Observer {
            topCol.getColumns().add(assignmentCol);
        }
        
+       // Loop through all the categories in this category 
+       // and add them as children columns, call this method 
+       // on all sub categories
        if (category.getSubCategories() != null && 
                !category.getSubCategories().isEmpty()) {
            for (Category subCategory : category.getSubCategories()) {
@@ -187,16 +198,25 @@ public class SpreadsheetController implements Observer {
        @Override
        public ObservableValue<String> call(CellDataFeatures<Student, String> param)
        {
-           HashMap<Assignment, Grade> grades = param.getValue().getGrades();
+           HashMap<Integer, Grade> grades = param.getValue().getGrades();
            Assignment assign = (Assignment) param.getTableColumn().getUserData();
 
-           return grades.containsKey(assign) ? 
-                   new SimpleStringProperty(String.format("%.2f",grades.get(assign).getScore()))
-           :  new SimpleStringProperty(" - "); 
+           // If the student doesn't have a grade for the assignment
+           // do not display anything
+           return grades.containsKey(assign.getID()) ? 
+                   new SimpleStringProperty(String.format("%.2f",grades.get(assign.getID()).getScore()))
+           :  new SimpleStringProperty(""); 
        }
 
    }
    
+   /**
+    * Handler for editing grades in the spreadsheet. When a user double
+    * clicks an assignment cell they can enter in a grade for the student.
+    * If they enter an invalid grade, an error message is displayed.
+    * @author jamesfazio
+    *
+    */
    private class EditHandler implements EventHandler<CellEditEvent<Student, String>> {
        @Override
        public void handle(CellEditEvent<Student, String> studentCell)
@@ -215,15 +235,37 @@ public class SpreadsheetController implements Observer {
            assign = (Assignment) studentCell.getTableColumn().getUserData();
            try
            {
-               grade = new Grade(turnedIn, score);
-               student.addGrade(assign, grade);
+               // If the user decides to delete the grade
+               if (score.equals(""))
+               {
+                   student.removeGrade(assign, Double.parseDouble(studentCell.getOldValue()));
+               }
+               else
+               {
+                   // If the student already has grade for 
+                   // the cell being edited
+                   if (student.getGrades().containsKey(assign.getID()))
+                   {
+                       grade = student.getGrades().get(assign.getID());
+                       // grade.setScore(score);
+                   }
+                   // The user is entering in a new grade for a student
+                   else
+                   {
+                       grade = new Grade(turnedIn, score);
+                   }
+                   
+                   student.addGrade(assign, grade);
+               }
+               
            }
+           // If the user enters in bad data for the student's grade
            catch (BadDataException e)
            {
                Dialogs.showErrorDialog(getStage(), e.getMessage());
                studentCell.getTableColumn().setVisible(false);
                studentCell.getTableColumn().setVisible(true);
-               // remove bad grade
+               //don't show bad data
            }
        }
    }

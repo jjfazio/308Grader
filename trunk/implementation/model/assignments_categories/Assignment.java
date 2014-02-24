@@ -7,6 +7,7 @@ package model.assignments_categories;
 import java.io.Serializable;
 import java.util.Date;
 
+import model.gradebook.Gradebook;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
 
@@ -19,42 +20,48 @@ public class Assignment implements Serializable {
    /*
    * The name of the assignment. It cannot be empty string or null.
    */
-   String name;
+   private String name;
 
    /*
     * The percentage value that the assignment covers from parent category.
     */
-   Double percentOfCategory;
-
+   private Double percentOfCategory;
+   
    /*
     * Maximum number of points available for the assignment. It cannot be less than zero.
     */
-   Integer maxPoints;
+   private Integer maxPoints;
 
    /*
     * The due date for the assignment. It should not be before the current date of the computer.
     */
-   Date dueDate;
+   private Date dueDate;
 
    /*
     * Grading scheme used for the assignment.
     */
-   GradingScheme gScheme;
+   private GradingScheme gScheme;
 
    /*
     * Late policy used for the assignment.
     */
-   LatePolicy policy;
+   private LatePolicy policy;
 
    /*
     * Controls if the assignment is being turned in electronically or not.
     */
-   Boolean hasElectronicTurnin;
+   private Boolean hasElectronicTurnin;
 
    /*
     * Sets the curve value of the assignment. It cannot be less than zero.
     */
-   Double percentCurve;
+   private Double percentCurve;
+   
+   private Category parentCategory;
+   
+   private double pecentOfClass;
+   
+   private int id;
 
    /*
     * Serializing number needed to serialize the assignment.
@@ -66,7 +73,7 @@ public class Assignment implements Serializable {
     * Default constructor of Assignment which creates an assignment with predefined values.
     */
    public Assignment() {
-      this("changeName", 100.0, 100, new Date(), new GradingScheme(), new
+      this(null,"changeName", 100.0, 100, new Date(), new GradingScheme(), new
        LatePolicy(), false);
    }
 
@@ -81,18 +88,21 @@ public class Assignment implements Serializable {
      * @param hasElectronicTurnin if the assignment should be turned in electronically or not.
      */
    
-   public Assignment(String name, Double percentOfCategory, Integer maxPoints,
+   public Assignment(Category parentCategory, String name, Double percentOfCategory, Integer maxPoints,
     Date dueDate, GradingScheme gScheme, LatePolicy latePolicy, 
     Boolean hasElectronicTurnin) {
-      this.name = name;
-      this.percentOfCategory = percentOfCategory;
-      this.maxPoints = maxPoints;
-      this.dueDate = dueDate;
-      this.gScheme = gScheme;
-      this.policy = latePolicy;
-      this.hasElectronicTurnin = hasElectronicTurnin;
-      
-      //this.gScheme = defaultGScheme;
+       this.parentCategory = parentCategory;
+       this.name = name;
+       this.percentOfCategory = percentOfCategory;
+       this.maxPoints = maxPoints;
+       this.dueDate = dueDate;
+       this.gScheme = gScheme;
+       this.policy = latePolicy;
+       this.hasElectronicTurnin = hasElectronicTurnin;
+       this.pecentOfClass = (percentOfCategory / 100.0) * parentCategory.percentOfClass;
+
+       this.id = AssignmentDB.getInstance().getID();
+       //this.gScheme = defaultGScheme;
    }
    
    /**
@@ -325,7 +335,15 @@ public class Assignment implements Serializable {
    public Double getPercentCurve() {
       return percentCurve;
    }
-
+   
+   public int getID()
+   {
+       return id;
+   }
+   
+   public double getPercentOfClass() {
+       return pecentOfClass;
+   }
     /**
      * Sets the percentCurve value of the assignment.
      * @param percentCurve the percentCurve that is used for the assignment.
@@ -340,4 +358,5 @@ public class Assignment implements Serializable {
    public void setPercentCurve(Double percentCurve) {
       this.percentCurve = percentCurve;
    }
+   
 }

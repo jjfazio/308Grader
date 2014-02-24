@@ -4,6 +4,7 @@ import model.assignments_categories.Assignment;
 import model.assignments_categories.Grade;
 import model.exception.BadDataException;
 import model.exception.StudentDataException;
+import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
 
 import java.io.Serializable;
@@ -43,9 +44,8 @@ public class Student implements Serializable {
     private String email;
     /** Contains the student's phone number */
     private String phoneNumber;
-
-    /** Contains the formatted list of courses for use by models */
-    private String formattedCourseList;
+    /** The students total Grade */
+    private Double totalGrade;
    
     /** Contains the collection of courses that the student is enrolled */
     private ArrayList<SpreadsheetCourse> coursesEnrolled;
@@ -54,7 +54,7 @@ public class Student implements Serializable {
      * Contains a link between an assignment and the student's grade on
      * that assignment
      */
-    private HashMap<Assignment, Grade> grades;
+    private HashMap<Integer, Grade> grades;
 
     /**
      * Class constructor that takes in a student's information
@@ -113,7 +113,7 @@ public class Student implements Serializable {
         boolean isBadLastName = false;
         boolean isBadId = false;
 
-        if(!firstName.matches("[a-zA-Z]*"))
+        if(!firstName.matches("^[a-zA-Z0-9_-]*$"))
         {
             errorMessage += "* First Name must contain only alphabetic characters\n\n";
             isBadFirstName = true;
@@ -123,7 +123,7 @@ public class Student implements Serializable {
             errorMessage += "* First Name field cannot be blank\n\n";
             isBadFirstName = true;
         }
-        if(!lastName.matches("[a-zA-Z]*"))
+        if(!lastName.matches("^[a-zA-Z0-9_-]*$"))
         {
             errorMessage += "* Last Name must contain only alphabetic characters\n\n";
             isBadLastName = true;
@@ -140,6 +140,7 @@ public class Student implements Serializable {
         }
         if(errorMessage.length() > 0)
         {
+            System.out.println(firstName);
             StudentDataException exception = new StudentDataException(errorMessage);
             exception.setBadFirstName(isBadFirstName);
             exception.setBadLastName(isBadLastName);
@@ -154,7 +155,8 @@ public class Student implements Serializable {
             this.id = id;
             this.major = major;
             this.gradeLevel = gradeLevel;
-            this.grades = new HashMap<Assignment, Grade>();
+            this.grades = new HashMap<Integer, Grade>();
+            this.totalGrade = 0.0;
         }
     }
 
@@ -201,7 +203,7 @@ public class Student implements Serializable {
          * empty.  If it is, a new HashMap collection is created
          */
         if (grades == null) {
-            grades = new HashMap<Assignment, Grade>();
+            grades = new HashMap<Integer, Grade>();
         }
         
         if (grade == null) {
@@ -216,7 +218,11 @@ public class Student implements Serializable {
         /*
          * Maps the passed Assignment to the passed Grade
          */
-        grades.put(assignment, grade);
+        grades.put(assignment.getID(), grade);
+        
+        totalGrade += assignment.getPercentOfClass() * (grade.getScore() /assignment.getMaxPoints());
+        
+        
     }
 
     /**
@@ -251,8 +257,10 @@ public class Student implements Serializable {
              this.grades.contains(gradeInSet) <==>
              !gradeInSet.equals(grade) && \old(this.grades).contains(gradeInSet));
     @*/
-    public void removeGrade(Assignment assignment) {
+    public void removeGrade(Assignment assignment, double oldScore) {
         grades.remove(assignment);
+        
+        totalGrade -= assignment.getPercentOfClass() * (oldScore / assignment.getMaxPoints());
     }
 
     /**
@@ -719,9 +727,19 @@ public class Student implements Serializable {
      *                       Student's assignments and grades for
      *                       each assignment
      */
-    public HashMap<Assignment, Grade> getGrades() {
+    public HashMap<Integer, Grade> getGrades() {
         return grades;
     }
+    
+    public double getTotalGrade() {
+        return totalGrade;
+    }
+    
+    public String getLetterGrade() {
+        //return Gradebook.getInstance().g
+        return "";
+    }
+    
 
     public String getFormattedCourseList()
     {

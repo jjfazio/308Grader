@@ -16,15 +16,16 @@ public class Category implements Serializable {
    String name;
    List<Assignment> assignments;
    Collection<Category> subCategories;
-   Double percentofparent;
+   Double percentOfParent;
    Double percentCurve;
+   Double percentOfClass;
    
    private static final long serialVersionUID = -2031231263976839850L;
    /**
     * If no paramaters are provided the default top level category is created.
     */
    public Category () {
-      this(null, 100.0, "Total");
+      this(null, 100.0, "Overall");
    }
 
     /**
@@ -35,12 +36,14 @@ public class Category implements Serializable {
      */
    public Category(Category parentCategory, Double percentOfParent, String name) {
       this.parentCategory = parentCategory;
-      this.percentofparent = percentOfParent;
+      this.percentOfParent = percentOfParent;
       this.name = name;
       this.assignments = new ArrayList<Assignment>();
       
-//      if (parentCategory != null)
-//         parentCategory.addSubCategory(this);
+      if (parentCategory != null)
+          this.percentOfClass = parentCategory.percentOfClass * this.percentOfParent;
+      else
+          this.percentOfClass = 100.0;
    }
 
    /**
@@ -362,8 +365,8 @@ public class Category implements Serializable {
    }
 
 
-   public Double getPercentofparent() {
-      return percentofparent;
+   public Double getPercentOfParent() {
+      return percentOfParent;
    }
 
 //   public void setPercentofparent(Double percentofparent) {
@@ -372,6 +375,10 @@ public class Category implements Serializable {
 
    public Double getPercentCurve() {
       return percentCurve;
+   }
+   
+   public Double getPercentOfClass() {
+       return percentOfClass;
    }
     /**
      *
@@ -419,12 +426,12 @@ public class Category implements Serializable {
         }
         else if (!percentCurve.equals(other.percentCurve))
             return false;
-        if (percentofparent == null)
+        if (percentOfParent == null)
         {
-            if (other.percentofparent != null)
+            if (other.percentOfParent != null)
                 return false;
         }
-        else if (!percentofparent.equals(other.percentofparent))
+        else if (!percentOfParent.equals(other.percentOfParent))
             return false;
         if (subCategories == null)
         {
