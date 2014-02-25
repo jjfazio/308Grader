@@ -100,6 +100,11 @@ public class GradingScheme extends Observable implements Serializable {
         return schemeName;
     }
     
+    public void setSchemeName(String name)
+    {
+        this.schemeName = name;
+    }
+    
     public String toString()
     {
         return schemeName;
@@ -127,13 +132,18 @@ public class GradingScheme extends Observable implements Serializable {
         return true;
     }
     
-    /*
+    
     public String getSymbolFromPercent(Double score) {
         for (GradeRange r : gradeRanges)
         {
-            //if (score > )
+            if (score <= r.getHigh() && score >= r.getLow())
+            {
+                return r.getLetterGrade();
+            }
         }
-    }*/
+        
+        return "";
+    }
 
     @Override
     public boolean equals(Object obj)
@@ -168,5 +178,6 @@ public class GradingScheme extends Observable implements Serializable {
             return false;
         return true;
     }
+    
     
 }

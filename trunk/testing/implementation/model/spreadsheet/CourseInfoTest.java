@@ -4,9 +4,12 @@
 package implementation.model.spreadsheet;
 
 import static org.junit.Assert.*;
+import model.exception.CourseDataException;
+import model.spreadsheet.CourseInfo;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Assert;
 
 /**
  * @author Kevin Backers
@@ -70,11 +73,35 @@ public class CourseInfoTest
 
     /**
      * Test method for {@link model.spreadsheet.CourseInfo#getCourseName()}.
+     * Unit test getName by calling getCourseName on a CourseInfo with a
+     * null and non-null name field. 
+     *                                                                    <pre>
+     *  Test
+     *  Case    Input                 Output                 Remarks
+     * ====================================================================
+     *   1      CourseInfo.name       CourseDataException    Null case
+     *            == null
+     *
+     *   2      CourseInfo.name       same non-null          Non-null case
+     *            =- non-null             value
+     *                                                                   </pre>
      */
     @Test
     public void testGetCourseName()
     {
-        fail("Not yet implemented");
+        try {
+            CourseInfo ci = new CourseInfo(null, "spring", "01", "365", "cpe", 2014);
+        } catch (CourseDataException e) {
+            /** null section should throw exception. */
+            assert(e.getMessage() != null);
+        }
+        
+        try {
+            CourseInfo ci = new CourseInfo("Databases", "spring", "01", "365", "cpe", 2014);
+            assertEquals("Databases", ci.getCourseName());
+        } catch (CourseDataException e) {
+            fail(e.getMessage());
+        }
     }
 
     /**
@@ -88,11 +115,35 @@ public class CourseInfoTest
 
     /**
      * Test method for {@link model.spreadsheet.CourseInfo#getNumber()}.
+     * Unit test getNumber by calling getNumber on a CourseInfo with a
+     * null and non-null number field. 
+     *                                                                    <pre>
+     *  Test
+     *  Case    Input                 Output                Remarks
+     * ====================================================================
+     *   1      CourseInfo.number     CourseDataException   Null case
+     *            == null
+     *
+     *   2      CourseInfo.number     same non-null         Non-null case
+     *            =- non-null             value
+     *                                                                   </pre>
      */
     @Test
     public void testGetNumber()
     {
-        fail("Not yet implemented");
+        try {
+            CourseInfo ci = new CourseInfo("name", "spring", "01", null, "cpe", 2014);
+        } catch (CourseDataException e) {
+            /** null section should throw exception. */
+            assert(e.getMessage() != null);
+        }
+        
+        try {
+            CourseInfo ci = new CourseInfo("name", "spring", "01", "365", null, 2014);
+            assertEquals("365", ci.getNumber());
+        } catch (CourseDataException e) {
+            fail(e.getMessage());
+        }
     }
 
     /**
@@ -112,7 +163,20 @@ public class CourseInfoTest
     @Test
     public void testGetDept()
     {
-        fail("Not yet implemented");
+        try {
+            CourseInfo ci = new CourseInfo("name", "spring", "01", "365", "cpe", 2014);
+            assertEquals("cpe", ci.getDept());
+        } catch (CourseDataException e) {
+            fail(e.getMessage());
+        }
+        
+        try {
+            CourseInfo ci = new CourseInfo("name", "spring", "01", "365", null, 2014);
+            assertEquals(null, ci.getDept());
+        } catch (CourseDataException e) {
+            fail(e.getMessage());
+        }
+        
     }
 
     /**
@@ -120,19 +184,31 @@ public class CourseInfoTest
      * null and non-null section field. 
      *                                                                    <pre>
      *  Test
-     *  Case    Input                   Output          Remarks
+     *  Case    Input                   Output               Remarks
      * ====================================================================
-     *   1      CourseInfo.section     null            Null case
+     *   1      CourseInfo.section     CourseDataException   Null case
      *            == null
      *
-     *   2      CourseInfo.section     same non-null   Non-null case
+     *   2      CourseInfo.section     same non-null         Non-null case
      *            =- non-null           value
      *                                                                   </pre>
      */
     @Test
     public void testGetSection()
     {
-        fail("Not yet implemented");
+        try {
+            CourseInfo ci = new CourseInfo("name", "spring", null, "365", "cpe", 2014);
+        } catch (CourseDataException e) {
+            /** null section should throw exception. */
+            assert(e.getMessage() != null);
+        }
+        
+        try {
+            CourseInfo ci = new CourseInfo("name", "spring", "01", "365", null, 2014);
+            assertEquals("01", ci.getSection());
+        } catch (CourseDataException e) {
+            fail(e.getMessage());
+        }
     }
 
     /**
