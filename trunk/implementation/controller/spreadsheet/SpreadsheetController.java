@@ -14,10 +14,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Dialogs;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
@@ -88,7 +90,7 @@ public class SpreadsheetController implements Observer {
     /** List of student in the spreadsheet */
     private ObservableList<Student> studentList;
     
-    private static final double MIN_COL_WIDTH = 100;
+    private static final double MIN_COL_WIDTH = 125;
     
     
     @FXML
@@ -166,7 +168,8 @@ public class SpreadsheetController implements Observer {
        // Loop through all the assignments in this category 
        // and add them as children columns
        for (Assignment assignment : category.getAssignments()) {
-           assignmentCol = new TableColumn<Student, String>(assignment.getName());
+           assignmentCol = new TableColumn<Student, String>(
+                   assignment.getName() + " (" + assignment.getMaxPoints() + " pts)");
            assignmentCol.setUserData(assignment);
            assignmentCol.setCellFactory(TextFieldTableCell.<Student>forTableColumn());
            assignmentCol.setCellValueFactory(new AssignmentCallBack());
@@ -202,11 +205,11 @@ public class SpreadsheetController implements Observer {
        {
            HashMap<Integer, Grade> grades = param.getValue().getGrades();
            Assignment assign = (Assignment) param.getTableColumn().getUserData();
-
+           
            // If the student doesn't have a grade for the assignment
            // do not display anything
            return grades.containsKey(assign.getID()) ? 
-                   new SimpleStringProperty(String.format("%.2f",grades.get(assign.getID()).getScore()))
+                   new SimpleStringProperty(String.format("%.1f",grades.get(assign.getID()).getScore()))
            :  new SimpleStringProperty(""); 
        }
 
@@ -222,7 +225,7 @@ public class SpreadsheetController implements Observer {
        public ObservableValue<String> call(CellDataFeatures<Student, String> param)
        {
            double totalGrade = param.getValue().getTotalGrade(course.getID());
-           return new SimpleStringProperty(String.format("%.2f", totalGrade));
+           return new SimpleStringProperty(String.format("%.2f", totalGrade) + " %");
        }
    }
    

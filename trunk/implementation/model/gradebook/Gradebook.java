@@ -1,5 +1,6 @@
 package model.gradebook;
 
+import model.exception.BadDataException;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Teacher;
@@ -21,29 +22,19 @@ import java.util.logging.Logger;
 
 public class Gradebook extends Observable implements Serializable
 {
-    
+    /** Where the serialized gradebook is stored */
     private static final String GRADEBOOK = "currentGradebook";
 
-    /**
-     * List of the {@link model.spreadsheet.SpreadsheetCourse}s taught in the
-     * Gradebook.
-     */
+    /** List of the {@link model.spreadsheet.SpreadsheetCourse}s taught in the Gradebook. */
     private ArrayList<SpreadsheetCourse> courses;
 
-    /**
-     * List of the {@link model.spreadsheet.GradingScheme}s taught in the
-     * Gradebook.
-     */
+    /** List of the {@link model.spreadsheet.GradingScheme}s taught in the Gradebook. */
     private ArrayList<GradingScheme> gradingSchemes;
 
-    /**
-     * Current {@link model.spreadsheet.SpreadsheetCourse} being used.
-     */
+    /** Current {@link model.spreadsheet.SpreadsheetCourse} being used. */
     private SpreadsheetCourse currentCourse;
 
-    /**
-     * {@link model.users.Teacher} Teacher who owns the gradebook.
-     */
+    /** {@link model.users.Teacher} Teacher who owns the gradebook. */
     private Teacher teacher;
 
     /**
@@ -52,11 +43,9 @@ public class Gradebook extends Observable implements Serializable
      */
     private static Gradebook instance;
 
-    private static final Logger LOGGER = Logger.getLogger(Gradebook.class
-            .getName());
-
     private static final long serialVersionUID = 4568797145557381794L;
 
+    
     /**
      * Called once at the beginning of the application to load the Gradebook.
      */
@@ -74,8 +63,6 @@ public class Gradebook extends Observable implements Serializable
      */
     private Gradebook(boolean firstTime)
     {
-        // StudentDBScript.createDBFile();
-        System.out.println("Congrats, you loaded a Gradebook!");
     }
 
     /**
@@ -98,6 +85,7 @@ public class Gradebook extends Observable implements Serializable
      * 
      * @param course
      *            - The Spreadsheet course being added to the Gradebook
+     * @throws BadDataException 
      */
     /*
      * @ requires // The SpreadsheetCourse is not null. // The SpreadsheetCourse
@@ -167,8 +155,12 @@ public class Gradebook extends Observable implements Serializable
      * @
      */
 
-    public void addSpreadsheetCourse(SpreadsheetCourse course)
+    public void addSpreadsheetCourse(SpreadsheetCourse course) throws BadDataException
     {
+        if (course == null || course.getCourseInfo() == null)
+        {
+            throw new BadDataException("Cannot enter a null course!");
+        }
         if (courses == null)
         {
             courses = new ArrayList<SpreadsheetCourse>();
@@ -209,7 +201,7 @@ public class Gradebook extends Observable implements Serializable
      * 
      * @
      */
-    public void deleteSpreadsheetCourse(SpreadsheetCourse course)
+    public void delerteSpreadsheetCourse(SpreadsheetCourse course)
     {
         courses.remove(course);
     }
@@ -236,6 +228,64 @@ public class Gradebook extends Observable implements Serializable
         notifyObservers();
     }
 
+    /**
+     * Returns the Teacher of the Gradebook.
+     * 
+     * @return - the Teacher of the Gradebook.
+     */
+    public Teacher getTeacher()
+    {
+        return teacher;
+    }
+    
+    /**
+     * Sets the teacher of the Gradebook.
+     * @param teacher The teacher of the Gradebook.
+     */
+    public void setTeacher(Teacher teacher)
+    {
+        this.teacher = teacher;
+    }
+
+    /**
+     * Returns the courses in the Gradebook.
+     * 
+     * @return - the courses in the Gradebook.
+     */
+    public ArrayList<SpreadsheetCourse> getCourses()
+    {
+        return courses;
+    }
+
+    /**
+     * Returns the current course in the Gradebook.
+     * 
+     * @return - the current course in the Gradebook.
+     */
+    public SpreadsheetCourse getCurrentCourse()
+    {
+        return currentCourse;
+    }
+
+    /**
+     * Sets the current SpreadsheetCourse to the course supplied.
+     * 
+     * @param currentCourse
+     *            - The course to be set as the current one.
+     */
+    public void setCurrentCourse(SpreadsheetCourse currentCourse)
+    {
+        System.out.println("Setting current course to: "
+                + currentCourse.getCourseInfo().getCourseName());
+        this.currentCourse = currentCourse;
+    }
+    
+    /**
+     * Clears the serialized gradebook file, deletes 
+     * all saved information.
+     * 
+     * WARNING: This method should only be called for testing purposes!
+     */
     public void clearGradebook()
     {
         File f = new File(GRADEBOOK);
@@ -276,16 +326,16 @@ public class Gradebook extends Observable implements Serializable
             {
                 instance = new Gradebook(true);
             }
-            LOGGER.info("Done loading gradebook");
+            System.out.println("Done loading gradebook");
         }
         catch (IOException e)
         {
-            LOGGER.warning("Error in loading gradebook: ");
+            System.out.println("Error in loading gradebook: ");
             e.printStackTrace();
         }
         catch (ClassNotFoundException e)
         {
-            LOGGER.warning("Error in loading gradebook: " + e.getStackTrace());
+            System.out.println("Error in loading gradebook: " + e.getStackTrace());
         }
 
     }
@@ -304,57 +354,14 @@ public class Gradebook extends Observable implements Serializable
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(instance);
             oos.close();
-            LOGGER.info("Done saving gradebook");
+            System.out.println("Done saving gradebook");
 
         }
         catch (IOException e)
         {
-            LOGGER.warning("Error in saving gradebook: ");
+            System.out.println("Error in saving gradebook: ");
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Returns the Teacher of the Gradebook.
-     * 
-     * @return - the Teacher of the Gradebook.
-     */
-    public Teacher getTeacher()
-    {
-        return teacher;
-    }
-
-    /**
-     * Returns the courses in the Gradebook.
-     * 
-     * @return - the courses in the Gradebook.
-     */
-    public ArrayList<SpreadsheetCourse> getCourses()
-    {
-        return courses;
-    }
-
-    /**
-     * Returns the current course in the Gradebook.
-     * 
-     * @return - the current course in the Gradebook.
-     */
-    public SpreadsheetCourse getCurrentCourse()
-    {
-        return currentCourse;
-    }
-
-    /**
-     * Sets the current SpreadsheetCourse to the course supplied.
-     * 
-     * @param currentCourse
-     *            - The course to be set as the current one.
-     */
-    public void setCurrentCourse(SpreadsheetCourse currentCourse)
-    {
-        System.out.println("Setting current course to: "
-                + currentCourse.getCourseInfo().getCourseName());
-        this.currentCourse = currentCourse;
     }
 
 }

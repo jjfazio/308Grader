@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Scanner;
 
+import model.exception.BadDataException;
 import model.exception.CourseDataException;
 import model.gradebook.Gradebook;
 import model.spreadsheet.CourseInfo;
@@ -31,12 +32,12 @@ import org.junit.Test;
 *                                                                      <p><li>
 *     Phase 1: Unit test the constructor.
 *                                                                      <p><li>
-*     Phase 2: Unit test the access methods, getCurrentCourse, 
-*              getTeacher, getGradingSchemes
-*                                                                      <p><li>
-*     Phase 3: Unit test the constructive methods, addCourse,
+*     Phase 2: Unit test the constructive methods, addCourse,
 *              setTeacher, addGradingScheme, setCurentCourse
 *                                                                      <p><li>
+*     Phase 3: Unit test the access methods, getCurrentCourse, 
+*              getTeacher, getGradingSchemes
+*                                                                      <p><li>                                                                 
 *     Phase 4: Unit test the saving of the Gradebook.
 *                                                                      <p><li>
 *     Phase 5: Unit test the clearing of the Gradebook.
@@ -164,9 +165,10 @@ public class GradebookTest
      * @throws CourseDataException 
      * @throws IOException 
      * @throws ClassNotFoundException 
+     * @throws BadDataException 
      */
     @Test
-    public void testSaveGradebook() throws CourseDataException, IOException, ClassNotFoundException
+    public void testSaveGradebook() throws CourseDataException, IOException, ClassNotFoundException, BadDataException
     {
         Gradebook gradebook = Gradebook.getInstance();
         FileInputStream fin;
