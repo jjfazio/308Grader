@@ -45,8 +45,10 @@ public class Student implements Serializable {
     private String email;
     /** Contains the student's phone number */
     private String phoneNumber;
-    /** The students total Grade */
+    /** Map of courseID to total grade percentage */
     private HashMap<Integer, Double> totalGrades;
+    /** Map of courseID to total letter grade */
+    private HashMap<Integer, Double> letterGrades;
    
     /** Contains the collection of courses that the student is enrolled */
     private ArrayList<SpreadsheetCourse> coursesEnrolled;
@@ -158,6 +160,7 @@ public class Student implements Serializable {
             this.gradeLevel = gradeLevel;
             this.grades = new HashMap<Integer, Grade>();
             this.totalGrades = new HashMap<Integer, Double>();
+            this.letterGrades = new HashMap<Integer, Double>();
         }
     }
 
@@ -767,6 +770,7 @@ public class Student implements Serializable {
         }
         
         totalGrades.put(course.getID(), total);
+       // letterGrades.put(course.getID(), course.getGradingDistribution().)
     }
 
     @Override
