@@ -24,7 +24,7 @@ public class CourseDBTest
     }
 
     /**
-     * Test method for {@link model.spreadsheet.CourseDB#getInstance()}.
+     * Test method for {@link model.spreadsheet.SisDB#getInstance()}.
      */
     @Test
     public void testGetInstance()
@@ -33,7 +33,7 @@ public class CourseDBTest
     }
 
     /**
-     * Test method for {@link model.spreadsheet.CourseDB#getAllCourses()}.
+     * Test method for {@link model.spreadsheet.SisDB#getAllCourses()}.
      */
     @Test
     public void testGetAllCourses()
@@ -42,7 +42,7 @@ public class CourseDBTest
     }
 
     /**
-     * Test method for {@link model.spreadsheet.CourseDB#getCourseNumbers()}.
+     * Test method for {@link model.spreadsheet.SisDB#getCourseNumbers()}.
      */
     @Test
     public void testGetCourseNumbers()
@@ -51,7 +51,7 @@ public class CourseDBTest
     }
 
     /**
-     * Test method for {@link model.spreadsheet.CourseDB#getCoursesByNumber(java.lang.String)}.
+     * Test method for {@link model.spreadsheet.SisDB#getCoursesByNumber(java.lang.String)}.
      */
     @Test
     public void testGetCoursesByNumber()

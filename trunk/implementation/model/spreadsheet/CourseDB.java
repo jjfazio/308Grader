@@ -1,33 +1,19 @@
 package model.spreadsheet;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
-import model.exception.CourseDataException;
-
-/**
- * This acts as the SIS server and has courses the user can
- * download rosters from.
- * @author jamesfazio
- *
- */
 public class CourseDB
 {
-    private List<CourseInfo> courses;
-    public static CourseDB instance;
+    private static final String FILE_NAME = "courseDB.txt";
+    private File file;
+    private static CourseDB instance;
     
     private CourseDB()
     {
-        courses = new ArrayList<CourseInfo>();
-        try {
-            courses.add(new CourseInfo("Software Engineering I", "spring", "01", "308", "Computer Science", 2014));
-            courses.add(new CourseInfo("Software Engineering I", "spring", "02", "308", "Computer Science", 2014));
-            courses.add(new CourseInfo("Software Engineering II", "spring", "01", "309", "Computer Science", 2014));
-            courses.add(new CourseInfo("Software Engineering I", "spring", "02", "309", "Computer Science", 2014));
-            courses.add(new CourseInfo("Intro To Databases", "spring", "02", "365", "Computer Science", 2014));
-        }catch (CourseDataException e){
-            e.printStackTrace();
-        }
+        getFile();
     }
     
     public static CourseDB getInstance()
@@ -38,54 +24,68 @@ public class CourseDB
         return instance;
     }
     
-    /**
-     * Gets all of the courses in SIS
-     * @return List of CourseInfo objects
-     */
-    public List<CourseInfo> getAllCourses()
+    public int getID()
     {
-        return courses;
+        Scanner scanner = null;
+        FileWriter writer = null;
+        int id = -1;
+        try {
+            scanner = new Scanner(file);
+            id = Integer.parseInt(scanner.nextLine());
+            writer = new FileWriter(file, false);
+            id ++;
+            
+            writer.write("" + id);
+            
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            scanner.close();
+            try
+            {
+                writer.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+         }
+        
+        return id;
     }
     
-    /**
-     * Gets all of the course numbers in SIS. For example
-     * '308', '309', '365'.
-     * @return List of courseNumbers
-     */
-    public List<String> getCourseNumbers()
+    private void getFile()
     {
-        List<String> desired = new ArrayList<String>();
+        FileWriter writer = null;
+        file = new File(FILE_NAME);
         
-        for (CourseInfo course : courses)
+        if (!file.exists())
         {
-            if (!desired.contains(course.getNumber()))
+            try
             {
-                desired.add(course.getNumber());
+                file.createNewFile();
+                writer = new FileWriter(file);
+                
+                writer.write("1");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                try
+                {
+                    writer.close();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
             }
         }
-        return desired;
-    }
-    
-    /**
-     * Returns all of the courses for a courseNumber.
-     * For example '308' might have multiple sections offered
-     * in one quarter.
-     * @param courseNumber The courseNumber of the sections
-     * @return List of CourseInfo objects
-     */
-    public List<CourseInfo> getCoursesByNumber(String courseNumber)
-    {
-        List<CourseInfo> desired = new ArrayList<CourseInfo>();
-        
-        for (CourseInfo course : courses)
-        {
-            if (course.getNumber().equals(courseNumber))
-            {
-                desired.add(course);
-            }
-        }
-        
-        return desired;
     }
 
 }

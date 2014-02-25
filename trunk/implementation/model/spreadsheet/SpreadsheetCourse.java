@@ -66,6 +66,8 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     private boolean isStudentDeleted = false;
 
     private Student studentToDelete;
+    
+    private int id;
     /**
      * Adds category of assignments in the spread sheet which organizes the assignments into groups.
      */
@@ -86,6 +88,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
            categoryContainer = new CategoryContainer();
            studentRoster = new ArrayList<Student>();
            addedStudents = new ArrayList<Student>();
+           this.id = CourseDB.getInstance().getID();
        }
     }
 
@@ -341,6 +344,11 @@ public class SpreadsheetCourse extends Observable implements Serializable {
 
     public void setSettings(Settings settings) {
         this.settings = settings;
+    }
+    
+    public int getID()
+    {
+        return id;
     }
 
     //generated

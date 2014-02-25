@@ -1,15 +1,16 @@
 package model.users;
 
-import model.assignments_categories.Assignment;
-import model.assignments_categories.Grade;
-import model.exception.BadDataException;
-import model.exception.StudentDataException;
-import model.gradebook.Gradebook;
-import model.spreadsheet.SpreadsheetCourse;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
+
+import model.assignments_categories.Assignment;
+import model.assignments_categories.CategoryContainer;
+import model.assignments_categories.Grade;
+import model.exception.BadDataException;
+import model.exception.StudentDataException;
+import model.spreadsheet.SpreadsheetCourse;
 
 /****
  *
@@ -45,7 +46,7 @@ public class Student implements Serializable {
     /** Contains the student's phone number */
     private String phoneNumber;
     /** The students total Grade */
-    private Double totalGrade;
+    private HashMap<Integer, Double> totalGrades;
    
     /** Contains the collection of courses that the student is enrolled */
     private ArrayList<SpreadsheetCourse> coursesEnrolled;
@@ -156,7 +157,7 @@ public class Student implements Serializable {
             this.major = major;
             this.gradeLevel = gradeLevel;
             this.grades = new HashMap<Integer, Grade>();
-            this.totalGrade = 0.0;
+            this.totalGrades = new HashMap<Integer, Double>();
         }
     }
 
@@ -197,7 +198,7 @@ public class Student implements Serializable {
               (this.grades.contains(gradeInSet)) <==>
                     gradeInSet.equals(grade) || \oldthis.grads.contains(gradeInSet));
      @*/
-    public void addGrade(Assignment assignment, Grade grade) throws BadDataException {
+    public void addGrade(SpreadsheetCourse course, Assignment assignment, Grade grade) throws BadDataException {
         /*
          * Checks if this student's collection of grades is currently
          * empty.  If it is, a new HashMap collection is created
@@ -219,10 +220,7 @@ public class Student implements Serializable {
          * Maps the passed Assignment to the passed Grade
          */
         grades.put(assignment.getID(), grade);
-        
-        totalGrade += assignment.getPercentOfClass() * (grade.getScore() /assignment.getMaxPoints());
-        
-        
+        calculateTotalGrade(course);
     }
 
     /**
@@ -257,10 +255,10 @@ public class Student implements Serializable {
              this.grades.contains(gradeInSet) <==>
              !gradeInSet.equals(grade) && \old(this.grades).contains(gradeInSet));
     @*/
-    public void removeGrade(Assignment assignment, double oldScore) {
-        grades.remove(assignment);
+    public void removeGrade(SpreadsheetCourse course, Assignment assignment) {
+        grades.remove(assignment.getID());
         
-        totalGrade -= assignment.getPercentOfClass() * (oldScore / assignment.getMaxPoints());
+        calculateTotalGrade(course);
     }
 
     /**
@@ -348,6 +346,8 @@ public class Student implements Serializable {
             coursesEnrolled = new ArrayList<SpreadsheetCourse>();
         }
         coursesEnrolled.add(course);
+        
+        totalGrades.put(course.getID(), 0.0);
         System.out.println("In Student.addCourse");
     }
 
@@ -731,15 +731,14 @@ public class Student implements Serializable {
         return grades;
     }
     
-    public double getTotalGrade() {
-        return totalGrade;
+    public double getTotalGrade(int id) {
+        return totalGrades.get(id);
     }
     
     public String getLetterGrade() {
         //return Gradebook.getInstance().g
         return "";
     }
-    
 
     public String getFormattedCourseList()
     {
@@ -750,6 +749,24 @@ public class Student implements Serializable {
                     + currentCourse.getCourseInfo().getSection() + "\n";
         }
         return courseList;
+    }
+    
+    private void calculateTotalGrade(SpreadsheetCourse course)
+    { 
+        CategoryContainer container = course.getCategoryContainer();
+        Grade grade;
+        Assignment assign;
+        double total = 0.0;
+        
+        for (Entry<Integer, Grade> entry : grades.entrySet())
+        {
+            assign = container.getAssignmentById(entry.getKey());
+            grade = grades.get(assign.getID());
+            total += assign.getPercentOfClass() * (grade.getScore() /assign.getMaxPoints());
+                    //totalGrade += 
+        }
+        
+        totalGrades.put(course.getID(), total);
     }
 
     @Override

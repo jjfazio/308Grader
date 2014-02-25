@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import model.exception.BadDataException;
 import model.exception.CourseDataException;
 import model.gradebook.Gradebook;
-import model.spreadsheet.CourseDB;
+import model.spreadsheet.SisDB;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.SpreadsheetCourse;

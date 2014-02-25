@@ -106,7 +106,8 @@ public class SpreadsheetController implements Observer {
         userIDColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("id"));
         yearColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("gradeLevel"));
         majorColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("major"));
-        totalGradeColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("totalGrade"));
+        totalGradeColumn.setCellValueFactory(new TotalGradeCallBack());
+        totalGradeColumn.setText("Total Grade");
         
         table.setEditable(true);
     }
@@ -169,7 +170,7 @@ public class SpreadsheetController implements Observer {
            assignmentCol = new TableColumn<Student, String>(assignment.getName());
            assignmentCol.setUserData(assignment);
            assignmentCol.setCellFactory(TextFieldTableCell.<Student>forTableColumn());
-           assignmentCol.setCellValueFactory(new MyCallBack());
+           assignmentCol.setCellValueFactory(new AssignmentCallBack());
            assignmentCol.setOnEditCommit(new EditHandler());
            topCol.getColumns().add(assignmentCol);
        }
@@ -194,7 +195,7 @@ public class SpreadsheetController implements Observer {
     * @author jamesfazio
     *
     */
-   private class MyCallBack implements Callback<TableColumn.CellDataFeatures<Student, String>, ObservableValue<String>> {
+   private class AssignmentCallBack implements Callback<TableColumn.CellDataFeatures<Student, String>, ObservableValue<String>> {
        @Override
        public ObservableValue<String> call(CellDataFeatures<Student, String> param)
        {
@@ -209,6 +210,22 @@ public class SpreadsheetController implements Observer {
        }
 
    }
+   
+   /**
+    * CallBack for the total grade column.
+    * @author jamesfazio
+    *
+    */
+   private class TotalGradeCallBack implements Callback<TableColumn.CellDataFeatures<Student, String>, ObservableValue<String>> {
+       @Override
+       public ObservableValue<String> call(CellDataFeatures<Student, String> param)
+       {
+           double totalGrade = param.getValue().getTotalGrade(course.getID());
+           return new SimpleStringProperty(String.format("%.2f", totalGrade));
+       }
+   }
+   
+   
    
    /**
     * Handler for editing grades in the spreadsheet. When a user double
@@ -238,7 +255,7 @@ public class SpreadsheetController implements Observer {
                // If the user decides to delete the grade
                if (score.equals(""))
                {
-                   student.removeGrade(assign, Double.parseDouble(studentCell.getOldValue()));
+                   student.removeGrade(course, assign);
                }
                else
                {
@@ -247,7 +264,7 @@ public class SpreadsheetController implements Observer {
                    if (student.getGrades().containsKey(assign.getID()))
                    {
                        grade = student.getGrades().get(assign.getID());
-                       // grade.setScore(score);
+                       grade.setScore(score);
                    }
                    // The user is entering in a new grade for a student
                    else
@@ -255,7 +272,7 @@ public class SpreadsheetController implements Observer {
                        grade = new Grade(turnedIn, score);
                    }
                    
-                   student.addGrade(assign, grade);
+                   student.addGrade(course, assign, grade);
                }
                
            }
@@ -263,11 +280,26 @@ public class SpreadsheetController implements Observer {
            catch (BadDataException e)
            {
                Dialogs.showErrorDialog(getStage(), e.getMessage());
-               studentCell.getTableColumn().setVisible(false);
-               studentCell.getTableColumn().setVisible(true);
                //don't show bad data
            }
+           finally
+           {
+               refreshColumns(studentCell.getTableColumn());
+           }
        }
+   }
+   
+   private void refreshColumns(TableColumn<Student, String> column)
+   {
+       column.setVisible(false);
+       column.setVisible(true);
+       
+       table.getColumns().get(table.getColumns().size() -1).setVisible(false);
+       table.getColumns().get(table.getColumns().size() - 1).setVisible(true);
+       
+       table.getColumns().get(table.getColumns().size() - 2).setVisible(false);
+       table.getColumns().get(table.getColumns().size() - 2).setVisible(true);
+       
    }
    
 
