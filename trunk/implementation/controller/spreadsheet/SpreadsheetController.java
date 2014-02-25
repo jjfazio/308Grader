@@ -14,7 +14,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Dialogs;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -28,8 +27,6 @@ import model.assignments_categories.Category;
 import model.assignments_categories.CategoryContainer;
 import model.assignments_categories.Grade;
 import model.exception.BadDataException;
-import model.spreadsheet.GradingScheme;
-import model.spreadsheet.LatePolicy;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 
@@ -90,6 +87,8 @@ public class SpreadsheetController implements Observer {
     
     /** List of student in the spreadsheet */
     private ObservableList<Student> studentList;
+    
+    private static final double MIN_COL_WIDTH = 100;
     
     
     @FXML
@@ -172,6 +171,7 @@ public class SpreadsheetController implements Observer {
            assignmentCol.setCellFactory(TextFieldTableCell.<Student>forTableColumn());
            assignmentCol.setCellValueFactory(new AssignmentCallBack());
            assignmentCol.setOnEditCommit(new EditHandler());
+           assignmentCol.setMinWidth(MIN_COL_WIDTH);
            topCol.getColumns().add(assignmentCol);
        }
        
@@ -183,6 +183,7 @@ public class SpreadsheetController implements Observer {
            for (Category subCategory : category.getSubCategories()) {
                subCatCol = new TableColumn<Student, String>(subCategory.getName());
                subCatCol.setUserData(subCategory);
+               subCatCol.setMinWidth(MIN_COL_WIDTH);
                topCol.getColumns().add(subCatCol);
                addCols(subCatCol, subCategory);
            }
