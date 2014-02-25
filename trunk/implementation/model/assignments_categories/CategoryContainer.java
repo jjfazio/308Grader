@@ -117,4 +117,26 @@ public class CategoryContainer extends Observable implements Serializable
         
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CategoryContainer other = (CategoryContainer) obj;
+        if (root == null)
+        {
+            if (other.root != null)
+                return false;
+        }
+        else if (!root.equals(other.root))
+            return false;
+        return true;
+    }
+    
+    
 }
