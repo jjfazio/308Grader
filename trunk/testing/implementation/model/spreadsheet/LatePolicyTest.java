@@ -8,8 +8,26 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/****
+*
+* Class LatePolicyTest is the companion testing class for class LatePolicy.
+* It implements the following module test plan:
+*                                                                         <ul>
+*                                                                      <p><li>
+*     Phase 1: Test the default constructor with no arguments
+*                                                                      <p><li>
+*     Phase 2: Unit test the constructor with arguments.
+*                                                                      <p><li>
+*     Phase 2: Unit test all the access methods.
+*                                                                      <p><li>
+*     Phase 3: Unit test all the setter methods.
+*                                                                      <p><li>
+*     Phase 4: Unit test the equals methods.
+*                                                                        </ul>
+*/
+
 /**
- * @author jamesfazio
+ * @author kbackers Kevin Backers
  *
  */
 public class LatePolicyTest
