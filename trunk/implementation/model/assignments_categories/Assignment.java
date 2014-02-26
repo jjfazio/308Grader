@@ -111,8 +111,13 @@ public class Assignment implements Serializable
         this.gScheme = gScheme;
         this.policy = latePolicy;
         this.hasElectronicTurnin = hasElectronicTurnin;
-        this.pecentOfClass = (percentOfCategory / 100.0)
+        if(parentCategory == null) {
+        	this.pecentOfClass = 100;
+        }
+        else {
+        	this.pecentOfClass = (percentOfCategory / 100.0)
                 * parentCategory.getPercentOfClass();
+        }
 
         this.id = AssignmentDB.getInstance().getID();
         // this.gScheme = defaultGScheme;
