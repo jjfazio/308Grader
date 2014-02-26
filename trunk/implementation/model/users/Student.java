@@ -741,11 +741,6 @@ public class Student implements Serializable {
     public String getLetterGrade(int id) {
         return letterGrades.get(id);
     }
-    
-    public String getLetterGrade() {
-        //return Gradebook.getInstance().g
-        return "";
-    }
 
     public String getFormattedCourseList()
     {

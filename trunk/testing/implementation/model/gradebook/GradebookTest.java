@@ -20,6 +20,7 @@ import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
 import model.spreadsheet.SpreadsheetCourse;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,6 +56,14 @@ public class GradebookTest
         File file = new File("currentGradebook");
         file.delete();
     }
+    
+    @After
+    public void tearDown()
+    {
+        File file = new File("currentGradebook");
+        file.delete();
+    }
+    
     /**
      * Test method for {@link model.gradebook.Gradebook#getInstance()}. No further
      * constructor testing is necessary since only one Gradebook object is ever
@@ -75,11 +84,72 @@ public class GradebookTest
     }
 
     /**
-     * Test method for {@link model.gradebook.Gradebook#addSpreadsheetCourse(model.spreadsheet.SpreadsheetCourse)}.
+     * Test method for {@link model.gradebook.Gradebook#addSpreadsheetCourse(model.spreadsheet.SpreadsheetCourse)}. 
+     * Tests various cases for adding SpreadsheetCourses to the Gradebook. Once
+     * the course is added to the Gradebook, it will be available as long as the 
+     * program is running. Null courses cannot be added to the Gradebook.
+     *                                                                    <pre>
+     *  Test
+     *  Case   Input              Output             Remarks
+     * =============================================================================
+     *   1     SpreadsheetCourse  Success            Should be added to the gradebook
+     *   2     null               BadDataException   
+     *   3     1000 course        Success            (Stress Tests) No gradebook should have more than 20 or so classes
+     *
+     * @throws CourseDataException 
      */
     @Test
-    public void testAddSpreadsheetCourse()
+    public void testAddSpreadsheetCourse() throws CourseDataException
     {
+        SpreadsheetCourse course = new SpreadsheetCourse(new CourseInfo(
+                "Test", "Spring", "01", "111",
+                "Comp Sci", 2014), new GradingScheme(), new LatePolicy());
+        
+        restartGradebook();
+        Gradebook gradebook = Gradebook.getInstance();
+        
+        // Test 1
+        try
+        {
+            gradebook.addSpreadsheetCourse(course);
+        }
+        catch (BadDataException e)
+        {
+            e.printStackTrace();
+        }
+        
+        assertEquals(gradebook.getCourses().size(), 1);
+        
+        // Test 2
+        try
+        {
+            gradebook.addSpreadsheetCourse(null);
+        }
+        catch (BadDataException e)
+        {
+            assert(true);
+        }
+        
+        
+        // Test 3
+        restartGradebook();
+        gradebook = Gradebook.getInstance();
+        
+        for (int i = 0; i < 1000; i++)
+        {
+            SpreadsheetCourse c = new SpreadsheetCourse(new CourseInfo(
+                    "Test", "Spring", "01", "111",
+                    "Comp Sci", i + 2015), new GradingScheme(), new LatePolicy());
+            try
+            {
+                gradebook.addSpreadsheetCourse(c);
+                assertEquals(gradebook.getCourses().size(), i + 1);
+            }
+            catch (BadDataException e)
+            {
+                e.printStackTrace();
+            }
+        }
         
     }
 
@@ -251,6 +321,14 @@ public class GradebookTest
     public void testEqualsObject()
     {
         fail("Not yet implemented");
+    }
+    
+    private void restartGradebook()
+    {
+        Gradebook.getInstance().clearGradebook();
+        
+        File file = new File("currentGradebook");
+        file.delete();
     }
 
 }

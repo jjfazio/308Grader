@@ -288,6 +288,8 @@ public class Gradebook extends Observable implements Serializable
      */
     public void clearGradebook()
     {
+        instance = null;
+        
         File f = new File(GRADEBOOK);
         PrintWriter writer;
         try

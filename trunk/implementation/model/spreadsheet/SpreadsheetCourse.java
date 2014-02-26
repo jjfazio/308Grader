@@ -83,8 +83,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
            courseInfo = ci;
            gradingDistribution = gs;
            latePolicy = lp;
-           System.out.println("Creating a Spreadsheet Course named: " + 
-                   courseInfo.getCourseName());
            categoryContainer = new CategoryContainer();
            studentRoster = new ArrayList<Student>();
            addedStudents = new ArrayList<Student>();
