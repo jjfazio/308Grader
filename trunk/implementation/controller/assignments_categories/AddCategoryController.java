@@ -63,22 +63,27 @@ public class AddCategoryController {
     public void handleAddCategorySave() {
         Stage stage = (Stage) addCategoryName.getScene().getWindow();
 
-        String selectedCategory = treeView.getSelectionModel()
-                .getSelectedItem().getValue();
-        String parentName = selectedCategory.substring(0,
-                selectedCategory.indexOf("(")).trim();
-       // Double weight = Double.parseDouble(addCategoryWeight.getText());
-        String weight = addCategoryWeight.getText();
-        String categoryName = addCategoryName.getText();
-
         try {
-            course.getCategoryContainer().addCategory(categoryTree.getCategory(parentName),
-                    weight, categoryName);
-        } catch (BadDataException e) {
-            Dialogs.showErrorDialog(stage, e.getMessage(), "Please resolve the following issues.", "Invalid input");
-        }
+            String selectedCategory = treeView.getSelectionModel()
+                    .getSelectedItem().getValue();
+            String parentName = selectedCategory.substring(0,
+                    selectedCategory.indexOf("(")).trim();
+           // Double weight = Double.parseDouble(addCategoryWeight.getText());
+            String weight = addCategoryWeight.getText();
+            String categoryName = addCategoryName.getText();
 
-        stage.close();
+            try {
+                course.getCategoryContainer().addCategory(categoryTree.getCategory(parentName),
+                        weight, categoryName);
+            } catch (BadDataException e) {
+                Dialogs.showErrorDialog(stage, e.getMessage(), "Please resolve the following issues.", "Invalid input");
+            }
+
+            stage.close();
+        }catch (Exception e)
+        {
+            Dialogs.showErrorDialog(stage, "You need to specify a parent category", "Please resolve the following issues.", "Invalid input");
+        }
     }
 
     /**

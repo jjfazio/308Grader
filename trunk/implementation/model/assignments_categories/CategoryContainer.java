@@ -58,6 +58,8 @@ public class CategoryContainer extends Observable implements Serializable
                 sum += subCat.getPercentOfParent();
             }
         }
+        sum += Double.parseDouble(percentOfParent);
+
         if(sum > 100) {
             errors += "Sum of percentage of sub-categories exceeds 100%";
         }

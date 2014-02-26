@@ -386,7 +386,7 @@ public class Category implements Serializable
      */
    public void setPercentOfParent(Double percentOfParent) {
 
-      this.percentofparent = percentOfParent;
+      this.percentOfParent = percentOfParent;
    }
 
     public Double getPercentOfClass()
@@ -446,7 +446,7 @@ public class Category implements Serializable
             if (other.percentOfParent != null)
                 return false;
         }
-        else if (!percentofparent.equals(other.percentofparent))
+        else if (!percentOfParent.equals(other.percentOfParent))
             return false;
         if (subCategories == null)
         {
