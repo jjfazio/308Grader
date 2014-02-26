@@ -11,8 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author jamesfazio
- *
+ * @author Jirbert Dilanchian
+ *C:\CSC309\308Grader\trunk\testing\implementation\model\assignments_categories\CategoryTest.java
  */
 public class CategoryTest
 {
@@ -31,7 +31,8 @@ public class CategoryTest
     @Test
     public void testCategory()
     {
-        fail("Not yet implemented");
+        Category testCat = new Category();
+        assert(testCat != null);
     }
 
     /**
@@ -40,7 +41,13 @@ public class CategoryTest
     @Test
     public void testCategoryCategoryDoubleString()
     {
-        fail("Not yet implemented");
+        Category testCat = new Category();
+        String name = "name";
+        double percentOfParent = 50;
+        Category testCat2 = new Category(testCat, percentOfParent, name);
+        assert(testCat2 != null);
+        assertEquals(testCat2.getName(), name);
+        assert(testCat2.getPercentOfParent() == percentOfParent);
     }
 
     /**
@@ -49,7 +56,11 @@ public class CategoryTest
     @Test
     public void testGetSubCategories()
     {
-        fail("Not yet implemented");
+        Category testCat = new Category();
+        Category testCat1 = new Category(testCat, 5.0, "first");
+        Category testCat2 = new Category(testCat, 6.0, "second");
+        Category testCat3 = new Category(testCat, 7.0, "third");
+        assert(testCat.getSubCategories().size() == 3);
     }
 
     /**
@@ -103,7 +114,11 @@ public class CategoryTest
     @Test
     public void testRemoveCategory()
     {
-        fail("Not yet implemented");
+        Category testCat = new Category();
+        Category testCat1 = new Category(testCat, 4.7, "first");
+        Category testCat2 = new Category(testCat, 6.4, "second");
+        testCat.removeCategory(testCat1);
+        assert(testCat.getSubCategories().size() == 1);
     }
 
     /**
@@ -121,7 +136,8 @@ public class CategoryTest
     @Test
     public void testGetName()
     {
-        fail("Not yet implemented");
+        Category testCat = new Category();
+        assertEquals(testCat.getName(), "Overall");
     }
 
     /**
@@ -130,7 +146,9 @@ public class CategoryTest
     @Test
     public void testSetName()
     {
-        fail("Not yet implemented");
+        Category testCat = new Category();
+        testCat.setName("newName");
+        assertEquals(testCat.getName(), "newName");
     }
 
     /**
@@ -139,7 +157,8 @@ public class CategoryTest
     @Test
     public void testGetPercentofparent()
     {
-        fail("Not yet implemented");
+        Category testCat = new Category();
+        assertEquals(testCat.getName(), "Overall");
     }
 
     /**

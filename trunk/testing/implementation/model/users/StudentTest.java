@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 /****
  *
  * Class StudentTest is the companion testing class for class <a href=
- * Student.html> Schedule </a>.  It implements the following module test plan:
+ * Student.html> Student </a>.  It implements the following module test plan:
  *                                                                         <ul>
  *                                                                      <p><li>
  *     Phase 1: Unit test the constructor.

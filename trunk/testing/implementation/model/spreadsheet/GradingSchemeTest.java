@@ -99,23 +99,25 @@ public class GradingSchemeTest
 
     /**
      * Test method for {@link model.spreadsheet.GradingScheme#getPlusMinusEnabled()}.
-     * Unit test getSchemeName by calling getSchemeName on a GradingScheme with a
-     * null and non-null name field. 
+     * Unit test getPlusMinusEnabled by calling getPlusMinusEnabled on a GradingScheme with a
+     * null and non-null plusMinusEnabled field. 
      *                                                                    <pre>
      *  Test
      *  Case    Input                            Output                      Remarks
-     * ====================================================================
+     * ==================================================================================
      *   1      GradingScheme.plusMinusEnabled   GradingSchemeDataException  Null case
      *            == null
      *
      *   2      GradingScheme.plusMinusEnabled   same non-null               Non-null case
-     *            =- non-null             value
+     *            =- non-null                     value
      *                                                                   </pre>
      */
     @Test
     public void testGetPlusMinusEnabled()
     {
-        fail("Not yet implemented");
+        GradingScheme gs = new GradingScheme();
+        assertEquals(false, gs.getPlusMinusEnabled());
+        
     }
 
     /**

@@ -1,18 +1,12 @@
 package model.users;
 
+import model.exception.CourseDataException;
+import model.exception.StudentDataException;
+import model.spreadsheet.CourseInfo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
-import model.exception.BadDataException;
-import model.exception.StudentDataException;
-import model.exception.CourseDataException;
-import model.spreadsheet.CourseInfo;
-import model.spreadsheet.SpreadsheetCourse;
+import java.util.*;
 
 /**
  * Class that maps courses to a list of students.
@@ -25,22 +19,33 @@ public class StudentDB
     private Map<CourseInfo, List<Student>> courseStudentMap;
     private static StudentDB instance;
     private static final String FILE_NAME = "studentDB.txt";
-    
+
+    /**
+     * Private constructor for this singleton class
+     */
     private StudentDB()
     {
         courseStudentMap = new HashMap<CourseInfo, List<Student>>();
         generateStudents();
     }
-    
+
+    /**
+     * Static method that returns the instance of this
+     * singleton class
+     *
+     * @return  StudentDB   The instance of this singleton
+     *                      class.
+     */
     public static StudentDB getInstance() {
         if (instance == null)
            instance = new StudentDB();
         
         return instance;
-     }
+    }
     
     /**
      * Gets the list of students for a Course
+     *
      * @param course The course you want students for
      * @return List of students for a Course
      */
