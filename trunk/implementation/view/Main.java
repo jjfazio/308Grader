@@ -72,6 +72,11 @@ public class Main extends Application
 		    {
 		        System.out.print(e);
 		    }
+            catch (BadDataException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 		    
 		}
 		

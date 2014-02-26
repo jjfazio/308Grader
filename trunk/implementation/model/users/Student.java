@@ -48,7 +48,7 @@ public class Student implements Serializable {
     /** Map of courseID to total grade percentage */
     private HashMap<Integer, Double> totalGrades;
     /** Map of courseID to total letter grade */
-    private HashMap<Integer, Double> letterGrades;
+    private HashMap<Integer, String> letterGrades;
    
     /** Contains the collection of courses that the student is enrolled */
     private ArrayList<SpreadsheetCourse> coursesEnrolled;
@@ -160,7 +160,7 @@ public class Student implements Serializable {
             this.gradeLevel = gradeLevel;
             this.grades = new HashMap<Integer, Grade>();
             this.totalGrades = new HashMap<Integer, Double>();
-            this.letterGrades = new HashMap<Integer, Double>();
+            this.letterGrades = new HashMap<Integer, String>();
         }
     }
 
@@ -351,6 +351,9 @@ public class Student implements Serializable {
         coursesEnrolled.add(course);
         
         totalGrades.put(course.getID(), 0.0);
+        letterGrades.put(course.getID(), 
+                course.getGradingDistribution().getGradeRanges().get(
+                        course.getGradingDistribution().getGradeRanges().size() -1).getLetterGrade());
         System.out.println("In Student.addCourse");
     }
 
@@ -738,9 +741,8 @@ public class Student implements Serializable {
         return totalGrades.get(id);
     }
     
-    public String getLetterGrade() {
-        //return Gradebook.getInstance().g
-        return "";
+    public String getLetterGrade(int id) {
+        return letterGrades.get(id);
     }
 
     public String getFormattedCourseList()
@@ -770,7 +772,8 @@ public class Student implements Serializable {
         }
         
         totalGrades.put(course.getID(), total);
-       // letterGrades.put(course.getID(), course.getGradingDistribution().)
+        letterGrades.put(course.getID(), 
+                course.getGradingDistribution().getSymbolFromPercent(total));
     }
 
     @Override

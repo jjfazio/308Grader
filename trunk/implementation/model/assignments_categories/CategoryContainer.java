@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Observable;
 
 import model.exception.BadDataException;
+import java.lang.String;
 
 /**
  * Container that holds a reference to the top category which is essentially 
@@ -35,28 +36,82 @@ public class CategoryContainer extends Observable implements Serializable
      * @param percentOfParent Percent of the parent of the new category
      * @param name Name of the new category
      */
-    public void addCategory(Category parent, Double percentOfParent, String name) throws BadDataException
+    public void addCategory(Category parent, String percentOfParent, String name) throws BadDataException
     {
+        BadDataException addCategoryException;
+        String errors = "";
         if(name.equals("")) {
-            BadDataException b = new BadDataException("The Name field is empty");
-            throw b;
+            errors += "The Name field is empty.\n";
         }
-//        else if(percentOfParent.equals("")) {
-//            BadDataException b = new BadDataException("The Percent of Parent field is empty.");
-//            throw b;
-//        }
-//        else if(percentOfParent < 0 ) {
-//            BadDataException b = new BadDataException("The Percent of Parent can not be less than zero.");
-//            throw b;
-//        }0
-        else {
+        if(parent == null) {
+            errors += "You need to choose parent category.\n";
+        }
+        if(percentOfParent.equals("")) {
+            errors += "The Percent of Parent field is empty.\n";
+        }
+        else if(!percentOfParent.matches("\\d+") || (Double.parseDouble(percentOfParent) < 0)) {
+            errors += "The Percent of Parent field should contain numbers.\n";
+        }
+        double sum = 0;
+        if(parent.getSubCategories() != null) {
+            for(Category subCat : parent.getSubCategories()) {
+                sum += subCat.getPercentOfParent();
+            }
+        }
+        sum += Double.parseDouble(percentOfParent);
 
-            parent.addSubCategory(new Category(parent, percentOfParent, name));
+        if(sum > 100) {
+            errors += "Sum of percentage of sub-categories exceeds 100%";
+        }
+
+        if(!errors.equals("")) {
+            throw addCategoryException = new BadDataException(errors);
+        }
+        else {
+            parent.addSubCategory(new Category(parent, Double.parseDouble(percentOfParent), name));
             setChanged();
             notifyObservers();
         }
     }
-    
+
+    /**
+     * Edits the category
+     * @param oldParent Parent of the category being edited
+     * @param newParent The new parent of the editted category.
+     * @param name New name of the category
+     * @param percentOfParentNew New percentage of new category
+     */
+
+    public void editCategory(Category oldParent, Category newParent, Category theCategory,
+                             String name, String percentOfParentNew) throws BadDataException{
+        BadDataException editCategoryException;
+        String errors = "";
+
+        if(percentOfParentNew.equals("")) {
+            errors += "The Percent of Parent field is empty.\n";
+        }
+        else if(!percentOfParentNew.matches("\\d+") || (Double.parseDouble(percentOfParentNew) < 0)) {
+            errors += "The Percent of Parent field should contain numbers which are greater than 0.\n";
+        }
+        if(!errors.equals("")) {
+            throw editCategoryException = new BadDataException(errors);
+        }
+        else {
+            if(oldParent.getName().equals(name)) {
+                throw new BadDataException("A category cannot be subCategory of itself.");
+            }
+            else {
+                oldParent.removeCategory(theCategory);
+                theCategory.setName(name);
+                newParent.addSubCategory(theCategory);
+                theCategory.setPercentOfParent(Double.parseDouble(percentOfParentNew));
+
+                setChanged();
+                notifyObservers();
+            }
+        }
+    }
+
     /**
      * Remove the provided category 
      * @param parent Parent of the category being removed
@@ -67,6 +122,7 @@ public class CategoryContainer extends Observable implements Serializable
         parent.removeCategory(toRemove);
         setChanged();
         notifyObservers();
+
     }
     
     public void addAssignment(Category parent, Assignment assignment)
@@ -117,4 +173,26 @@ public class CategoryContainer extends Observable implements Serializable
         
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CategoryContainer other = (CategoryContainer) obj;
+        if (root == null)
+        {
+            if (other.root != null)
+                return false;
+        }
+        else if (!root.equals(other.root))
+            return false;
+        return true;
+    }
+    
+    
 }

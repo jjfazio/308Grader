@@ -5,10 +5,17 @@ import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.stage.Stage;
 import model.assignments_categories.Category;
+import model.exception.BadDataException;
 import model.gradebook.Gradebook;
+import model.spreadsheet.SpreadsheetCourse;
+import view.assignments_categories.CategoryTree;
+
 
 /**
  * @author Jirbert Dilanchian
@@ -20,7 +27,14 @@ public class DeleteCategoryController {
     @FXML
     private Category delCategory;
     @FXML
-    private ListView<String> deleteCategoryList;
+    private TreeView<String> treeView;
+
+    private SpreadsheetCourse course;
+
+    private CategoryTree categoryTree;
+//    @FXML
+//    private ListView<String> deleteCategoryList;
+
 
     /**
      * Called by FXML when view is loaded. Reloads all of the
@@ -28,10 +42,24 @@ public class DeleteCategoryController {
      */
     @FXML
     private void initialize() {
-        ArrayList<String> categoryNames = new ArrayList<String>();
-        fillList(Gradebook.getInstance().getCurrentCourse().
-                getCategoryContainer().getRoot(), categoryNames);
-        deleteCategoryList.getItems().setAll(categoryNames);
+        course = Gradebook.getInstance().getCurrentCourse();
+        categoryTree = new CategoryTree(course.getCategoryContainer());
+        loadTreeView();
+//        ArrayList<String> categoryNames = new ArrayList<String>();
+//        fillList(Gradebook.getInstance().getCurrentCourse().
+//                getCategoryContainer().getRoot(), categoryNames);
+//        deleteCategoryList.getItems().setAll(categoryNames);
+    }
+
+    /**
+     * Sets up the TreeView with courses in SIS
+     */
+    private void loadTreeView()
+    {
+        TreeItem<String> rootItem = categoryTree.getRoot();
+        rootItem.setExpanded(true);
+        treeView.setRoot(rootItem);
+        treeView.setShowRoot(true);
     }
 
     /**
@@ -108,23 +136,38 @@ public class DeleteCategoryController {
      */
     @FXML
     public void handleDeleteCategoryDelete() {
-        System.out.println("Delete button Clicked!");
-        String name = "";
-        Category parentCategory;
-        Category childCategory = null;
-        name = deleteCategoryList.getSelectionModel().getSelectedItem();
-        findParentCategory(name, Gradebook.getInstance().getCurrentCourse().
-                getCategoryContainer().getRoot());
-        parentCategory = tempCategory;
-        findChildCategory(name, Gradebook.getInstance().getCurrentCourse().
-                getCategoryContainer().getRoot());
-        childCategory = tempCategory;
-        //parentCategory.removeCategory(childCategory);
-        Gradebook.getInstance().getCurrentCourse().getCategoryContainer().removeCategory(parentCategory, childCategory);
+        try {
+            String origSelectedCategory = treeView.getSelectionModel()
+                    .getSelectedItem().getValue();
+            String selectName = origSelectedCategory.substring(0,
+                    origSelectedCategory.indexOf("(")).trim();
+            String origParentCategory = treeView.getSelectionModel()
+                    .getSelectedItem().getParent().getValue();
+            String parentName = origParentCategory.substring(0,
+                    origParentCategory.indexOf("(")).trim();
 
+            course.getCategoryContainer().removeCategory(categoryTree.getCategory(parentName), categoryTree.getCategory(selectName));
+            getStage().close();
+        } catch (Exception e) {
+            Dialogs.showErrorDialog(getStage(), "Total category cannot be removed", "Please resolve the following issues.", "Invalid input");
+        }
+//        System.out.println("Delete button Clicked!");
+//        String name = "";
+//        Category parentCategory;
+//        Category childCategory = null;
+//        name = deleteCategoryList.getSelectionModel().getSelectedItem();
+//        findParentCategory(name, Gradebook.getInstance().getCurrentCourse().
+//                getCategoryContainer().getRoot());
+//        parentCategory = tempCategory;
+//        findChildCategory(name, Gradebook.getInstance().getCurrentCourse().
+//                getCategoryContainer().getRoot());
+//        childCategory = tempCategory;
+//        //parentCategory.removeCategory(childCategory);
+//        Gradebook.getInstance().getCurrentCourse().getCategoryContainer().removeCategory(parentCategory, childCategory);
+//
+//
+       // Stage stage = (Stage) deleteCategoryList.getScene().getWindow();
 
-        Stage stage = (Stage) deleteCategoryList.getScene().getWindow();
-        stage.close();
     }
 
     /**
@@ -133,7 +176,6 @@ public class DeleteCategoryController {
     @FXML
     public void handleDeleteCategoryCancel() {
         System.out.println("Cancel button Clicked!");
-        Stage stage = (Stage) deleteCategoryList.getScene().getWindow();
         getStage().close();
     }
 

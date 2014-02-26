@@ -100,6 +100,11 @@ public class GradingScheme extends Observable implements Serializable {
         return schemeName;
     }
     
+    public void setSchemeName(String name)
+    {
+        this.schemeName = name;
+    }
+    
     public String toString()
     {
         return schemeName;
@@ -127,13 +132,52 @@ public class GradingScheme extends Observable implements Serializable {
         return true;
     }
     
-    /*
+    
     public String getSymbolFromPercent(Double score) {
         for (GradeRange r : gradeRanges)
         {
-            //if (score > )
+            if (score <= r.getHigh() && score >= r.getLow())
+            {
+                return r.getLetterGrade();
+            }
         }
-    }*/
+        
+        return "";
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        GradingScheme other = (GradingScheme) obj;
+        if (gradeRanges == null)
+        {
+            if (other.gradeRanges != null)
+                return false;
+        }
+        else if (!gradeRanges.equals(other.gradeRanges))
+            return false;
+        if (plusMinusEnabled == null)
+        {
+            if (other.plusMinusEnabled != null)
+                return false;
+        }
+        else if (!plusMinusEnabled.equals(other.plusMinusEnabled))
+            return false;
+        if (schemeName == null)
+        {
+            if (other.schemeName != null)
+                return false;
+        }
+        else if (!schemeName.equals(other.schemeName))
+            return false;
+        return true;
+    }
     
     
 }

@@ -53,32 +53,37 @@ public class AddCategoryController {
         rootItem.setExpanded(true);
         treeView.setRoot(rootItem);
         treeView.setShowRoot(true);
-        
     }
     
     /**
      * Adds a new category to the collection of categories of the parent category
+     * If no Category is selected, it will choose
      */
     @FXML
     public void handleAddCategorySave() {
         Stage stage = (Stage) addCategoryName.getScene().getWindow();
-        String selectedCategory = treeView.getSelectionModel()
-                .getSelectedItem().getValue();
-        String parentName = selectedCategory.substring(0,
-                selectedCategory.indexOf("(")).trim();
-        Double weight = Double.parseDouble(addCategoryWeight.getText());
-        String categoryName = addCategoryName.getText();
 
         try {
-            course.getCategoryContainer().addCategory(categoryTree.getCategory(parentName),
-                    weight, categoryName);
-        } catch (BadDataException e) {
-            System.out.println("in the catch");
-            Dialogs.showErrorDialog(stage, e.getMessage(), "Found Error", "4354");
-            System.out.println("in the catch3");
-        }
+            String selectedCategory = treeView.getSelectionModel()
+                    .getSelectedItem().getValue();
+            String parentName = selectedCategory.substring(0,
+                    selectedCategory.indexOf("(")).trim();
+           // Double weight = Double.parseDouble(addCategoryWeight.getText());
+            String weight = addCategoryWeight.getText();
+            String categoryName = addCategoryName.getText();
 
-        stage.close();
+            try {
+                course.getCategoryContainer().addCategory(categoryTree.getCategory(parentName),
+                        weight, categoryName);
+            } catch (BadDataException e) {
+                Dialogs.showErrorDialog(stage, e.getMessage(), "Please resolve the following issues.", "Invalid input");
+            }
+
+            stage.close();
+        }catch (Exception e)
+        {
+            Dialogs.showErrorDialog(stage, "You need to specify a parent category", "Please resolve the following issues.", "Invalid input");
+        }
     }
 
     /**
