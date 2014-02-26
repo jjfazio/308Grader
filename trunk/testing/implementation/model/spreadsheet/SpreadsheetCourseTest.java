@@ -1,6 +1,3 @@
-/**
- * 
- */
 package implementation.model.spreadsheet;
 
 import static org.junit.Assert.assertEquals;
