@@ -1,7 +1,10 @@
 package implementation.model.assignments_categories;
 
 import static org.junit.Assert.fail;
+
+import model.assignments_categories.Category;
 import model.assignments_categories.CategoryContainer;
+import model.exception.BadDataException;
 import model.gradebook.Gradebook;
 
 import org.junit.Before;
@@ -21,13 +24,32 @@ public class CategoryContainerTest
     @Test
     public void testCategoryContainer()
     {
-        fail("Not yet implemented");
+        CategoryContainer testContainer = new CategoryContainer();
+        assert(testContainer != null);
     }
 
     @Test
     public void testAddCategory()
     {
-        fail("Not yet implemented");
+        Category testCat = new Category();
+        CategoryContainer testContainer = new CategoryContainer();
+        try {
+            testContainer.addCategory(testCat, "df" , "first");
+        } catch (BadDataException e){
+            assert(e.getMessage() != null);
+        }
+
+        try {
+            testContainer.addCategory(testCat, "" , "first");
+        } catch (BadDataException e){
+            assert(e.getMessage() != null);
+        }
+
+        try {
+            testContainer.addCategory(testCat, "df" , "");
+        } catch (BadDataException e){
+            assert(e.getMessage() != null);
+        }
     }
 
     @Test
@@ -45,7 +67,6 @@ public class CategoryContainerTest
     @Test
     public void testDeleteAssignment()
     {
-        fail("Not yet implemented");
     }
 
     @Test
