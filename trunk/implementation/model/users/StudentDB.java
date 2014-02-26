@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import model.exception.BadDataException;
 import model.exception.StudentDataException;
+import model.exception.CourseDataException;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
 
@@ -84,7 +85,7 @@ public class StudentDB
                 
             }
         }
-        catch (FileNotFoundException | BadDataException | StudentDataException e)
+        catch (FileNotFoundException | CourseDataException | StudentDataException e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();

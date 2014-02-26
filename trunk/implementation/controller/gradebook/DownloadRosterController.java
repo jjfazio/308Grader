@@ -17,7 +17,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.stage.Stage;
 import model.gradebook.Gradebook;
-import model.spreadsheet.CourseDB;
+import model.spreadsheet.SisDB;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
@@ -40,7 +40,7 @@ public class DownloadRosterController
     private Gradebook gradebook;
     
     /** CourseDB that holds SIS courses */
-    private CourseDB courseDB;
+    private SisDB courseDB;
     
     /** StudentDB that holds SIS students */
     private StudentDB studentDB;
@@ -79,7 +79,7 @@ public class DownloadRosterController
     private void initialize()
     {
         gradebook = Gradebook.getInstance();
-        courseDB = CourseDB.getInstance();
+        courseDB = SisDB.getInstance();
         studentDB = StudentDB.getInstance();
         selectedSISClasses = new ArrayList<CheckBoxTreeItem<String>>();
         availableSISClasses = new ArrayList<CourseInfo>();

@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
 
-import model.spreadsheet.CourseDB;
+import model.spreadsheet.SisDB;
 import model.spreadsheet.CourseInfo;
 
 /**
@@ -35,7 +35,7 @@ public class StudentDBScript
     public static void createDBFile()
     {
         PrintWriter writer = null;
-        CourseDB courseDB = CourseDB.getInstance();
+        SisDB courseDB = SisDB.getInstance();
         List<CourseInfo> courses = courseDB.getAllCourses();
         Random rand = new Random();
         CourseInfo course;

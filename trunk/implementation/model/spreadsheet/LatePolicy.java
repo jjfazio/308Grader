@@ -98,6 +98,47 @@ public class LatePolicy implements Serializable {
    {
        graceDays = days;
    }
+
+@Override
+public boolean equals(Object obj)
+{
+    if (this == obj)
+        return true;
+    if (obj == null)
+        return false;
+    if (getClass() != obj.getClass())
+        return false;
+    LatePolicy other = (LatePolicy) obj;
+    if (decayPercentage == null)
+    {
+        if (other.decayPercentage != null)
+            return false;
+    }
+    else if (!decayPercentage.equals(other.decayPercentage))
+        return false;
+    if (decayRate == null)
+    {
+        if (other.decayRate != null)
+            return false;
+    }
+    else if (!decayRate.equals(other.decayRate))
+        return false;
+    if (graceDays == null)
+    {
+        if (other.graceDays != null)
+            return false;
+    }
+    else if (!graceDays.equals(other.graceDays))
+        return false;
+    if (graceDaysEnabled == null)
+    {
+        if (other.graceDaysEnabled != null)
+            return false;
+    }
+    else if (!graceDaysEnabled.equals(other.graceDaysEnabled))
+        return false;
+    return true;
+}
    
    
   

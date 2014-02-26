@@ -1,34 +1,19 @@
 package controller.assignments_categories;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
-import view.ViewUtility;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Date;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import model.assignments_categories.Category;
-import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
-import javafx.scene.control.Dialogs;
-import javafx.scene.control.Dialogs.DialogResponse;
-
-import javax.sql.rowset.CachedRowSet;
-import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * @author Jirbert Dilanchian
@@ -110,7 +95,7 @@ public class AddAssignmentController {
         Category catLookingFor = null;
         if(cat.getName().equals(name)) {
             catLookingFor =  cat;
-                Assignment newAssignment = new Assignment(addAssignmentName.getText(),
+                Assignment newAssignment = new Assignment(cat, addAssignmentName.getText(),
                                                           Double.parseDouble(addAssignmentWeight.getText()),
                                                           Integer.parseInt(addAssignmentPoints.getText()),
                                                           new Date(), new GradingScheme(), new LatePolicy(), false);

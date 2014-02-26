@@ -1,7 +1,9 @@
 package model.assignments_categories;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.Observable;
+
 import model.exception.BadDataException;
 import java.lang.String;
 
@@ -135,6 +137,11 @@ public class CategoryContainer extends Observable implements Serializable
         notifyObservers();
     }
     
+    public Assignment getAssignmentById(int id)
+    {
+        return searchAssignments(root, id);
+    }
+    
     /**
      * Returns a reference to the top category
      * @return A reference to the top category
@@ -143,4 +150,47 @@ public class CategoryContainer extends Observable implements Serializable
     {
         return root;
     }
+    
+    private Assignment searchAssignments(Category category, int id)
+    {
+        LinkedList<Category> categories = new LinkedList<Category>();
+        
+        categories.push(category);
+        
+        while (!categories.isEmpty())
+        {
+            category = categories.poll();
+            
+            for (Assignment assign : category.getAssignments())
+                if (assign.getID() == id)
+                    return assign;
+            
+            for (Category subCategory : category.getSubCategories())
+                categories.push(subCategory);
+        }
+        
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CategoryContainer other = (CategoryContainer) obj;
+        if (root == null)
+        {
+            if (other.root != null)
+                return false;
+        }
+        else if (!root.equals(other.root))
+            return false;
+        return true;
+    }
+    
+    
 }

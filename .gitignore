@@ -1,5 +1,7 @@
+courseDB.txt
 currentGradebook
 studentDB.txt
+assignmentDB.txt
 .classpath
 /bin/*
 /.svn
