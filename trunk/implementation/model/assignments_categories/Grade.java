@@ -9,12 +9,13 @@ import model.exception.BadDataException;
 /**
  * Grade contains a Course, an Assignment, a Date, and a Score, along with
  * methods available to change this data
- * @autho erikowen
+ * 
+ * @author erikowen
  */
 public class Grade implements Serializable {
    Date graded;
    Double score;
-   String letterGrade; //prob should be an enum
+   String letterGrade; 
    
    private static final long serialVersionUID = -4121067889826371429L;
    
@@ -29,18 +30,7 @@ public class Grade implements Serializable {
    {
        this.graded = graded;
        
-       try {
-           this.score = Double.parseDouble(scoreString);
-       }
-       catch (NumberFormatException e) {
-           throw new BadDataException("Must enter in a valid number");
-       }
-       // Calc letter grade using grading scheme
-       // this.letterGrade = letterGrade;
-       
-       if (score < 0)
-           throw new BadDataException("Score cannot be less than 0");
-       
+       setScore(scoreString);
    }
 
    /**
@@ -72,10 +62,22 @@ public class Grade implements Serializable {
    }
    /**
     * Setter method to change the score's grade
+ * @throws BadDataException 
     */
-   public void setScore(String newScore) {
-       if(this.score != null) {
-    	   this.score = Double.parseDouble(newScore);
+   public void setScore(String newScore) throws BadDataException {
+       try {
+           if(score != null) {
+        	   Double changedScore = Double.parseDouble(newScore);
+        	   if(changedScore < 0) {
+        		   throw new BadDataException("Must enter a valid number");
+        	   }
+        	   else {
+        		   this.score = changedScore;
+        	   }
+           }
+       }
+       catch (NumberFormatException e) {
+           throw new BadDataException("Must enter in a valid number");
        }
    }
    

@@ -3,13 +3,16 @@ package controller.assignments_categories;
 import java.util.HashMap;
 import java.util.Map;
 
+import view.assignments_categories.CategoryTree;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.stage.Stage;
 import model.assignments_categories.Category;
+import model.exception.BadDataException;
 import model.gradebook.Gradebook;
+import javafx.scene.control.Dialogs;
 import model.spreadsheet.SpreadsheetCourse;
 
 /**
@@ -28,7 +31,7 @@ public class AddCategoryController {
     
     private SpreadsheetCourse course;
     
-    private Map<String, Category> categoryMap;
+    private CategoryTree categoryTree;
 
     /**
      * Called by FXML when view is loaded. Reloads all of the
@@ -36,8 +39,8 @@ public class AddCategoryController {
      */
     @FXML
     private void initialize() {
-        categoryMap = new HashMap<String, Category>();
         course = Gradebook.getInstance().getCurrentCourse();
+        categoryTree = new CategoryTree(course.getCategoryContainer());
         loadTreeView();
     }
 
@@ -46,54 +49,41 @@ public class AddCategoryController {
      */
     private void loadTreeView()
     {
-        Category parent = course.getCategoryContainer().getRoot();
-        TreeItem<String> rootItem = new TreeItem<String>(parent.getName()
-                + " ( " + parent.getPercentofparent() + " )");
-        
-        addToTree(parent, rootItem);
-
-        
+        TreeItem<String> rootItem = categoryTree.getRoot();
         rootItem.setExpanded(true);
         treeView.setRoot(rootItem);
         treeView.setShowRoot(true);
-        
     }
     
-    private void addToTree(Category parent, TreeItem<String> rootItem)
-    {
-        TreeItem<String> curItem;
-        
-        categoryMap.put(parent.getName(), parent);
-        
-        if (parent.getSubCategories() != null && 
-                !parent.getSubCategories().isEmpty()) {
-            for (Category subCategory : parent.getSubCategories()) {
-                curItem = new TreeItem<String>(subCategory.getName()
-                        + " ( " + subCategory.getPercentofparent() + " %)");
-                rootItem.getChildren().add(curItem);
-                addToTree(subCategory, curItem);
-            }
-        }
-    }
-
-
     /**
      * Adds a new category to the collection of categories of the parent category
+     * If no Category is selected, it will choose
      */
     @FXML
     public void handleAddCategorySave() {
-        String selectedCategory = treeView.getSelectionModel()
-                .getSelectedItem().getValue();
-        String parentName = selectedCategory.substring(0,
-                selectedCategory.indexOf("(")).trim();
-        Double weight = Double.parseDouble(addCategoryWeight.getText());
-        String categoryName = addCategoryName.getText();
-        
-        course.getCategoryContainer().addCategory(categoryMap.get(parentName),
-                weight, categoryName);
-        
         Stage stage = (Stage) addCategoryName.getScene().getWindow();
-        stage.close();
+
+        try {
+            String selectedCategory = treeView.getSelectionModel()
+                    .getSelectedItem().getValue();
+            String parentName = selectedCategory.substring(0,
+                    selectedCategory.indexOf("(")).trim();
+           // Double weight = Double.parseDouble(addCategoryWeight.getText());
+            String weight = addCategoryWeight.getText();
+            String categoryName = addCategoryName.getText();
+
+            try {
+                course.getCategoryContainer().addCategory(categoryTree.getCategory(parentName),
+                        weight, categoryName);
+            } catch (BadDataException e) {
+                Dialogs.showErrorDialog(stage, e.getMessage(), "Please resolve the following issues.", "Invalid input");
+            }
+
+            stage.close();
+        }catch (Exception e)
+        {
+            Dialogs.showErrorDialog(stage, "You need to specify a parent category", "Please resolve the following issues.", "Invalid input");
+        }
     }
 
     /**

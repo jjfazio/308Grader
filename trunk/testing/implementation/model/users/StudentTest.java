@@ -3,46 +3,174 @@
  */
 package implementation.model.users;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
+import model.assignments_categories.Assignment;
+import model.assignments_categories.Category;
+import model.assignments_categories.Grade;
+import model.exception.BadDataException;
+import model.exception.CourseDataException;
+import model.exception.StudentDataException;
+import model.spreadsheet.CourseInfo;
+import model.spreadsheet.GradingScheme;
+import model.spreadsheet.LatePolicy;
+import model.spreadsheet.SpreadsheetCourse;
+import model.users.Student;
 import org.junit.Test;
 
-/**
- * @author jamesfazio
+import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+/****
  *
+ * Class StudentTest is the companion testing class for class <a href=
+ * Student.html> Schedule </a>.  It implements the following module test plan:
+ *                                                                         <ul>
+ *                                                                      <p><li>
+ *     Phase 1: Unit test the constructor.
+ *                                                                      <p><li>
+ *     Phase 2: Unit test the addGrade method
+ *                                                                      <p><li>
+ *     Phase 3: Unit test the removeGrade method
+ *                                                                      <p><li>
+ *     Phase 4: Unit test the editGrade method
+ *                                                                      <p><li>
+ *     Phase 5: Unit test the addCourse method
+ *                                                                      <p><li>
+ *     Phase 6: Unit test the removeCourse method
+ *                                                                      <p><li>
+ *     Phase 7: Unit test the removeCourse method
+ *                                                                      <p><li>
+ *     Phase 7: Stress test by creating and deleting 100000 students.
+ *                                                                        </ul>
  */
 public class StudentTest
 {
 
     /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception
-    {
-    }
-
-    /**
-     * Test method for {@link model.users.Student#Student(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
-     */
-    @Test
-    public void testStudent()
-    {
-        fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link model.users.Student#addGrade(model.assignments_categories.Assignment, model.assignments_categories.Grade)}.
+     * The cases for creating a new student with blank fields are as follows:
+     *                                                                                <pre>
+     * Test                                     Expected
+     * Case             Inputs                  Outputs                     Remarks
+     * ==============================================================================
+     * 1                userName = ""           Exception thrown            Tests all
+     *                  firstName = ""                                      empty fields
+     *                  lastName = ""                                       for a new
+     *                  id = ""                                             student
+     *                  major = ""
+     *                  gradeLevel = ""
+     *                                                                                 </pre>
      */
     @Test
-    public void testAddGrade()
-    {
-        fail("Not yet implemented");
+    public void testEmptyStudent() {
+        try {
+            Student emptyStudent = new Student("", "", "",
+                    "", "", "");
+        }
+        catch(StudentDataException exc) {
+            String expectedError = "* First Name field cannot be blank\n\n"
+                + "* Last Name field cannot be blank\n\n"
+                + "* Student ID is a required text entry field\n\n";
+            assertEquals(expectedError, exc.getMessage());
+        }
+
     }
 
     /**
-     * Test method for {@link model.users.Student#removeGrade(model.assignments_categories.Assignment)}.
+     * The cases for creating a new student with invalid first and last name
+     * are as follows:
+     *                                                                                <pre>
+     * Test                                     Expected
+     * Case             Inputs                  Outputs                     Remarks
+     * ==============================================================================
+     * 1                userName = "kfeutz"     Exception thrown            Tests invlaid
+     *                  firstName = "lasd123"                               entries for
+     *                  lastName = "123alsjk"                               first and last
+     *                  id = "1234"                                         names
+     *                  major = "csc"
+     *                  gradeLevel = "junior"
+     *                                                                                 </pre>
+     */
+    @Test
+    public void testInvalidFirstLastNameStudent() {
+        try {
+            Student student = new Student("kfeutz", "lasd123", "123alsjk",
+                "1234", "csc", "junior");
+        }
+        catch(StudentDataException exc) {
+            String expectedError = "* First Name must contain only alphabetic characters\n\n"
+                + "* Last Name must contain only alphabetic characters\n\n";
+            assertEquals(expectedError, exc.getMessage());
+        }
+    }
+
+    /**
+     * The cases for creating a new student with all valid fields
+     *                                                                                <pre>
+     * Test                                     Expected
+     * Case             Inputs                  Outputs                     Remarks
+     * ==============================================================================
+     * 1                userName = "kfeutz"     New student fields          Tests valid
+     *                  firstName = "Kevin"     equal the passed            entries for
+     *                  lastName = "Feutz"      inputs                      creating a new
+     *                  id = "1234"                                         student
+     *                  major = "SE"
+     *                  gradeLevel = "Junior"
+     *                                                                                 </pre>
+     */
+    @Test
+    public void testValidStudentCreation() {
+        try {
+            Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+            assertEquals("Kevin", student.getFirstName());
+            assertEquals("Feutz", student.getLastName());
+            assertEquals("kfeutz", student.getUserName());
+            assertEquals("1234", student.getId());
+            assertEquals("SE", student.getMajor());
+            assertEquals("Junior", student.getGradeLevel());
+        }
+        catch(StudentDataException exc) {
+            System.out.println(exc.getMessage());
+        }
+    }
+
+    /**
+     * The cases for adding a valid grade to a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                course = new                The student's Hashmap       Tests a valid
+     *                      SpreadsheetCourse(...)  should contain a mapping    addition of a
+     *                  assignment = new            from grade to assignment    new grade
+     *                      Assingment(...)
+     *                  grade = new Grade(...)
+     *
+     * TODO - this is giving a null pointer exception right now
+     *                                                                                </pre>
+     */
+    @Test
+    public void testAddGrade() throws CourseDataException, StudentDataException, BadDataException {
+        SpreadsheetCourse course = new SpreadsheetCourse(
+            new CourseInfo("test", "test", "test", "test", "test", 2014),
+            new GradingScheme(),
+            new LatePolicy()
+        );
+        Assignment assignment = new Assignment(
+            new Category(),
+            "test", 100.0, 100, new Date(), new GradingScheme(),
+            new LatePolicy(), false
+        );
+        Grade grade = new Grade(new Date(), "100");
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        student.addGrade(course, assignment, grade);
+        assertEquals(grade, student.getAssignmentGrade(assignment));
+    }
+
+    /**
+     * TODO
      */
     @Test
     public void testRemoveGrade()
@@ -51,7 +179,7 @@ public class StudentTest
     }
 
     /**
-     * Test method for {@link model.users.Student#editGrade(model.assignments_categories.Grade, model.assignments_categories.Grade)}.
+     * TODO
      */
     @Test
     public void testEditGrade()
@@ -60,25 +188,60 @@ public class StudentTest
     }
 
     /**
-     * Test method for {@link model.users.Student#addCourse(model.spreadsheet.SpreadsheetCourse)}.
+     * The cases for adding a valid course to a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                course = new                The student's list of       Tests a valid
+     *                      SpreadsheetCourse(...)  courses enrolled should     addition of a
+     *                                              contain the passed          new course
+     *                                              SpreadsheetCourse
+     *
+     *                                                                                 </pre>
      */
     @Test
-    public void testAddCourse()
-    {
-        fail("Not yet implemented");
+    public void testAddCourse() throws StudentDataException, CourseDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+            "1234", "SE", "Junior");
+        SpreadsheetCourse course = new SpreadsheetCourse(
+            new CourseInfo("test", "test", "test", "test", "test", 2014),
+            new GradingScheme(),
+            new LatePolicy()
+        );
+        student.addCourse(course);
+        assertEquals(course, student.getCoursesEnrolled().get(0));
     }
 
     /**
-     * Test method for {@link model.users.Student#removeCourse(model.spreadsheet.SpreadsheetCourse)}.
+     * The cases for removing a valid course from a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                course = new                The student's list of       Adds a new
+     *                      SpreadsheetCourse(...)  courses enrolled should     course to the
+     *                                              be empty after the          Student and
+     *                                              course is removed           then removes it
+     *
+     *                                                                                 </pre>
      */
     @Test
-    public void testRemoveCourse()
-    {
-        fail("Not yet implemented");
+    public void testRemoveCourse() throws StudentDataException, CourseDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        SpreadsheetCourse course = new SpreadsheetCourse(
+                new CourseInfo("test", "test", "test", "test", "test", 2014),
+                new GradingScheme(),
+                new LatePolicy()
+        );
+        student.addCourse(course);
+        student.removeCourse(course);
+        assertEquals(0, student.getCoursesEnrolled().size());
     }
 
     /**
-     * Test method for {@link model.users.Student#editStudentInfo(model.users.Student)}.
+     * TODO
      */
     @Test
     public void testEditStudentInfo()
@@ -87,138 +250,306 @@ public class StudentTest
     }
 
     /**
-     * Test method for {@link model.users.Student#getAssignmentGrade(model.assignments_categories.Assignment)}.
+     * TODO - this is giving a null pointer exception right now
      */
     @Test
-    public void testGetAssignmentGrade()
-    {
-        fail("Not yet implemented");
+    public void testGetAssignmentGrade() throws BadDataException, StudentDataException, CourseDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+            "1234", "SE", "Junior");
+        SpreadsheetCourse course = new SpreadsheetCourse(
+                new CourseInfo("test", "test", "test", "test", "test", 2014),
+                new GradingScheme(),
+                new LatePolicy()
+        );
+        Assignment assignment = new Assignment(
+                new Category(),
+                "test", 100.0, 100, new Date(), new GradingScheme(),
+                new LatePolicy(), false
+        );
+        Grade grade = new Grade(new Date(), "100");
+        student.addGrade(course, assignment, grade);
+        assertEquals(grade, student.getAssignmentGrade(assignment));
     }
 
     /**
-     * Test method for {@link model.users.Student#getUserName()}.
+     * The cases for retrieving the username from a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                none                        A username matching       Creates a new
+     *                                              the username of the       student and gets
+     *                                              created student           its username
+     *
+     *                                                                                 </pre>
      */
     @Test
-    public void testGetUserName()
-    {
-        fail("Not yet implemented");
+    public void testGetUserName() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        assertEquals("kfeutz", student.getUserName());
     }
 
     /**
-     * Test method for {@link model.users.Student#setUserName(java.lang.String)}.
+     * The cases for setting a new username to a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                userName = "newUser"        getUserName() should       Creates a new
+     *                                              return "newUser"           student, changes
+     *                                              after calling              its username
+     *                                              setUserName                and calls
+     *                                                                         getUserName()
+     *                                                                                 </pre>
      */
     @Test
-    public void testSetUserName()
-    {
-        fail("Not yet implemented");
+    public void testSetUserName() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        student.setUserName("newUser");
+        assertEquals("newUser", student.getUserName());
     }
 
     /**
-     * Test method for {@link model.users.Student#getFirstName()}.
+     * The cases for retrieving the first name of a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                none                        A first name matching       Creates a new
+     *                                              the first name of the       student and gets
+     *                                              created student             its first name
+     *
+     *                                                                                 </pre>
      */
     @Test
-    public void testGetFirstName()
-    {
-        fail("Not yet implemented");
+    public void testGetFirstName() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        assertEquals("Kevin", student.getFirstName());
     }
 
     /**
-     * Test method for {@link model.users.Student#setFirstName(java.lang.String)}.
+     * The cases for setting a new first name to a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                firstName = "Tom"           getFirstName() should      Creates a new
+     *                                              return "Tom"               student, changes
+     *                                              after calling              its first name
+     *                                              setFirstName               and calls
+     *                                                                         getFirstName()
+     *                                                                                 </pre>
      */
     @Test
-    public void testSetFirstName()
-    {
-        fail("Not yet implemented");
+    public void testSetFirstName() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        student.setFirstName("Tom");
+        assertEquals("Tom", student.getFirstName());
     }
 
     /**
-     * Test method for {@link model.users.Student#getMiddleName()}.
+     * The cases for setting a new middle name to a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                middleName = "Tom"          getMiddleName() should      Creates a new
+     *                                              return "Tom"                student, changes
+     *                                              after calling               its middle name
+     *                                              setMiddleName               and calls
+     *                                                                          getFirstName()
+     *                                                                                 </pre>
      */
     @Test
-    public void testGetMiddleName()
-    {
-        fail("Not yet implemented");
+    public void testSetMiddleName() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        student.setMiddleName("Tom");
+        assertEquals("Tom", student.getMiddleName());
     }
 
     /**
-     * Test method for {@link model.users.Student#setMiddleName(java.lang.String)}.
+     * The cases for retrieving the middle name of a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                none                        A middle name matching       Creates a new
+     *                                              the middle name of the       student and gets
+     *                                              created student              its first name
+     *
+     *                                                                                 </pre>
      */
     @Test
-    public void testSetMiddleName()
-    {
-        fail("Not yet implemented");
+    public void testGetMiddleName() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        student.setMiddleName("Tom");
+        assertEquals("Tom", student.getMiddleName());
     }
 
     /**
-     * Test method for {@link model.users.Student#getLastName()}.
+     * The cases for retrieving the last name of a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                none                        A last name matching       Creates a new
+     *                                              the last name of the       student and gets
+     *                                              created student            its last name
+     *
+     *                                                                                 </pre>
      */
     @Test
-    public void testGetLastName()
-    {
-        fail("Not yet implemented");
+    public void testGetLastName() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        assertEquals("Feutz", student.getLastName());
     }
 
     /**
-     * Test method for {@link model.users.Student#setLastName(java.lang.String)}.
+     * The cases for setting a new last name to a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                lastName = "Jones"          getLastName() should        Creates a new
+     *                                              return "Jones"              student, changes
+     *                                              after calling               its last name
+     *                                              setLastName                  and calls
+     *                                                                          getLastName()
+     *                                                                                 </pre>
      */
     @Test
-    public void testSetLastName()
-    {
-        fail("Not yet implemented");
+    public void testSetLastName() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        student.setLastName("Jones");
+        assertEquals("Jones", student.getLastName());
     }
 
     /**
-     * Test method for {@link model.users.Student#getId()}.
+     * The cases for retrieving the id of a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                none                        An ID matching             Creates a new
+     *                                              the ID of the              student and gets
+     *                                              created student            its ID
+     *
+     *                                                                                 </pre>
      */
     @Test
-    public void testGetId()
-    {
-        fail("Not yet implemented");
+    public void testGetId() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        assertEquals("1234", student.getId());
     }
 
     /**
-     * Test method for {@link model.users.Student#setId(java.lang.String)}.
+     * The cases for setting a ID to a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs               Remarks
+     * ================================================================================
+     * 1                id = "4321"                 getId() should        Creates a new
+     *                                              return "4321"         student, changes
+     *                                              after calling         its id
+     *                                              setId                 and calls
+     *                                                                    getId()
+     *                                                                                 </pre>
      */
     @Test
-    public void testSetId()
-    {
-        fail("Not yet implemented");
+    public void testSetId() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        student.setId("4321");
+        assertEquals("4321", student.getId());
     }
 
     /**
-     * Test method for {@link model.users.Student#getMajor()}.
+     * The cases for retrieving the major of a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                     Remarks
+     * ================================================================================
+     * 1                none                        A major matching             Creates a new
+     *                                              the major of the             student and gets
+     *                                              created student              its major
+     *
+     *                                                                                 </pre>
      */
     @Test
-    public void testGetMajor()
-    {
-        fail("Not yet implemented");
+    public void testGetMajor() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        assertEquals("SE", student.getMajor());
     }
 
     /**
-     * Test method for {@link model.users.Student#setMajor(java.lang.String)}.
+     * The cases for setting a major to a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs               Remarks
+     * ================================================================================
+     * 1                major = "CSC"               getMajor() should     Creates a new
+     *                                              return "CSC"          student, changes
+     *                                              after calling         its major
+     *                                              setMajor              and calls
+     *                                                                    getMajor()
+     *                                                                                 </pre>
      */
     @Test
-    public void testSetMajor()
-    {
-        fail("Not yet implemented");
+    public void testSetMajor() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        student.setMajor("CSC");
+        assertEquals("CSC", student.getMajor());
     }
 
     /**
-     * Test method for {@link model.users.Student#getGradeLevel()}.
+     * The cases for retrieving the grade level of a student
+     *                                                                                <pre>
+     * Test                                Expected
+     * Case             Inputs             Outputs                     Remarks
+     * ================================================================================
+     * 1                none               A grade level matching      Creates a new
+     *                                     the grade level of the      student and gets
+     *                                     created student             its grade level
+     *
+     *                                                                                 </pre>
      */
     @Test
-    public void testGetGradeLevel()
-    {
-        fail("Not yet implemented");
+    public void testGetGradeLevel() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        assertEquals("Junior", student.getGradeLevel());
     }
 
     /**
-     * Test method for {@link model.users.Student#setGradeLevel(java.lang.String)}.
+     * The cases for setting a major to a student
+     *                                                                                <pre>
+     * Test                                         Expected
+     * Case             Inputs                      Outputs                  Remarks
+     * ================================================================================
+     * 1                gradeLevel = "Senior"       getGradeLevel() should   Creates a new
+     *                                              return "Senior"          student, changes
+     *                                              after calling            its grade level
+     *                                              setGradeLevel            and calls
+     *                                                                       getGradeLevel()
+     *                                                                                 </pre>
      */
     @Test
-    public void testSetGradeLevel()
-    {
-        fail("Not yet implemented");
+    public void testSetGradeLevel() throws StudentDataException {
+        Student student = new Student("kfeutz", "Kevin", "Feutz",
+                "1234", "SE", "Junior");
+        student.setGradeLevel("Senior");
+        assertEquals("Senior", student.getGradeLevel());
     }
 
     /**

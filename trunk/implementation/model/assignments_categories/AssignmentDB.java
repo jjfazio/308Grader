@@ -1,25 +1,25 @@
-package model.spreadsheet;
+package model.assignments_categories;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class CourseDB
+public class AssignmentDB
 {
-    private static final String FILE_NAME = "courseDB.txt";
+    private static final String FILE_NAME = "assignmentDB.txt";
     private File file;
-    private static CourseDB instance;
+    private static AssignmentDB instance;
     
-    private CourseDB()
+    private AssignmentDB()
     {
         getFile();
     }
     
-    public static CourseDB getInstance()
+    public static AssignmentDB getInstance()
     {
         if (instance == null)
-            instance = new CourseDB();
+            instance = new AssignmentDB();
         
         return instance;
     }

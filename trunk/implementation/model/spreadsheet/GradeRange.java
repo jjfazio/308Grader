@@ -47,4 +47,40 @@ public class GradeRange implements Serializable {
     {
         return high;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        GradeRange other = (GradeRange) obj;
+        if (high == null)
+        {
+            if (other.high != null)
+                return false;
+        }
+        else if (!high.equals(other.high))
+            return false;
+        if (letterGrade == null)
+        {
+            if (other.letterGrade != null)
+                return false;
+        }
+        else if (!letterGrade.equals(other.letterGrade))
+            return false;
+        if (low == null)
+        {
+            if (other.low != null)
+                return false;
+        }
+        else if (!low.equals(other.low))
+            return false;
+        return true;
+    }
+    
+    
 }

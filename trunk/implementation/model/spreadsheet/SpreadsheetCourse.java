@@ -7,6 +7,7 @@ import java.util.Observable;
 
 import model.assignments_categories.Category;
 import model.assignments_categories.CategoryContainer;
+import model.exception.CourseDataException;
 import model.file.Settings;
 import model.users.Student;
 
@@ -25,19 +26,16 @@ public class SpreadsheetCourse extends Observable implements Serializable {
 
     private static final long serialVersionUID = -2177807641688753638L;
 
-    /**
-     * {@link CourseInfo} related to the course.
-     */
+    /** {@link CourseInfo} related to the course. */
     private CourseInfo courseInfo;
 
     /**
-     * Top level category.
+     * {@link CategoryContainer} holds the hierarchical structure of categories
+     *  and assignments.
      */
     private CategoryContainer categoryContainer;
 
-    /**
-     * A list of {@link Student}.
-     */
+    /** A list of {@link Student}. */
     private List<Student> studentRoster;
     
     /**
@@ -47,37 +45,51 @@ public class SpreadsheetCourse extends Observable implements Serializable {
      */
     private List<Student> addedStudents;
 
-    /**
-     * The {@link GradingScheme} associated with the course.
-     */
+    /** The {@link GradingScheme} associated with the course. */
     private GradingScheme gradingDistribution;
 
-    /**
-     * The {@link LatePolicy} associated with the course.
-     */
+    /** The {@link LatePolicy} associated with the course. */
     private LatePolicy latePolicy;
 
-    /**
-     * The {@link Setting} associated with the course.
-     */
+    /**  The {@link Setting} associated with the course. */
     private Settings settings;
     
+    /** Whether students have been deleted */
     private boolean isStudentDeleted = false;
 
+    /** List of students to delete */
     private Student studentToDelete;
-    /**
-     * Adds category of assignments in the spread sheet which organizes the assignments into groups.
-     */
+    
+    /** Unique id of the Spreadsheet course */
+    private int id;
+    
    
-   public SpreadsheetCourse(CourseInfo ci, GradingScheme gs, LatePolicy lp) {
-	      courseInfo = ci;
-	      gradingDistribution = gs;
-	      latePolicy = lp;
-	      System.out.println("Creating a Spreadsheet Course named: " + 
-	      courseInfo.getCourseName());
-	      categoryContainer = new CategoryContainer();
-	      studentRoster = new ArrayList<Student>();
-	      addedStudents = new ArrayList<Student>();
+    /**
+     * Constructs a SpreadsheetCourse.
+     * @param ci {@link CourseInfo} containing data about the course
+     * @param gs {@link GradingScheme} of the course
+     * @param lp {@link LatePolicy} of the course
+     * @throws CourseDataException
+     */
+   public SpreadsheetCourse(CourseInfo ci, GradingScheme gs, LatePolicy lp) throws CourseDataException {
+	      
+       if (gs == null)
+       {
+           CourseDataException e = new CourseDataException("Must select a grading scheme");
+           e.setBadGradingScheme(true);
+           throw e;
+       } else if (ci == null) {
+           CourseDataException e = new CourseDataException("Must have name, section, and number");
+           throw e;
+       } else {
+           courseInfo = ci;
+           gradingDistribution = gs;
+           latePolicy = lp;
+           categoryContainer = new CategoryContainer();
+           studentRoster = new ArrayList<Student>();
+           addedStudents = new ArrayList<Student>();
+           this.id = CourseDB.getInstance().getID();
+       }
     }
 
 
@@ -333,31 +345,15 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     public void setSettings(Settings settings) {
         this.settings = settings;
     }
-
-    //generated
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((categoryContainer == null) ? 0 : categoryContainer.hashCode());
-        result = prime * result
-                + ((courseInfo == null) ? 0 : courseInfo.hashCode());
-        result = prime
-                * result
-                + ((gradingDistribution == null) ? 0 : gradingDistribution
-                        .hashCode());
-        result = prime * result
-                + ((latePolicy == null) ? 0 : latePolicy.hashCode());
-        result = prime * result + ((settings == null) ? 0 : settings.hashCode());
-        result = prime * result
-                + ((studentRoster == null) ? 0 : studentRoster.hashCode());
-        return result;
+    
+    public int getID()
+    {
+        return id;
     }
 
-
-    //generated
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj)
+    {
         if (this == obj)
             return true;
         if (obj == null)
@@ -365,37 +361,68 @@ public class SpreadsheetCourse extends Observable implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         SpreadsheetCourse other = (SpreadsheetCourse) obj;
-        if (categoryContainer == null) {
+        if (addedStudents == null)
+        {
+            if (other.addedStudents != null)
+                return false;
+        }
+        else if (!addedStudents.equals(other.addedStudents))
+            return false;
+        if (categoryContainer == null)
+        {
             if (other.categoryContainer != null)
                 return false;
-        } else if (!categoryContainer.equals(other.categoryContainer))
+        }
+        else if (!categoryContainer.equals(other.categoryContainer))
             return false;
-        if (courseInfo == null) {
+        if (courseInfo == null)
+        {
             if (other.courseInfo != null)
                 return false;
-        } else if (!courseInfo.equals(other.courseInfo))
+        }
+        else if (!courseInfo.equals(other.courseInfo))
             return false;
-        if (gradingDistribution == null) {
+        if (gradingDistribution == null)
+        {
             if (other.gradingDistribution != null)
                 return false;
-        } else if (!gradingDistribution.equals(other.gradingDistribution))
+        }
+        else if (!gradingDistribution.equals(other.gradingDistribution))
             return false;
-        if (latePolicy == null) {
+        if (id != other.id)
+            return false;
+        if (isStudentDeleted != other.isStudentDeleted)
+            return false;
+        if (latePolicy == null)
+        {
             if (other.latePolicy != null)
                 return false;
-        } else if (!latePolicy.equals(other.latePolicy))
+        }
+        else if (!latePolicy.equals(other.latePolicy))
             return false;
-        if (settings == null) {
+        if (settings == null)
+        {
             if (other.settings != null)
                 return false;
-        } else if (!settings.equals(other.settings))
+        }
+        else if (!settings.equals(other.settings))
             return false;
-        if (studentRoster == null) {
+        if (studentRoster == null)
+        {
             if (other.studentRoster != null)
                 return false;
-        } else if (!studentRoster.equals(other.studentRoster))
+        }
+        else if (!studentRoster.equals(other.studentRoster))
+            return false;
+        if (studentToDelete == null)
+        {
+            if (other.studentToDelete != null)
+                return false;
+        }
+        else if (!studentToDelete.equals(other.studentToDelete))
             return false;
         return true;
     }
+
     
 } 

@@ -134,7 +134,7 @@ public class CategoryTest
     }
 
     /**
-     * Test method for {@link model.assignments_categories.Category#getPercentofparent()}.
+     * Test method for {@link model.assignments_categories.Category#getPercentOfParent()}.
      */
     @Test
     public void testGetPercentofparent()
