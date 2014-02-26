@@ -8,10 +8,21 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author jamesfazio
- *
- */
+/****
+*
+* Class CourseDBTest is the companion testing class for class
+* {@link model.gradebook.CourseDB}
+* It implements the following module test plan:
+*                                                                         <ul>
+*                                                                      <p><li>
+*     Phase 1: Unit test the constructor.
+*                                                                      <p><li>
+*     Phase 2: Unit test the access methods, getAllCourses,
+*              getCourseNumber, getCoursesByNumber
+*    
+*                                                                        </ul>
+*     @author jamesfazio                                                                  
+*/
 public class CourseDBTest
 {
 
