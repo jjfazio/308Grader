@@ -1,14 +1,20 @@
 package model.gradebook;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Observable;
 import model.exception.BadDataException;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Teacher;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.logging.Logger;
 
 /****
  * A Gradebook is the overarching object of the grader. It includes a teacher
@@ -201,7 +207,7 @@ public class Gradebook extends Observable implements Serializable
      * 
      * @
      */
-    public void delerteSpreadsheetCourse(SpreadsheetCourse course)
+    public void removeSpreadsheetCourse(SpreadsheetCourse course)
     {
         courses.remove(course);
     }

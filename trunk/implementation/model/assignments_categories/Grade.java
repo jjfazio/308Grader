@@ -9,7 +9,8 @@ import model.exception.BadDataException;
 /**
  * Grade contains a Course, an Assignment, a Date, and a Score, along with
  * methods available to change this data
- * @author ericowen
+ * 
+ * @author erikowen
  */
 public class Grade implements Serializable {
    Date graded;
@@ -18,6 +19,13 @@ public class Grade implements Serializable {
    
    private static final long serialVersionUID = -4121067889826371429L;
    
+   /**
+    * Constructs a new Grade object
+    * 
+    * @param graded Date the Grade was given
+    * @param scoreString the score received
+    * @throws BadDataException
+    */
    public Grade(Date graded, String scoreString) throws BadDataException
    {
        this.graded = graded;
@@ -25,38 +33,65 @@ public class Grade implements Serializable {
        setScore(scoreString);
    }
 
+   /**
+    * Accessor method to get the date turned in
+    * 
+    * @return the Date this Grade was graded
+    */
    public Date getTurnedIn()
    {
        return graded;
    }
 
+   /**
+    * Setter method the see when the date was turned in
+    * 
+    * @param turnedIn the date to set this grade's turn in date to
+    */
    public void setTurnedIn(Date turnedIn)
    {
        this.graded = turnedIn;
    }
 
-   public Double getScore()
-   {
-       return score;
+   /**
+    * Accessor method to set this grade's score
+    * 
+    */
+   public Double getScore() {
+	   return this.score;
    }
-
-   public String getLetterGrade()
-   {
-       return letterGrade;
-   }
-   
-   public void setScore(String scoreString) throws BadDataException
-   {
+   /**
+    * Setter method to change the score's grade
+ * @throws BadDataException 
+    */
+   public void setScore(String newScore) throws BadDataException {
        try {
-           this.score = Double.parseDouble(scoreString);
+           if(score != null) {
+        	   Double changedScore = Double.parseDouble(newScore);
+        	   if(changedScore < 0) {
+        		   throw new BadDataException("Must enter a valid number");
+        	   }
+        	   else {
+        		   this.score = changedScore;
+        	   }
+           }
        }
        catch (NumberFormatException e) {
            throw new BadDataException("Must enter in a valid number");
        }
-       // Calc letter grade using grading scheme
-       // this.letterGrade = letterGrade;
-       
-       if (score < 0)
-           throw new BadDataException("Score cannot be less than 0");
+   }
+   
+   /**
+    * Setter method to change the score's grade
+    */
+
+   /**
+    * Accessor method to get the letter grade tied to this assignment
+    * 
+    * @return a string representing the letter grade
+    */
+   public String getLetterGrade()
+   {
+       return letterGrade;
    }
 }
