@@ -8,8 +8,24 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+
+/****
+*
+* Class GradeRangeTest is the companion testing class for class GradeRange.
+* It implements the following module test plan:
+*                                                                         <ul>
+*                                                                      <p><li>
+*     Phase 1: Unit test the constructor.
+*                                                                      <p><li>
+*     Phase 2: Unit test the simple access methods getLetterGrade, 
+*              getLow, and getHigh.
+*                                                                      <p><li> 
+*     Phase 3: Unit test the rest of the access methods.
+*                                                                        </ul>
+*/
+
 /**
- * @author jamesfazio
+ * @author Kevin Backers
  *
  */
 public class GradeRangeTest

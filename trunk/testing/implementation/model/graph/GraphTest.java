@@ -3,7 +3,9 @@
  */
 package implementation.model.graph;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,10 +16,12 @@ import java.util.Map;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.assignments_categories.Grade;
+import model.exception.CourseDataException;
 import model.graph.Graph;
+import model.spreadsheet.CourseInfo;
+import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -157,47 +161,56 @@ public class GraphTest
     @Test
     public void testGetAssignmentBarChartData() {
     	String granularity = "10%";
-    	
+    	CourseInfo info;
+    	SpreadsheetCourse course = null;
+		try {
+			info = new CourseInfo("", "", "", "", "", 0);
+			course = new SpreadsheetCourse(info, null, null);
+		}
+		catch (CourseDataException e1) {
+			System.out.println("Invalid course info when setting up the " +
+					" get assignment bar chart test");
+		}
     	Assignment ass = new Assignment();
     	ass.setName("HW09");
     	List<Student> studentList = new ArrayList<Student>();
 
     	try {
     		Student erik = new Student("ejowen", "erik", "owen", "10370", "SE", "Junior");
-    		erik.addGrade(ass, new Grade(new Date(), "88.11"));
+    		erik.addGrade(course, ass, new Grade(new Date(), "88.11"));
 
     		Student james = new Student("jfazio", "james", "fazio", "32456", "SE", "Junior");
-    		james.addGrade(ass, new Grade(new Date(), "99.0"));
+    		james.addGrade(course, ass, new Grade(new Date(), "99.0"));
 
     		Student kevin = new Student("kfeutz", "kevin", "feutz", "84145", "SE", "Junior");
-    		kevin.addGrade(ass, new Grade(new Date(), "77.0"));
+    		kevin.addGrade(course, ass, new Grade(new Date(), "77.0"));
 
     		Student kevin2 = new Student("kbackers", "kevin", "backers", "1232465", "SE", "Senior");
-    		kevin2.addGrade(ass, new Grade(new Date(), "88.0"));
+    		kevin2.addGrade(course, ass, new Grade(new Date(), "88.0"));
 
     		Student jirbert = new Student("jdilanch", "Jirbert", "Dilanchian", "25642", "SE", "Junior");
-    		jirbert.addGrade(ass, new Grade(new Date(), "82.0"));
+    		jirbert.addGrade(course, ass, new Grade(new Date(), "82.0"));
 
     		Student sally = new Student("slou", "Sally", "Lou", "32463", "SE", "Sophmore");
-    		sally.addGrade(ass, new Grade(new Date(), "85.0"));
+    		sally.addGrade(course, ass, new Grade(new Date(), "85.0"));
 
     		Student steven = new Student("stevenShyinayga", "Steven", "Shinyagan", "46765", "SE", "Senior");
-    		steven.addGrade(ass, new Grade(new Date(), "85.0"));
+    		steven.addGrade(course, ass, new Grade(new Date(), "85.0"));
 
     		Student patrick = new Student("pweston", "Patrick", "Weston", "234523456", "ME", "Junior");
-    		patrick.addGrade(ass, new Grade(new Date(), "95.2"));
+    		patrick.addGrade(course, ass, new Grade(new Date(), "95.2"));
 
     		Student jamesC = new Student("jcornsih", "James", "Cornish", "54634", "ME", "Junior");
-    		jamesC.addGrade(ass, new Grade(new Date(), "66.66"));
+    		jamesC.addGrade(course, ass, new Grade(new Date(), "66.66"));
 
     		Student jake = new Student("jcosmo", "jake", "cosmo", "7856", "ME", "Junior");
-    		jake.addGrade(ass, new Grade(new Date(), "77.1"));
+    		jake.addGrade(course, ass, new Grade(new Date(), "77.1"));
 
     		Student ferguson = new Student("fAnderz", "Ferguson", "Anderz", "63245", "CPE", "Freshmen");
-    		ferguson.addGrade(ass, new Grade(new Date(), "52.99"));
+    		ferguson.addGrade(course, ass, new Grade(new Date(), "52.99"));
 
     		Student tommy = new Student("ttall", "Tommy", "Tall", "34673", "CE", "Sophmore");
-    		tommy.addGrade(ass, new Grade(new Date(), "85.88"));
+    		tommy.addGrade(course, ass, new Grade(new Date(), "85.88"));
 
     		studentList.add(erik);
     		studentList.add(james);
