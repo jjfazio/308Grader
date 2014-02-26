@@ -66,7 +66,7 @@ public class Grade implements Serializable {
     */
    public void setScore(String newScore) throws BadDataException {
        try {
-           if(score != null) {
+           if(newScore != null) {
         	   Double changedScore = Double.parseDouble(newScore);
         	   if(changedScore < 0) {
         		   throw new BadDataException("Must enter a valid number");
