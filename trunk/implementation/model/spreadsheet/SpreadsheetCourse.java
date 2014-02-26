@@ -78,6 +78,9 @@ public class SpreadsheetCourse extends Observable implements Serializable {
            CourseDataException e = new CourseDataException("Must select a grading scheme");
            e.setBadGradingScheme(true);
            throw e;
+       } else if (ci == null) {
+           CourseDataException e = new CourseDataException("Must have name, section, and number");
+           throw e;
        } else {
            courseInfo = ci;
            gradingDistribution = gs;
