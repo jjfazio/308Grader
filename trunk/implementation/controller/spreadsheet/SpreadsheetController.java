@@ -109,6 +109,8 @@ public class SpreadsheetController implements Observer {
         majorColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("major"));
         totalGradeColumn.setCellValueFactory(new TotalGradeCallBack());
         totalGradeColumn.setText("Total Grade");
+        totalLetterColumn.setCellValueFactory(new TotalLetterCallBack());
+        totalLetterColumn.setText("Letter Grade");
         
         table.setEditable(true);
     }
@@ -226,6 +228,20 @@ public class SpreadsheetController implements Observer {
        {
            double totalGrade = param.getValue().getTotalGrade(course.getID());
            return new SimpleStringProperty(String.format("%.2f", totalGrade) + " %");
+       }
+   }
+   
+   /**
+    * CallBack for the total letter grade column.
+    * @author jamesfazio
+    *
+    */
+   private class TotalLetterCallBack implements Callback<TableColumn.CellDataFeatures<Student, String>, ObservableValue<String>> {
+       @Override
+       public ObservableValue<String> call(CellDataFeatures<Student, String> param)
+       {
+           String letter = param.getValue().getLetterGrade(course.getID());
+           return new SimpleStringProperty(letter);
        }
    }
    
