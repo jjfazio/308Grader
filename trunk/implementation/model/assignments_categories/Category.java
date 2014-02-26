@@ -380,6 +380,14 @@ public class Category implements Serializable
     {
         return percentCurve;
     }
+    /**
+     * Sets the percent of parent value
+     * @param percentOfParent the new percent of parent
+     */
+   public void setPercentOfParent(Double percentOfParent) {
+
+      this.percentOfParent = percentOfParent;
+   }
 
     public Double getPercentOfClass()
     {
