@@ -127,7 +127,7 @@ public class GradebookTest
         }
         catch (BadDataException e)
         {
-            assert(true);
+            assertNotNull(e.getMessage());
         }
         
         

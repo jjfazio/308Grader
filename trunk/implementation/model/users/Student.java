@@ -351,6 +351,9 @@ public class Student implements Serializable {
         coursesEnrolled.add(course);
         
         totalGrades.put(course.getID(), 0.0);
+        letterGrades.put(course.getID(), 
+                course.getGradingDistribution().getGradeRanges().get(
+                        course.getGradingDistribution().getGradeRanges().size() -1).getLetterGrade());
         System.out.println("In Student.addCourse");
     }
 

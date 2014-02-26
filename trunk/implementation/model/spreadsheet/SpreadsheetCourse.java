@@ -26,19 +26,16 @@ public class SpreadsheetCourse extends Observable implements Serializable {
 
     private static final long serialVersionUID = -2177807641688753638L;
 
-    /**
-     * {@link CourseInfo} related to the course.
-     */
+    /** {@link CourseInfo} related to the course. */
     private CourseInfo courseInfo;
 
     /**
-     * Top level category.
+     * {@link CategoryContainer} holds the hierarchical structure of categories
+     *  and assignments.
      */
     private CategoryContainer categoryContainer;
 
-    /**
-     * A list of {@link Student}.
-     */
+    /** A list of {@link Student}. */
     private List<Student> studentRoster;
     
     /**
@@ -48,30 +45,32 @@ public class SpreadsheetCourse extends Observable implements Serializable {
      */
     private List<Student> addedStudents;
 
-    /**
-     * The {@link GradingScheme} associated with the course.
-     */
+    /** The {@link GradingScheme} associated with the course. */
     private GradingScheme gradingDistribution;
 
-    /**
-     * The {@link LatePolicy} associated with the course.
-     */
+    /** The {@link LatePolicy} associated with the course. */
     private LatePolicy latePolicy;
 
-    /**
-     * The {@link Setting} associated with the course.
-     */
+    /**  The {@link Setting} associated with the course. */
     private Settings settings;
     
+    /** Whether students have been deleted */
     private boolean isStudentDeleted = false;
 
+    /** List of students to delete */
     private Student studentToDelete;
     
+    /** Unique id of the Spreadsheet course */
     private int id;
-    /**
-     * Adds category of assignments in the spread sheet which organizes the assignments into groups.
-     */
+    
    
+    /**
+     * Constructs a SpreadsheetCourse.
+     * @param ci {@link CourseInfo} containing data about the course
+     * @param gs {@link GradingScheme} of the course
+     * @param lp {@link LatePolicy} of the course
+     * @throws CourseDataException
+     */
    public SpreadsheetCourse(CourseInfo ci, GradingScheme gs, LatePolicy lp) throws CourseDataException {
 	      
        if (gs == null)
