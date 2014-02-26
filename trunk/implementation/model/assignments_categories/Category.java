@@ -361,14 +361,22 @@ public class Category implements Serializable {
        return assignments;
    }
 
-
-   public Double getPercentofparent() {
+    /**
+     * Returns percent of parent of current category
+     * @return Return percent of parent of current category.
+     */
+   public Double getPercentOfParent() {
       return percentofparent;
    }
 
-//   public void setPercentofparent(Double percentofparent) {
-//      this.percentofparent = percentofparent;
-//   }
+    /**
+     * Sets the percent of parent value
+     * @param percentOfParent the new percent of parent
+     */
+   public void setPercentOfParent(Double percentOfParent) {
+
+      this.percentofparent = percentOfParent;
+   }
 
    public Double getPercentCurve() {
       return percentCurve;

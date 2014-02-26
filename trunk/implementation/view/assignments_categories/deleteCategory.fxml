@@ -23,7 +23,7 @@
     </HBox>
     <Label id="lblEditAssignment" layoutX="319.0" layoutY="42.0" pickOnBounds="false" prefHeight="220.0" prefWidth="233.0" text="" underline="false" />
     <Label layoutX="330.0" layoutY="21.0" prefHeight="21.0" prefWidth="233.0" text="Details" textFill="BLACK" />
-    <ListView fx:id="deleteCategoryList" layoutX="38.0" layoutY="42.0" prefHeight="220.0" prefWidth="232.9998779296875" />
     <Label layoutX="38.0" layoutY="24.0" text="Categories" />
+    <TreeView fx:id="treeView" layoutX="38.0" layoutY="52.0" prefHeight="200.0" prefWidth="200.0" />
   </children>
 </AnchorPane>

@@ -47,9 +47,19 @@ public class CategoryContainer extends Observable implements Serializable
         if(percentOfParent.equals("")) {
             errors += "The Percent of Parent field is empty.\n";
         }
-        else if(!percentOfParent.matches("[0-9]+")) {
+        else if(!percentOfParent.matches("\\d+") || (Double.parseDouble(percentOfParent) < 0)) {
             errors += "The Percent of Parent field should contain numbers.\n";
         }
+        double sum = 0;
+        if(parent.getSubCategories() != null) {
+            for(Category subCat : parent.getSubCategories()) {
+                sum += subCat.getPercentOfParent();
+            }
+        }
+        if(sum > 100) {
+            errors += "Sum of percentage of sub-categories exceeds 100%";
+        }
+
         if(!errors.equals("")) {
             throw addCategoryException = new BadDataException(errors);
         }
@@ -59,7 +69,45 @@ public class CategoryContainer extends Observable implements Serializable
             notifyObservers();
         }
     }
-    
+
+    /**
+     * Edits the category
+     * @param oldParent Parent of the category being edited
+     * @param newParent The new parent of the editted category.
+     * @param name New name of the category
+     * @param percentOfParentNew New percentage of new category
+     */
+
+    public void editCategory(Category oldParent, Category newParent, Category theCategory,
+                             String name, String percentOfParentNew) throws BadDataException{
+        BadDataException editCategoryException;
+        String errors = "";
+
+        if(percentOfParentNew.equals("")) {
+            errors += "The Percent of Parent field is empty.\n";
+        }
+        else if(!percentOfParentNew.matches("\\d+") || (Double.parseDouble(percentOfParentNew) < 0)) {
+            errors += "The Percent of Parent field should contain numbers which are greater than 0.\n";
+        }
+        if(!errors.equals("")) {
+            throw editCategoryException = new BadDataException(errors);
+        }
+        else {
+            if(oldParent.getName().equals(name)) {
+                throw new BadDataException("A category cannot be subCategory of itself.");
+            }
+            else {
+                oldParent.removeCategory(theCategory);
+                theCategory.setName(name);
+                newParent.addSubCategory(theCategory);
+                theCategory.setPercentOfParent(Double.parseDouble(percentOfParentNew));
+
+                setChanged();
+                notifyObservers();
+            }
+        }
+    }
+
     /**
      * Remove the provided category 
      * @param parent Parent of the category being removed
@@ -70,6 +118,7 @@ public class CategoryContainer extends Observable implements Serializable
         parent.removeCategory(toRemove);
         setChanged();
         notifyObservers();
+
     }
     
     public void addAssignment(Category parent, Assignment assignment)

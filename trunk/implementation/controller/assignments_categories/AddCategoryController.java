@@ -53,7 +53,6 @@ public class AddCategoryController {
         rootItem.setExpanded(true);
         treeView.setRoot(rootItem);
         treeView.setShowRoot(true);
-        
     }
     
     /**
@@ -64,7 +63,6 @@ public class AddCategoryController {
     public void handleAddCategorySave() {
         Stage stage = (Stage) addCategoryName.getScene().getWindow();
 
-        treeView.getSelectionModel().select(0);
         String selectedCategory = treeView.getSelectionModel()
                 .getSelectedItem().getValue();
         String parentName = selectedCategory.substring(0,
@@ -77,7 +75,7 @@ public class AddCategoryController {
             course.getCategoryContainer().addCategory(categoryTree.getCategory(parentName),
                     weight, categoryName);
         } catch (BadDataException e) {
-            Dialogs.showErrorDialog(stage, e.getMessage(), "Found Error", "4354");
+            Dialogs.showErrorDialog(stage, e.getMessage(), "Please resolve the following issues.", "Invalid input");
         }
 
         stage.close();
