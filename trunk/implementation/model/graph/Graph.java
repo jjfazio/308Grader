@@ -28,6 +28,7 @@ public class Graph implements Serializable {
 	private static final int TEN = 10, TWENTY = 20, THIRTY = 30, FOURTY = 40,
 		FIFTY = 50, SIXTY = 60, SEVENTY = 70, EIGHTY = 80, NINETY = 90, HUNDRED = 100,
 		HUNDRED_PERCENT = 100, TEN_PERCENT_INCREMENT = 10;
+	private static final double HUNDRED_PERCENT_DENOM = 100;
 	
 	/**
 	 * Creates a new Graph instance with category and null
@@ -48,6 +49,36 @@ public class Graph implements Serializable {
 		System.out.println("Graph given a category.");
 		this.cat = cat;
 		this.studentList = students;
+	}
+	
+	/**
+	 * Accessor method to get the current category being examined by the view graphs
+	 * and adjust curve page
+	 * 
+	 * @return Category of the current category being examined
+	 */
+	public Category getCategory() {
+		return this.cat;
+	}
+	
+	/**
+	 * Accessor method to get the current assignment being examined by the view graphs
+	 * and adjust curve page
+	 * 
+	 * @return Assignment of the current assignment being examined
+	 */
+	public Assignment getAssignment() {
+		return this.ass;
+	}
+	
+	/**
+	 * Accessor method to get the current list of students being examined by the view
+	 * graphs and adjust curve page
+	 * 
+	 * @return List of the current students being examined
+	 */
+	public List<Student>getStudents() {
+		return this.studentList;
 	}
 	
 	/**
@@ -98,6 +129,14 @@ public class Graph implements Serializable {
 		}
 		
 		this.ass.setPercentCurve((double)curveAmount);
+		
+		for(Student stud : studentList) {
+			Double curScore = stud.getGrades().get(this.ass).getScore();
+			Double curScoreAsDecimal = curScore / (double)this.ass.getMaxPoints();
+			curScoreAsDecimal += curveAmount / HUNDRED_PERCENT_DENOM;
+			Double curvedScore = curScoreAsDecimal * (double)this.ass.getMaxPoints();
+			stud.getGrades().get(this.ass).setScore(curvedScore.toString());
+		}
 		
 		System.out.println("Applied a " + curveAmount + "% curve");
 	}
