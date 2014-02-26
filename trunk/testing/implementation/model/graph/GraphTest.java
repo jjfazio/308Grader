@@ -3,7 +3,9 @@
  */
 package implementation.model.graph;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +22,6 @@ import model.spreadsheet.CourseInfo;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 
-import org.junit.Before;
 import org.junit.Test;
 
 /**
