@@ -17,8 +17,32 @@ import model.spreadsheet.GradingScheme;
 import org.junit.Before;
 import org.junit.Test;
 
+
+/****
+*
+* Class CourseInfoTest is the companion testing class for class CourseInfo.
+* It implements the following module test plan:
+*                                                                         <ul>
+*                                                                      <p><li>
+*     Phase 1: Test the default constructor with no arguments
+*                                                                      <p><li>
+*     Phase 2: Unit test the simple access methods including getPlusMinusEnabled, 
+*              getGradeRanges, and getSchemeName for M4.
+*                                                                      
+*     Phase 2: Unit test the rest of the access methods.
+*                                                                      <p><li>
+*     Phase 3: Unit test the other constructors with arguments.
+*                                                                      <p><li>
+*     Phase 4: Unit test the toString and equals methods.
+*                                                                      <p><li>
+*     Phase 5: Unit test the addGradeRange method.
+*                                                                      <p><li>
+*     Phase 6: Stress test by adding 100 grade ranges.
+*                                                                        </ul>
+*/
+
 /**
- * @author jamesfazio
+ * @author Kevin Backers kbackers
  *
  */
 public class GradingSchemeTest
@@ -34,11 +58,25 @@ public class GradingSchemeTest
 
     /**
      * Test method for {@link model.spreadsheet.GradingScheme#GradingScheme()}.
+     * Unit test constructor by calling constructor for a GradingScheme 
+     *                                                                    <pre>
+     *  Test
+     *  Case    Input                  Output                 Remarks
+     * ====================================================================
+     *   1      GradingScheme.name     proper init done       Default grading scheme  
+     *            == null
+     *                                                                   </pre>
      */
     @Test
     public void testGradingScheme()
     {
-        fail("Not yet implemented");
+        GradingScheme defaultGS = new GradingScheme();
+        assertEquals("Default", defaultGS.getSchemeName());
+        assertEquals("A", defaultGS.getSymbolFromPercent(95.0));
+        assertEquals("B", defaultGS.getSymbolFromPercent(85.0));
+        assertEquals("C", defaultGS.getSymbolFromPercent(75.0));
+        // test that all new grading schemes are same
+        assert(defaultGS.equals(new GradingScheme()));
     }
 
     /**
@@ -61,6 +99,18 @@ public class GradingSchemeTest
 
     /**
      * Test method for {@link model.spreadsheet.GradingScheme#getPlusMinusEnabled()}.
+     * Unit test getSchemeName by calling getSchemeName on a GradingScheme with a
+     * null and non-null name field. 
+     *                                                                    <pre>
+     *  Test
+     *  Case    Input                            Output                      Remarks
+     * ====================================================================
+     *   1      GradingScheme.plusMinusEnabled   GradingSchemeDataException  Null case
+     *            == null
+     *
+     *   2      GradingScheme.plusMinusEnabled   same non-null               Non-null case
+     *            =- non-null             value
+     *                                                                   </pre>
      */
     @Test
     public void testGetPlusMinusEnabled()
@@ -70,6 +120,21 @@ public class GradingSchemeTest
 
     /**
      * Test method for {@link model.spreadsheet.GradingScheme#getGradeRanges()}.
+     */
+    /**
+     * Test method for {@link model.spreadsheet.GradingScheme#getSchemeName()}.
+     * Unit test getSchemeName by calling getSchemeName on a GradingScheme with a
+     * null and non-null name field. 
+     *                                                                    <pre>
+     *  Test
+     *  Case    Input                  Output                      Remarks
+     * ====================================================================
+     *   1      GradingScheme.name     GradingSchemeDataException  Null case
+     *            == null
+     *
+     *   2      GradingScheme.name     same non-null               Non-null case
+     *            =- non-null             value
+     *                                                                   </pre>
      */
     @Test
     public void testGetGradeRanges()

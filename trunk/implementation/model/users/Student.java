@@ -1,16 +1,16 @@
 package model.users;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
-
 import model.assignments_categories.Assignment;
 import model.assignments_categories.CategoryContainer;
 import model.assignments_categories.Grade;
 import model.exception.BadDataException;
 import model.exception.StudentDataException;
 import model.spreadsheet.SpreadsheetCourse;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 /****
  *
@@ -538,7 +538,7 @@ public class Student implements Serializable {
     }
 
     /**
-     * Gets this Student's userName
+     * Gets this Student's userName                                       us
      *
      * @return  String         The username of this Student
      */

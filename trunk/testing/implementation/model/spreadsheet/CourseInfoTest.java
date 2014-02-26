@@ -11,6 +11,30 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
 
+
+/****
+*
+* Class CourseInfoTest is the companion testing class for class CourseInfo.
+* It implements the following module test plan:
+*                                                                         <ul>
+*                                                                      <p><li>
+*     Phase 1: Unit test the simple access methods including getDept, 
+*               GetSection, getCourseName, and getNumber for M4.
+*                                                                      <p><li>
+*     Phase 2: Unit test the rest of the access methods.
+*                                                                      <p><li>
+*     Phase 3: Unit test the constructor.
+*                                                                      <p><li>
+*     Phase 4: Unit test the toString and equals methods.
+*                                                                      <p><li>
+*     Phase 5: Unit test the teacher assistant methods that add, edit 
+*               remove.
+*                                                                      <p><li>
+*     Phase 6: Stress test by adding and deleting 1000 TA's.
+*                                                                        </ul>
+*/
+
+
 /**
  * @author Kevin Backers
  *
@@ -73,7 +97,7 @@ public class CourseInfoTest
 
     /**
      * Test method for {@link model.spreadsheet.CourseInfo#getCourseName()}.
-     * Unit test getName by calling getCourseName on a CourseInfo with a
+     * Unit test getCourseName by calling getCourseName on a CourseInfo with a
      * null and non-null name field. 
      *                                                                    <pre>
      *  Test
@@ -148,7 +172,7 @@ public class CourseInfoTest
 
     /**
      * Unit test getDept by calling getDept on a CourseInfo with a
-     * null and non-null section field. 
+     * null and non-null department field. 
      *                                                                    <pre>
      *  Test
      *  Case    Input                 Output          Remarks
