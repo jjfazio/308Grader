@@ -119,9 +119,11 @@ public class GradeTest
      *  Test
      *  Case    Input                                        Output             Remarks
      * =========================================================================================
-     *   1      fail() when grade.setTurnedIn() gets called  null               Grade should not be able to setTurnedIn() if Grade object was not properly initialized
+     *   1      fail() when grade.setTurnedIn() gets called  null               Grade should not be able to setTurnedIn() if Grade 
+     *   																		object was not properly initialized
      *   2      grade == null			                     null				Improper data field passed in, BadDataException thrown
-     *   3      grade2.getTurnedIn() == newDate              null               the setTurnedIn() method works if getTurnedIn() method returns new date that was set
+     *   3      grade2.getTurnedIn() == newDate              null               the setTurnedIn() method works if getTurnedIn() method
+     *   																	    returns new date that was set
      *
      */
     @Test
@@ -156,7 +158,8 @@ public class GradeTest
      *  Test
      *  Case    Input                                 Output             Remarks
      * =========================================================================================
-     *   1      93.2 == grade.getScore()              null               Grade should not be able to setTurnedIn() if Grade object was not properly initialized
+     *   1      93.2 == grade.getScore()              null               Grade should not be able to setTurnedIn() if Grade 
+     *   																 object was not properly initialized
      *   
      */
     @Test
@@ -179,13 +182,32 @@ public class GradeTest
      *  Test
      *  Case    Input                                 Output             Remarks
      * =========================================================================================
-     *   1      ------------------------              null               Grade should not be able to setTurnedIn() if Grade object was not properly initialized
-     *   
+     *   1      13.2 == grade.getScore()              null               Grade should not be able to setTurnedIn() if Grade 
+     *                                                                   object was not properly initialized
+     *   2      33.125 == grade.getScore()            null               SetScore() should have changed grade's score
+     *   3      33.125 == grade.getScore()            null               Setting a score to null shouldn't do anything
+     *   4      33.125 == grade.getScore()            null               Setting a score to a negative number should throw an 
+     *            														 exception and not set the score
      */
     @Test
     public void testSetScore()
     {
-        /*fail("Not yet implemented");*/
+    	Grade grade = null;
+        try
+        {
+			grade = new Grade(new Date(), "13.2");
+			assertEquals(new Double(13.2), grade.getScore());
+			grade.setScore("33.125");
+			assertEquals(new Double(33.125), grade.getScore());
+			grade.setScore(null);
+			assertEquals(new Double(33.125), grade.getScore());
+			grade.setScore("-3333.3333");
+			
+		}
+        catch (BadDataException e) {
+			/*Setting the score to be negative should throw a BadDataExcepton*/
+        	assertEquals(new Double(33.125), grade.getScore());
+		}
     }
 
     /**
