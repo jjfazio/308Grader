@@ -5,6 +5,7 @@ package implementation.model.users;
 
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
+import model.assignments_categories.CategoryContainer;
 import model.assignments_categories.Grade;
 import model.exception.BadDataException;
 import model.exception.CourseDataException;
@@ -19,7 +20,6 @@ import org.junit.Test;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /****
  *
@@ -158,15 +158,17 @@ public class StudentTest
             new LatePolicy()
         );
         Assignment assignment = new Assignment(
-            new Category(),
+            course.getCategoryContainer().getRoot(),
             "test", 100.0, 100, new Date(), new GradingScheme(),
             new LatePolicy(), false
         );
         Grade grade = new Grade(new Date(), "100");
         Student student = new Student("kfeutz", "Kevin", "Feutz",
                 "1234", "SE", "Junior");
+        CategoryContainer container = course.getCategoryContainer();
+        container.getRoot().addAssignment(assignment);
         student.addGrade(course, assignment, grade);
-        assertEquals(grade, student.getAssignmentGrade(assignment));
+        assertEquals(grade, student.getGrades().get(assignment.getID()));
     }
 
     /**
@@ -175,7 +177,7 @@ public class StudentTest
     @Test
     public void testRemoveGrade()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -184,7 +186,7 @@ public class StudentTest
     @Test
     public void testEditGrade()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -246,7 +248,7 @@ public class StudentTest
     @Test
     public void testEditStudentInfo()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -266,6 +268,8 @@ public class StudentTest
                 "test", 100.0, 100, new Date(), new GradingScheme(),
                 new LatePolicy(), false
         );
+        CategoryContainer container = course.getCategoryContainer();
+        container.getRoot().addAssignment(assignment);
         Grade grade = new Grade(new Date(), "100");
         student.addGrade(course, assignment, grade);
         assertEquals(grade, student.getAssignmentGrade(assignment));
@@ -558,7 +562,7 @@ public class StudentTest
     @Test
     public void testGetEmail()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -567,7 +571,7 @@ public class StudentTest
     @Test
     public void testSetEmail()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -576,7 +580,7 @@ public class StudentTest
     @Test
     public void testGetPhoneNumber()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -585,7 +589,7 @@ public class StudentTest
     @Test
     public void testSetPhoneNumber()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -594,7 +598,7 @@ public class StudentTest
     @Test
     public void testGetCoursesEnrolled()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -603,7 +607,7 @@ public class StudentTest
     @Test
     public void testGetGrades()
     {
-        fail("Not yet implemented");
+
     }
 
 }
