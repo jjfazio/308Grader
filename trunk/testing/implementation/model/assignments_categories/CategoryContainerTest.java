@@ -1,7 +1,5 @@
 package implementation.model.assignments_categories;
 
-import static org.junit.Assert.fail;
-
 import model.assignments_categories.Category;
 import model.assignments_categories.CategoryContainer;
 import model.exception.BadDataException;
