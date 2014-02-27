@@ -85,7 +85,7 @@ public class GradingSchemeTest
     @Test
     public void testGradingSchemeListOfGradeRangeString()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -94,7 +94,7 @@ public class GradingSchemeTest
     @Test
     public void testGradingSchemeString()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -117,6 +117,15 @@ public class GradingSchemeTest
     {
         GradingScheme gs = new GradingScheme();
         assertEquals(false, gs.getPlusMinusEnabled());
+        
+        ArrayList<GradeRange> ranges = new ArrayList<GradeRange>();
+        ranges.add(new GradeRange("A", 90.0, 100.0));
+        try {
+            gs = new GradingScheme(ranges, "newScheme");
+            assertEquals(true, gs.getPlusMinusEnabled());
+        } catch (GradingSchemeDataException e) {
+            fail(e.getMessage());
+        }
         
     }
 
@@ -141,7 +150,7 @@ public class GradingSchemeTest
     @Test
     public void testGetGradeRanges()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
