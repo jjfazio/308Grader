@@ -33,6 +33,14 @@ public class Graph implements Serializable {
 	/**
 	 * Creates a new Graph instance with category and null
 	 */
+	/*@
+	 requires
+	 	(* no preconditions *);
+	 ensures
+	    this.cat = null &&
+	    this.ass = null &&
+	    this.studentList = null;
+	 @*/
 	public Graph() {
 		System.out.println("Graph and curve class created.");
 		this.cat = null;
@@ -45,6 +53,13 @@ public class Graph implements Serializable {
 	 * 
 	 * @param cat the category that the data is coming from
 	 */
+	/*@
+	 requires
+	 	(* no preconditions *);
+	 ensures
+	    this.cat == cat &&
+	    this.studentList == students;
+	 @*/
 	public void setCategory(Category cat, List<Student> students) {
 		System.out.println("Graph given a category.");
 		this.cat = cat;
@@ -57,6 +72,12 @@ public class Graph implements Serializable {
 	 * 
 	 * @return Category of the current category being examined
 	 */
+	/*@
+	 requires
+	 	this.cat != null;
+	 ensures
+	    \result == this.cat;
+	 @*/
 	public Category getCategory() {
 		return this.cat;
 	}
@@ -67,6 +88,12 @@ public class Graph implements Serializable {
 	 * 
 	 * @return Assignment of the current assignment being examined
 	 */
+	/*@
+	 requires
+	    this.ass != null;
+	 ensures
+	    \result == this.ass;
+	 @*/
 	public Assignment getAssignment() {
 		return this.ass;
 	}
@@ -77,6 +104,12 @@ public class Graph implements Serializable {
 	 * 
 	 * @return List of the current students being examined
 	 */
+	/*@
+	 requires
+	    this.studentList != null;
+	 ensures
+	    \result == this.studentList;
+	 @*/
 	public List<Student>getStudents() {
 		return this.studentList;
 	}
@@ -86,6 +119,13 @@ public class Graph implements Serializable {
 	 * 
 	 * @param ass the assignment that the data is coming from
 	 */
+	/*@
+	 requires
+	    (* no preconditions *);
+	 ensures
+	    this.ass == ass &&
+	    this.studentList == students;
+	 @*/
 	public void setAssignment(Assignment ass, List<Student> students) {
 		System.out.println("Graph given an assignment.");
 		this.ass = ass;

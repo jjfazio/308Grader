@@ -26,6 +26,13 @@ public class Grade implements Serializable {
     * @param scoreString the score received
     * @throws BadDataException
     */
+	/*@
+	 requires
+	    date != null;
+	 ensures
+	    this.graded == graded &&
+	    scoreString != null;
+	 @*/
    public Grade(Date graded, String scoreString) throws BadDataException
    {
        this.graded = graded;
@@ -38,6 +45,12 @@ public class Grade implements Serializable {
     * 
     * @return the Date this Grade was graded
     */
+	/*@
+	 requires
+	    ( *no preconditions*);
+	 ensures
+	    \result == this.graded;
+	 @*/
    public Date getTurnedIn()
    {
        return graded;
@@ -48,6 +61,12 @@ public class Grade implements Serializable {
     * 
     * @param turnedIn the date to set this grade's turn in date to
     */
+	/*@
+	 requires
+	    turnedIn != null
+	 ensures
+	    this.graded = turnedIn;
+	 @*/
    public void setTurnedIn(Date turnedIn)
    {
        this.graded = turnedIn;
@@ -57,6 +76,12 @@ public class Grade implements Serializable {
     * Accessor method to set this grade's score
     * 
     */
+	/*@
+	 requires
+	    this.score != null;
+	 ensures
+	    \result == this.score;
+	 @*/
    public Double getScore() {
 	   return this.score;
    }
@@ -64,6 +89,12 @@ public class Grade implements Serializable {
     * Setter method to change the score's grade
  * @throws BadDataException 
     */
+	/*@
+	 requires
+	    ( *no preconditions* );
+	 ensures
+	    this.score != null;
+	 @*/
    public void setScore(String newScore) throws BadDataException {
        try {
            if(newScore != null) {
@@ -80,10 +111,6 @@ public class Grade implements Serializable {
            throw new BadDataException("Must enter in a valid number");
        }
    }
-   
-   /**
-    * Setter method to change the score's grade
-    */
 
    /**
     * Accessor method to get the letter grade tied to this assignment
