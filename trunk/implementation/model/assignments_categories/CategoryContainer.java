@@ -38,6 +38,8 @@ public class CategoryContainer extends Observable implements Serializable
      */
     public void addCategory(Category parent, String percentOfParent, String name) throws BadDataException
     {
+        double sum = 0;
+
         BadDataException addCategoryException;
         String errors = "";
         if(name.equals("")) {
@@ -52,13 +54,14 @@ public class CategoryContainer extends Observable implements Serializable
         else if(!percentOfParent.matches("\\d+") || (Double.parseDouble(percentOfParent) < 0)) {
             errors += "The Percent of Parent field should contain numbers.\n";
         }
-        double sum = 0;
+        else {
+            sum += Double.parseDouble(percentOfParent);
+        }
         if(parent.getSubCategories() != null) {
             for(Category subCat : parent.getSubCategories()) {
                 sum += subCat.getPercentOfParent();
             }
         }
-        sum += Double.parseDouble(percentOfParent);
 
         if(sum > 100) {
             errors += "Sum of percentage of sub-categories exceeds 100%";
