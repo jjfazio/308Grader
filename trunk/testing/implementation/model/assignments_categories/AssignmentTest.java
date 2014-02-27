@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package implementation.model.assignments_categories;
 
@@ -8,9 +8,24 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author jamesfazio
+/****
  *
+ * Class AssignmentTest is the companion testing class for class
+ * {@link model.assignments_categories.Assignment}
+ * It implements the following module test plan:
+ *                                                                         <ul>
+ *                                                                      <p><li>
+ *     Phase 1: Unit test the constructors.
+ *                                                                      <p><li>
+ *     Phase 2: Unit test the access methods getName, getPercentCategory,
+ *              getMaxPoints, getDueDate, getPolicy, getPercentCurve
+ *                                                                      <p><li>
+ *     Phase 3: Unit test adjustCurve
+ *                                                                      <p><li>
+ *     Phase 5: Unit test setName, setMaxPoints, setPolicy, setPercentCurve
+ *                                                                      <p><li>
+ *                                                                        </ul>
+ *     @author Jirbert Dilanchian
  */
 public class AssignmentTest
 {
@@ -33,7 +48,7 @@ public class AssignmentTest
     }
 
     /**
-     * Test method for {@link model.assignments_categories.Assignment#Assignment(java.lang.String, java.lang.Double, java.lang.Integer, java.util.Date, model.spreadsheet.GradingScheme, model.spreadsheet.LatePolicy, java.lang.Boolean)}.
+     * Test method for {@link model.assignments_categories.Assignment#(java.lang.String, java.lang.Double, java.lang.Integer, java.util.Date, model.spreadsheet.GradingScheme, model.spreadsheet.LatePolicy, java.lang.Boolean)}.
      */
     @Test
     public void testAssignmentStringDoubleIntegerDateGradingSchemeLatePolicyBoolean()
