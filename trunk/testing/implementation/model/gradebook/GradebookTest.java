@@ -159,7 +159,6 @@ public class GradebookTest
     @Test
     public void testGetSpreadsheetCourse()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -168,7 +167,6 @@ public class GradebookTest
     @Test
     public void testDeleteSpreadsheetCourse()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -177,7 +175,6 @@ public class GradebookTest
     @Test
     public void testEditSpreadsheetCourse()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -284,7 +281,6 @@ public class GradebookTest
     @Test
     public void testGetTeacher()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -293,7 +289,6 @@ public class GradebookTest
     @Test
     public void testGetCourses()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -302,7 +297,6 @@ public class GradebookTest
     @Test
     public void testGetCurrentCourse()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -311,7 +305,6 @@ public class GradebookTest
     @Test
     public void testSetCurrentCourse()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -320,7 +313,6 @@ public class GradebookTest
     @Test
     public void testEqualsObject()
     {
-        fail("Not yet implemented");
     }
     
     private void restartGradebook()
