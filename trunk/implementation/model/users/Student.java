@@ -534,7 +534,7 @@ public class Student implements Serializable {
      * @return  Grade               The Grade mapped to by the passed Assignment
      */
     public Grade getAssignmentGrade(Assignment assign) {
-        return grades.get(assign);
+        return grades.get(assign.getID());
     }
 
     /**

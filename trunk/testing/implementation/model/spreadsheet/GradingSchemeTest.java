@@ -28,16 +28,16 @@ import org.junit.Test;
 *                                                                      <p><li>
 *     Phase 2: Unit test the simple access methods including getPlusMinusEnabled, 
 *              getGradeRanges, and getSchemeName for M4.
-*                                                                      
-*     Phase 2: Unit test the rest of the access methods.
 *                                                                      <p><li>
-*     Phase 3: Unit test the other constructors with arguments.
+*     Phase 3: Unit test the rest of the access methods.
 *                                                                      <p><li>
-*     Phase 4: Unit test the toString and equals methods.
+*     Phase 4: Unit test the other constructors with arguments.
 *                                                                      <p><li>
-*     Phase 5: Unit test the addGradeRange method.
+*     Phase 5: Unit test the toString and equals methods.
 *                                                                      <p><li>
-*     Phase 6: Stress test by adding 100 grade ranges.
+*     Phase 6: Unit test the addGradeRange method.
+*                                                                      <p><li>
+*     Phase 7: Stress test by adding 100 grade ranges.
 *                                                                        </ul>
 */
 
@@ -61,10 +61,10 @@ public class GradingSchemeTest
      * Unit test constructor by calling constructor for a GradingScheme 
      *                                                                    <pre>
      *  Test
-     *  Case    Input                  Output                 Remarks
-     * ====================================================================
-     *   1      GradingScheme.name     proper init done       Default grading scheme  
-     *            == null
+     *  Case    Input                  Output                   Remarks
+     * ================================================================================
+     *   1      GradingScheme.name     proper initialization    Default grading scheme  
+     *            == null               done
      *                                                                   </pre>
      */
     @Test
@@ -85,7 +85,7 @@ public class GradingSchemeTest
     @Test
     public void testGradingSchemeListOfGradeRangeString()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -94,7 +94,7 @@ public class GradingSchemeTest
     @Test
     public void testGradingSchemeString()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -105,11 +105,11 @@ public class GradingSchemeTest
      *  Test
      *  Case    Input                            Output                      Remarks
      * ==================================================================================
-     *   1      GradingScheme.plusMinusEnabled   GradingSchemeDataException  Null case
-     *            == null
+     *   1      GradingScheme.plusMinusEnabled   GradingSchemeDataException  Null case, which throws
+     *            == null                                                     the given exception
      *
      *   2      GradingScheme.plusMinusEnabled   same non-null               Non-null case
-     *            =- non-null                     value
+     *            != null                         value
      *                                                                   </pre>
      */
     @Test
@@ -117,6 +117,15 @@ public class GradingSchemeTest
     {
         GradingScheme gs = new GradingScheme();
         assertEquals(false, gs.getPlusMinusEnabled());
+        
+        ArrayList<GradeRange> ranges = new ArrayList<GradeRange>();
+        ranges.add(new GradeRange("A", 90.0, 100.0));
+        try {
+            gs = new GradingScheme(ranges, "newScheme");
+            assertEquals(true, gs.getPlusMinusEnabled());
+        } catch (GradingSchemeDataException e) {
+            fail(e.getMessage());
+        }
         
     }
 
@@ -141,7 +150,7 @@ public class GradingSchemeTest
     @Test
     public void testGetGradeRanges()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
