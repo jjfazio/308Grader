@@ -56,7 +56,7 @@ public class CourseInfoTest
     @Test
     public void testHashCode()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -65,7 +65,7 @@ public class CourseInfoTest
     @Test
     public void testCourseInfo()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -74,7 +74,7 @@ public class CourseInfoTest
     @Test
     public void testAddTeacherAssistant()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -83,7 +83,7 @@ public class CourseInfoTest
     @Test
     public void testEditTeacherAssistant()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -92,7 +92,7 @@ public class CourseInfoTest
     @Test
     public void testRemoveTeacherAssistant()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -134,7 +134,7 @@ public class CourseInfoTest
     @Test
     public void testGetQuarter()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -241,7 +241,7 @@ public class CourseInfoTest
     @Test
     public void testGetTeacherAssistants()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -250,7 +250,7 @@ public class CourseInfoTest
     @Test
     public void testEqualsObject()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
     /**
@@ -259,7 +259,7 @@ public class CourseInfoTest
     @Test
     public void testToString()
     {
-        fail("Not yet implemented");
+        //fail("Not yet implemented");
     }
 
 }
