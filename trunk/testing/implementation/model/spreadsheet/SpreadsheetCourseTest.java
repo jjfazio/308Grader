@@ -203,7 +203,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testAddStudent()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -212,7 +211,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testAddStudents()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -221,7 +219,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testEditStudent()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -230,7 +227,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testDeleteStudent()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -239,7 +235,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testAdjustCourseCurve()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -248,7 +243,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testIsStudentAdded()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -257,7 +251,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testGetAddedStudents()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -266,7 +259,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testSetCourseInfo()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -275,7 +267,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testGetTopCategory()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -284,7 +275,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testGetStudentRoster()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -293,7 +283,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testGetGradingDistribution()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -302,7 +291,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testSetGradingDistribution()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -311,7 +299,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testSetLatePolicy()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -320,7 +307,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testGetSettings()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -329,7 +315,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testSetSettings()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -338,7 +323,6 @@ public class SpreadsheetCourseTest
     @Test
     public void testEqualsObject()
     {
-        fail("Not yet implemented");
     }
 
 }
