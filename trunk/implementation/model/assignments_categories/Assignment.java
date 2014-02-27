@@ -111,7 +111,7 @@ public class Assignment implements Serializable
         this.gScheme = gScheme;
         this.policy = latePolicy;
         this.hasElectronicTurnin = hasElectronicTurnin;
-        if(parentCategory.getPercentOfClass() == null) {
+        if(parentCategory == null) {
         	this.pecentOfClass = 100;
         }
         else {
