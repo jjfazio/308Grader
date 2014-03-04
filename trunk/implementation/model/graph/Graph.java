@@ -219,7 +219,7 @@ public class Graph implements Serializable {
 		for(Student stud : this.studentList) {
 			HashMap<Integer, Grade> studGrades = stud.getGrades();
 			if(studGrades.containsKey(this.ass.getID())) {
-				Double studScore = studGrades.get(this.ass).getScore() / this.ass.getMaxPoints().doubleValue() * HUNDRED_PERCENT;
+				Double studScore = studGrades.get(this.ass.getID()).getScore() / this.ass.getMaxPoints().doubleValue() * HUNDRED_PERCENT;
 				Double studScoreFloor = Math.floor(studScore);
 				Integer studScoreFloorInt = studScoreFloor.intValue();
 				Integer numCurrentScore = returnMap.get(studScoreFloorInt.toString());
@@ -251,7 +251,7 @@ public class Graph implements Serializable {
 		for(Student stud : this.studentList) {
 			HashMap<Integer, Grade> studGrades = stud.getGrades();
 			if(studGrades.containsKey(this.ass.getID())) {
-				Double studScore = (studGrades.get(this.ass).getScore() / this.ass.getMaxPoints().doubleValue()) * HUNDRED_PERCENT;
+				Double studScore = (studGrades.get(this.ass.getID()).getScore() / this.ass.getMaxPoints().doubleValue()) * HUNDRED_PERCENT;
 				int studScoreInt = studScore.intValue();
 				int studScoreIntDivTen = studScoreInt / TEN_PERCENT_INCREMENT;
 				Integer studScoreRoundedDown = new Integer(studScoreIntDivTen * TEN_PERCENT_INCREMENT);
@@ -284,10 +284,10 @@ public class Graph implements Serializable {
 		for(Student stud : this.studentList) {
 			HashMap<Integer, Grade> studGrades = stud.getGrades();
 			if(studGrades.get(this.ass.getID()) != null) {
-				if(studGrades.get(this.ass).getLetterGrade() != null) {
-					int numThisScore = map.get(studGrades.get(this.ass).getLetterGrade());
+				if(studGrades.get(this.ass.getID()).getLetterGrade() != null) {
+					int numThisScore = map.get(studGrades.get(this.ass.getID()).getLetterGrade());
 					numThisScore++;
-					map.put(studGrades.get(this.ass).getLetterGrade(), numThisScore);
+					map.put(studGrades.get(this.ass.getID()).getLetterGrade(), numThisScore);
 				}
 			}
 		}
