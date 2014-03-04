@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +19,9 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -171,9 +174,10 @@ public class SpreadsheetController implements Observer {
        // and add them as children columns
        for (Assignment assignment : category.getAssignments()) {
            assignmentCol = new TableColumn<Student, String>(
-                   assignment.getName() + " (" + assignment.getMaxPoints() + " pts)");
+                   assignment.getName() + " (" + assignment.getPercentOfCategory() + " %)");
            assignmentCol.setUserData(assignment);
-           assignmentCol.setCellFactory(TextFieldTableCell.<Student>forTableColumn());
+           assignmentCol.setCellFactory(new EditCallBack());
+          // assignmentCol.setCellFactory(TextFieldTableCell.<Student>forTableColumn());
            assignmentCol.setCellValueFactory(new AssignmentCallBack());
            assignmentCol.setOnEditCommit(new EditHandler());
            assignmentCol.setMinWidth(MIN_COL_WIDTH);
@@ -186,7 +190,8 @@ public class SpreadsheetController implements Observer {
        if (category.getSubCategories() != null && 
                !category.getSubCategories().isEmpty()) {
            for (Category subCategory : category.getSubCategories()) {
-               subCatCol = new TableColumn<Student, String>(subCategory.getName());
+               subCatCol = new TableColumn<Student, String>(subCategory.getName()
+                       + " (" + subCategory.getPercentOfParent() + " %)");
                subCatCol.setUserData(subCategory);
                subCatCol.setMinWidth(MIN_COL_WIDTH);
                topCol.getColumns().add(subCatCol);
@@ -243,6 +248,17 @@ public class SpreadsheetController implements Observer {
            String letter = param.getValue().getLetterGrade(course.getID());
            return new SimpleStringProperty(letter);
        }
+   }
+   
+   private class EditCallBack implements Callback<TableColumn<Student, String>, TableCell<Student, String>> {
+
+    @Override
+    public TableCell<Student, String> call(TableColumn<Student, String> arg)
+    {
+        Assignment assign = (Assignment) arg.getUserData();
+        return new EditingCell(assign);
+    }
+       
    }
    
    
@@ -347,5 +363,72 @@ public class SpreadsheetController implements Observer {
     */
    private Stage getStage() {
        return (Stage) root.getScene().getWindow();
+   }
+   
+   class EditingCell extends TableCell<Student, String> {
+
+       private TextField textField;
+
+       public EditingCell(Assignment assign) {
+           this.setTooltip(new Tooltip(assign.getMaxPoints() + " pts max"));
+       }
+
+       @Override
+       public void startEdit() {
+           if (!isEmpty()) {
+               super.startEdit();
+               createTextField();
+               setText(null);
+               setGraphic(textField);
+               textField.selectAll();
+           }
+       }
+
+       @Override
+       public void cancelEdit() {
+           super.cancelEdit();
+
+           setText((String) getItem());
+           setGraphic(null);
+       }
+
+       @Override
+       public void updateItem(String item, boolean empty) {
+           super.updateItem(item, empty);
+
+           if (empty) {
+               setText(null);
+               setGraphic(null);
+           } else {
+               if (isEditing()) {
+                   if (textField != null) {
+                       textField.setText(getString());
+                   }
+                   setText(null);
+                   setGraphic(textField);
+               } else {
+                   setText(getString());
+                   setGraphic(null);
+               }
+           }
+       }
+
+       private void createTextField() {
+           textField = new TextField(getString());
+           textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
+           textField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+               @Override
+               public void changed(ObservableValue<? extends Boolean> arg0, 
+                   Boolean arg1, Boolean arg2) {
+                       if (!arg2) {
+                           commitEdit(textField.getText());
+                       }
+               }
+           });
+       }
+
+       private String getString() {
+           return getItem() == null ? "" : getItem().toString();
+       }
    }
 }
