@@ -219,7 +219,7 @@ public class Graph implements Serializable {
 		for(Student stud : this.studentList) {
 			HashMap<Integer, Grade> studGrades = stud.getGrades();
 			if(studGrades.containsKey(this.ass.getID())) {
-				Double studScore = studGrades.get(this.ass).getScore() / this.ass.getMaxPoints().doubleValue() * HUNDRED_PERCENT;
+				Double studScore = studGrades.get(this.ass.getID()).getScore() / this.ass.getMaxPoints().doubleValue() * HUNDRED_PERCENT;
 				Double studScoreFloor = Math.floor(studScore);
 				Integer studScoreFloorInt = studScoreFloor.intValue();
 				Integer numCurrentScore = returnMap.get(studScoreFloorInt.toString());
