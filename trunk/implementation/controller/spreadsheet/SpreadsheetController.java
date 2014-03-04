@@ -11,20 +11,21 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Dialogs;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.assignments_categories.Assignment;
@@ -116,6 +117,7 @@ public class SpreadsheetController implements Observer {
         totalLetterColumn.setText("Letter Grade");
         
         table.setEditable(true);
+        
     }
 
 
@@ -132,6 +134,8 @@ public class SpreadsheetController implements Observer {
       
       loadStudentContent(course.getStudentRoster());
       addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
+      
+      addContextMenus();
       
       System.out.println("Set up spreadsheet for " + course.getCourseInfo().getCourseName());
    }
@@ -153,6 +157,45 @@ public class SpreadsheetController implements Observer {
            table.getColumns().remove(totalCategoryCol);
            addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
            table.getColumns().add(table.getColumns().size() - 2, totalCategoryCol);
+       }
+   }
+   
+   private void addContextMenus()
+   {
+       ContextMenu menu;
+       MenuItem hide;
+       MenuItem show;
+       
+       for (TableColumn<Student, ?> col : table.getColumns())
+       {
+           menu = new ContextMenu();
+           
+           hide = new MenuItem("Hide " + col.getText());
+           hide.setUserData(col);
+           
+           hide.setOnAction(new EventHandler<ActionEvent>() {
+               public void handle(ActionEvent e) {
+                   MenuItem item = (MenuItem) e.getSource();
+                   TableColumn<Student, ?> column = (TableColumn<Student, ?>)
+                           item.getUserData();
+                   column.setVisible(false);
+               }
+           });
+           
+           menu.getItems().add(hide);
+           
+           show = new MenuItem("Show all Columns");
+           
+           show.setOnAction(new EventHandler<ActionEvent>() {
+               public void handle(ActionEvent e) {
+                   for (TableColumn<Student, ?> col : table.getColumns())
+                       col.setVisible(true);
+               }
+           });
+           
+           menu.getItems().add(show);
+           
+           col.setContextMenu(menu);
        }
    }
    
