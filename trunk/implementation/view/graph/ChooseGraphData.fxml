@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+
+<VBox fillWidth="false" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.graph.ChooseGraphDataController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Label alignment="CENTER" text="Choose An Assignment" textAlignment="CENTER">
+      <font>
+        <Font name="System Bold" size="18.0" />
+      </font>
+      <VBox.margin>
+        <Insets bottom="10.0" top="10.0" />
+      </VBox.margin>
+    </Label>
+    <TreeView id="" fx:id="graphDataChoserTree" editable="false" prefHeight="200.0" prefWidth="200.0">
+      <VBox.margin>
+        <Insets left="10.0" right="10.0" />
+      </VBox.margin>
+    </TreeView>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="216.0">
+      <children>
+        <Button alignment="CENTER_LEFT" cancelButton="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleChooseGraphDataCancel" text="Cancel">
+          <HBox.margin>
+            <Insets right="10.0" />
+          </HBox.margin>
+        </Button>
+        <Button defaultButton="true" mnemonicParsing="false" onAction="#handleChooseGraphDataSelect" text="Select" textAlignment="RIGHT" />
+      </children>
+    </HBox>
+  </children>
+</VBox>
