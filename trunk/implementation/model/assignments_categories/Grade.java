@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import model.exception.BadDataException;
+import model.gradebook.Gradebook;
 
 
 /**
@@ -104,6 +105,8 @@ public class Grade implements Serializable {
         	   }
         	   else {
         		   this.score = changedScore;
+        		   this.letterGrade = Gradebook.getInstance().getCurrentCourse().
+        		           getGradingDistribution().getSymbolFromPercent(score);
         	   }
            }
        }
