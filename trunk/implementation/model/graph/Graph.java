@@ -324,7 +324,7 @@ public class Graph implements Serializable {
 		}
 		
 		for(Student stud : studentList) {
-			Integer studScore = getSubCategoryScore(this.cat, stud).intValue();
+			Integer studScore = getSubCategoryScore(this.cat, stud, true).intValue();
 			
 			if(studScore <= ZERO) {
 				scoreMap.put(new Integer(ZERO).toString(), (scoreMap.get(new Integer(ZERO).toString()) + 1));
@@ -349,7 +349,7 @@ public class Graph implements Serializable {
 		}
 		
 		for(Student stud : studentList) {
-			Integer studScore = getSubCategoryScore(this.cat, stud).intValue();
+			Integer studScore = getSubCategoryScore(this.cat, stud, true).intValue();
 			Integer roundedScore = TEN * (studScore / TEN);
 			
 			if(roundedScore < TEN) {
@@ -395,17 +395,19 @@ public class Graph implements Serializable {
 		return map;
 	}
 	
-	private Double getSubCategoryScore(Category cat, Student stud) {
-		double score = 0.0;
+	private Double getSubCategoryScore(Category cat, Student stud, boolean isRoot) {
+		double score = 0.0, tempScore;
 		
 		for(Assignment ass : cat.getAssignments()) {
 			Grade curGrade = stud.getGrades().get(ass.getID());
-			score += (stud.getGrades().get(ass.getID()).getScore() / 
-			   ass.getMaxPoints().doubleValue()) * (ass.getPercentOfClass());
+			tempScore = curGrade.getScore() / ass.getMaxPoints().doubleValue();
+			tempScore *= ass.getPercentOfCategory();
+			
+			score += tempScore;
 		}
 		
 		for(Category subCat : cat.getSubCategories()) {
-			score += getSubCategoryScore(subCat, stud) /** (subCat.getPercentOfParent())*/;
+			score += (getSubCategoryScore(subCat, stud, false) / HUNDRED) * subCat.getPercentOfParent();
 		}
 		
 		return score;
