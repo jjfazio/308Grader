@@ -75,6 +75,8 @@ public class GraphAndAdjustCurveController {
     private Graph graph;
     /**The current assignment being viewed*/
     private Assignment ass;
+    /**The current category being viewed*/
+    private Category cat;
     
     /**
      * Creates a new instance of GraphAndAdjstCurveController
@@ -98,8 +100,14 @@ public class GraphAndAdjustCurveController {
      * 
      * @param cat the current category being viewed on the graphs
      */
-    public void setCategory(Category cat, List<Student> students) {
+    public void setCategory(Category cat, List<Student> students, String granularity) {
+    	this.cat = cat;
+    	this.ass = null;
+    	this.graphAndAdjustCurveTitle.setText(cat.getName() + " Graph & Curve Adjustment");
     	this.graph.setCategory(cat, students);
+    	
+    	setBarChart(granularity);
+    	setPieChart();
     }
     
     /**
@@ -110,7 +118,8 @@ public class GraphAndAdjustCurveController {
      */
     public void setAssignment(Assignment assignment, List<Student> students, String granularity) {
     	this.ass = assignment;
-    	this.graphAndAdjustCurveTitle.setText(assignment.getName() + " Graph & Curve Adjustment");
+    	this.cat = null;
+    	this.graphAndAdjustCurveTitle.setText(ass.getName() + " Graph & Curve Adjustment");
     	this.graph.setAssignment(assignment, students);
     	setBarChart(granularity);
     	setPieChart();
@@ -122,12 +131,20 @@ public class GraphAndAdjustCurveController {
      * @param granularity either 10% or 1% interval granularity
      */
     private void setBarChart(String granularity) {
-    	Map<String, Integer> scoreMap = graph.getAssignmentBarChartData(granularity);
+    	Map<String, Integer> scoreMap;
+    	
+    	if(this.cat == null) {
+    		scoreMap = graph.getAssignmentBarChartData(granularity);
+    		this.barChart.setTitle(ass.getName() + " Grade Distribution Bar Chart");
+    	}
+    	else {
+    		scoreMap = graph.getCategoryBarChartData(granularity);
+    		this.barChart.setTitle(cat.getName() + " Grade Distribution Bar Chart");
+    	}
     	
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
         
-        this.barChart.setTitle(ass.getName() + " Grade Distribution Bar Chart");
         xAxis.setLabel("Number of Students");
         List<String> categories = Arrays.asList(scoreMap.keySet().toArray(new String[0]));
         Collections.sort(categories);
@@ -168,8 +185,17 @@ public class GraphAndAdjustCurveController {
      * Sets the pie chart to have data for the chosen assignment
      */
     private void setPieChart() {
-    	Map<String, Integer> scoreMap = graph.getAssignmentPieChartData();
-        
+    	Map<String, Integer> scoreMap;
+    	
+    	if(this.cat == null) {
+    		scoreMap = graph.getAssignmentPieChartData();
+    		this.pieChart.setTitle(ass.getName() + " Grade Distribution Pie Chart");
+    	}
+    	else {
+    		scoreMap = graph.getCategoryPieChartData();
+    		this.pieChart.setTitle(cat.getName() + " Grade Distribution Pie Chart");
+    	}
+    	
     	for(String gradeStr : scoreMap.keySet()) {
     		if(scoreMap.get(gradeStr) > 0) {
     			PieChart.Data data = new PieChart.Data(gradeStr, scoreMap.get(gradeStr));
@@ -177,7 +203,6 @@ public class GraphAndAdjustCurveController {
     		}
     	}
         
-        this.pieChart.setTitle(ass.getName() + " Grade Distribution Pie Chart");
         this.pieChart.setLegendVisible(false);
         this.pieChart.setVisible(true);
         this.pieChart.setLabelsVisible(true);

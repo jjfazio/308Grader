@@ -12,6 +12,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.assignments_categories.Assignment;
+import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
@@ -72,23 +73,21 @@ public class ChooseGraphDataController {
         String selectedItem = graphDataChoserTree.getSelectionModel()
                 .getSelectedItem().getValue();
         
+    	FXMLLoader loader = new FXMLLoader(
+    			getClass().getResource("/view/graph/GraphAndAdjustCurve.fxml"));
+    	AnchorPane pane = (AnchorPane)ViewUtility.loadView(loader);
+    	GraphAndAdjustCurveController controller = (GraphAndAdjustCurveController)loader.getController();
+    	List<Student> studentList = course.getStudentRoster();
+    	
         if(selectedItem.contains("(")) {
         	String name = selectedItem.substring(0, selectedItem.indexOf("(")).trim();
-        	if(name.toLowerCase().equals("overall")) {
-        		//go to graphs page and display overall grades
-        	}
-        	else {
-        		Dialogs.showErrorDialog(stage, "Only the overall grade or assignments " +
-        		"can be selected for graph viewing.", "Selection Error", "Invalid Selection");
-        	}
+        	
+        	Category cat = assignmentTree.getCategory(name);
+        	controller.setCategory(cat, studentList, "10%");
+        	ViewUtility.showPage(pane, "Graphs & Adjust Curves");
         }
         else {
-        	FXMLLoader loader = new FXMLLoader(
-        			getClass().getResource("/view/graph/GraphAndAdjustCurve.fxml"));
-        	AnchorPane pane = (AnchorPane)ViewUtility.loadView(loader);
-        	GraphAndAdjustCurveController controller = (GraphAndAdjustCurveController)loader.getController();
         	Assignment ass = assignmentTree.getAssignment(selectedItem);
-        	List<Student> studentList = course.getStudentRoster();
             controller.setAssignment(ass, studentList, "10%");
             ViewUtility.showPage(pane, "Graphs & Adjust Curves");
         }

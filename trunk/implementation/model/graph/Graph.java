@@ -25,7 +25,7 @@ public class Graph implements Serializable {
 	/**The list of students in the class being examined in the graphs*/
 	private List<Student> studentList;
 	/**Constants representing the different grade ranges*/
-	private static final int TEN = 10, TWENTY = 20, THIRTY = 30, FOURTY = 40,
+	private static final int ZERO = 0, TEN = 10, TWENTY = 20, THIRTY = 30, FOURTY = 40,
 		FIFTY = 50, SIXTY = 60, SEVENTY = 70, EIGHTY = 80, NINETY = 90, HUNDRED = 100,
 		HUNDRED_PERCENT = 100, TEN_PERCENT_INCREMENT = 10;
 	private static final double HUNDRED_PERCENT_DENOM = 100;
@@ -192,10 +192,10 @@ public class Graph implements Serializable {
 		Map<String, Integer> map;
 		
 		if(granularity.equals("1%")) {
-			map = getOnePercentBarChartData();
+			map = getAssignmentOnePercentBarChartData();
 		}
 		else {
-			map = getTenPercentBarChartData();
+			map = getAssignmentTenPercentBarChartData();
 		}
 		
 		return map;
@@ -208,7 +208,7 @@ public class Graph implements Serializable {
 	 * @return a map with the 1% score interval ranges to an integer with the number
 	 * of students in that range
 	 */
-	private Map<String, Integer> getOnePercentBarChartData() {
+	private Map<String, Integer> getAssignmentOnePercentBarChartData() {
 		Map<String, Integer> returnMap = new HashMap<String, Integer>();
 		
 		for(int percent = 0; percent <= HUNDRED_PERCENT; percent++) {
@@ -240,7 +240,7 @@ public class Graph implements Serializable {
 	 * @return a map with the 10% score interval ranges to an integer with the number
 	 * of students in that range
 	 */
-	private Map<String, Integer> getTenPercentBarChartData() {
+	private Map<String, Integer> getAssignmentTenPercentBarChartData() {
 		Map<String, Integer> returnMap = new HashMap<String, Integer>();
 		
 		for(int percent = 0; percent <= HUNDRED_PERCENT; percent += TEN_PERCENT_INCREMENT) {
@@ -283,7 +283,7 @@ public class Graph implements Serializable {
 		
 		for(Student stud : this.studentList) {
 			HashMap<Integer, Grade> studGrades = stud.getGrades();
-			if(studGrades.get(this.ass.getID()) != null) {
+			if(studGrades.containsKey(ass.getID())) {
 				if(studGrades.get(this.ass.getID()).getLetterGrade() != null) {
 					int numThisScore = map.get(studGrades.get(this.ass.getID()).getLetterGrade());
 					numThisScore++;
@@ -295,12 +295,120 @@ public class Graph implements Serializable {
 		return map;
 	}
 	
-//	public HashMap<Range, Integer> getCategoryData() {
-//		HashMap<Range, Integer> map = new HashMap<Range, Integer>();
+	/**
+	 * Accessor method to get the scores used in the bar chart graph
+	 * 
+	 * @param granularity either 1% or 10% interval granularity
+	 * @return a Map of the range (as a string) to an integer of the number
+	 * of students in that range.
+	 */
+	public Map<String, Integer> getCategoryBarChartData(String granularity) {
+		Map<String, Integer> map;
+		
+		if(granularity.equals("1%")) {
+			map = getCategoryOnePercentBarChartData();
+		}
+		else {
+			map = getCategoryTenPercentBarChartData();
+		}
+		
+		return map;
+	}
+	
+	private Map<String, Integer> getCategoryOnePercentBarChartData() {
+		Map<String, Integer> scoreMap = new HashMap<String, Integer>();
+		
+		for(int percent = 0; percent <= HUNDRED_PERCENT; percent++) {
+			Integer temp = new Integer(percent);
+			scoreMap.put(temp.toString(), 0);
+		}
+		
+		for(Student stud : studentList) {
+			Integer studScore = getSubCategoryScore(this.cat, stud).intValue();
+			
+			if(studScore <= ZERO) {
+				scoreMap.put(new Integer(ZERO).toString(), (scoreMap.get(new Integer(ZERO).toString()) + 1));
+			}
+			else if(studScore >= HUNDRED_PERCENT) {
+				scoreMap.put(new Integer(HUNDRED_PERCENT).toString(), (scoreMap.get(new Integer(HUNDRED_PERCENT).toString()) + 1));
+			}
+			else {
+				scoreMap.put(new Integer(studScore).toString(), (scoreMap.get(new Integer(studScore).toString()) + 1));
+			}
+		}
+		
+		return scoreMap;
+	}
+	
+	private Map<String, Integer> getCategoryTenPercentBarChartData() {
+		Map<String, Integer> scoreMap = new HashMap<String, Integer>();
+		
+		for(int percent = 0; percent <= HUNDRED_PERCENT; percent += TEN_PERCENT_INCREMENT) {
+			Integer temp = new Integer(percent);
+			scoreMap.put(temp.toString(), 0);
+		}
+		
+		for(Student stud : studentList) {
+			Integer studScore = getSubCategoryScore(this.cat, stud).intValue();
+			Integer roundedScore = TEN * (studScore / TEN);
+			
+			if(roundedScore < TEN) {
+				scoreMap.put(new Integer(ZERO).toString(), (scoreMap.get(new Integer(ZERO).toString()) + 1));
+			}
+			else if(roundedScore > NINETY) {
+				scoreMap.put(new Integer(NINETY).toString(), (scoreMap.get(new Integer(NINETY).toString()) + 1));
+			}
+			else {
+				scoreMap.put(new Integer(roundedScore).toString(), (scoreMap.get(new Integer(roundedScore).toString()) + 1));
+			}
+		}
+		
+		return scoreMap;
+	}
+	
+	/**
+	 * Accessor method to get category's data to initialize the pie chart graph
+	 * 
+	 * @return a map with a string representing the letter grade to the number
+	 * of students in that letter grade range.
+	 */
+	public Map<String, Integer> getCategoryPieChartData() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+//		map.put("A", 0);
+//		map.put("B", 0);
+//		map.put("C", 0);
+//		map.put("D", 0);
+//		map.put("F", 0);	
 //		
-//		/*Implementation to come*/
-//		
-//		return map;
-//	}
+//		for(Student stud : this.studentList) {
+//			HashMap<Integer, Grade> studGrades = stud.getGrades();
+//			if(studGrades.containsKey(ass.getID())) {
+//				if(studGrades.get(this.ass.getID()).getLetterGrade() != null) {
+//					int numThisScore = map.get(studGrades.get(this.ass.getID()).getLetterGrade());
+//					numThisScore++;
+//					map.put(studGrades.get(this.ass.getID()).getLetterGrade(), numThisScore);
+//				}
+//			}
+//		}
+		
+		return map;
+	}
+	
+	private Double getSubCategoryScore(Category cat, Student stud) {
+		double score = 0.0;
+		
+		for(Assignment ass : cat.getAssignments()) {
+			Grade curGrade = stud.getGrades().get(ass.getID());
+			score += (stud.getGrades().get(ass.getID()).getScore() / 
+			   ass.getMaxPoints().doubleValue()) * (ass.getPercentOfClass());
+		}
+		
+		for(Category subCat : cat.getSubCategories()) {
+			score += getSubCategoryScore(subCat, stud) /** (subCat.getPercentOfParent())*/;
+		}
+		
+		return score;
+	}
 	
 }

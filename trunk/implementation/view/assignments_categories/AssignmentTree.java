@@ -24,8 +24,10 @@ public class AssignmentTree
     /** Root of the tree */
     private TreeItem<String> root;
     
-    /** Maps category names to categories */
+    /** Maps assignment names to assignments */
     private Map<String, Assignment> assignmentMap;
+    /** Maps category names to categories */
+    private Map<String, Category> categoryMap;
     
     /** Instantiate a CategoryTree with the
      * given CategoryContainer
@@ -35,6 +37,7 @@ public class AssignmentTree
     {
         root = new TreeItem<String>();
         assignmentMap = new HashMap<String, Assignment>();
+        categoryMap = new HashMap<String, Category>();
         loadTreeView(container);
     }
     
@@ -58,6 +61,16 @@ public class AssignmentTree
     }
     
     /**
+     * Returns the category for the given category name
+     * @param categoryName The name of the category
+     * @return
+     */
+    public Category getCategory(String categoryName)
+    {
+        return categoryMap.get(categoryName);
+    }
+    
+    /**
      * Sets up the TreeView recursively.
      */
     private void loadTreeView(CategoryContainer container)
@@ -74,12 +87,13 @@ public class AssignmentTree
     {
         TreeItem<String> curItem;
         
+        categoryMap.put(parent.getName(), parent);
+        
         for(Assignment ass : parent.getAssignments()) {
         	assignmentMap.put(ass.getName(), ass);
         	curItem = new TreeItem<String>(ass.getName());
         	rootItem.getChildren().add(curItem);
         }
-        //categoryMap.put(parent.getName(), parent);
         
         if (parent.getSubCategories() != null && 
                 !parent.getSubCategories().isEmpty()) {
