@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import model.assignments_categories.*;
+import model.spreadsheet.GradeRange;
+import model.spreadsheet.GradingScheme;
 import model.users.Student;
 import model.exception.*;
 
@@ -274,25 +277,23 @@ public class Graph implements Serializable {
 	 */
 	public Map<String, Integer> getAssignmentPieChartData() {
 		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> returnMap = new HashMap<String, Integer>();
 		
-		map.put("A", 0);
-		map.put("B", 0);
-		map.put("C", 0);
-		map.put("D", 0);
-		map.put("F", 0);	
+		GradingScheme gScheme = this.ass.getgScheme();
+		
+		for(GradeRange range : gScheme.getGradeRanges()) {
+			returnMap.put(range.getLetterGrade(), 0);
+		}	
 		
 		for(Student stud : this.studentList) {
-			HashMap<Integer, Grade> studGrades = stud.getGrades();
-			if(studGrades.containsKey(ass.getID())) {
-				if(studGrades.get(this.ass.getID()).getLetterGrade() != null) {
-					int numThisScore = map.get(studGrades.get(this.ass.getID()).getLetterGrade());
-					numThisScore++;
-					map.put(studGrades.get(this.ass.getID()).getLetterGrade(), numThisScore);
-				}
-			}
+			Grade studGrade = stud.getAssignmentGrade(ass);
+			double percentScore = studGrade.getScore() / this.ass.getMaxPoints().doubleValue() * HUNDRED;
+			String symbol = gScheme.getSymbolFromPercent(percentScore);
+			
+			returnMap.put(symbol, returnMap.get(symbol) + 1);
 		}
 		
-		return map;
+		return returnMap;
 	}
 	
 	/**
@@ -316,7 +317,7 @@ public class Graph implements Serializable {
 	}
 	
 	private Map<String, Integer> getCategoryOnePercentBarChartData() {
-		Map<String, Integer> scoreMap = new HashMap<String, Integer>();
+		Map<String, Integer> scoreMap = new TreeMap<String, Integer>();
 		
 		for(int percent = 0; percent <= HUNDRED_PERCENT; percent++) {
 			Integer temp = new Integer(percent);
@@ -341,7 +342,7 @@ public class Graph implements Serializable {
 	}
 	
 	private Map<String, Integer> getCategoryTenPercentBarChartData() {
-		Map<String, Integer> scoreMap = new HashMap<String, Integer>();
+		Map<String, Integer> scoreMap = new TreeMap<String, Integer>();
 		
 		for(int percent = 0; percent <= HUNDRED_PERCENT; percent += TEN_PERCENT_INCREMENT) {
 			Integer temp = new Integer(percent);
@@ -373,26 +374,35 @@ public class Graph implements Serializable {
 	 * of students in that letter grade range.
 	 */
 	public Map<String, Integer> getCategoryPieChartData() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = getCategoryBarChartData("!0%");
+		Map<String, Integer> returnMap = new HashMap<String, Integer>();
+		returnMap.put("A", 0);
+		returnMap.put("B", 0);
+		returnMap.put("C", 0);
+		returnMap.put("D", 0);
+		returnMap.put("F", 0);	
 		
-//		map.put("A", 0);
-//		map.put("B", 0);
-//		map.put("C", 0);
-//		map.put("D", 0);
-//		map.put("F", 0);	
-//		
-//		for(Student stud : this.studentList) {
-//			HashMap<Integer, Grade> studGrades = stud.getGrades();
-//			if(studGrades.containsKey(ass.getID())) {
-//				if(studGrades.get(this.ass.getID()).getLetterGrade() != null) {
-//					int numThisScore = map.get(studGrades.get(this.ass.getID()).getLetterGrade());
-//					numThisScore++;
-//					map.put(studGrades.get(this.ass.getID()).getLetterGrade(), numThisScore);
-//				}
-//			}
-//		}
+		for(String key : map.keySet()) {
+			Integer score = Integer.parseInt(key);
+			
+			if(score < SIXTY) {
+				returnMap.put("F", returnMap.get("F") + map.get(key));
+			}
+			else if(score < SEVENTY) {
+				returnMap.put("D", returnMap.get("D") + map.get(key));
+			}
+			else if(score < EIGHTY) {
+				returnMap.put("C", returnMap.get("C") + map.get(key));
+			}
+			else if(score < NINETY) {
+				returnMap.put("B", returnMap.get("B") + map.get(key));
+			}
+			else {
+				returnMap.put("A", returnMap.get("A") + map.get(key));
+			}
+		}
 		
-		return map;
+		return returnMap;
 	}
 	
 	private Double getSubCategoryScore(Category cat, Student stud, boolean isRoot) {
