@@ -388,43 +388,27 @@ public class Graph implements Serializable {
 	 * of students in that letter grade range.
 	 */
 	public Map<String, Integer> getCategoryPieChartData() {
-		Map<String, Integer> map = getCategoryBarChartData("!0%");
+		Map<String, Integer> map = getCategoryBarChartData("10%");
 		Map<String, Integer> returnMap = new HashMap<String, Integer>();
 		GradingScheme gScheme = course.getGradingDistribution();
-		
-//		returnMap.put("A", 0);
-//		returnMap.put("B", 0);
-//		returnMap.put("C", 0);
-//		returnMap.put("D", 0);
-//		returnMap.put("F", 0);
 		
 		for(String key : map.keySet()) {
 			Integer score = Integer.parseInt(key);
 			Double dScore = new Integer(score).doubleValue();
+			
+			Integer curStudentsInRange;
+			
+			if(returnMap.get(gScheme.getSymbolFromPercent(dScore)) != null) {
+				curStudentsInRange = returnMap.get(gScheme.getSymbolFromPercent(dScore));
+			}
+			else {
+				curStudentsInRange = 0;
+			}
+			
 			Integer numScoresInRange = map.get(key);
-			returnMap.put(gScheme.getSymbolFromPercent(dScore), numScoresInRange);
+			returnMap.put(gScheme.getSymbolFromPercent(dScore), numScoresInRange + curStudentsInRange);
 			
 		}
-		
-//		for(String key : map.keySet()) {
-//			Integer score = Integer.parseInt(key);
-//			
-//			if(score < SIXTY) {
-//				returnMap.put("F", returnMap.get("F") + map.get(key));
-//			}
-//			else if(score < SEVENTY) {
-//				returnMap.put("D", returnMap.get("D") + map.get(key));
-//			}
-//			else if(score < EIGHTY) {
-//				returnMap.put("C", returnMap.get("C") + map.get(key));
-//			}
-//			else if(score < NINETY) {
-//				returnMap.put("B", returnMap.get("B") + map.get(key));
-//			}
-//			else {
-//				returnMap.put("A", returnMap.get("A") + map.get(key));
-//			}
-//		}
 		
 		return returnMap;
 	}
