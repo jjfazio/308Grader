@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,6 +27,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.assignments_categories.Assignment;
@@ -136,8 +139,6 @@ public class SpreadsheetController implements Observer {
       addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
       
       addContextMenus();
-      
-      System.out.println("Set up spreadsheet for " + course.getCourseInfo().getCourseName());
    }
 
 
@@ -220,7 +221,6 @@ public class SpreadsheetController implements Observer {
                    assignment.getName() + " (" + assignment.getPercentOfCategory() + " %)");
            assignmentCol.setUserData(assignment);
            assignmentCol.setCellFactory(new EditCallBack());
-          // assignmentCol.setCellFactory(TextFieldTableCell.<Student>forTableColumn());
            assignmentCol.setCellValueFactory(new AssignmentCallBack());
            assignmentCol.setOnEditCommit(new EditHandler());
            assignmentCol.setMinWidth(MIN_COL_WIDTH);
@@ -266,7 +266,8 @@ public class SpreadsheetController implements Observer {
    }
    
    /**
-    * CallBack for the total grade column.
+    * CallBack for the total grade column. Gets the total grade for the student
+    * and puts it in the table
     * @author jamesfazio
     *
     */
@@ -280,7 +281,8 @@ public class SpreadsheetController implements Observer {
    }
    
    /**
-    * CallBack for the total letter grade column.
+    * CallBack for the total letter grade column. Gets the total letter grade
+    * or symbol for the student and puts it in the table
     * @author jamesfazio
     *
     */
@@ -293,6 +295,12 @@ public class SpreadsheetController implements Observer {
        }
    }
    
+   /**
+    * Call back for assignment cells. Assignment cells are editable and require
+    * their own cell class.
+    * @author jamesfazio
+    *
+    */
    private class EditCallBack implements Callback<TableColumn<Student, String>, TableCell<Student, String>> {
 
     @Override
@@ -368,6 +376,11 @@ public class SpreadsheetController implements Observer {
        }
    }
    
+   /**
+    * Called to refresh an assignment col along with the total grade and
+    * total letter grade col.
+    * @param column
+    */
    private void refreshColumns(TableColumn<Student, String> column)
    {
        column.setVisible(false);
@@ -408,6 +421,11 @@ public class SpreadsheetController implements Observer {
        return (Stage) root.getScene().getWindow();
    }
    
+   /**
+    * Assignment cell that handles the editing
+    * @author jamesfazio
+    *
+    */
    class EditingCell extends TableCell<Student, String> {
 
        private TextField textField;
@@ -424,6 +442,15 @@ public class SpreadsheetController implements Observer {
                setText(null);
                setGraphic(textField);
                textField.selectAll();
+               
+               //Hack to get double click to work
+               Platform.runLater(new Runnable() {
+                   @Override
+                   public void run() {
+                       textField.requestFocus();
+                   }
+              });
+
            }
        }
 
@@ -458,6 +485,8 @@ public class SpreadsheetController implements Observer {
 
        private void createTextField() {
            textField = new TextField(getString());
+           
+           textField.setFocusTraversable(true);
            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
            textField.focusedProperty().addListener(new ChangeListener<Boolean>(){
                @Override
@@ -468,6 +497,21 @@ public class SpreadsheetController implements Observer {
                        }
                }
            });
+           
+           // Allows for tabbing and entering in assignment cells
+           textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+               @Override
+               public void handle(KeyEvent t) {
+                   if (t.getCode() == KeyCode.ENTER) {
+                       commitEdit(textField.getText());
+                   } else if (t.getCode() == KeyCode.ESCAPE) {
+                       cancelEdit();
+                   } else if (t.getCode() == KeyCode.TAB) {
+                       commitEdit(textField.getText());
+                       getTableView().getSelectionModel().selectBelowCell();
+                       }
+                   }
+               });
        }
 
        private String getString() {
