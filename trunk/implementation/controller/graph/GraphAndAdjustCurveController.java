@@ -9,6 +9,7 @@ import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.exception.BadDataException;
 import model.graph.Graph;
+import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -77,6 +78,8 @@ public class GraphAndAdjustCurveController {
     private Assignment ass;
     /**The current category being viewed*/
     private Category cat;
+    /**The current spreadsheet course open*/
+    private SpreadsheetCourse course;
     
     /**
      * Creates a new instance of GraphAndAdjstCurveController
@@ -123,6 +126,16 @@ public class GraphAndAdjustCurveController {
     	this.graph.setAssignment(assignment, students);
     	setBarChart(granularity);
     	setPieChart();
+    }
+    
+    /**
+     * Sets the current course that is being accessed to view grades
+     * 
+     * @param course the current spreadsheet course open
+     */
+    public void setCourse(SpreadsheetCourse course) {
+    	this.course = course;
+    	this.graph.setCourse(course);
     }
     
     /**
@@ -273,7 +286,7 @@ public class GraphAndAdjustCurveController {
      */
     @FXML
     private void handleSaveCurvedGradesButton() {
-        System.out.println("Add custom curve button pressed");
+        System.out.println("Add percent curve button pressed");
         System.out.println(this.percentCurve.getText() + " entered.");
         try {
         	this.graph.applyStandardCurve(percentCurve.getText().toString());
