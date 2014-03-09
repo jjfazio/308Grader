@@ -71,6 +71,21 @@ public class MenuBarController
       System.out.println("Add Class clicked");
       
    }
+   
+   /**
+    * Displays the delete class dialog when the corresponding menu item 
+    * is clicked.
+    */
+   @FXML
+   public void classDelete() {
+      FXMLLoader loader = new FXMLLoader(
+         getClass().getResource("/view/gradebook/DeleteClass.fxml"));
+      
+      ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Delete Class");
+      
+      System.out.println("Delete Class clicked");
+      
+   }
 
    /**
     * Displays the add student dialog when the corresponding menu item
