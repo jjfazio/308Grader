@@ -36,6 +36,7 @@ import model.assignments_categories.Category;
 import model.assignments_categories.CategoryContainer;
 import model.assignments_categories.Grade;
 import model.exception.BadDataException;
+import model.spreadsheet.AssignView;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 
@@ -117,9 +118,7 @@ public class SpreadsheetController implements Observer {
         totalGradeColumn.setCellValueFactory(new TotalGradeCallBack());
         totalGradeColumn.setText("Total Grade");
         totalLetterColumn.setCellValueFactory(new TotalLetterCallBack());
-        totalLetterColumn.setText("Letter Grade");
-        
-        table.setEditable(true);
+        totalLetterColumn.setText("Grade Symbol");
         
     }
 
@@ -138,6 +137,11 @@ public class SpreadsheetController implements Observer {
       loadStudentContent(course.getStudentRoster());
       addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
       
+      if (course.getAssignView() == AssignView.POINTS)
+          table.setEditable(true);
+      else
+          table.setEditable(false);
+      
       addContextMenus();
    }
 
@@ -145,8 +149,10 @@ public class SpreadsheetController implements Observer {
    @Override
    /**
     * Called when a change is made to the model
+    * Make this code better
     */
    public void update(Observable o, Object arg) {
+       String val = (String) arg;
        // If new students got added to the spreadsheet
        if (course.isStudentAdded())
            loadStudentContent(course.getAddedStudents());
@@ -154,10 +160,10 @@ public class SpreadsheetController implements Observer {
            removeStudentContent(course.getStudentToDelete());
        }
        else if (o instanceof CategoryContainer) {
-           totalCategoryCol.getColumns().clear();
-           table.getColumns().remove(totalCategoryCol);
-           addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
-           table.getColumns().add(table.getColumns().size() - 2, totalCategoryCol);
+           refreshTable();
+       } 
+       else if (val != null && val.equals("assignView")) {
+           refreshTable();
        }
    }
    
@@ -253,14 +259,22 @@ public class SpreadsheetController implements Observer {
        @Override
        public ObservableValue<String> call(CellDataFeatures<Student, String> param)
        {
+           SimpleStringProperty val = new SimpleStringProperty("");
            HashMap<Integer, Grade> grades = param.getValue().getGrades();
            Assignment assign = (Assignment) param.getTableColumn().getUserData();
            
-           // If the student doesn't have a grade for the assignment
-           // do not display anything
-           return grades.containsKey(assign.getID()) ? 
-                   new SimpleStringProperty(String.format("%.1f",grades.get(assign.getID()).getScore()))
-           :  new SimpleStringProperty(""); 
+           if (grades.containsKey(assign.getID()))
+           {
+               if (course.getAssignView() == AssignView.POINTS)
+                   val =  new SimpleStringProperty(String.format("%.1f",grades.get(assign.getID()).getScore()));
+               if (course.getAssignView() == AssignView.PERCENTAGES)
+                   val =  new SimpleStringProperty(String.format("%.1f",grades.get(assign.getID()).getScore() /
+                           assign.getMaxPoints() * 100.0) + " %");
+               if (course.getAssignView() == AssignView.SYMBOLS)
+                   val =  new SimpleStringProperty(grades.get(assign.getID()).getLetterGrade());
+           }
+           
+           return val;
        }
 
    }
@@ -374,6 +388,19 @@ public class SpreadsheetController implements Observer {
                refreshColumns(studentCell.getTableColumn());
            }
        }
+   }
+   
+   private void refreshTable()
+   {
+       totalCategoryCol.getColumns().clear();
+       table.getColumns().remove(totalCategoryCol);
+       addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
+       table.getColumns().add(table.getColumns().size() - 2, totalCategoryCol);
+       
+       if (course.getAssignView() == AssignView.POINTS)
+           table.setEditable(true);
+       else
+           table.setEditable(false);
    }
    
    /**

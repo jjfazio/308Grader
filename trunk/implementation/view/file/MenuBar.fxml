@@ -20,16 +20,15 @@
       <menus>
         <Menu mnemonicParsing="false" text="File" fx:id="FileMenu">
           <items>
-            <MenuItem mnemonicParsing="false" text="New Window" fx:id="NewWindowMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#newWindow" text="New Window" fx:id="NewWindowMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#saveGradebook" text="Save" fx:id="SaveMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Print" fx:id="PrintMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#quitGradebook" text="Quit" fx:id="QuitMenuItem" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="View" fx:id="ViewMenu">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#viewShowHide" text="Show/Hide" fx:id="ShowHideMenuItem" />
-            <MenuItem mnemonicParsing="false" text="View Assignments As" fx:id="ViewAsgnMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewAssignAs" text="View Assignments As" fx:id="ViewAsgnMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#viewStatisticsTable" text="View Statistics" />
           </items>
         </Menu>

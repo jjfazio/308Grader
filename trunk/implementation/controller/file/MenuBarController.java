@@ -6,9 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.exception.BadDataException;
 import model.exception.StudentDataException;
 import model.gradebook.Gradebook;
+import view.Main;
 import view.ViewUtility;
 
 /**
@@ -33,11 +35,18 @@ public class MenuBarController
 	   System.out.println("Pressed save!");
 	   gradebook = Gradebook.getInstance();
 	   gradebook.saveGradebook();
+	   
    }
    
    @FXML
    public void quitGradebook() {
        Platform.exit();
+   }
+   
+   @FXML
+   public void newWindow() {
+       Main main = new Main();
+       main.start(new Stage());
    }
 
    //Interesting idea in tutorial to block other GUI until this screen
@@ -57,6 +66,14 @@ public class MenuBarController
       
    }
    
+   @FXML
+   public void viewAssignAs() {
+       FXMLLoader loader = new FXMLLoader(
+               getClass().getResource("/view/file/ViewAssigns.fxml"));
+
+       ViewUtility.loadAndShowPage(loader, VBox.class, "View Assignments As");
+   }
+   
    /**
     * Displays the add class dialog when the corresponding menu item 
     * is clicked.
@@ -67,9 +84,6 @@ public class MenuBarController
          getClass().getResource("/view/gradebook/CreateClass.fxml"));
       
       ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Add Class");
-      
-      System.out.println("Add Class clicked");
-      
    }
 
    /**

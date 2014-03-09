@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" prefHeight="217.0" prefWidth="273.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.file.ViewAssignsAsController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <RadioButton fx:id="points" mnemonicParsing="false" selected="true" text="Points (Default)">
+      <toggleGroup>
+        <ToggleGroup fx:id="ViewRadioGroup" />
+      </toggleGroup>
+      <VBox.margin>
+        <Insets left="10.0" top="10.0" fx:id="x1" />
+      </VBox.margin>
+    </RadioButton>
+    <RadioButton fx:id="percentages" mnemonicParsing="false" text="Percentages" toggleGroup="$ViewRadioGroup" VBox.margin="$x1" />
+    <RadioButton fx:id="symbols" mnemonicParsing="false" text="Symbols" toggleGroup="$ViewRadioGroup" VBox.margin="$x1" />
+    <Label text="You can only edit Assignments when Points is selected" wrapText="true">
+      <VBox.margin>
+        <Insets left="10.0" top="20.0" />
+      </VBox.margin>
+    </Label>
+    <HBox alignment="CENTER" prefHeight="72.0" prefWidth="273.0">
+      <children>
+        <Button mnemonicParsing="false" onAction="#changeView" text="Confirm">
+          <HBox.margin>
+            <Insets right="20.0" />
+          </HBox.margin>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#cancel" text="Cancel">
+          <HBox.margin>
+            <Insets left="20.0" />
+          </HBox.margin>
+        </Button>
+      </children>
+      <VBox.margin>
+        <Insets top="10.0" />
+      </VBox.margin>
+    </HBox>
+  </children>
+</VBox>
