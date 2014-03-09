@@ -412,10 +412,12 @@ public class Graph implements Serializable {
 		
 		for(Assignment ass : cat.getAssignments()) {
 			Grade curGrade = stud.getGrades().get(ass.getID());
-			tempScore = curGrade.getScore() / ass.getMaxPoints().doubleValue();
-			tempScore *= ass.getPercentOfCategory();
+			if(curGrade != null && curGrade.getScore() != null) {
+				tempScore = curGrade.getScore() / ass.getMaxPoints().doubleValue();
+				tempScore *= ass.getPercentOfCategory();
 			
-			score += tempScore;
+				score += tempScore;
+			}
 		}
 		
 		for(Category subCat : cat.getSubCategories()) {
