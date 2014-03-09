@@ -139,8 +139,6 @@ public class SpreadsheetController implements Observer {
       addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
       
       addContextMenus();
-      
-      System.out.println("Set up spreadsheet for " + course.getCourseInfo().getCourseName());
    }
 
 
@@ -223,7 +221,6 @@ public class SpreadsheetController implements Observer {
                    assignment.getName() + " (" + assignment.getPercentOfCategory() + " %)");
            assignmentCol.setUserData(assignment);
            assignmentCol.setCellFactory(new EditCallBack());
-          // assignmentCol.setCellFactory(TextFieldTableCell.<Student>forTableColumn());
            assignmentCol.setCellValueFactory(new AssignmentCallBack());
            assignmentCol.setOnEditCommit(new EditHandler());
            assignmentCol.setMinWidth(MIN_COL_WIDTH);
@@ -269,7 +266,8 @@ public class SpreadsheetController implements Observer {
    }
    
    /**
-    * CallBack for the total grade column.
+    * CallBack for the total grade column. Gets the total grade for the student
+    * and puts it in the table
     * @author jamesfazio
     *
     */
@@ -283,7 +281,8 @@ public class SpreadsheetController implements Observer {
    }
    
    /**
-    * CallBack for the total letter grade column.
+    * CallBack for the total letter grade column. Gets the total letter grade
+    * or symbol for the student and puts it in the table
     * @author jamesfazio
     *
     */
@@ -296,6 +295,12 @@ public class SpreadsheetController implements Observer {
        }
    }
    
+   /**
+    * Call back for assignment cells. Assignment cells are editable and require
+    * their own cell class.
+    * @author jamesfazio
+    *
+    */
    private class EditCallBack implements Callback<TableColumn<Student, String>, TableCell<Student, String>> {
 
     @Override
@@ -371,6 +376,11 @@ public class SpreadsheetController implements Observer {
        }
    }
    
+   /**
+    * Called to refresh an assignment col along with the total grade and
+    * total letter grade col.
+    * @param column
+    */
    private void refreshColumns(TableColumn<Student, String> column)
    {
        column.setVisible(false);
@@ -411,6 +421,11 @@ public class SpreadsheetController implements Observer {
        return (Stage) root.getScene().getWindow();
    }
    
+   /**
+    * Assignment cell that handles the editing
+    * @author jamesfazio
+    *
+    */
    class EditingCell extends TableCell<Student, String> {
 
        private TextField textField;
@@ -483,7 +498,7 @@ public class SpreadsheetController implements Observer {
                }
            });
            
-           // Why does this not work?!?!
+           // Allows for tabbing and entering in assignment cells
            textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
                @Override
                public void handle(KeyEvent t) {
@@ -493,7 +508,6 @@ public class SpreadsheetController implements Observer {
                        cancelEdit();
                    } else if (t.getCode() == KeyCode.TAB) {
                        commitEdit(textField.getText());
-                       TableColumn<Student, String> col = getTableColumn();
                        getTableView().getSelectionModel().selectBelowCell();
                        }
                    }

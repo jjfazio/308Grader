@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import model.assignments_categories.*;
 import model.spreadsheet.GradeRange;
 import model.spreadsheet.GradingScheme;
+import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 import model.exception.*;
 
@@ -27,6 +28,8 @@ public class Graph implements Serializable {
 	private Assignment ass;
 	/**The list of students in the class being examined in the graphs*/
 	private List<Student> studentList;
+	/**The current spreadsheet course that is open*/
+	private SpreadsheetCourse course;
 	/**Constants representing the different grade ranges*/
 	private static final int ZERO = 0, TEN = 10, TWENTY = 20, THIRTY = 30, FOURTY = 40,
 		FIFTY = 50, SIXTY = 60, SEVENTY = 70, EIGHTY = 80, NINETY = 90, HUNDRED = 100,
@@ -133,6 +136,17 @@ public class Graph implements Serializable {
 		System.out.println("Graph given an assignment.");
 		this.ass = ass;
 		this.studentList = students;
+	}
+	
+	/**
+	 * Setter method so the Graph's class knows which current
+	 * spreadsheet course is open, so the Graph class can access
+	 * the grading scheme
+	 * 
+	 * @param course the current course open
+	 */
+	public void setCourse(SpreadsheetCourse course) {
+		this.course = course;
 	}
 	
 	/**
@@ -276,10 +290,8 @@ public class Graph implements Serializable {
 	 * of students in that letter grade range.
 	 */
 	public Map<String, Integer> getAssignmentPieChartData() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
 		Map<String, Integer> returnMap = new HashMap<String, Integer>();
-		
-		GradingScheme gScheme = this.ass.getgScheme();
+		GradingScheme gScheme = this.course.getGradingDistribution();
 		
 		for(GradeRange range : gScheme.getGradeRanges()) {
 			returnMap.put(range.getLetterGrade(), 0);
@@ -376,32 +388,26 @@ public class Graph implements Serializable {
 	 * of students in that letter grade range.
 	 */
 	public Map<String, Integer> getCategoryPieChartData() {
-		Map<String, Integer> map = getCategoryBarChartData("!0%");
+		Map<String, Integer> map = getCategoryBarChartData("10%");
 		Map<String, Integer> returnMap = new HashMap<String, Integer>();
-		returnMap.put("A", 0);
-		returnMap.put("B", 0);
-		returnMap.put("C", 0);
-		returnMap.put("D", 0);
-		returnMap.put("F", 0);	
+		GradingScheme gScheme = course.getGradingDistribution();
 		
 		for(String key : map.keySet()) {
 			Integer score = Integer.parseInt(key);
+			Double dScore = new Integer(score).doubleValue();
 			
-			if(score < SIXTY) {
-				returnMap.put("F", returnMap.get("F") + map.get(key));
-			}
-			else if(score < SEVENTY) {
-				returnMap.put("D", returnMap.get("D") + map.get(key));
-			}
-			else if(score < EIGHTY) {
-				returnMap.put("C", returnMap.get("C") + map.get(key));
-			}
-			else if(score < NINETY) {
-				returnMap.put("B", returnMap.get("B") + map.get(key));
+			Integer curStudentsInRange;
+			
+			if(returnMap.get(gScheme.getSymbolFromPercent(dScore)) != null) {
+				curStudentsInRange = returnMap.get(gScheme.getSymbolFromPercent(dScore));
 			}
 			else {
-				returnMap.put("A", returnMap.get("A") + map.get(key));
+				curStudentsInRange = 0;
 			}
+			
+			Integer numScoresInRange = map.get(key);
+			returnMap.put(gScheme.getSymbolFromPercent(dScore), numScoresInRange + curStudentsInRange);
+			
 		}
 		
 		return returnMap;
@@ -416,7 +422,7 @@ public class Graph implements Serializable {
 				tempScore = curGrade.getScore() / ass.getMaxPoints().doubleValue();
 				tempScore *= ass.getPercentOfCategory();
 			
-				score += tempScore;
+			score += tempScore;
 			}
 		}
 		

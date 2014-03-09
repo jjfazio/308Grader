@@ -49,7 +49,7 @@ public class LatePolicy implements Serializable {
    }
    
    /**
-    * Default constructor that sets valuse to 0 and false.
+    * Default constructor that sets values to 0 and false.
     */
    public LatePolicy()
    {

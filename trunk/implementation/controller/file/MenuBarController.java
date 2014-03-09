@@ -1,5 +1,6 @@
 package controller.file;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
@@ -32,6 +33,11 @@ public class MenuBarController
 	   System.out.println("Pressed save!");
 	   gradebook = Gradebook.getInstance();
 	   gradebook.saveGradebook();
+   }
+   
+   @FXML
+   public void quitGradebook() {
+       Platform.exit();
    }
 
    //Interesting idea in tutorial to block other GUI until this screen
@@ -126,76 +132,6 @@ public class MenuBarController
     	FXMLLoader loader = new FXMLLoader(
            getClass().getResource("/view/graph/ChooseGraphData.fxml"));
         ViewUtility.loadAndShowPage(loader, VBox.class, "View Graphs");
-    	
-//    	FXMLLoader loader = new FXMLLoader(
-//                getClass().getResource("/view/graph/GraphAndAdjustCurve.fxml"));
-//    	AnchorPane pane = (AnchorPane)ViewUtility.loadView(loader);
-//    	GraphAndAdjustCurveController controller = (GraphAndAdjustCurveController)loader.getController();
-//    	
-//    	SpreadsheetCourse course = gradebook.getCurrentCourse();
-//    	Assignment ass = new Assignment();
-//    	ass.setName("HW09");
-//    	List<Student> studentList = new ArrayList<Student>();
-//
-//    	
-//    	Student erik = new Student("ejowen", "erik", "owen", "10370", "SE", "Junior");
-//    	erik.addGrade(course, ass, new Grade(new Date(), "88.11"));
-//    	
-//    	Student james = new Student("jfazio", "james", "fazio", "32456", "SE", "Junior");
-//    	james.addGrade(course, ass, new Grade(new Date(), "99.0"));
-//    	
-//    	Student kevin = new Student("kfeutz", "kevin", "feutz", "84145", "SE", "Junior");
-//    	kevin.addGrade(course, ass, new Grade(new Date(), "77.0"));
-//    	
-//    	Student kevin2 = new Student("kbackers", "kevin", "backers", "1232465", "SE", "Senior");
-//    	kevin2.addGrade(course, ass, new Grade(new Date(), "88.0"));
-//    	
-//    	Student jirbert = new Student("jdilanch", "Jirbert", "Dilanchian", "25642", "SE", "Junior");
-//    	jirbert.addGrade(course, ass, new Grade(new Date(), "82.0"));
-//    	
-//    	Student sally = new Student("slou", "Sally", "Lou", "32463", "SE", "Sophmore");
-//    	sally.addGrade(course, ass, new Grade(new Date(), "85.0"));
-//    	
-//    	Student steven = new Student("stevenShyinayga", "Steven", "Shinyagan", "46765", "SE", "Senior");
-//    	steven.addGrade(course, ass, new Grade(new Date(), "85.0"));
-//    	
-//    	Student patrick = new Student("pweston", "Patrick", "Weston", "234523456", "ME", "Junior");
-//    	patrick.addGrade(course, ass, new Grade(new Date(), "95.2"));
-//    	
-//    	Student jamesC = new Student("jcornsih", "James", "Cornish", "54634", "ME", "Junior");
-//    	jamesC.addGrade(course, ass, new Grade(new Date(), "66.66"));
-//    	
-//    	Student jake = new Student("jcosmo", "jake", "cosmo", "7856", "ME", "Junior");
-//    	jake.addGrade(course, ass, new Grade(new Date(), "77.1"));
-//    	
-//    	Student ferguson = new Student("fAnderz", "Ferguson", "Anderz", "63245", "CPE", "Freshmen");
-//    	ferguson.addGrade(course, ass, new Grade(new Date(), "52.99"));
-//    	
-//    	Student tommy = new Student("ttall", "Tommy", "Tall", "34673", "CE", "Sophmore");
-//    	tommy.addGrade(course, ass, new Grade(new Date(), "85.88"));
-//
-//    	studentList.add(erik);
-//    	studentList.add(james);
-//    	studentList.add(kevin);
-//    	studentList.add(kevin2);
-//    	studentList.add(jirbert);
-//    	studentList.add(sally);
-//    	studentList.add(steven);
-//    	studentList.add(patrick);
-//    	studentList.add(jamesC);
-//    	studentList.add(jake);
-//    	studentList.add(ferguson);
-//    	studentList.add(tommy);
-//
-//        System.out.println("Assignment being passed to Graph and Curve page: " + ass.getName());
-//        System.out.println("Students/scores passed to Graph and Curve page: ");
-//        for(Student stud : studentList) {
-//            System.out.println("Student: " + stud.getFirstName() + ", Score: " + stud.getGrades().get(ass).getScore());
-//        }
-//        System.out.println();
-
-//        controller.setAssignment(ass, studentList, "10%");
-//        ViewUtility.showPage(pane, "Graphs & Adjust Curves");
     }
 
     @FXML
