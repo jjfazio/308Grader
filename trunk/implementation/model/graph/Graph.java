@@ -287,10 +287,12 @@ public class Graph implements Serializable {
 		
 		for(Student stud : this.studentList) {
 			Grade studGrade = stud.getAssignmentGrade(ass);
-			double percentScore = studGrade.getScore() / this.ass.getMaxPoints().doubleValue() * HUNDRED;
-			String symbol = gScheme.getSymbolFromPercent(percentScore);
 			
-			returnMap.put(symbol, returnMap.get(symbol) + 1);
+			if(studGrade != null) {
+				double percentScore = studGrade.getScore() / this.ass.getMaxPoints().doubleValue() * HUNDRED;
+				String symbol = gScheme.getSymbolFromPercent(percentScore);
+				returnMap.put(symbol, returnMap.get(symbol) + 1);
+			}
 		}
 		
 		return returnMap;
@@ -410,10 +412,12 @@ public class Graph implements Serializable {
 		
 		for(Assignment ass : cat.getAssignments()) {
 			Grade curGrade = stud.getGrades().get(ass.getID());
-			tempScore = curGrade.getScore() / ass.getMaxPoints().doubleValue();
-			tempScore *= ass.getPercentOfCategory();
+			if(curGrade != null && curGrade.getScore() != null) {
+				tempScore = curGrade.getScore() / ass.getMaxPoints().doubleValue();
+				tempScore *= ass.getPercentOfCategory();
 			
-			score += tempScore;
+				score += tempScore;
+			}
 		}
 		
 		for(Category subCat : cat.getSubCategories()) {

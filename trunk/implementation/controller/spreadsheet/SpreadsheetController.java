@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,6 +27,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.assignments_categories.Assignment;
@@ -424,6 +427,15 @@ public class SpreadsheetController implements Observer {
                setText(null);
                setGraphic(textField);
                textField.selectAll();
+               
+               //Hack to get double click to work
+               Platform.runLater(new Runnable() {
+                   @Override
+                   public void run() {
+                       textField.requestFocus();
+                   }
+              });
+
            }
        }
 
@@ -458,6 +470,8 @@ public class SpreadsheetController implements Observer {
 
        private void createTextField() {
            textField = new TextField(getString());
+           
+           textField.setFocusTraversable(true);
            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
            textField.focusedProperty().addListener(new ChangeListener<Boolean>(){
                @Override
@@ -468,6 +482,22 @@ public class SpreadsheetController implements Observer {
                        }
                }
            });
+           
+           // Why does this not work?!?!
+           textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+               @Override
+               public void handle(KeyEvent t) {
+                   if (t.getCode() == KeyCode.ENTER) {
+                       commitEdit(textField.getText());
+                   } else if (t.getCode() == KeyCode.ESCAPE) {
+                       cancelEdit();
+                   } else if (t.getCode() == KeyCode.TAB) {
+                       commitEdit(textField.getText());
+                       TableColumn<Student, String> col = getTableColumn();
+                       getTableView().getSelectionModel().selectBelowCell();
+                       }
+                   }
+               });
        }
 
        private String getString() {
