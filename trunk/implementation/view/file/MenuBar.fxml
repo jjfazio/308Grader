@@ -23,7 +23,7 @@
             <MenuItem mnemonicParsing="false" text="New Window" fx:id="NewWindowMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#saveGradebook" text="Save" fx:id="SaveMenuItem" />
             <MenuItem mnemonicParsing="false" text="Print" fx:id="PrintMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Quit" fx:id="QuitMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#quitGradebook" text="Quit" fx:id="QuitMenuItem" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="View" fx:id="ViewMenu">

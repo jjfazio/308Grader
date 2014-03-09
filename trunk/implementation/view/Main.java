@@ -56,29 +56,29 @@ public class Main extends Application
 		
 		gradebook = Gradebook.getInstance();
 		
-		if (gradebook.getCourses() == null) {
-		    
-		    try {
-    			CourseInfo courseInfo = new CourseInfo("Software Engineering 1", "spring", "01", "308", "Computer Science", 2014);
-    			SpreadsheetCourse course = new SpreadsheetCourse(courseInfo, new GradingScheme(), null);
-    			
-    			CourseInfo courseInfo2 = new CourseInfo("Software Engineering 2", "spring", "02", "309", "Computer Science", 2014);
-    			SpreadsheetCourse course2 = new SpreadsheetCourse(courseInfo2, new GradingScheme(), null);
-    			
-    			gradebook.addSpreadsheetCourse(course);
-    			gradebook.addSpreadsheetCourse(course2);
-    			gradebook.setCurrentCourse(course);
-		    } catch (CourseDataException e)
-		    {
-		        System.out.print(e);
-		    }
-            catch (BadDataException e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-		    
-		}
+//		if (gradebook.getCourses() == null) {
+//		    
+//		    try {
+//    			CourseInfo courseInfo = new CourseInfo("Software Engineering 1", "spring", "01", "308", "Computer Science", 2014);
+//    			SpreadsheetCourse course = new SpreadsheetCourse(courseInfo, new GradingScheme(), null);
+//    			
+//    			CourseInfo courseInfo2 = new CourseInfo("Software Engineering 2", "spring", "02", "309", "Computer Science", 2014);
+//    			SpreadsheetCourse course2 = new SpreadsheetCourse(courseInfo2, new GradingScheme(), null);
+//    			
+//    			gradebook.addSpreadsheetCourse(course);
+//    			gradebook.addSpreadsheetCourse(course2);
+//    			gradebook.setCurrentCourse(course);
+//		    } catch (CourseDataException e)
+//		    {
+//		        System.out.print(e);
+//		    }
+//            catch (BadDataException e)
+//            {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//		    
+//		}
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/file/MenuBar.fxml"));
 		rootLayout = (BorderPane) ViewUtility.loadView(loader);
