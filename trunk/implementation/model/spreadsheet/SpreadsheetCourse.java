@@ -365,6 +365,21 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     {
         return id;
     }
+    
+    public String getCourseName()
+    {
+        return courseInfo.getCourseName();
+    }
+    
+    public String getCourseDeptNum()
+    {
+        return courseInfo.getDept() + "-" + courseInfo.getNumber();
+    }
+    
+    public String getCourseSection()
+    {
+        return courseInfo.getSection();
+    }
 
     @Override
     public boolean equals(Object obj)

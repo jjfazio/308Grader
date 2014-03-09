@@ -78,7 +78,7 @@ public class ChooseGraphDataController {
     	AnchorPane pane = (AnchorPane)ViewUtility.loadView(loader);
     	GraphAndAdjustCurveController controller = (GraphAndAdjustCurveController)loader.getController();
     	List<Student> studentList = course.getStudentRoster();
-    	
+    	controller.setCourse(course);
         if(selectedItem.contains("(")) {
         	String name = selectedItem.substring(0, selectedItem.indexOf("(")).trim();
         	

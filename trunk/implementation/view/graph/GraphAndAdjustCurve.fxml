@@ -50,19 +50,25 @@
         </SplitPane>
         <AnchorPane layoutX="496.0" layoutY="156.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
           <children>
-            <SplitPane dividerPositions="0.6264367816091954" focusTraversable="true" layoutX="-2.0" layoutY="0.0" orientation="VERTICAL" prefHeight="176.0" prefWidth="169.0">
+            <SplitPane dividerPositions="0.6954022988505747" focusTraversable="true" layoutX="-2.0" layoutY="-2.0" orientation="VERTICAL" prefHeight="176.0" prefWidth="169.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                <AnchorPane id="savedCurvedGradesButton" minHeight="0.0" minWidth="0.0" prefHeight="61.0" prefWidth="158.00009999999747" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                  <children>
+                    <Button fx:id="saveCurvedGradesButton" disable="true" layoutX="10.0" layoutY="88.0" mnemonicParsing="false" onAction="#handleSaveCurvedGradesButton" text="Save Curved Grades" />
+                  </children>
+                </AnchorPane>
+                <AnchorPane id="savedCurvedGradesButton" minHeight="0.0" minWidth="0.0" prefHeight="36.689453125" prefWidth="167.0">
+                  <children>
+                    <Button fx:id="addCustomCurveButton" layoutX="12.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleAddCustomCurveButton" text="Add Custom Curve" />
+                    <Label layoutX="69.0" layoutY="0.0" prefHeight="25.0" text="Or..." />
+                  </children>
+                </AnchorPane>
               </items>
             </SplitPane>
             <Label font="$x1" layoutX="38.0" layoutY="14.0" text="Adjust Curve" />
             <Label layoutX="14.0" layoutY="45.0" prefHeight="24.0" prefWidth="88.0" text="Add % Curve: " />
             <TextField fx:id="percentCurve" layoutX="102.0" layoutY="45.0" prefHeight="24.0" prefWidth="29.0" />
             <Label layoutX="135.0" layoutY="49.0" text="\%" />
-            <Label layoutX="65.0" layoutY="83.0" text="Or..." />
-            <Button fx:id="addCustomCurveButton" layoutX="11.0" layoutY="120.0" mnemonicParsing="false" onAction="#handleAddCustomCurveButton" text="Add Custom Curve" />
-            <Button fx:id="saveCurvedGradesButton" disable="true" layoutX="11.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleSaveCurvedGradesButton" text="Save Curved Grades" />
           </children>
         </AnchorPane>
         <BarChart fx:id="barChart" layoutX="14.0" layoutY="367.0" prefHeight="346.0" prefWidth="377.0" title="Quiz 4 Grade Distribution Bar Chart">

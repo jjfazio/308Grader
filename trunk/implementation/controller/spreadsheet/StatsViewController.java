@@ -39,7 +39,7 @@ public class StatsViewController
     SpreadsheetCourse currentSpreadsheet;
 
     /** The list of students belonging to the current spreadsheet */
-    ArrayList<Student> spreadsheetRoster;
+    List<Student> spreadsheetRoster;
 
     /** The list of assignments belonging to the current spreadsheet */
     List<Assignment> spreadsheetAssignments;
@@ -56,8 +56,10 @@ public class StatsViewController
         this.currentSpreadsheet = currentGradebook.getCurrentCourse();
         this.spreadsheetAssignments = currentSpreadsheet.getCategoryContainer()
             .getRoot().getAssignments();
+        this.spreadsheetRoster = currentSpreadsheet.getStudentRoster();
         this.assignmentColumns = new ArrayList<TableColumn<String, String>>();
         this.statistics = FXCollections.observableArrayList();
+        createStatNamesColumn();
     }
 
     /**
@@ -67,8 +69,11 @@ public class StatsViewController
     {
         statistics.add(new Statistics("Mean", spreadsheetRoster));
         statistics.add(new Statistics("Median", spreadsheetRoster));
+        statistics.add(new Statistics("Range", spreadsheetRoster));
+        statistics.add(new Statistics("Graded", spreadsheetRoster));
         this.statNameColumn.setCellValueFactory(new PropertyValueFactory<Statistics, String>("statName"));
         table.setItems(statistics);
+        addColumns();
     }
 
     /**
@@ -87,8 +92,7 @@ public class StatsViewController
     }
 
     /**
-     * CallBack for the assignment columns. For each assignment column
-     * in the spreadsheet the associated grade of each student is displayed.
+     * CallBack for the stat columns for each assignment
      * @author jamesfazio
      *
      */
@@ -103,8 +107,26 @@ public class StatsViewController
         @Override
         public ObservableValue<String> call(TableColumn.CellDataFeatures<Statistics, String> param)
         {
-            double meanValue = param.getValue().calcMean(currentAssignment);
-            return new SimpleStringProperty(String.format("%.1f",meanValue));
+            if(param.getValue().getStatName().equals("Mean"))
+            {
+                double meanValue = param.getValue().calcMean(currentAssignment);
+                return new SimpleStringProperty(String.format("%.1f %%",meanValue));
+            }
+            else if(param.getValue().getStatName().equals("Graded")){
+                int numGraded = param.getValue().calcNumAssignmentsGraded(currentAssignment);
+                return new SimpleStringProperty(String.format("%d", numGraded));
+            }
+            else if(param.getValue().getStatName().equals("Median")){
+                double median = param.getValue().calcMedian(currentAssignment);
+                return new SimpleStringProperty(String.format("%.1f %%", median));
+            }
+            else if(param.getValue().getStatName().equals("Range")){
+                double range = param.getValue().calcRange(currentAssignment);
+                return new SimpleStringProperty(String.format("%.1f %%", range));
+            }
+            else {
+                return new SimpleStringProperty(String.format("%d", 0));
+            }
         }
     }
 }

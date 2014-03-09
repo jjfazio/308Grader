@@ -72,8 +72,13 @@
         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Late Policy:" />
-            <VBox alignment="TOP_LEFT" prefHeight="67.0" prefWidth="192.9998779296875">
+            <VBox id="noLatePolicy" alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="192.9998779296875">
               <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                    <RadioButton fx:id="noLatePolicy" mnemonicParsing="false" text="None" />
+                  </children>
+                </HBox>
                 <HBox prefHeight="22.0" prefWidth="193.0">
                   <children>
                     <RadioButton fx:id="decay" mnemonicParsing="false" prefWidth="71.0" text="Decay" />

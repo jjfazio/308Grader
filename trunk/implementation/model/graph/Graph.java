@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import model.assignments_categories.*;
 import model.spreadsheet.GradeRange;
 import model.spreadsheet.GradingScheme;
+import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 import model.exception.*;
 
@@ -27,6 +28,8 @@ public class Graph implements Serializable {
 	private Assignment ass;
 	/**The list of students in the class being examined in the graphs*/
 	private List<Student> studentList;
+	/**The current spreadsheet course that is open*/
+	private SpreadsheetCourse course;
 	/**Constants representing the different grade ranges*/
 	private static final int ZERO = 0, TEN = 10, TWENTY = 20, THIRTY = 30, FOURTY = 40,
 		FIFTY = 50, SIXTY = 60, SEVENTY = 70, EIGHTY = 80, NINETY = 90, HUNDRED = 100,
@@ -136,6 +139,17 @@ public class Graph implements Serializable {
 	}
 	
 	/**
+	 * Setter method so the Graph's class knows which current
+	 * spreadsheet course is open, so the Graph class can access
+	 * the grading scheme
+	 * 
+	 * @param course the current course open
+	 */
+	public void setCourse(SpreadsheetCourse course) {
+		this.course = course;
+	}
+	
+	/**
 	 * Applies the custom curve to the category
 	 * which is in the graph's data
 	 * 
@@ -171,17 +185,54 @@ public class Graph implements Serializable {
 			throw new BadDataException("Invalid input, must enter an integer.");
 		}
 		
-		this.ass.setPercentCurve((double)curveAmount);
-		
-		for(Student stud : studentList) {
-			Double curScore = stud.getGrades().get(this.ass).getScore();
-			Double curScoreAsDecimal = curScore / (double)this.ass.getMaxPoints();
-			curScoreAsDecimal += curveAmount / HUNDRED_PERCENT_DENOM;
-			Double curvedScore = curScoreAsDecimal * (double)this.ass.getMaxPoints();
-			stud.getGrades().get(this.ass).setScore(curvedScore.toString());
+		/*If assignment is the current graph's topic, then curve all assignment grades*/
+		if(this.ass != null) {
+			applyStandardCurveToAssignment(this.ass, curveAmount);
+		}
+
+		/*If category is the current graph's topic, then curve all assignment's in category*/
+		else if(this.cat != null) {
+			applyStandardCurveToCategory(this.cat, curveAmount);
 		}
 		
 		System.out.println("Applied a " + curveAmount + "% curve");
+	}
+	
+	/**
+	 * Helper method which curves an assignment a desired amount
+	 * 
+	 * @param curAssign the current assignment which is getting curved
+	 * @param curveAmount the amount of curve given to the assignment
+	 * @throws BadDataException 
+	 */
+	private void applyStandardCurveToAssignment(Assignment curAssign, Integer curveAmount) throws BadDataException {
+		curAssign.setPercentCurve((double)curveAmount);
+		for(Student stud : studentList) {
+			if(stud.getGrades().get(curAssign) != null) {
+				Double curScore = stud.getGrades().get(curAssign.getID()).getScore();
+				Double curScoreAsDecimal = curScore / (double)curAssign.getMaxPoints();
+				curScoreAsDecimal += curveAmount / HUNDRED_PERCENT_DENOM;
+				Double curvedScore = curScoreAsDecimal * (double)curAssign.getMaxPoints();
+				stud.getGrades().get(curAssign).setScore(curvedScore.toString());
+			}
+		}
+	}
+	
+	/**
+	 * Helper method which curves a category a desired amount
+	 * 
+	 * @param curCat the current category which is getting curved
+	 * @param curveAmount the amount of curve given to the category
+	 * @throws BadDataException 
+	 */
+	private void applyStandardCurveToCategory(Category curCat, Integer curveAmount) throws BadDataException {
+		for(Assignment curAssign : curCat.getAssignments()) {
+			applyStandardCurveToAssignment(curAssign, curveAmount);
+		}
+		
+		for(Category subCat : this.cat.getSubCategories()) {
+			applyStandardCurveToCategory(subCat, curveAmount);
+		}
 	}
 	
 	/**
@@ -276,10 +327,8 @@ public class Graph implements Serializable {
 	 * of students in that letter grade range.
 	 */
 	public Map<String, Integer> getAssignmentPieChartData() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
 		Map<String, Integer> returnMap = new HashMap<String, Integer>();
-		
-		GradingScheme gScheme = this.ass.getgScheme();
+		GradingScheme gScheme = this.course.getGradingDistribution();
 		
 		for(GradeRange range : gScheme.getGradeRanges()) {
 			returnMap.put(range.getLetterGrade(), 0);
@@ -376,32 +425,26 @@ public class Graph implements Serializable {
 	 * of students in that letter grade range.
 	 */
 	public Map<String, Integer> getCategoryPieChartData() {
-		Map<String, Integer> map = getCategoryBarChartData("!0%");
+		Map<String, Integer> map = getCategoryBarChartData("10%");
 		Map<String, Integer> returnMap = new HashMap<String, Integer>();
-		returnMap.put("A", 0);
-		returnMap.put("B", 0);
-		returnMap.put("C", 0);
-		returnMap.put("D", 0);
-		returnMap.put("F", 0);	
+		GradingScheme gScheme = course.getGradingDistribution();
 		
 		for(String key : map.keySet()) {
 			Integer score = Integer.parseInt(key);
+			Double dScore = new Integer(score).doubleValue();
 			
-			if(score < SIXTY) {
-				returnMap.put("F", returnMap.get("F") + map.get(key));
-			}
-			else if(score < SEVENTY) {
-				returnMap.put("D", returnMap.get("D") + map.get(key));
-			}
-			else if(score < EIGHTY) {
-				returnMap.put("C", returnMap.get("C") + map.get(key));
-			}
-			else if(score < NINETY) {
-				returnMap.put("B", returnMap.get("B") + map.get(key));
+			Integer curStudentsInRange;
+			
+			if(returnMap.get(gScheme.getSymbolFromPercent(dScore)) != null) {
+				curStudentsInRange = returnMap.get(gScheme.getSymbolFromPercent(dScore));
 			}
 			else {
-				returnMap.put("A", returnMap.get("A") + map.get(key));
+				curStudentsInRange = 0;
 			}
+			
+			Integer numScoresInRange = map.get(key);
+			returnMap.put(gScheme.getSymbolFromPercent(dScore), numScoresInRange + curStudentsInRange);
+			
 		}
 		
 		return returnMap;
@@ -416,7 +459,7 @@ public class Graph implements Serializable {
 				tempScore = curGrade.getScore() / ass.getMaxPoints().doubleValue();
 				tempScore *= ass.getPercentOfCategory();
 			
-				score += tempScore;
+			score += tempScore;
 			}
 		}
 		
