@@ -46,9 +46,9 @@ public class AddGradingSchemeController implements Observer {
     @FXML
     private TextField newHighPercent;
     
-    private List<GradeRange> gradeRangeList;
+    private List<GradeRange> gradeRangeList; // serializable list to be sent to the GS constructor
     
-    private ObservableList<GradeRange> obsGradeRangeList;
+    private ObservableList<GradeRange> obsGradeRangeList; // not serializable but needed for the view methods
     
     private Stage primaryStage;
 
@@ -68,7 +68,6 @@ public class AddGradingSchemeController implements Observer {
                 new PropertyValueFactory<GradeRange,String>("letterGrade")
         );
         
-        
         colLowPercent.setCellValueFactory(
                 new PropertyValueFactory<GradeRange,String>("low")
         );
@@ -80,10 +79,8 @@ public class AddGradingSchemeController implements Observer {
         rangesTable.setItems(obsGradeRangeList);
     }
     
-    
     public AddGradingSchemeController() {
         gradebook = Gradebook.getInstance();
-        //course = gradebook.getCurrentCourse();
     }
 
     /**
@@ -112,11 +109,13 @@ public class AddGradingSchemeController implements Observer {
        String symbol = newSymbol.getText();
        Double lowPercent = 0.0;
        if(!newLowPercent.getText().equals("")) {
-           lowPercent = (double) Integer.parseInt(newLowPercent.getText());
+           //lowPercent = (double) Integer.parseInt(newLowPercent.getText());
+           lowPercent = Double.parseDouble(newLowPercent.getText());
        }
        Double highPercent = 100.0;
        if(!newHighPercent.getText().equals("")) {
-           highPercent = (double) Integer.parseInt(newHighPercent.getText());
+           //highPercent = (double) Integer.parseInt(newHighPercent.getText());
+           highPercent = Double.parseDouble(newHighPercent.getText());
        }
        
        // create new GradeRange with this data

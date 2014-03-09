@@ -138,10 +138,10 @@ public class GradingScheme extends Observable implements Serializable {
         {
             if (score <= r.getHigh() && score >= r.getLow())
             {
+                //System.out.println(r.getLow() + " < " + score + " < " + r.getHigh());
                 return r.getLetterGrade();
             }
         }
-        
         return "";
     }
 
