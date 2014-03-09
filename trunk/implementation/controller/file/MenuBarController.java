@@ -1,24 +1,15 @@
 package controller.file;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import model.assignments_categories.Assignment;
-import model.assignments_categories.Grade;
 import model.exception.BadDataException;
 import model.exception.StudentDataException;
 import model.gradebook.Gradebook;
-import model.spreadsheet.SpreadsheetCourse;
-import model.users.Student;
 import view.ViewUtility;
-import controller.graph.GraphAndAdjustCurveController;
 
 /**
  * The MenuBar controller controls menu bar actions. Any time
@@ -93,6 +84,17 @@ public class MenuBarController
         ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Add Student");
 
         System.out.println("Add Student clicked");
+    }
+
+    /**
+     * Displays the statistics table
+     */
+    @FXML
+    public void viewStatisticsTable() {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/view/spreadsheet/StatsView.fxml"));
+
+        ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Stats View");
     }
 
     /**
