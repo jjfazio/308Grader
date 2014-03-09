@@ -56,6 +56,8 @@ public class AddClassController implements Observer {
     @FXML
     private TextField decayRate;
     @FXML
+    private RadioButton noLatePolicy;
+    @FXML
     private RadioButton allotment;
     @FXML
     private RadioButton graceDays;
@@ -88,6 +90,7 @@ public class AddClassController implements Observer {
         
         gradingSchemes.setItems(schemesObs);
         
+        noLatePolicy.setSelected(true);
         graceDays.setSelected(false);
         decay.setSelected(false);
     }
@@ -116,12 +119,13 @@ public class AddClassController implements Observer {
             
         	/** Make the late policy */
         	LatePolicy lp = new LatePolicy();
+        	
         	if(decay.isSelected())
         	{
         	   lp.setDecayRate(Integer.parseInt(decayRate.getText()));
         	   lp.setDecayPercentage(Integer.parseInt(decayPercentage.getText()) * 1.0);
         	}
-        	if(graceDays.isSelected())
+        	else if(graceDays.isSelected())
         	{
         	    lp.setGraceDaysEnabled(true);
         	    lp.setGraceDays(Integer.parseInt(numberOfGraceDays.getText()));
@@ -131,11 +135,12 @@ public class AddClassController implements Observer {
         	
         	gradebook.addSpreadsheetCourse(course);
         	close();
+        	/*
         	System.out.println("Course " + course.getCourseInfo().getCourseName() + " added with a late policy of " 
         	        + course.getLatePolicy().getGraceDays() + " grace days and penalty of " + course.getLatePolicy().getDecayPercentage() 
         	        + "% per " + course.getLatePolicy().getDecayRate() + " day(s) and a gradings scheme of "
         	        + course.getGradingDistribution().toString());
-        	//System.out.println(course.getGradingDistribution().getGradeRanges().get(0).getHigh());
+        	*/
         } 
         catch (CourseDataException e) 
         {

@@ -1,5 +1,7 @@
 package controller.spreadsheet;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -44,7 +46,9 @@ public class AddGradingSchemeController implements Observer {
     @FXML
     private TextField newHighPercent;
     
-    private ObservableList<GradeRange> gradeRangeList;
+    private List<GradeRange> gradeRangeList;
+    
+    private ObservableList<GradeRange> obsGradeRangeList;
     
     private Stage primaryStage;
 
@@ -54,36 +58,26 @@ public class AddGradingSchemeController implements Observer {
     
     @FXML
     private void initialize() {
-        gradeRangeList = FXCollections.observableArrayList();
-        //gradeRangeList.add(new GradeRange("A", 90.0, 100.0));
-        //gradeRangeList.add(new GradeRange("B", 80.0, 89.9));
-        //gradeRangeList.add(new GradeRange("C", 70.0, 79.9));
-        //gradeRangeList.add(new GradeRange("D", 60.0, 69.9));
-        //gradeRangeList.add(new GradeRange("F", 0.0, 59.9));
         
+        obsGradeRangeList = FXCollections.observableArrayList();
+        gradeRangeList = new ArrayList<GradeRange>();
         
-        
-        //rangesTable.setItems(gradeRangeList);
-        
-        
-        //colSymbols = new TableColumn<GradeRange,String>("Symbol");
+        rangesTable.setItems(obsGradeRangeList);
         
         colSymbols.setCellValueFactory(
                 new PropertyValueFactory<GradeRange,String>("letterGrade")
         );
         
-        //colLowPercent = new TableColumn<GradeRange,String>("lowPercent");
+        
         colLowPercent.setCellValueFactory(
                 new PropertyValueFactory<GradeRange,String>("low")
         );
         
-        //colHighPercent = new TableColumn<GradeRange,String>("highPercent");
         colHighPercent.setCellValueFactory(
                 new PropertyValueFactory<GradeRange,String>("high")
         );
         
-        rangesTable.setItems(gradeRangeList);
-        //rangesTable.getColumns().addAll(colSymbols, colLowPercent, colHighPercent); */
+        rangesTable.setItems(obsGradeRangeList);
     }
     
     
@@ -98,12 +92,10 @@ public class AddGradingSchemeController implements Observer {
      */
     @FXML
     private void handleCreateButton() {
-        
         try {
-        	GradingScheme tempGradingScheme = new GradingScheme(rangesTable.getItems(), schemeName.getText());
+        	GradingScheme tempGradingScheme = new GradingScheme(gradeRangeList, schemeName.getText());
         	gradebook.addGradingScheme(tempGradingScheme);
         	close();
-        	//System.out.println("added grading scheme: " + schemeName.getText() + " to the gradebook"); 
         } catch (GradingSchemeDataException e) {
             Dialogs.showErrorDialog(getStage(), e.getMessage(), "Input Data Error", "Grading Scheme Error");
         }
@@ -132,14 +124,12 @@ public class AddGradingSchemeController implements Observer {
        
        // insert grade ranges into the table
        gradeRangeList.add(gr);
-       rangesTable.setItems(gradeRangeList);
+       obsGradeRangeList.add(gr);
+       rangesTable.setItems(obsGradeRangeList);
        
        newSymbol.clear();
        newLowPercent.clear();
        newHighPercent.clear();
-        
-       //update();
-       System.out.println("Plus button pressed for new row");
     }
     
     /**
@@ -154,8 +144,6 @@ public class AddGradingSchemeController implements Observer {
         primaryStage = (Stage) rangesTable.getScene().getWindow();
         primaryStage.close();
     }
-    
-    
     
     @Override
     public void update(Observable o, Object arg) {
