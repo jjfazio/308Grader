@@ -30,6 +30,7 @@
           <items>
             <MenuItem mnemonicParsing="false" onAction="#viewShowHide" text="Show/Hide" fx:id="ShowHideMenuItem" />
             <MenuItem mnemonicParsing="false" text="View Assignments As" fx:id="ViewAsgnMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewStatisticsTable" text="View Statistics" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit" fx:id="EditMenu">

@@ -1,15 +1,35 @@
 package model.spreadsheet;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.assignments_categories.Grade;
 import model.users.Student;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // not yet implemented
-public class Statistics {
+public class Statistics
+{
+    String statName;
+
+    double value;
+
+    Assignment assignment;
+
+    ArrayList<Student> students;
+
+    public Statistics(String name, ArrayList<Student> studentList)
+    {
+        this.statName = name;
+        this.students = studentList;
+    }
+
+    public double calcMean(Assignment assignment)
+    {
+        return 0.0;
+    }
+
    
    public static Double averageAssignments(List<Student> students,
     List<Assignment> assignments) {
