@@ -7,6 +7,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -47,15 +48,16 @@ public class TabsController implements Observer {
        SpreadsheetController controller;
        AnchorPane content;
        FXMLLoader loader;
-       SingleSelectionModel<Tab> selectionModel = tabs.getSelectionModel();
        tabs.getTabs().clear();
        
-       for (SpreadsheetCourse course : gradebook.getCourses()) {
-           tab =
-              new Tab(course.getCourseInfo().getNumber() + "-"
-                 + course.getCourseInfo().getSection());
+       if (gradebook.getCourses() != null)
+       {
+           for (SpreadsheetCourse course : gradebook.getCourses()) {
+               tab =
+                       new Tab(course.getCourseInfo().getNumber() + "-"
+                               + course.getCourseInfo().getSection());
 
-               
+
                loader = new FXMLLoader(getClass().getResource(
                        "/view/spreadsheet/GradeSheet.fxml"));
                content = (AnchorPane) ViewUtility.loadView(loader);
@@ -65,9 +67,10 @@ public class TabsController implements Observer {
                course.addObserver(controller);
                course.getCategoryContainer().addObserver(controller);
                controller.setSpreadsheet(course);
-               
+
                tabs.getTabs().add(tab);
-        }
+           }
+       }
    }
    
    /**

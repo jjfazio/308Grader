@@ -24,7 +24,7 @@ import org.junit.runners.Suite.SuiteClasses;
 public class AllTests
 {
     public static void main(String[] args) throws Exception {                    
-        JUnitCore.main("implementation.model.AllTests");            
+        JUnitCore.main("implementation.model.AllTests");     
     }
 
 }
