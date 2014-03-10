@@ -27,8 +27,8 @@ public class AddAssignmentController {
     @FXML
     private TextField addAssignmentName;
 
-    @FXML
-    private ComboBox addAssignmentCategory;
+//    @FXML
+//    private ComboBox addAssignmentCategory;
 
     @FXML
     private TextField addAssignmentDueDate;
@@ -65,9 +65,9 @@ public class AddAssignmentController {
      */
     @FXML
     private void initialize() {
-        currentCourse = Gradebook.getInstance().getCurrentCourse();
-        addAssignmentCategory.getItems().clear();
-        fillComboCategoryNames(currentCourse.getCategoryContainer().getRoot());
+//        currentCourse = Gradebook.getInstance().getCurrentCourse();
+//        addAssignmentCategory.getItems().clear();
+//        fillComboCategoryNames(currentCourse.getCategoryContainer().getRoot());
 
         course = Gradebook.getInstance().getCurrentCourse();
         assignmentTree = new AssignmentTree(course.getCategoryContainer());
@@ -89,15 +89,15 @@ public class AddAssignmentController {
      * Filles the comboBox on add Category dialogue.
      * @param theCat The category which name is going to be added to the list
      */
-    @FXML
-    private void fillComboCategoryNames(Category theCat) {
-        addAssignmentCategory.getItems().add(theCat.getName());
-        if((ArrayList<Category>)theCat.getSubCategories() != null){
-            for(Category x : (ArrayList<Category>)theCat.getSubCategories()) {
-                fillComboCategoryNames(x);
-            }
-        }
-    }
+//    @FXML
+//    private void fillComboCategoryNames(Category theCat) {
+//        addAssignmentCategory.getItems().add(theCat.getName());
+//        if((ArrayList<Category>)theCat.getSubCategories() != null){
+//            for(Category x : (ArrayList<Category>)theCat.getSubCategories()) {
+//                fillComboCategoryNames(x);
+//            }
+//        }
+//    }
     /**
      * Adds an assignment to the collection of assignment of the parent Category.
      */
