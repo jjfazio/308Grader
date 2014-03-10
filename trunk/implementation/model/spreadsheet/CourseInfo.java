@@ -251,7 +251,14 @@ public class CourseInfo implements Serializable{
     
     public void setYear(String y)
     {
-        this.year = Integer.parseInt(y);
+        if (y == "")
+        {
+            this.year = 0;
+        }
+        else
+        {
+            this.year = Integer.parseInt(y);
+        }
     }
 
     public Collection<TeacherAssistant> getTeacherAssistants()
