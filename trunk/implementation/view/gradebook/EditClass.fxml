@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="345.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.gradebook.EditClassController">
+  <children>
+    <HBox layoutX="15.0" layoutY="12.0" prefHeight="373.0" prefWidth="322.0">
+      <children>
+        <VBox prefHeight="400.0" prefWidth="300.0">
+          <children>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="300.0">
+              <children>
+                <VBox layoutX="0.0" layoutY="0.0" prefHeight="312.0" prefWidth="283.0">
+                  <children>
+                    <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="282.0">
+                      <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="90.0">
+                          <children>
+                            <Label text="Name" />
+                            <Label fx:id="firstNameWarning" prefWidth="20.0" text="" textFill="RED" />
+                          </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="193.0">
+                          <children>
+                            <TextField id="firstName" fx:id="name" alignment="CENTER_LEFT" prefWidth="178.0" promptText="OO Design" />
+                          </children>
+                        </HBox>
+                      </children>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="282.0">
+                      <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="97.0">
+                          <children>
+                            <Label text="Department" />
+                          </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                            <TextField id="middleName" fx:id="department" prefWidth="178.0" promptText="CPE" />
+                          </children>
+                        </HBox>
+                      </children>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="282.0">
+                      <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="104.0">
+                          <children>
+                            <Label text="Number" />
+                            <Label id="firstNameWarning" fx:id="lastNameWarning" prefWidth="20.0" text="" textFill="RED" />
+                          </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                            <TextField id="lastName" fx:id="number" prefWidth="178.0" promptText="305" />
+                          </children>
+                        </HBox>
+                      </children>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="282.0">
+                      <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="104.0">
+                          <children>
+                            <Label text="Section" />
+                          </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                            <TextField id="username" fx:id="section" prefWidth="178.0" promptText="01" />
+                          </children>
+                        </HBox>
+                      </children>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="282.0">
+                      <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="104.0">
+                          <children>
+                            <Label text="Quarter" />
+                            <Label id="firstNameWarning" fx:id="studentIdWarning" prefWidth="20.0" text="" textFill="RED" />
+                          </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                            <TextField id="studentId" fx:id="quarter" prefWidth="178.0" promptText="Spring" />
+                          </children>
+                        </HBox>
+                      </children>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="282.0">
+                      <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="107.0">
+                          <children>
+                            <Label text="Year" />
+                          </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                            <TextField id="major" fx:id="year" prefWidth="179.0" promptText="2014" />
+                          </children>
+                        </HBox>
+                      </children>
+                    </HBox>
+                    <HBox prefHeight="35.0" prefWidth="322.0">
+                      <children>
+                        <VBox alignment="CENTER" prefHeight="35.0" prefWidth="156.5">
+                          <children>
+                            <Button mnemonicParsing="false" onAction="#handleConfirmEditButton" text="Confirm Edit" />
+                          </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="35.0" prefWidth="157.0">
+                          <children>
+                            <Button mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
+                          </children>
+                        </VBox>
+                      </children>
+                    </HBox>
+                  </children>
+                </VBox>
+              </children>
+            </AnchorPane>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>

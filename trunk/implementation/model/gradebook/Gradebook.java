@@ -275,6 +275,12 @@ public class Gradebook extends Observable implements Serializable
     {
         return currentCourse;
     }
+    
+    public void updatedCourse()
+    {
+        setChanged();
+        notifyObservers();
+    }
 
     /**
      * Sets the current SpreadsheetCourse to the course supplied.
