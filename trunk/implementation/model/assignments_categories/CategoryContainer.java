@@ -1,10 +1,14 @@
 package model.assignments_categories;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Observable;
 
 import model.exception.BadDataException;
+import model.spreadsheet.GradingScheme;
+import model.spreadsheet.LatePolicy;
+
 import java.lang.String;
 
 /**
@@ -127,10 +131,47 @@ public class CategoryContainer extends Observable implements Serializable
         notifyObservers();
 
     }
-    
-    public void addAssignment(Category parent, Assignment assignment)
+    /*                addAssignmentName.getText(),
+                addAssignmentWeight.getText(),
+                addAssignmentPoints.getText(),
+                new Date, new GradingScheme, new LatePolicy(), false);*/
+    public void addAssignment(Category parent, String name, String weight, String points, Date date, GradingScheme gradingScheme,
+                              LatePolicy latePolicy, boolean online ) throws BadDataException
     {
-        parent.addAssignment(assignment);
+        Double catWeight = 0.0;
+        String errors = "";
+
+        if(weight.equals("") || !weight.matches("\\d+") || Double.parseDouble(weight) < 0) {
+            errors += "Weight field must contain numbers which are grater than 0.\n";
+        }
+        else {
+            catWeight += Double.parseDouble(weight);
+        }
+        if(points.equals("") || !points.matches("\\d+") || Double.parseDouble(points) < 0) {
+            errors += "Points field must contain numbers which are grater than 0.\n";
+        }
+        if(name.equals("")) {
+            errors += "Name field cannot be empty";
+        }
+        if(parent.getSubCategories() != null) {
+            for(Assignment x : parent.getAssignments()){
+                catWeight += x.getPercentOfCategory();
+            }
+        }
+
+        if(catWeight > 100) {
+            errors += "Total weight of this category cannot exceed 100%";
+        }
+
+        if(!errors.equals("")) {
+            throw new BadDataException(errors);
+        }
+
+        Assignment newAss = new Assignment(parent, name, Double.parseDouble(weight), Integer.parseInt(points), date, gradingScheme,
+            latePolicy, online);
+
+
+        parent.addAssignment(newAss);
         setChanged();
         notifyObservers();
     }

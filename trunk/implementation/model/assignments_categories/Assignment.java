@@ -7,6 +7,7 @@ package model.assignments_categories;
 import java.io.Serializable;
 import java.util.Date;
 
+import model.exception.BadDataException;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
 import model.spreadsheet.SpreadsheetCourse;
