@@ -55,16 +55,16 @@ public class MenuBarController
     * Displays the show/hide dialog when the corresponding menu item 
     * is clicked.
     */
-   @FXML
-   public void viewShowHide() {
-      FXMLLoader loader = new FXMLLoader(
-         getClass().getResource("/view/file/ShowHide.fxml"));
-      
-      ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Show/Hide Spreadsheet");
-      
-      System.out.println("Show/Hide clicked");
-      
-   }
+//   @FXML
+//   public void viewShowHide() {
+//      FXMLLoader loader = new FXMLLoader(
+//         getClass().getResource("/view/file/ShowHide.fxml"));
+//      
+//      ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Show/Hide Spreadsheet");
+//      
+//      System.out.println("Show/Hide clicked");
+//      
+//   }
    
    @FXML
    public void viewAssignAs() {
