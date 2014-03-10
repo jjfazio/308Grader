@@ -60,6 +60,8 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     /** List of students to delete */
     private Student studentToDelete;
     
+    private AssignView assignView;
+    
     /** Unique id of the Spreadsheet course */
     private int id;
     
@@ -89,6 +91,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
            studentRoster = new ArrayList<Student>();
            addedStudents = new ArrayList<Student>();
            this.id = CourseDB.getInstance().getID();
+           this.assignView = AssignView.POINTS;
        }
     }
 
@@ -346,9 +349,36 @@ public class SpreadsheetCourse extends Observable implements Serializable {
         this.settings = settings;
     }
     
+    public void setAssignView(AssignView assignView)
+    {
+        this.assignView = assignView;
+        setChanged();
+        notifyObservers("assignView");
+    }
+    
+    public AssignView getAssignView()
+    {
+        return assignView;
+    }
+    
     public int getID()
     {
         return id;
+    }
+    
+    public String getCourseName()
+    {
+        return courseInfo.getCourseName();
+    }
+    
+    public String getCourseDeptNum()
+    {
+        return courseInfo.getDept() + "-" + courseInfo.getNumber();
+    }
+    
+    public String getCourseSection()
+    {
+        return courseInfo.getSection();
     }
 
     @Override

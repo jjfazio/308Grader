@@ -210,6 +210,9 @@ public class Gradebook extends Observable implements Serializable
     public void removeSpreadsheetCourse(SpreadsheetCourse course)
     {
         courses.remove(course);
+        
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<GradingScheme> getGradingSchemes()

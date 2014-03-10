@@ -20,16 +20,15 @@
       <menus>
         <Menu mnemonicParsing="false" text="File" fx:id="FileMenu">
           <items>
-            <MenuItem mnemonicParsing="false" text="New Window" fx:id="NewWindowMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#newWindow" text="New Window" fx:id="NewWindowMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#saveGradebook" text="Save" fx:id="SaveMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Print" fx:id="PrintMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#quitGradebook" text="Quit" fx:id="QuitMenuItem" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="View" fx:id="ViewMenu">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#viewShowHide" text="Show/Hide" fx:id="ShowHideMenuItem" />
-            <MenuItem mnemonicParsing="false" text="View Assignments As" fx:id="ViewAsgnMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewAssignAs" text="View Assignments As" fx:id="ViewAsgnMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#viewStatisticsTable" text="View Statistics" />
           </items>
         </Menu>
@@ -49,7 +48,7 @@
             <MenuItem mnemonicParsing="false" onAction="#viewDownloadRoster" text="Download Roster" fx:id="DownloadRosterMenuItem" />
             <MenuItem mnemonicParsing="false" onAction="#classAdd" text="Add Class" fx:id="AddClassMenuItem" />
             <MenuItem mnemonicParsing="false" text="Edit Class" fx:id="EditClassMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Delete Class" fx:id="DeleteClassMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#classDelete" text="Delete Class" fx:id="DeleteClassMenuItem" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Students" fx:id="StudentMenu">

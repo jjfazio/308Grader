@@ -8,6 +8,7 @@ import java.util.Map;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.exception.BadDataException;
+import model.gradebook.Gradebook;
 import model.graph.Graph;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
@@ -290,6 +291,11 @@ public class GraphAndAdjustCurveController {
         System.out.println(this.percentCurve.getText() + " entered.");
         try {
         	this.graph.applyStandardCurve(percentCurve.getText().toString());
+        	this.pieChart.getData().clear();
+        	this.barChart.getData().clear();
+        	setBarChart("10%");
+        	setPieChart();
+        	Gradebook.getInstance().saveGradebook();
         }
         catch(BadDataException e) {
         	System.out.println(e.getMessage());
@@ -317,6 +323,7 @@ public class GraphAndAdjustCurveController {
     			}
     			else {
     				saveCurvedGradesButton.setDisable(false);
+    				
     			}
     		}
     	});

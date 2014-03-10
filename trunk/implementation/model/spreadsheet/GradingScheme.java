@@ -67,7 +67,6 @@ public class GradingScheme extends Observable implements Serializable {
             plusMinusEnabled = true;
             gradeRanges = ranges;
             schemeName = name;
-            //System.out.println("Created a new grading scheme with name: " + name);
             
             setChanged();
             notifyObservers();
@@ -138,10 +137,10 @@ public class GradingScheme extends Observable implements Serializable {
         {
             if (score <= r.getHigh() && score >= r.getLow())
             {
+                //System.out.println(r.getLow() + " < " + score + " < " + r.getHigh());
                 return r.getLetterGrade();
             }
         }
-        
         return "";
     }
 
