@@ -49,9 +49,14 @@ public class StatsViewController
     /** The list of statistic names */
     ObservableList<Statistics> statistics;
 
+    /** The list of columns, one column for each Assignmnet */
     @FXML
     ArrayList<TableColumn<String, String>> assignmentColumns;
 
+    /**
+     * Initializes the data before the view is displayed
+     * to the user.
+     */
     public void initialize()
     {
         Gradebook currentGradebook = Gradebook.getInstance();
@@ -115,8 +120,8 @@ public class StatsViewController
 
     /**
      * CallBack for the stat columns for each assignment
-     * @author jamesfazio
      *
+     * @author Kevin Feutz
      */
     private class StatCallBack implements Callback<TableColumn.CellDataFeatures<Statistics, String>, ObservableValue<String>> {
         public Assignment currentAssignment;
