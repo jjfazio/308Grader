@@ -10,12 +10,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import model.assignments_categories.Assignment;
+import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
 import model.spreadsheet.Statistics;
 import model.users.Student;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -54,13 +56,29 @@ public class StatsViewController
     {
         Gradebook currentGradebook = Gradebook.getInstance();
         this.currentSpreadsheet = currentGradebook.getCurrentCourse();
-        System.out.println("Current spreadsheet is: " + currentSpreadsheet.getCourseInfo().getNumber());
-        this.spreadsheetAssignments = currentSpreadsheet.getCategoryContainer()
-            .getRoot().getAssignments();
+        this.spreadsheetAssignments = new ArrayList<Assignment>();
+        getAllAssignments(currentSpreadsheet.getCategoryContainer().getRoot());
         this.spreadsheetRoster = currentSpreadsheet.getStudentRoster();
         this.assignmentColumns = new ArrayList<TableColumn<String, String>>();
         this.statistics = FXCollections.observableArrayList();
         createStatNamesColumn();
+    }
+
+    /**
+     * Recursively adds all of the assignments to this
+     * controller's list of assignments
+     *
+     * @param category  The Category to grab assignments
+     */
+    public void getAllAssignments(Category category)
+    {
+        Collection<Category> spreadsheetCategories;
+        this.spreadsheetAssignments.addAll(category.getAssignments());
+        spreadsheetCategories = category.getSubCategories();
+        for(Category currentCategory : spreadsheetCategories)
+        {
+            getAllAssignments(currentCategory);
+        }
     }
 
     /**
@@ -88,6 +106,7 @@ public class StatsViewController
         for(Assignment currentAssignment : spreadsheetAssignments)
         {
             TableColumn<Statistics, String> currentColumn = new TableColumn<Statistics, String>(currentAssignment.getName());
+            currentColumn.setPrefWidth(100.0);
             assignmentColumns.add(new TableColumn<String, String>(currentAssignment.getName()));
             currentColumn.setCellValueFactory(new StatCallBack(currentAssignment));
             table.getColumns().add(currentColumn);
