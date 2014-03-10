@@ -277,6 +277,7 @@ public class GraphAndAdjustCurveController {
 
     	AnchorPane pane = (AnchorPane)ViewUtility.loadView(loader);
     	CustomCurveAdjusterController controller = (CustomCurveAdjusterController)loader.getController();
+    	controller.setCourse(course);
     	Map<String, Integer> scoreMap = graph.getAssignmentBarChartData("1%");
     	controller.setBarChart(ass, scoreMap, "1%");
         ViewUtility.showPage(pane, "Custom Curve Adjustment");
