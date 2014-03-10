@@ -213,7 +213,7 @@ public class Graph implements Serializable {
 				Double curScoreAsDecimal = curScore / (double)curAssign.getMaxPoints();
 				curScoreAsDecimal += curveAmount / HUNDRED_PERCENT_DENOM;
 				Double curvedScore = curScoreAsDecimal * (double)curAssign.getMaxPoints();
-				stud.getGrades().get(curAssign).setScore(curvedScore.toString());
+				stud.getGrades().get(curAssign.getID()).setScore(curvedScore.toString());
 			}
 		}
 	}
