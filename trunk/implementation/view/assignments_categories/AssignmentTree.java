@@ -91,7 +91,7 @@ public class AssignmentTree
         
         for(Assignment ass : parent.getAssignments()) {
         	assignmentMap.put(ass.getName(), ass);
-        	curItem = new TreeItem<String>(ass.getName() + " ( " + ass.getPercentOfCategory() + " %)");
+        	curItem = new TreeItem<String>(ass.getName() + " < " + ass.getPercentOfCategory() + " %>");
         	rootItem.getChildren().add(curItem);
         }
         
