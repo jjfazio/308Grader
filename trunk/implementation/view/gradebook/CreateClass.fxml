@@ -14,37 +14,37 @@
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Name:" />
-            <TextField fx:id="courseName" prefWidth="200.0" />
+            <TextField fx:id="courseName" prefWidth="200.0" promptText="OO Design" />
           </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Department:" />
-            <TextField id="" fx:id="courseDepartment" prefWidth="200.0" />
+            <TextField id="" fx:id="courseDepartment" prefWidth="200.0" promptText="CPE" />
           </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Number:" />
-            <TextField id="" fx:id="courseNumber" prefWidth="200.0" />
+            <TextField id="" fx:id="courseNumber" prefWidth="200.0" promptText="305" />
           </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Section:" />
-            <TextField fx:id="courseSection" prefWidth="200.0" />
+            <TextField fx:id="courseSection" prefWidth="200.0" promptText="01" />
           </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Quarter:" />
-            <TextField id="courseTerm" fx:id="courseQuarter" prefWidth="200.0" />
+            <TextField id="courseTerm" fx:id="courseQuarter" prefWidth="200.0" promptText="Spring" />
           </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Year:" />
-            <TextField id="" fx:id="courseYear" prefWidth="200.0" />
+            <TextField id="" fx:id="courseYear" prefWidth="200.0" promptText="2014" />
           </children>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

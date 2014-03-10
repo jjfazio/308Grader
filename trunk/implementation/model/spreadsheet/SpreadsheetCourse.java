@@ -380,6 +380,19 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     {
         return courseInfo.getSection();
     }
+    
+    public void editCourse(String name, String dept, String number, String section, String quarter, String year)
+    {
+        courseInfo.setCourseName(name);
+        courseInfo.setDept(dept);
+        courseInfo.setNumber(number);
+        courseInfo.setSection(section);
+        courseInfo.setQuarter(quarter);
+        courseInfo.setYear(year);
+        
+        setChanged();
+        notifyObservers();
+    }
 
     @Override
     public boolean equals(Object obj)

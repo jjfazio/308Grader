@@ -217,6 +217,42 @@ public class CourseInfo implements Serializable{
     {
         return section;
     }
+    
+    public String getYear()
+    {
+        return "" + year;
+    }
+    
+    
+    public void setCourseName(String n)
+    {
+        this.courseName = n;
+    }
+
+    public void setQuarter(String q)
+    {
+        this.quarter = q;
+    }
+
+    public void setNumber(String n)
+    {
+        this.number = n;
+    }
+
+    public void setDept(String d)
+    {
+        this.dept = d;
+    }
+    
+    public void setSection(String s)
+    {
+        this.section = s;
+    }
+    
+    public void setYear(String y)
+    {
+        this.year = Integer.parseInt(y);
+    }
 
     public Collection<TeacherAssistant> getTeacherAssistants()
     {
