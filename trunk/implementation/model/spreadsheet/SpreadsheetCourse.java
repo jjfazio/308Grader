@@ -352,6 +352,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     public void setAssignView(AssignView assignView)
     {
         this.assignView = assignView;
+        
         setChanged();
         notifyObservers("assignView");
     }
@@ -390,8 +391,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
         courseInfo.setQuarter(quarter);
         courseInfo.setYear(year);
         
-        setChanged();
-        notifyObservers();
     }
 
     @Override

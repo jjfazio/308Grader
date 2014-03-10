@@ -102,6 +102,7 @@ public class EditClassController {
                 quarter.getText(),
                 year.getText());
         
+        gradebook.updatedCourse();
         getStage().close();
         
     }
