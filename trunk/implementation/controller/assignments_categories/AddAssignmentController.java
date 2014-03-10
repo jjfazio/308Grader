@@ -112,7 +112,7 @@ public class AddAssignmentController {
                     .getSelectedItem().getValue();
             String parentName = selectedCategory.substring(0,
                     selectedCategory.indexOf("(")).trim();
-            Category temp = assignmentTree.getCategory(parentName);
+//            Category temp = assignmentTree.getCategory(parentName);
 
             try{
             course.getCategoryContainer().addAssignment(assignmentTree.getCategory(parentName),

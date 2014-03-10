@@ -9,9 +9,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPaneEditAssignment" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="335.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.assignments_categories.DeleteAssignmentController">
+<AnchorPane id="AnchorPaneEditAssignment" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="335.0" prefWidth="458.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.assignments_categories.DeleteAssignmentController">
   <children>
-    <HBox alignment="CENTER" layoutX="156.0" layoutY="280.0" prefHeight="36.0" prefWidth="316.0">
+    <HBox alignment="CENTER" layoutX="48.0" layoutY="280.0" prefHeight="36.0" prefWidth="316.0">
       <children>
         <Button id="saveCategoryBotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleDeleteAssignmentDelete" text="Delete" textAlignment="LEFT">
           <HBox.margin>
@@ -21,9 +21,7 @@
         <Button id="categoryCancelbotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleDeleteAssignmentCancel" text="Cancel" textAlignment="LEFT" HBox.margin="$x1" />
       </children>
     </HBox>
-    <Label id="lblEditAssignment" layoutX="329.0" layoutY="44.0" pickOnBounds="false" prefHeight="220.0" prefWidth="233.0" text="" underline="false" />
-    <Label layoutX="329.0" layoutY="23.0" prefHeight="21.0" prefWidth="233.0" text="Details" textFill="BLACK" />
-    <ListView fx:id="deleteAssignmentList" layoutX="48.0" layoutY="64.0" prefHeight="200.0" prefWidth="200.0" />
-    <Label layoutX="48.0" layoutY="31.0" text="Assignments" />
+    <Label layoutX="48.0" layoutY="31.0" text="Select an assignment to be removed" />
+    <TreeView fx:id="treeView" layoutX="0.0" layoutY="47.0" prefHeight="233.0" prefWidth="458.0" />
   </children>
 </AnchorPane>

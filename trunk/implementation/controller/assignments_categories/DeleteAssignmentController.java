@@ -2,10 +2,14 @@ package controller.assignments_categories;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.stage.Stage;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
+import model.spreadsheet.SpreadsheetCourse;
+import view.assignments_categories.AssignmentTree;
 
 import java.util.ArrayList;
 
@@ -17,8 +21,15 @@ public class DeleteAssignmentController {
     @FXML
     private Assignment delAssignment;
 
+//    @FXML
+//    private ListView<String> deleteAssignmentList;
     @FXML
-    private ListView<String> deleteAssignmentList;
+    private TreeView<String> treeView;
+
+    private SpreadsheetCourse course;
+
+    private AssignmentTree assignmentTree;
+
 
     public DeleteAssignmentController() {
 
@@ -30,10 +41,25 @@ public class DeleteAssignmentController {
      */
     @FXML
     private void initialize() {
-        ArrayList<String> assignmentNames = new ArrayList<String>();
-        fillList(Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot(), assignmentNames);
-        deleteAssignmentList.getItems().setAll(assignmentNames);
+        course = Gradebook.getInstance().getCurrentCourse();
+        assignmentTree = new AssignmentTree(course.getCategoryContainer());
+        loadTreeView();
+//        ArrayList<String> assignmentNames = new ArrayList<String>();
+//        fillList(Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot(), assignmentNames);
+//        deleteAssignmentList.getItems().setAll(assignmentNames);
     }
+
+    /**
+     * Sets up the TreeView with courses in SIS
+     */
+    private void loadTreeView()
+    {
+        TreeItem<String> rootItem = assignmentTree.getRoot();
+        rootItem.setExpanded(true);
+        treeView.setRoot(rootItem);
+        treeView.setShowRoot(true);
+    }
+
 
     /**
      * Removes an assignment from the collection of assignments of the parrent category.
@@ -41,10 +67,14 @@ public class DeleteAssignmentController {
     @FXML
     private void handleDeleteAssignmentDelete() {
         System.out.println("Delete button Clicked!");
-        String name = deleteAssignmentList.getSelectionModel().getSelectedItem();
+        String selectedCategory = treeView.getSelectionModel()
+                .getSelectedItem().getValue();
+        String name = selectedCategory.substring(0,
+                selectedCategory.indexOf("<")).trim();
+
         removeAssignment(name, Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot());
 
-        Stage stage = (Stage) deleteAssignmentList.getScene().getWindow();
+        Stage stage = (Stage) treeView.getScene().getWindow();
         stage.close();
 
     }
@@ -55,7 +85,7 @@ public class DeleteAssignmentController {
     @FXML
     private void handleDeleteAssignmentCancel() {
         System.out.println("Cancel button Clicked!");
-        Stage stage = (Stage) deleteAssignmentList.getScene().getWindow();
+        Stage stage = (Stage) treeView.getScene().getWindow();
         stage.close();
     }
 
