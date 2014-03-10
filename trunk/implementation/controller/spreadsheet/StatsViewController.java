@@ -54,6 +54,7 @@ public class StatsViewController
     {
         Gradebook currentGradebook = Gradebook.getInstance();
         this.currentSpreadsheet = currentGradebook.getCurrentCourse();
+        System.out.println("Current spreadsheet is: " + currentSpreadsheet.getCourseInfo().getNumber());
         this.spreadsheetAssignments = currentSpreadsheet.getCategoryContainer()
             .getRoot().getAssignments();
         this.spreadsheetRoster = currentSpreadsheet.getStudentRoster();
@@ -69,9 +70,11 @@ public class StatsViewController
     {
         statistics.add(new Statistics("Mean", spreadsheetRoster));
         statistics.add(new Statistics("Median", spreadsheetRoster));
+        statistics.add(new Statistics("Standard Deviation", spreadsheetRoster));
         statistics.add(new Statistics("Range", spreadsheetRoster));
         statistics.add(new Statistics("Graded", spreadsheetRoster));
         this.statNameColumn.setCellValueFactory(new PropertyValueFactory<Statistics, String>("statName"));
+        this.statNameColumn.setPrefWidth(200.0);
         table.setItems(statistics);
         addColumns();
     }
@@ -123,6 +126,10 @@ public class StatsViewController
             else if(param.getValue().getStatName().equals("Range")){
                 double range = param.getValue().calcRange(currentAssignment);
                 return new SimpleStringProperty(String.format("%.1f %%", range));
+            }
+            else if(param.getValue().getStatName().equals("Standard Deviation")) {
+                double standardDeviation = param.getValue().calcStandardDeviation(currentAssignment);
+                return new SimpleStringProperty(String.format("%.1f %%", standardDeviation));
             }
             else {
                 return new SimpleStringProperty(String.format("%d", 0));
