@@ -195,6 +195,8 @@ public class Graph implements Serializable {
 			applyStandardCurveToCategory(this.cat, curveAmount);
 		}
 		
+		course.curveApplied();
+		
 		System.out.println("Applied a " + curveAmount + "% curve");
 	}
 	
@@ -208,12 +210,13 @@ public class Graph implements Serializable {
 	private void applyStandardCurveToAssignment(Assignment curAssign, Integer curveAmount) throws BadDataException {
 		curAssign.setPercentCurve((double)curveAmount);
 		for(Student stud : studentList) {
-			if(stud.getGrades().get(curAssign) != null) {
+			if(stud.getGrades().get(curAssign.getID()) != null) {
 				Double curScore = stud.getGrades().get(curAssign.getID()).getScore();
 				Double curScoreAsDecimal = curScore / (double)curAssign.getMaxPoints();
 				curScoreAsDecimal += curveAmount / HUNDRED_PERCENT_DENOM;
 				Double curvedScore = curScoreAsDecimal * (double)curAssign.getMaxPoints();
-				stud.getGrades().get(curAssign).setScore(curvedScore.toString());
+				String scoreString = curvedScore.toString();
+				stud.getGrades().get(curAssign.getID()).setScore(curvedScore.toString());
 			}
 		}
 	}
@@ -309,7 +312,10 @@ public class Graph implements Serializable {
 				int studScoreInt = studScore.intValue();
 				int studScoreIntDivTen = studScoreInt / TEN_PERCENT_INCREMENT;
 				Integer studScoreRoundedDown = new Integer(studScoreIntDivTen * TEN_PERCENT_INCREMENT);
-				Integer numCurrentScore = returnMap.get(studScoreRoundedDown.toString());
+				Integer numCurrentScore = 0;
+				if(returnMap.containsKey(studScoreRoundedDown.toString())) {
+					numCurrentScore = returnMap.get(studScoreRoundedDown.toString());
+				}
 				numCurrentScore++;
 				
 				returnMap.put(studScoreRoundedDown.toString(), numCurrentScore);
@@ -340,7 +346,13 @@ public class Graph implements Serializable {
 			if(studGrade != null) {
 				double percentScore = studGrade.getScore() / this.ass.getMaxPoints().doubleValue() * HUNDRED;
 				String symbol = gScheme.getSymbolFromPercent(percentScore);
-				returnMap.put(symbol, returnMap.get(symbol) + 1);
+				
+				if(returnMap.containsKey(symbol)) {
+					returnMap.put(symbol, returnMap.get(symbol) + 1);
+				}
+				else {
+					returnMap.put(symbol, 1);
+				}
 			}
 		}
 		

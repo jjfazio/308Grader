@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.assignments_categories.Assignment;
+import model.spreadsheet.SpreadsheetCourse;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,12 +34,17 @@ public class CustomCurveAdjusterController {
     /**bar chart object*/
     @FXML
     private BarChart barChart;
+    private SpreadsheetCourse course;
     
     /**
      * Creates a new CustomCurveAdjusterController
      */
     public CustomCurveAdjusterController() {
     	
+    }
+    
+    public void setCourse(SpreadsheetCourse course) {
+    	this.course = course;
     }
     
     /**

@@ -10,12 +10,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import model.assignments_categories.Assignment;
+import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
 import model.spreadsheet.Statistics;
 import model.users.Student;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -47,19 +49,41 @@ public class StatsViewController
     /** The list of statistic names */
     ObservableList<Statistics> statistics;
 
+    /** The list of columns, one column for each Assignmnet */
     @FXML
     ArrayList<TableColumn<String, String>> assignmentColumns;
 
+    /**
+     * Initializes the data before the view is displayed
+     * to the user.
+     */
     public void initialize()
     {
         Gradebook currentGradebook = Gradebook.getInstance();
         this.currentSpreadsheet = currentGradebook.getCurrentCourse();
-        this.spreadsheetAssignments = currentSpreadsheet.getCategoryContainer()
-            .getRoot().getAssignments();
+        this.spreadsheetAssignments = new ArrayList<Assignment>();
+        getAllAssignments(currentSpreadsheet.getCategoryContainer().getRoot());
         this.spreadsheetRoster = currentSpreadsheet.getStudentRoster();
         this.assignmentColumns = new ArrayList<TableColumn<String, String>>();
         this.statistics = FXCollections.observableArrayList();
         createStatNamesColumn();
+    }
+
+    /**
+     * Recursively adds all of the assignments to this
+     * controller's list of assignments
+     *
+     * @param category  The Category to grab assignments
+     */
+    public void getAllAssignments(Category category)
+    {
+        Collection<Category> spreadsheetCategories;
+        this.spreadsheetAssignments.addAll(category.getAssignments());
+        spreadsheetCategories = category.getSubCategories();
+        for(Category currentCategory : spreadsheetCategories)
+        {
+            getAllAssignments(currentCategory);
+        }
     }
 
     /**
@@ -69,9 +93,11 @@ public class StatsViewController
     {
         statistics.add(new Statistics("Mean", spreadsheetRoster));
         statistics.add(new Statistics("Median", spreadsheetRoster));
+        statistics.add(new Statistics("Standard Deviation", spreadsheetRoster));
         statistics.add(new Statistics("Range", spreadsheetRoster));
         statistics.add(new Statistics("Graded", spreadsheetRoster));
         this.statNameColumn.setCellValueFactory(new PropertyValueFactory<Statistics, String>("statName"));
+        this.statNameColumn.setPrefWidth(200.0);
         table.setItems(statistics);
         addColumns();
     }
@@ -85,6 +111,7 @@ public class StatsViewController
         for(Assignment currentAssignment : spreadsheetAssignments)
         {
             TableColumn<Statistics, String> currentColumn = new TableColumn<Statistics, String>(currentAssignment.getName());
+            currentColumn.setPrefWidth(100.0);
             assignmentColumns.add(new TableColumn<String, String>(currentAssignment.getName()));
             currentColumn.setCellValueFactory(new StatCallBack(currentAssignment));
             table.getColumns().add(currentColumn);
@@ -93,8 +120,8 @@ public class StatsViewController
 
     /**
      * CallBack for the stat columns for each assignment
-     * @author jamesfazio
      *
+     * @author Kevin Feutz
      */
     private class StatCallBack implements Callback<TableColumn.CellDataFeatures<Statistics, String>, ObservableValue<String>> {
         public Assignment currentAssignment;
@@ -123,6 +150,10 @@ public class StatsViewController
             else if(param.getValue().getStatName().equals("Range")){
                 double range = param.getValue().calcRange(currentAssignment);
                 return new SimpleStringProperty(String.format("%.1f %%", range));
+            }
+            else if(param.getValue().getStatName().equals("Standard Deviation")) {
+                double standardDeviation = param.getValue().calcStandardDeviation(currentAssignment);
+                return new SimpleStringProperty(String.format("%.1f %%", standardDeviation));
             }
             else {
                 return new SimpleStringProperty(String.format("%d", 0));

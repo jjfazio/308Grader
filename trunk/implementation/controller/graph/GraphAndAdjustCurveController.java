@@ -277,6 +277,7 @@ public class GraphAndAdjustCurveController {
 
     	AnchorPane pane = (AnchorPane)ViewUtility.loadView(loader);
     	CustomCurveAdjusterController controller = (CustomCurveAdjusterController)loader.getController();
+    	controller.setCourse(course);
     	Map<String, Integer> scoreMap = graph.getAssignmentBarChartData("1%");
     	controller.setBarChart(ass, scoreMap, "1%");
         ViewUtility.showPage(pane, "Custom Curve Adjustment");
@@ -314,7 +315,7 @@ public class GraphAndAdjustCurveController {
     		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
     			System.out.println("Percent curve text changed.");
     			
-                if(newValue.length() > 2) {
+                if(newValue.length() > 3) {
                     percentCurve.setText(oldValue);
                 }
                 

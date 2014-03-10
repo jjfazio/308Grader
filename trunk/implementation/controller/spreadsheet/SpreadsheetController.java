@@ -159,11 +159,9 @@ public class SpreadsheetController implements Observer {
        else if (course.isStudentDeleted())  {
            removeStudentContent(course.getStudentToDelete());
        }
-       else if (o instanceof CategoryContainer) {
-           refreshTable();
-       } 
-       else if (val != null && val.equals("assignView")) {
-           refreshTable();
+       else
+       {
+    	   refreshTable();
        }
    }
    
