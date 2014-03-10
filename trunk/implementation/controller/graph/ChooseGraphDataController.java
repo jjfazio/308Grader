@@ -87,7 +87,8 @@ public class ChooseGraphDataController {
         	ViewUtility.showPage(pane, "Graphs & Adjust Curves");
         }
         else {
-        	Assignment ass = assignmentTree.getAssignment(selectedItem);
+        	String name = selectedItem.substring(0, selectedItem.indexOf("<")).trim();
+        	Assignment ass = assignmentTree.getAssignment(name);
             controller.setAssignment(ass, studentList, "10%");
             ViewUtility.showPage(pane, "Graphs & Adjust Curves");
         }
