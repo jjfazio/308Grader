@@ -466,6 +466,11 @@ public class SpreadsheetCourse extends Observable implements Serializable {
             return false;
         return true;
     }
+    
+    public void curveApplied() {
+    	setChanged();
+    	notifyObservers("curve");
+    }
 
     
 } 
