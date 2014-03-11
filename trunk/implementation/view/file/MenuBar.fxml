@@ -31,17 +31,6 @@
             <MenuItem mnemonicParsing="false" onAction="#viewStatisticsTable" text="View Statistics" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit" fx:id="EditMenu">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" fx:id="UndoMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Cut" fx:id="CutMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Copy" fx:id="CopyMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Paste" fx:id="PasteMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Delete" fx:id="DeleteMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Select" fx:id="SelectMenuItem" />
-            <MenuItem mnemonicParsing="false" text="Select All" fx:id="SelectAllMenuItem" />
-          </items>
-        </Menu>
         <Menu mnemonicParsing="false" text="Classes" fx:id="ClassMenu">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#viewDownloadRoster" text="Download Roster" fx:id="DownloadRosterMenuItem" />
