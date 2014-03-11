@@ -312,7 +312,10 @@ public class Graph implements Serializable {
 				int studScoreInt = studScore.intValue();
 				int studScoreIntDivTen = studScoreInt / TEN_PERCENT_INCREMENT;
 				Integer studScoreRoundedDown = new Integer(studScoreIntDivTen * TEN_PERCENT_INCREMENT);
-				Integer numCurrentScore = returnMap.get(studScoreRoundedDown.toString());
+				Integer numCurrentScore = 0;
+				if(returnMap.containsKey(studScoreRoundedDown.toString())) {
+					numCurrentScore = returnMap.get(studScoreRoundedDown.toString());
+				}
 				numCurrentScore++;
 				
 				returnMap.put(studScoreRoundedDown.toString(), numCurrentScore);

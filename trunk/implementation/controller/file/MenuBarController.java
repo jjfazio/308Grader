@@ -1,5 +1,7 @@
 package controller.file;
 
+import controller.gradebook.EditClassController;
+import controller.users.EditStudentController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,6 +89,20 @@ public class MenuBarController
    }
    
    /**
+    * Displays the edit class dialog when the corresponding menu item 
+    * is clicked.
+    */
+   @FXML
+   public void classEdit() {
+      FXMLLoader loader = new FXMLLoader(
+         getClass().getResource("/view/gradebook/EditClass.fxml"));
+      
+      
+      ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Edit Class");
+      
+   }
+   
+   /**
     * Displays the delete class dialog when the corresponding menu item 
     * is clicked.
     */
@@ -96,8 +112,6 @@ public class MenuBarController
          getClass().getResource("/view/gradebook/DeleteClass.fxml"));
       
       ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Delete Class");
-      
-      System.out.println("Delete Class clicked");
       
    }
 

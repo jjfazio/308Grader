@@ -352,6 +352,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     public void setAssignView(AssignView assignView)
     {
         this.assignView = assignView;
+        
         setChanged();
         notifyObservers("assignView");
     }
@@ -379,6 +380,17 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     public String getCourseSection()
     {
         return courseInfo.getSection();
+    }
+    
+    public void editCourse(String name, String dept, String number, String section, String quarter, String year)
+    {
+        courseInfo.setCourseName(name);
+        courseInfo.setDept(dept);
+        courseInfo.setNumber(number);
+        courseInfo.setSection(section);
+        courseInfo.setQuarter(quarter);
+        courseInfo.setYear(year);
+        
     }
 
     @Override
