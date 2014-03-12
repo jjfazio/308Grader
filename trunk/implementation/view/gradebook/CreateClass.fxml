@@ -6,10 +6,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="557.9998558593725" prefWidth="384.99988474121346" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.spreadsheet.AddClassController">
+<AnchorPane prefHeight="557.9998558593725" prefWidth="404.00000681152596" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.spreadsheet.AddClassController">
   <!-- TODO Add Nodes -->
   <children>
-    <VBox layoutX="0.0" layoutY="0.0" prefHeight="558.0" prefWidth="385.0">
+    <VBox layoutX="0.0" layoutY="0.0" prefHeight="558.0" prefWidth="404.0">
       <children>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
@@ -72,24 +72,29 @@
         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Late Policy:" />
-            <VBox id="noLatePolicy" alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="192.9998779296875">
+            <VBox id="noLatePolicy" alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="277.0">
               <children>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                   <children>
-                    <RadioButton fx:id="noLatePolicy" mnemonicParsing="false" text="None" />
+                    <RadioButton fx:id="noLatePolicy" mnemonicParsing="false" selected="true" text="None">
+                      <toggleGroup>
+                        <ToggleGroup fx:id="latePolicies" />
+                      </toggleGroup>
+                    </RadioButton>
                   </children>
                 </HBox>
-                <HBox prefHeight="22.0" prefWidth="193.0">
+                <HBox alignment="TOP_LEFT" maxHeight="-1.0" maxWidth="-1.0" prefHeight="16.0" prefWidth="268.0">
                   <children>
-                    <RadioButton fx:id="decay" mnemonicParsing="false" prefWidth="71.0" text="Decay" />
-                    <TextField fx:id="decayPercentage" prefWidth="41.0" />
-                    <Label prefWidth="29.0" text="per" />
-                    <TextField fx:id="decayRate" prefWidth="41.0" />
+                    <RadioButton fx:id="decay" mnemonicParsing="false" prefWidth="71.0" text="Decay" toggleGroup="$latePolicies" />
+                    <TextField fx:id="decayPercentage" prefWidth="41.0" promptText="10" />
+                    <Label minWidth="-Infinity" prefWidth="50.0" text="\% per" />
+                    <TextField fx:id="decayRate" prefWidth="41.0" promptText="1" />
+                    <Label prefWidth="50.0" text="day(s)" />
                   </children>
                 </HBox>
                 <HBox alignment="TOP_LEFT" prefHeight="22.0" prefWidth="193.0">
                   <children>
-                    <RadioButton id="decay" fx:id="graceDays" mnemonicParsing="false" prefWidth="-1.0" text="Grace days" />
+                    <RadioButton id="decay" fx:id="graceDays" mnemonicParsing="false" prefWidth="-1.0" text="Grace days" toggleGroup="$latePolicies" />
                     <TextField id="decayPercentage" fx:id="numberOfGraceDays" prefWidth="41.0" promptText="0" text="" />
                   </children>
                 </HBox>
