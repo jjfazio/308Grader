@@ -9,6 +9,7 @@ import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
 import model.gradebook.Gradebook;
 import model.spreadsheet.SpreadsheetCourse;
+import model.users.Student;
 import view.assignments_categories.AssignmentTree;
 
 import java.util.ArrayList;
@@ -73,7 +74,6 @@ public class DeleteAssignmentController {
                 selectedCategory.indexOf("<")).trim();
 
         removeAssignment(name, Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot());
-
         Stage stage = (Stage) treeView.getScene().getWindow();
         stage.close();
 
@@ -105,7 +105,7 @@ public class DeleteAssignmentController {
             for(Assignment x : theCat.getAssignments()) {
                 if(x.getName().equals(name)) {
 //                    theCat.removeAssignment(x);
-                    Gradebook.getInstance().getCurrentCourse().getCategoryContainer().deleteAssignment(theCat, x);
+                    Gradebook.getInstance().getCurrentCourse().getCategoryContainer().deleteAssignment(theCat, x, course);
                     break;
                 }
             }

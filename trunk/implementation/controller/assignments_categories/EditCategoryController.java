@@ -135,7 +135,6 @@ public class EditCategoryController {
             System.out.println("Cat name " + origSelectedCategory + "  parent Name " + origParentCategory);
         }
         else {
-            System.out.println("in the else");
             try {
                 String newParentNameTemp = treeView.getSelectionModel().getSelectedItem().getValue();
                 String newParentName = newParentNameTemp.substring(0, newParentNameTemp.indexOf("(")).trim();

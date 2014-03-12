@@ -8,6 +8,8 @@ import java.util.Observable;
 import model.exception.BadDataException;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
+import model.spreadsheet.SpreadsheetCourse;
+import model.users.Student;
 
 import java.lang.String;
 
@@ -176,9 +178,13 @@ public class CategoryContainer extends Observable implements Serializable
         notifyObservers();
     }
     
-    public void deleteAssignment(Category parent, Assignment assignment)
+    public void deleteAssignment(Category parent, Assignment assignment, SpreadsheetCourse course)
     {
+        for (Student x : course.getStudentRoster()){
+            x.removeGrade(course, assignment);
+        }
         parent.removeAssignment(assignment);
+
         setChanged();
         notifyObservers();
     }
