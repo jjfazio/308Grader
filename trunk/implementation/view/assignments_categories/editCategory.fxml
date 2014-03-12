@@ -29,13 +29,13 @@
                 <Insets left="10.0" fx:id="x1" />
               </HBox.margin>
             </Label>
-            <TextField fx:id="editCategoryName" prefWidth="200.0" HBox.margin="$x1" />
+            <TextField fx:id="editCategoryName" prefWidth="200.0" promptText="ex: Quizzes" HBox.margin="$x1" />
           </children>
         </HBox>
         <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="378.0">
           <children>
             <Label text="Percent of Parent" HBox.margin="$x1" />
-            <TextField id="editCategoryWeight" fx:id="editCategoryPercent" prefWidth="200.0">
+            <TextField id="editCategoryWeight" fx:id="editCategoryPercent" prefWidth="200.0" promptText="ex: 20">
               <HBox.margin>
                 <Insets left="23.0" />
               </HBox.margin>

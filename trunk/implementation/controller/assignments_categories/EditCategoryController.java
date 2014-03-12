@@ -109,15 +109,22 @@ public class EditCategoryController {
     public void handleEditCategoryEdit() {
         Stage stage = (Stage) treeView.getScene().getWindow();
         System.out.println("Edit button Clicked!");
-        if(origSelectedCategory.equals("")) {
-            origSelectedCategory = treeView.getSelectionModel()
-                    .getSelectedItem().getValue();
-            origSelectName = origSelectedCategory.substring(0,
-                    origSelectedCategory.indexOf("(")).trim();
-            origParentCategory = treeView.getSelectionModel()
+        if(editCategorySaveBtn.getText().equals("Edit")) {
+
+            String origSelectedCategoryTemp = treeView.getSelectionModel().getSelectedItem().getValue();
+
+            origSelectedCategory = origSelectedCategoryTemp.substring(0, origSelectedCategoryTemp.indexOf("(")).trim();
+
+            // String selectName = origSelectedCategory.substring(0,
+            //origSelectedCategory.indexOf("(")).trim();
+//            origSelectName = origSelectedCategory.substring(0,
+//                    origSelectedCategory.indexOf("(")).trim();
+            String origParentCategoryTemp = treeView.getSelectionModel()
                     .getSelectedItem().getParent().getValue();
-            origParentName = origParentCategory.substring(0,
-                    origParentCategory.indexOf("(")).trim();
+
+            origParentCategory = origParentCategoryTemp.substring(0, origParentCategoryTemp.indexOf("(")).trim();
+            //            origParentName = origParentCategory.substring(0, origParentCategory.indexOf("(")).trim();
+//            System.out.println("Checking6");
 
             treeView.getSelectionModel().select(null);
             editCategorySaveBtn.setText("Save");
@@ -125,21 +132,24 @@ public class EditCategoryController {
             editCategoryName.setDisable(false);
             editCategoryPercent.setDisable(false);
 
-            System.out.println("Cat name " + origSelectName + "  parent Name " + origParentName);
+            System.out.println("Cat name " + origSelectedCategory + "  parent Name " + origParentCategory);
         }
         else {
+            System.out.println("in the else");
             try {
-                String tempParentname = treeView.getSelectionModel().getSelectedItem().getValue();
+                String newParentNameTemp = treeView.getSelectionModel().getSelectedItem().getValue();
+                String newParentName = newParentNameTemp.substring(0, newParentNameTemp.indexOf("(")).trim();
+                System.out.println(origParentCategory + newParentName + origSelectedCategory);
                 course.getCategoryContainer().editCategory(
                         //  cur parent Category
-                        categoryTree.getCategory(origParentName/*treeView.getSelectionModel().getSelectedItem().getParent().getValue()*/),
+                        categoryTree.getCategory(origParentCategory),
                         // new parent Category
-                        categoryTree.getCategory(tempParentname.substring(0, tempParentname.indexOf("(")).trim()),
+                        categoryTree.getCategory(newParentName),
+                            /*tempParentname.substring(0, tempParentname.indexOf("(")).trim()*/
                         // The Category to be edited
-                        categoryTree.getCategory(origSelectName),
+                        categoryTree.getCategory(origSelectedCategory /*treeView.getSelectionModel().getSelectedItem().getValue()*/),
                         // new Name
-                        origSelectName,
-                       // editCategoryName.getText(),
+                        editCategoryName.getText(),
                         // new weight
                         editCategoryPercent.getText()
                         );
@@ -162,6 +172,7 @@ public class EditCategoryController {
 
     @FXML
     public void onMouseClicked() {
+
         if (treeView.getSelectionModel().getSelectedItem() != null){
             isChosen = true;
             String selectedCategory = treeView.getSelectionModel()
