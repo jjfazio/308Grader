@@ -7,6 +7,12 @@ import javafx.stage.Stage;
 import model.gradebook.Gradebook;
 import model.spreadsheet.AssignView;
 
+/**
+ * Controller for the View Assignments As view. Allows the user to change the
+ * assignment columns to display the grades in different modes.
+ * @author jamesfazio
+ *
+ */
 public class ViewAssignsAsController
 {
     /** Instance of the Gradebook */

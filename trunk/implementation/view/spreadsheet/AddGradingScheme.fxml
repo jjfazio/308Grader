@@ -20,9 +20,9 @@
         </TableView>
         <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="378.0">
           <children>
-            <TextField fx:id="newSymbol" prefWidth="200.0" />
-            <TextField fx:id="newLowPercent" prefWidth="200.0" />
-            <TextField fx:id="newHighPercent" prefWidth="200.0" />
+            <TextField fx:id="newSymbol" prefWidth="200.0" promptText="A" />
+            <TextField fx:id="newLowPercent" prefWidth="200.0" promptText="90.0" />
+            <TextField fx:id="newHighPercent" prefWidth="200.0" promptText="100.0" />
             <Button mnemonicParsing="false" onAction="#handlePlusButton" text="+" />
           </children>
         </HBox>
