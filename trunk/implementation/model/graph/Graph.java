@@ -1,6 +1,7 @@
 package model.graph;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -215,8 +216,13 @@ public class Graph implements Serializable {
 				Double curScoreAsDecimal = curScore / (double)curAssign.getMaxPoints();
 				curScoreAsDecimal += curveAmount / HUNDRED_PERCENT_DENOM;
 				Double curvedScore = curScoreAsDecimal * (double)curAssign.getMaxPoints();
+				//DecimalFormat df = new DecimalFormat("#.00");
 				String scoreString = curvedScore.toString();
-				stud.getGrades().get(curAssign.getID()).setScore(curvedScore.toString());
+				//String scoreString = df.format(curvedScore);
+				//stud.getGrades().get(curAssign.getID()).setScore(curvedScore.toString());
+				if(curvedScore >= 0) {
+					stud.getGrades().get(curAssign.getID()).setScore(scoreString);
+				}
 			}
 		}
 	}
@@ -233,7 +239,8 @@ public class Graph implements Serializable {
 			applyStandardCurveToAssignment(curAssign, curveAmount);
 		}
 		
-		for(Category subCat : this.cat.getSubCategories()) {
+		System.out.println("Sub cat size: " + cat.getSubCategories().size());
+		for(Category subCat : curCat.getSubCategories()) {
 			applyStandardCurveToCategory(subCat, curveAmount);
 		}
 	}
