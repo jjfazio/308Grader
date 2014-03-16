@@ -8,11 +8,13 @@ import java.util.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.exception.GradingSchemeDataException;
 import model.gradebook.Gradebook;
@@ -38,13 +40,18 @@ public class AddGradingSchemeController implements Observer {
     @FXML
     private TableColumn<GradeRange,String> colLowPercent;
     @FXML
-    private TableColumn<GradeRange,String> colHighPercent; 
+    private TableColumn<GradeRange,String> colHighPercent;
+    @FXML
+    private TableColumn<GradeRange,Color> colColor;
+    
     @FXML
     private TextField newSymbol;
     @FXML
     private TextField newLowPercent;
     @FXML
     private TextField newHighPercent;
+    @FXML
+    private ColorPicker newColor;
     
     private List<GradeRange> gradeRangeList; // serializable list to be sent to the GS constructor
     
@@ -76,6 +83,11 @@ public class AddGradingSchemeController implements Observer {
                 new PropertyValueFactory<GradeRange,String>("high")
         );
         
+        colColor.setCellValueFactory(
+                new PropertyValueFactory<GradeRange,Color>("color")
+        );
+        
+        newColor.setValue(Color.BLACK);
         rangesTable.setItems(obsGradeRangeList);
     }
     
@@ -120,6 +132,7 @@ public class AddGradingSchemeController implements Observer {
        
        // create new GradeRange with this data
        GradeRange gr = new GradeRange(symbol, lowPercent, highPercent);
+       gr.setColor(newColor.getValue());
        
        // insert grade ranges into the table
        gradeRangeList.add(gr);

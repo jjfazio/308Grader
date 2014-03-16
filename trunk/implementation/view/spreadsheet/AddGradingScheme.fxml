@@ -16,7 +16,7 @@
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="108.0" text="Symbol" fx:id="colSymbols" />
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="108.0" text="Low %" fx:id="colLowPercent" />
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="108.0" text="High %" fx:id="colHighPercent" />
-            <TableColumn prefWidth="108.0" text="Color" />
+            <TableColumn prefWidth="108.0" text="Color" fx:id="colColor" />
           </columns>
         </TableView>
         <HBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="378.0">
@@ -24,7 +24,7 @@
             <TextField fx:id="newSymbol" prefWidth="108.0" promptText="A" />
             <TextField fx:id="newLowPercent" prefWidth="108.0" promptText="90.0" />
             <TextField fx:id="newHighPercent" prefWidth="108.0" promptText="100.0" />
-            <ColorPicker />
+            <ColorPicker id="" fx:id="newColor" opacity="1.0" promptText="" />
             <Button mnemonicParsing="false" onAction="#handlePlusButton" text="+" />
           </children>
         </HBox>
