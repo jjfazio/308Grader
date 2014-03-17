@@ -2,6 +2,8 @@ package model.spreadsheet;
 
 import java.io.Serializable;
 
+import javafx.scene.paint.Color;
+
 /**
  * A course has a List of GradeRanges. Each range corresponds to a letter
  * grade. A typical setup would be A (90, 100), B(80, 89), C(70, 79)
@@ -26,6 +28,11 @@ public class GradeRange implements Serializable {
      */
     private Double high;
     
+    /**
+     * The color to display in the gradebook.
+     */
+    private Color color;
+    
     public GradeRange(String letter, double low, double high)
     {
         letterGrade = letter;
@@ -46,6 +53,16 @@ public class GradeRange implements Serializable {
     public Double getHigh()
     {
         return high;
+    }
+    
+    public Color getColor()
+    {
+        return color;
+    }
+    
+    public void setColor(Color newColor)
+    {
+        this.color = newColor;
     }
 
     @Override

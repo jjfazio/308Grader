@@ -7,7 +7,6 @@ import java.util.Observable;
 
 import model.exception.BadDataException;
 import model.exception.GradingSchemeDataException;
-import controller.spreadsheet.AddClassController;
 
 /**
  * Represents a grading scheme which is a list of ranges and symbols for each range.
@@ -22,7 +21,7 @@ public class GradingScheme extends Observable implements Serializable {
     private List<GradeRange> gradeRanges;
     
     private String schemeName;
-
+    
     public GradingScheme()
     {
         gradeRanges = new ArrayList<GradeRange>();
