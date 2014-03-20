@@ -37,15 +37,15 @@ public class GradingScheme extends Observable implements Serializable {
         gradeRanges.add(tempB);
         
         GradeRange tempC = new GradeRange("C", 70.0, 79.9);
-        tempB.setColor(getColorString(Color.YELLOW));
+        tempC.setColor(getColorString(Color.YELLOW));
         gradeRanges.add(tempC);
         
         GradeRange tempD = new GradeRange("D", 60.0, 69.9);
-        tempB.setColor(getColorString(Color.ORANGE));
+        tempD.setColor(getColorString(Color.ORANGE));
         gradeRanges.add(tempD);
         
         GradeRange tempF = new GradeRange("F", 0.0, 59.9);
-        tempB.setColor(getColorString(Color.RED));
+        tempF.setColor(getColorString(Color.RED));
         gradeRanges.add(tempF);
         
         schemeName = "Default";
