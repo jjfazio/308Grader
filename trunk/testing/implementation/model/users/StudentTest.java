@@ -10,6 +10,7 @@ import model.assignments_categories.Grade;
 import model.exception.BadDataException;
 import model.exception.CourseDataException;
 import model.exception.StudentDataException;
+import model.gradebook.Gradebook;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
@@ -44,6 +45,8 @@ import static org.junit.Assert.assertEquals;
  *                                                                      <p><li>
  *     Phase 7: Stress test by creating and deleting 100000 students.
  *                                                                        </ul>
+ *
+ *     @author  Kevin Feutz
  */
 public class StudentTest
 {
@@ -148,16 +151,18 @@ public class StudentTest
      *                      Assingment(...)
      *                  grade = new Grade(...)
      *
-     * TODO - this is giving a null pointer exception right now
      *                                                                                </pre>
      */
     @Test
     public void testAddGrade() throws CourseDataException, StudentDataException, BadDataException {
+        Gradebook gradebook = Gradebook.getInstance();
         SpreadsheetCourse course = new SpreadsheetCourse(
             new CourseInfo("test", "test", "test", "test", "test", 2014),
             new GradingScheme(),
             new LatePolicy()
         );
+        gradebook.addSpreadsheetCourse(course);
+        gradebook.setCurrentCourse(course);
         Assignment assignment = new Assignment(
             course.getCategoryContainer().getRoot(),
             "test", 100.0, 100, new GregorianCalendar(), new GradingScheme(),
