@@ -186,7 +186,7 @@ public class AddClassController implements Observer {
     public void update(Observable o, Object arg) {
         schemesObs.addAll(gradebook.getGradingSchemes());
         gradingSchemes.setItems(schemesObs);
-        System.out.println("gs update called");
+        //System.out.println("gs update called");
     }
     
     /**
