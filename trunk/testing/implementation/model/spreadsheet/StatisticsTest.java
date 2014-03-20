@@ -65,11 +65,15 @@ public class StatisticsTest
      *  Test
      *  Case    Input                                    Output             Remarks
      * =================================================================================
-     *   1      SpreadsheetCourse("test", null)          getStatName()
-     *                                                      == "test"
-     *
-     *
+     *   1      SpreadsheetCourse("test", null)          getStatName()      Tests getter method
+     *                                                      == "test"       for retrieving the
+     *                                                                      stat name
      */
+    public void testGetStatName()
+    {
+        Statistics stats = new Statistics("test", null);
+        assertEquals("test", stats.getStatName());
+    }
 
     /**
      * Test method for {@link model.spreadsheet.Statistics#calcMean(model.assignments_categories.Assignment)}()}.
