@@ -28,7 +28,9 @@ import static org.junit.Assert.assertTrue;
  *     Phase 3: Unit test the getStudentsForClass method
  *                                                                      <p><li>
  *     Phase 4: Stress test by generating 100000 students.
- *                                                                      </ul>
+ *
+ *   </ul>
+ * @author  Kevin Feutz
  */
 public class StudentDBTest
 {

@@ -43,6 +43,8 @@ import static org.junit.Assert.assertEquals;
  *                                                                      <p><li>
  *     Phase 7: Stress test by creating and deleting 100000 students.
  *                                                                        </ul>
+ *
+ *     @author  Kevin Feutz
  */
 public class StudentTest
 {
