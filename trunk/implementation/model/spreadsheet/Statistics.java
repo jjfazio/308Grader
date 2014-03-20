@@ -43,7 +43,6 @@ public class Statistics
     {
         this.statName = name;
         this.students = studentList;
-
     }
 
     /**
@@ -230,5 +229,23 @@ public class Statistics
         total = total/(unsortedGrades.length - 1);
 
         return Math.sqrt(total);
+    }
+
+    /**
+     * Calculates mean for all assignments belonging to the passed
+     * course
+     *
+     * @param   currentCourse   currentCourse
+     */
+    public double calcTotalMean(SpreadsheetCourse currentCourse)
+    {
+        double totalGrade = 0;
+        int numTotals = 0;
+        for(Student currentStudent : students)
+        {
+            totalGrade += currentStudent.getTotalGrade(currentCourse.getID());
+            numTotals++;
+        }
+        return totalGrade/numTotals;
     }
 }

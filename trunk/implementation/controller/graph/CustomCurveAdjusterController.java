@@ -1,22 +1,22 @@
 package controller.graph;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import model.assignments_categories.Assignment;
+import model.assignments_categories.Category;
+import model.graph.Graph;
+import model.spreadsheet.GradeRange;
 import model.spreadsheet.SpreadsheetCourse;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Series;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
-import view.ViewUtility;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * Controller class for the custom curve adjuster view.
@@ -33,8 +33,21 @@ public class CustomCurveAdjusterController {
     private Button applyCurveButton;
     /**bar chart object*/
     @FXML
-    private BarChart barChart;
+    private PieChart pieChart;
+    @FXML
+    private TableView<GradeRange> gradeRangeTable;
+    @FXML
+    private TableColumn<GradeRange,String> colSymbols;
+    @FXML
+    private TableColumn<GradeRange,String> colStudsInRange;
+    @FXML
+    private TableColumn<GradeRange,String> colLowPercent;
+    @FXML
+    private TableColumn<GradeRange,String> colHighPercent;
+    
     private SpreadsheetCourse course;
+    private ObservableList<GradeRange> obsGradeRangeList;
+    private List<GradeRange> gradeRangeList;
     
     /**
      * Creates a new CustomCurveAdjusterController
@@ -43,42 +56,77 @@ public class CustomCurveAdjusterController {
     	
     }
     
+    @FXML
+    private void initialize() {
+        
+    }
+    
+    public void setTable() {
+        obsGradeRangeList = FXCollections.observableArrayList();
+        gradeRangeList = new ArrayList<GradeRange>();
+        
+        gradeRangeTable.setItems(obsGradeRangeList);
+        
+        colSymbols.setCellValueFactory(
+                new PropertyValueFactory<GradeRange,String>("letterGrade")
+        );
+        
+        colLowPercent.setCellValueFactory(
+                new PropertyValueFactory<GradeRange,String>("low")
+        );
+        
+        colHighPercent.setCellValueFactory(
+                new PropertyValueFactory<GradeRange,String>("high")
+        );
+        
+        gradeRangeTable.setItems(obsGradeRangeList);
+        
+        for(GradeRange range : course.getGradingDistribution().getGradeRanges())
+        {
+        	obsGradeRangeList.add(range);
+        }
+    }
+    
     public void setCourse(SpreadsheetCourse course) {
     	this.course = course;
     }
     
     /**
-     * Sets the bar chart with the appropriate data
+     * Sets the bar chart with the appropriate data if assignment is being viewed
      */
-    public void setBarChart(Assignment ass, Map<String, Integer>scoreMap, String granularity) {
-    	CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
+    public void setAssignmentPieChart(Assignment ass, Graph graph) {
+    	this.pieChart.setTitle(ass.getName() + " Grade Distribution Pie Chart");
+    	Map<String, Integer> scoreMap = graph.getAssignmentPieChartData();
+    	
+    	for(String gradeStr : scoreMap.keySet()) {
+    		if(scoreMap.get(gradeStr) > 0) {
+    			PieChart.Data data = new PieChart.Data(gradeStr, scoreMap.get(gradeStr));
+        		this.pieChart.getData().add(data);
+    		}
+    	}
         
-        this.barChart.setTitle(ass.getName() + " Grade Distribution Curve Adjuster");
-        xAxis.setLabel("Number of Students");
-        List<String> categories = Arrays.asList(scoreMap.keySet().toArray(new String[0]));
-        Collections.sort(categories);
-        xAxis.setCategories((FXCollections.<String>observableArrayList(categories)));
-        //Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
-        Series series1 = new XYChart.Series();
+        this.pieChart.setLegendVisible(false);
+        this.pieChart.setVisible(true);
+        this.pieChart.setLabelsVisible(true);
+    }
+    
+    /**
+     * Sets the bar chart with the appropriate data if assignment is being viewed
+     */
+    public void setCategoryPieChart(Category cat, Graph graph) {
+    	this.pieChart.setTitle(cat.getName() + " Grade Distribution Pie Chart");
+    	Map<String, Integer> scoreMap = graph.getCategoryPieChartData();
+    	
+    	for(String gradeStr : scoreMap.keySet()) {
+    		if(scoreMap.get(gradeStr) > 0) {
+    			PieChart.Data data = new PieChart.Data(gradeStr, scoreMap.get(gradeStr));
+        		this.pieChart.getData().add(data);
+    		}
+    	}
         
-        for(int ndx = 0; ndx < scoreMap.size(); ndx++) {
-        	String curPercentString = new Integer(ndx).toString();
-        	//if(scoreMap.get(curPercentString) > 0) {
-        	series1.getData().add(new XYChart.Data<String, 
-        		Integer>(curPercentString, scoreMap.get(curPercentString)));
-        	//}
-        }
-        
-        this.barChart.getXAxis().setMinWidth(200);
-        this.barChart.setLegendVisible(false);
-        this.barChart.getYAxis().setLabel("Number of Students");
-        this.barChart.getXAxis().setLabel("Grade (%)");
-  
-        this.barChart.getData().clear();
-        this.barChart.getData().add(series1);
-        this.barChart.getXAxis().setAutoRanging(true);
-        this.barChart.getYAxis().setAutoRanging(true);
+        this.pieChart.setLegendVisible(false);
+        this.pieChart.setVisible(true);
+        this.pieChart.setLabelsVisible(true);
     }
     
     /**
