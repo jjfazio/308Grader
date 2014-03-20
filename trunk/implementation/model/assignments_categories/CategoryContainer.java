@@ -122,6 +122,56 @@ public class CategoryContainer extends Observable implements Serializable
     }
 
     /**
+     * Edits the category
+     * @param oldParent Parent of the category being edited
+     * @param newParent The new parent of the editted category.
+     * @param name New name of the category
+     * @param percentOfParentNew New percentage of new category
+     */
+
+    public void editAssignment(Category oldParent, Category newParent, Assignment theAssignment,
+                             String name, String percentOfParentNew, String dueDate, String points)
+                             throws BadDataException{
+        BadDataException editCategoryException;
+        String errors = "";
+        System.out.println("Model Edit Assignment");
+        if(name.equals("")){
+            errors += "You need to assign a name to the Assignment.\n";
+        }
+        if(percentOfParentNew.equals("")) {
+            errors += "The Percent of Parent field is empty.\n";
+        }
+        else if(!percentOfParentNew.matches("\\d+") || (Double.parseDouble(percentOfParentNew) < 0)) {
+            errors += "The Percent of Parent field should contain numbers which are greater than 0.\n";
+        }
+
+        DueDate newDueDate = new DueDate(dueDate);
+        if(!newDueDate.isValidDate()) {
+            errors += "Due date is not valid.\n";
+        }
+
+        if(!points.matches("\\d+") || Integer.parseInt(points) <= 0) {
+            errors += "The points should be numbers greater than 0.\n";
+        }
+
+        if(!errors.equals("")) {
+            throw editCategoryException = new BadDataException(errors);
+        }
+        else {
+            oldParent.removeAssignment(theAssignment);
+            theAssignment.setName(name);
+            theAssignment.setPercentOfCategory(Double.parseDouble(percentOfParentNew));
+            theAssignment.setDueDate(newDueDate.getDueDate());
+            theAssignment.setMaxPoints(Integer.parseInt(points));
+            newParent.addAssignment(theAssignment);
+
+            setChanged();
+            notifyObservers();
+        }
+    }
+
+
+    /**
      * Remove the provided category 
      * @param parent Parent of the category being removed
      * @param toRemove The category to be removed
