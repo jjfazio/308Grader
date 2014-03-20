@@ -20,17 +20,22 @@ import model.spreadsheet.SpreadsheetCourse;
  */
 public class AddCategoryController {
 
+    /**Name of the new Category */
     @FXML
     private TextField addCategoryName;
 
+    /**Weight of new Category*/
     @FXML
     private TextField addCategoryWeight;
 
+    /**Holds TreeView needed to show the categories */
     @FXML
     private TreeView<String> treeView;
-    
+
+    /**An instance of SpreadsheetCourse*/
     private SpreadsheetCourse course;
-    
+
+    /**The Category tree that is being shown in the TreeView*/
     private CategoryTree categoryTree;
 
     /**
@@ -56,8 +61,8 @@ public class AddCategoryController {
     }
     
     /**
-     * Adds a new category to the collection of categories of the parent category
-     * If no Category is selected, it will choose
+     * Fetches the name of parent category, name of new category, and weight of new category. Then it calls the
+     * addCategory of CategoryContainer in order to add a new category to the parent category.
      */
     @FXML
     public void handleAddCategorySave() {

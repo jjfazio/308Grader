@@ -1,23 +1,41 @@
 package controller.graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
+import model.assignments_categories.Grade;
 import model.graph.AdjustableGradeRange;
 import model.graph.Graph;
+import model.spreadsheet.AssignView;
 import model.spreadsheet.GradeRange;
 import model.spreadsheet.SpreadsheetCourse;
+import model.users.Student;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.util.Callback;
 
 /**
  * Controller class for the custom curve adjuster view.
@@ -61,7 +79,7 @@ public class CustomCurveAdjusterController {
     
     @FXML
     private void initialize() {
-        
+        gradeRangeTable.setEditable(true);
     }
     
     public void setTable() {
@@ -81,10 +99,16 @@ public class CustomCurveAdjusterController {
         colLowPercent.setCellValueFactory(
                 new PropertyValueFactory<AdjustableGradeRange,String>("low")
         );
+        colLowPercent.setCellFactory(TextFieldTableCell.<AdjustableGradeRange>forTableColumn());
+        colLowPercent.setCellValueFactory(new EditableCallBack(false));
+        colLowPercent.setOnEditCommit(new EditHandler());
         
         colHighPercent.setCellValueFactory(
                 new PropertyValueFactory<AdjustableGradeRange,String>("high")
         );
+        colHighPercent.setCellFactory(TextFieldTableCell.<AdjustableGradeRange>forTableColumn());
+        colHighPercent.setCellValueFactory(new EditableCallBack(true));
+        colHighPercent.setOnEditCommit(new EditHandler());
         
         gradeRangeTable.setItems(obsGradeRangeList);
         
@@ -156,6 +180,132 @@ public class CustomCurveAdjusterController {
     private void handleApplyCurveButtonPressed() {
         System.out.println("Apply curve button pressed");
     }
+    
+    private class EditHandler implements EventHandler<CellEditEvent<AdjustableGradeRange, String>> {
+		@Override
+		public void handle(CellEditEvent<AdjustableGradeRange, String> arg0) {
+			System.out.println("Cell changed!");
+			
+		}
+    }
+    
+    private class EditableCallBack implements Callback<TableColumn.CellDataFeatures<AdjustableGradeRange, String>, ObservableValue<String>> {
+    	private boolean high;
+    	
+    	public EditableCallBack(Boolean high)
+    	{
+    		this.high = high;
+    	}
+        @Override
+        public ObservableValue<String> call(CellDataFeatures<AdjustableGradeRange, String> param)
+        {
+        	if (high)
+        		return new SimpleStringProperty(param.getValue().getHigh().toString());
+        	else
+        		return new SimpleStringProperty(param.getValue().getLow().toString());
+        }
+
+    }
+    
+//    private class EditCallBack implements Callback<TableColumn<AdjustableGradeRange, String>, TableCell<AdjustableGradeRange, String>> {
+//
+//        @Override
+//        public TableCell<AdjustableGradeRange, String> call(TableColumn<AdjustableGradeRange, String> arg)
+//        {
+//            //Assignment assign = (Assignment) arg.getUserData();
+//            return new EditingCell();
+//        }
+//           
+//       }
+//    
+//    class EditingCell extends TableCell<AdjustableGradeRange, String> {
+//
+//        private TextField textField;
+//
+//        @Override
+//        public void startEdit() {
+//            if (!isEmpty()) {
+//                super.startEdit();
+//                createTextField();
+//                setText(null);
+//                setGraphic(textField);
+//                textField.selectAll();
+//                
+//                //Hack to get double click to work
+//                Platform.runLater(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        textField.requestFocus();
+//                    }
+//               });
+//
+//            }
+//        }
+//
+//        @Override
+//        public void cancelEdit() {
+//            super.cancelEdit();
+//
+//            setText((String) getItem());
+//            setGraphic(null);
+//        }
+//
+//        @Override
+//        public void updateItem(String item, boolean empty) {
+//            super.updateItem(item, empty);
+//
+//            if (empty) {
+//                setText(null);
+//                setGraphic(null);
+//            } else {
+//                if (isEditing()) {
+//                    if (textField != null) {
+//                        textField.setText(getString());
+//                    }
+//                    setText(null);
+//                    setGraphic(textField);
+//                } else {
+//                    setText(getString());
+//                    setGraphic(null);
+//                }
+//            }
+//        }
+//
+//        private void createTextField() {
+//            textField = new TextField(getString());
+//            
+//            textField.setFocusTraversable(true);
+//            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
+//            textField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+//                @Override
+//                public void changed(ObservableValue<? extends Boolean> arg0, 
+//                    Boolean arg1, Boolean arg2) {
+//                        if (!arg2) {
+//                            commitEdit(textField.getText());
+//                        }
+//                }
+//            });
+//            
+//            // Allows for tabbing and entering in assignment cells
+//            textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//                @Override
+//                public void handle(KeyEvent t) {
+//                    if (t.getCode() == KeyCode.ENTER) {
+//                        commitEdit(textField.getText());
+//                    } else if (t.getCode() == KeyCode.ESCAPE) {
+//                        cancelEdit();
+//                    } else if (t.getCode() == KeyCode.TAB) {
+//                        commitEdit(textField.getText());
+//                        getTableView().getSelectionModel().selectBelowCell();
+//                        }
+//                    }
+//                });
+//        }
+//
+//        private String getString() {
+//            return getItem() == null ? "" : getItem().toString();
+//        }
+//    }
     
     
 }

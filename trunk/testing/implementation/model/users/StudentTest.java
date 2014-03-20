@@ -18,6 +18,7 @@ import model.users.Student;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.assertEquals;
 
@@ -159,7 +160,7 @@ public class StudentTest
         );
         Assignment assignment = new Assignment(
             course.getCategoryContainer().getRoot(),
-            "test", 100.0, 100, new Date(), new GradingScheme(),
+            "test", 100.0, 100, new GregorianCalendar(), new GradingScheme(),
             new LatePolicy(), false
         );
         Grade grade = new Grade(new Date(), "100");
@@ -265,7 +266,7 @@ public class StudentTest
         );
         Assignment assignment = new Assignment(
                 new Category(),
-                "test", 100.0, 100, new Date(), new GradingScheme(),
+                "test", 100.0, 100, new GregorianCalendar(), new GradingScheme(),
                 new LatePolicy(), false
         );
         CategoryContainer container = course.getCategoryContainer();
