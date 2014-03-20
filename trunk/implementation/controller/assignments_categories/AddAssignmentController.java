@@ -91,12 +91,14 @@ public class AddAssignmentController {
                     .getSelectedItem().getValue();
             String parentName = selectedCategory.substring(0,
                     selectedCategory.indexOf("(")).trim();
+
             try{
+                System.out.println(parentName);
             course.getCategoryContainer().addAssignment(assignmentTree.getCategory(parentName),
                     addAssignmentName.getText(),
                     addAssignmentWeight.getText(),
                     addAssignmentPoints.getText(),
-                    new Date(), new GradingScheme(), new LatePolicy(), false);
+                    addAssignmentDueDate.getText().trim(), new GradingScheme(), new LatePolicy(), false);
             } catch (BadDataException e) {
                 success = false;
                 Dialogs.showErrorDialog(stage, e.getMessage(), "Please resolve the following issues.", "Invalid input");
