@@ -43,7 +43,6 @@ public class AddGradingSchemeController implements Observer {
     private TableColumn<GradeRange,String> colHighPercent;
     @FXML
     private TableColumn<GradeRange,String> colColor;
-    
     @FXML
     private TextField newSymbol;
     @FXML
