@@ -38,20 +38,23 @@ public class StatsViewController
     private TableColumn<Statistics, String> statNameColumn;
 
     /** The current spreadsheet used to display statistics */
-    SpreadsheetCourse currentSpreadsheet;
+    private SpreadsheetCourse currentSpreadsheet;
 
     /** The list of students belonging to the current spreadsheet */
-    List<Student> spreadsheetRoster;
+    private List<Student> spreadsheetRoster;
 
     /** The list of assignments belonging to the current spreadsheet */
-    List<Assignment> spreadsheetAssignments;
+    private List<Assignment> spreadsheetAssignments;
 
     /** The list of statistic names */
-    ObservableList<Statistics> statistics;
+    private ObservableList<Statistics> statistics;
+
+    /** Total column in table */
+    private TableColumn<Statistics, String> totalColumn;
 
     /** The list of columns, one column for each Assignmnet */
     @FXML
-    ArrayList<TableColumn<String, String>> assignmentColumns;
+    private ArrayList<TableColumn<String, String>> assignmentColumns;
 
     /**
      * Initializes the data before the view is displayed
@@ -136,7 +139,8 @@ public class StatsViewController
         {
             if(param.getValue().getStatName().equals("Mean"))
             {
-                double meanValue = param.getValue().calcMean(currentAssignment);
+                double meanValue;
+                meanValue = param.getValue().calcMean(currentAssignment);
                 return new SimpleStringProperty(String.format("%.1f %%",meanValue));
             }
             else if(param.getValue().getStatName().equals("Graded")){
