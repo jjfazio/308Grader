@@ -290,7 +290,8 @@ public class SpreadsheetController implements Observer {
             public void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (!isEmpty()) {
-                    this.setStyle("-fx-background-color:red");
+                    String color = course.getGradingDistribution().getColorFromSymbol(item);
+                    this.setStyle("-fx-background-color: #" + color);
                     setText(item);
                 }
             }
