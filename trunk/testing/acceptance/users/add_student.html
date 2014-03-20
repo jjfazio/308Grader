@@ -1,0 +1,82 @@
+<h3>
+    Acceptance Test Plan: Adding a student
+</h3>
+<p>
+    The test plan for adding a student to a spreadsheet course is as following:
+<blockquote>
+    <table align=center border=1 cellpadding=4>
+        <tr>
+            <td valign=top><strong>Case No.</strong>
+            <td valign=top><strong>User Inputs and Commands</strong>
+            <td valign=top><strong>Expected Output</strong>
+            <td valign=top><strong>Remarks</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td valign=top><strong>Results</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <tr>
+                    <td valign=top>1
+                    <td valign=top>
+                        Navigate to Menu->Students->Add Student<br><br>
+                        Leave all text entry fields blank and select the "Confirm Add" button.
+                    <td valign=top>
+                        An "Invalid Student Input" error dialog should appear, informing the user
+                        to enter the required input fields.
+                    <td valign=top>
+                        Tests adding  new student with completely blank text-entry fields
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>2
+                    <td valign=top>
+                        Navigate to Menu->Students->Add Student<br><br>
+                        In the first name field, enter "!@#$1234"<br>
+                        In the last name field, enter "smith"<br>
+                        In the ID field, enter "asmith12"<br>
+                        Select the "Add Course" button, select the first class, and select "Select" button<br>
+                        Select the "Confirm Add" button
+                    <td valign=top>
+                        An "Invalid Student Input" error dialog should appear, stating "First Name must contain only alphabetic
+                        characters.
+                    <td valign=top>
+                        Tests adding  new student with non-alphabetic characters.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>3
+                    <td valign=top>
+                        Navigate to Menu->Students->Add Student<br><br>
+                        In the first name field, enter "adam"<br>
+                        In the last name field, enter "smith"<br>
+                        In the ID field, enter "asmith12"<br>
+                        Select the "Add Course" button, select the first class, and select "Select" button<br>
+                        Select the "Confirm Add" button
+                    <td valign=top>
+                        The Add Student dialog should close.  Confirm the student that was just created is now displayed
+                        in the spreadsheet for that respective course.
+                    <td valign=top>
+                        Tests adding  new student with valid input.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>3
+                    <td valign=top>
+                        Navigate to Menu->Students->Add Student<br><br>
+                        In the first name field, enter "adam"<br>
+                        In the last name field, enter "smith"<br>
+                        In the ID field, enter "asmith12<br>
+                        Select the "Add Course" button, select the first class, and select "Select" button<br>
+                        Select the course you just added in the "Course(s) Enrolled" section.<br>
+                        Select the "Delete Course" button
+                    <td valign=top>
+                        The course in the "Course(s) Enrolled" section should not longer contain the course that was selected
+                        while "Delete Course" was clicked.
+                    <td valign=top>
+                        Tests adding and removing courses to a new student.
+                    <td valign=top>
+                        Pass
+                </tr>
+
+    </table>
+</blockquote>
+</p>

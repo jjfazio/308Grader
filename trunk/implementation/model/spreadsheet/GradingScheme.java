@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import javafx.scene.paint.Color;
 import model.exception.BadDataException;
 import model.exception.GradingSchemeDataException;
 
@@ -27,11 +28,25 @@ public class GradingScheme extends Observable implements Serializable {
         gradeRanges = new ArrayList<GradeRange>();
         
         /** Set to default scheme */
-        gradeRanges.add(new GradeRange("A", 90.0, 100.0));
-        gradeRanges.add(new GradeRange("B", 80.0, 89.9));
-        gradeRanges.add(new GradeRange("C", 70.0, 79.9));
-        gradeRanges.add(new GradeRange("D", 60.0, 69.9));
-        gradeRanges.add(new GradeRange("F", 0.0, 59.9));
+        GradeRange tempA = new GradeRange("A", 90.0, 100.0);
+        tempA.setColor(getColorString(Color.GREEN));
+        gradeRanges.add(tempA);
+        
+        GradeRange tempB = new GradeRange("B", 80.0, 89.9);
+        tempB.setColor(getColorString(Color.GREENYELLOW));
+        gradeRanges.add(tempB);
+        
+        GradeRange tempC = new GradeRange("C", 70.0, 79.9);
+        tempC.setColor(getColorString(Color.YELLOW));
+        gradeRanges.add(tempC);
+        
+        GradeRange tempD = new GradeRange("D", 60.0, 69.9);
+        tempD.setColor(getColorString(Color.ORANGE));
+        gradeRanges.add(tempD);
+        
+        GradeRange tempF = new GradeRange("F", 0.0, 59.9);
+        tempF.setColor(getColorString(Color.RED));
+        gradeRanges.add(tempF);
         
         schemeName = "Default";
         plusMinusEnabled = false;
@@ -130,17 +145,49 @@ public class GradingScheme extends Observable implements Serializable {
         return true;
     }
     
-    
+    /**
+     * 
+     * @param score
+     * @return
+     */
     public String getSymbolFromPercent(Double score) {
+        
+        boolean higher = true;
+        boolean lower = true;
         for (GradeRange r : gradeRanges)
         {
             if (score <= r.getHigh() && score >= r.getLow())
             {
-                //System.out.println(r.getLow() + " < " + score + " < " + r.getHigh());
                 return r.getLetterGrade();
+            } 
+            /**
+            else if (score > r.getLow())
+            {
+                lower = false;
+            }
+            else if (score < r.getHigh())
+            {
+                higher = false;
+            } */
+        }
+        
+        return "";
+    }
+    
+    /**
+     * 
+     * @param symbol
+     * @return
+     */
+    public String getColorFromSymbol(String symbol) {
+        for (GradeRange r : gradeRanges)
+        {
+            if (symbol.equals(r.getLetterGrade()))
+            {
+                return r.getColor();
             }
         }
-        return "";
+        return null;
     }
 
     @Override
@@ -175,6 +222,15 @@ public class GradingScheme extends Observable implements Serializable {
         else if (!schemeName.equals(other.schemeName))
             return false;
         return true;
+    }
+    
+    
+    private String getColorString(Color c)
+    {
+        int r = (int) (c.getRed() * 256) ;
+        int g = (int) (c.getGreen() * 256) ;
+        int b = (int) (c.getBlue() * 256) ;
+        return String.format("rgb(%d, %d, %d)", r, g, b);
     }
     
     

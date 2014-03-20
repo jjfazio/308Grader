@@ -29,6 +29,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.assignments_categories.Assignment;
@@ -119,6 +120,7 @@ public class SpreadsheetController implements Observer {
         totalGradeColumn.setText("Total Grade");
         totalLetterColumn.setCellValueFactory(new TotalLetterCallBack());
         totalLetterColumn.setText("Grade Symbol");
+        totalLetterColumn.setCellFactory(new ColorCellFactory());
         
     }
 
@@ -277,6 +279,27 @@ public class SpreadsheetController implements Observer {
 
    }
    
+   private class ColorCellFactory implements Callback<TableColumn<Student, String>, TableCell<Student, String>>
+   {
+
+    @Override
+    public TableCell<Student, String> call(TableColumn<Student, String> student)
+    {
+        return new TableCell<Student, String>() {
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (!isEmpty()) {
+                    String color = course.getGradingDistribution().getColorFromSymbol(item);
+                    this.setStyle("-fx-background-color: #" + color);
+                    setText(item);
+                }
+            }
+        };
+    }
+       
+   }
+   
    /**
     * CallBack for the total grade column. Gets the total grade for the student
     * and puts it in the table
@@ -378,8 +401,8 @@ public class SpreadsheetController implements Observer {
            // If the user enters in bad data for the student's grade
            catch (BadDataException e)
            {
-               Dialogs.showErrorDialog(getStage(), e.getMessage());
-               //don't show bad data
+               // Don't show bad data
+               System.out.println("Bad Data entered: " + e.getMessage());
            }
            finally
            {
@@ -394,7 +417,8 @@ public class SpreadsheetController implements Observer {
        table.getColumns().remove(totalCategoryCol);
        addCols(totalCategoryCol, course.getCategoryContainer().getRoot());
        table.getColumns().add(table.getColumns().size() - 2, totalCategoryCol);
-       
+
+       // Only can edit table in points mode
        if (course.getAssignView() == AssignView.POINTS)
            table.setEditable(true);
        else
