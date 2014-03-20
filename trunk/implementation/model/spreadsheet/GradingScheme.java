@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import javafx.scene.paint.Color;
 import model.exception.BadDataException;
 import model.exception.GradingSchemeDataException;
 
@@ -130,17 +131,49 @@ public class GradingScheme extends Observable implements Serializable {
         return true;
     }
     
-    
+    /**
+     * 
+     * @param score
+     * @return
+     */
     public String getSymbolFromPercent(Double score) {
+        
+        boolean higher = true;
+        boolean lower = true;
         for (GradeRange r : gradeRanges)
         {
             if (score <= r.getHigh() && score >= r.getLow())
             {
-                //System.out.println(r.getLow() + " < " + score + " < " + r.getHigh());
                 return r.getLetterGrade();
+            } 
+            /**
+            else if (score > r.getLow())
+            {
+                lower = false;
+            }
+            else if (score < r.getHigh())
+            {
+                higher = false;
+            } */
+        }
+        
+        return "";
+    }
+    
+    /**
+     * 
+     * @param symbol
+     * @return
+     */
+    public Color getColorFromSymbol(String symbol) {
+        for (GradeRange r : gradeRanges)
+        {
+            if (symbol.equals(r.getLetterGrade()))
+            {
+                return r.getColor();
             }
         }
-        return "";
+        return null;
     }
 
     @Override
