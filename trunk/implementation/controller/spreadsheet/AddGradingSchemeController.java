@@ -120,17 +120,16 @@ public class AddGradingSchemeController implements Observer {
        String symbol = newSymbol.getText();
        Double lowPercent = 0.0;
        if(!newLowPercent.getText().equals("")) {
-           //lowPercent = (double) Integer.parseInt(newLowPercent.getText());
            lowPercent = Double.parseDouble(newLowPercent.getText());
        }
        Double highPercent = 100.0;
        if(!newHighPercent.getText().equals("")) {
-           //highPercent = (double) Integer.parseInt(newHighPercent.getText());
            highPercent = Double.parseDouble(newHighPercent.getText());
        }
        
        // create new GradeRange with this data
        GradeRange gr = new GradeRange(symbol, lowPercent, highPercent);
+       
        
        Color c = newColor.getValue();
        int r = (int) (c.getRed() * 256) ;

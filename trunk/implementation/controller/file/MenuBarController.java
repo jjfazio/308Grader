@@ -94,11 +94,14 @@ public class MenuBarController
     */
    @FXML
    public void classEdit() {
+       if(Gradebook.getInstance().getCurrentCourse() != null)
+       {
       FXMLLoader loader = new FXMLLoader(
          getClass().getResource("/view/gradebook/EditClass.fxml"));
       
       
       ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Edit Class");
+       }
       
    }
    
