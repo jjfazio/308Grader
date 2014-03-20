@@ -42,15 +42,15 @@ import java.awt.*;
 
 public class EditCategoryController {
 
-    @FXML
-    private Category editCateg;
-
+    /**Name of the Category*/
     @FXML
     public TextField  editCategoryName;
 
+    /**Weight of Category*/
     @FXML
     private TextField  editCategoryPercent;
 
+    /**TreeView list of all of the assignment and categories*/
     @FXML
     private TreeView<String> treeView;
 
@@ -114,18 +114,10 @@ public class EditCategoryController {
             String origSelectedCategoryTemp = treeView.getSelectionModel().getSelectedItem().getValue();
 
             origSelectedCategory = origSelectedCategoryTemp.substring(0, origSelectedCategoryTemp.indexOf("(")).trim();
-
-            // String selectName = origSelectedCategory.substring(0,
-            //origSelectedCategory.indexOf("(")).trim();
-//            origSelectName = origSelectedCategory.substring(0,
-//                    origSelectedCategory.indexOf("(")).trim();
             String origParentCategoryTemp = treeView.getSelectionModel()
                     .getSelectedItem().getParent().getValue();
 
             origParentCategory = origParentCategoryTemp.substring(0, origParentCategoryTemp.indexOf("(")).trim();
-            //            origParentName = origParentCategory.substring(0, origParentCategory.indexOf("(")).trim();
-//            System.out.println("Checking6");
-
             treeView.getSelectionModel().select(null);
             editCategorySaveBtn.setText("Save");
             topLbl.setText("Select the new parent category");
@@ -135,7 +127,6 @@ public class EditCategoryController {
             System.out.println("Cat name " + origSelectedCategory + "  parent Name " + origParentCategory);
         }
         else {
-            System.out.println("in the else");
             try {
                 String newParentNameTemp = treeView.getSelectionModel().getSelectedItem().getValue();
                 String newParentName = newParentNameTemp.substring(0, newParentNameTemp.indexOf("(")).trim();
@@ -158,16 +149,6 @@ public class EditCategoryController {
             }
             stage.close();
         }
-//
-//
-//        try {
-//            course.getCategoryContainer().editCategory(categoryTree.getCategory(parentName),
-//                    weight, categoryName);
-//        } catch (BadDataException e) {
-//            Dialogs.showErrorDialog(stage, e.getMessage(), "Please resolve the following issues.", "Invalid input");
-//        }
-
-     //   stage.close();
     }
 
     @FXML
@@ -182,9 +163,6 @@ public class EditCategoryController {
             String tempPercent = selectedCategory.substring(selectedCategory.indexOf("(") + 1,
                     selectedCategory.indexOf("%")).trim();
             String curPercent = tempPercent.substring(0, tempPercent.indexOf('.'));
-//            String curPercent = selectedCategory.substring(selectedCategory.indexOf("(") + 1,
-//                    selectedCategory.indexOf("%")).trim();
-            //System.out.println(curName);
             editCategoryName.setText(curName);
             editCategoryPercent.setText(curPercent);
         }

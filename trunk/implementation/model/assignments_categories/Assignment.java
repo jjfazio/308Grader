@@ -6,6 +6,7 @@ package model.assignments_categories;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import model.exception.BadDataException;
 import model.spreadsheet.GradingScheme;
@@ -38,7 +39,7 @@ public class Assignment implements Serializable
      * The due date for the assignment. It should not be before the current date
      * of the computer.
      */
-    private Date dueDate;
+    private GregorianCalendar dueDate;
 
     /*
      * Grading scheme used for the assignment.
@@ -75,7 +76,7 @@ public class Assignment implements Serializable
      */
     public Assignment()
     {
-        this(null, "changeName", 100.0, 100, new Date(),
+        this(null, "changeName", 100.0, 100, new GregorianCalendar(),
                 new GradingScheme(), new LatePolicy(), false);
     }
 
@@ -102,7 +103,7 @@ public class Assignment implements Serializable
 
     public Assignment(Category parentCategory,
             String name, Double percentOfCategory, Integer maxPoints,
-            Date dueDate, GradingScheme gScheme, LatePolicy latePolicy,
+            GregorianCalendar dueDate, GradingScheme gScheme, LatePolicy latePolicy,
             Boolean hasElectronicTurnin)
     {
         this.name = name;
@@ -238,7 +239,7 @@ public class Assignment implements Serializable
      * 
      * @return the due date of the assignment.
      */
-    public Date getDueDate()
+    public GregorianCalendar getDueDate()
     {
         return dueDate;
     }
@@ -257,7 +258,7 @@ public class Assignment implements Serializable
      * 
      * @
      */
-    public void setDueDate(Date dueDate)
+    public void setDueDate(GregorianCalendar dueDate)
     { // work on date
         this.dueDate = dueDate;
     }

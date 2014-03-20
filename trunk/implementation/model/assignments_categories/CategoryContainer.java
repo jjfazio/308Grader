@@ -8,6 +8,8 @@ import java.util.Observable;
 import model.exception.BadDataException;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
+import model.spreadsheet.SpreadsheetCourse;
+import model.users.Student;
 
 import java.lang.String;
 
@@ -16,7 +18,7 @@ import java.lang.String;
  * a Tree data structure of sub categories and assignments. This
  * is where adding/removing assignments/categories should happen. When
  * an add or remove happens the Observers of this class are notified.
- * @author jamesfazio
+ * @author jamesfazio / Jirbert Dilanchian
  *
  */
 public class CategoryContainer extends Observable implements Serializable
@@ -135,9 +137,10 @@ public class CategoryContainer extends Observable implements Serializable
                 addAssignmentWeight.getText(),
                 addAssignmentPoints.getText(),
                 new Date, new GradingScheme, new LatePolicy(), false);*/
-    public void addAssignment(Category parent, String name, String weight, String points, Date date, GradingScheme gradingScheme,
+    public void addAssignment(Category parent, String name, String weight, String points, String date, GradingScheme gradingScheme,
                               LatePolicy latePolicy, boolean online ) throws BadDataException
     {
+
         Double catWeight = 0.0;
         String errors = "";
 
@@ -163,12 +166,18 @@ public class CategoryContainer extends Observable implements Serializable
             errors += "Total weight of this category cannot exceed 100%";
         }
 
+        DueDate dueDate = new DueDate(date);
+        boolean isValid = false;
+        isValid = dueDate.isValidDate();
+        if(!isValid) {
+            errors += "The due Date is not valid";
+        }
+
         if(!errors.equals("")) {
             throw new BadDataException(errors);
         }
-
-        Assignment newAss = new Assignment(parent, name, Double.parseDouble(weight), Integer.parseInt(points), date, gradingScheme,
-            latePolicy, online);
+        Assignment newAss = new Assignment(parent, name, Double.parseDouble(weight), Integer.parseInt(points),
+                dueDate.getDueDate(), gradingScheme, latePolicy, online);
 
 
         parent.addAssignment(newAss);
@@ -176,9 +185,13 @@ public class CategoryContainer extends Observable implements Serializable
         notifyObservers();
     }
     
-    public void deleteAssignment(Category parent, Assignment assignment)
+    public void deleteAssignment(Category parent, Assignment assignment, SpreadsheetCourse course)
     {
+        for (Student x : course.getStudentRoster()){
+            x.removeGrade(course, assignment);
+        }
         parent.removeAssignment(assignment);
+
         setChanged();
         notifyObservers();
     }

@@ -21,43 +21,36 @@ import model.gradebook.Gradebook;
  * @author Jirbert Dilanchian
  */
 public class AddAssignmentController {
-    
+
+    /**An instance of current course*/
     private SpreadsheetCourse currentCourse;
 
+    /**Name of the new assignment */
     @FXML
     private TextField addAssignmentName;
 
-//    @FXML
-//    private ComboBox addAssignmentCategory;
-
+    /**Due Date of the new assignment*/
     @FXML
     private TextField addAssignmentDueDate;
 
+    /**Weight of the assignment*/
     @FXML
     private TextField addAssignmentWeight;
 
+    /**TreeView list of all of the assignment and categories*/
     @FXML
     private TreeView<String> treeView;
 
+    /**Points of assignments*/
     @FXML
     private TextField addAssignmentPoints;
 
-    @FXML
-    private RadioButton addAssignmentDefaultLatePolicy;
-    @FXML
-    private RadioButton addAssignmentSetLatePolicy;
-    @FXML
-    private RadioButton addAssignmentSetGradingScheme;
-    @FXML
-    private RadioButton addAssignmentDefaultGradingScheme;
-
-
+    /**An instance of current course*/
     private SpreadsheetCourse course;
 
+    /**The assignment tree that is being shown in the TreeView*/
     private AssignmentTree assignmentTree;
 
-//    public AddAssignmentController() {
-//    }
 
     /**
      * Called by FXML when view is loaded. Reloads all of the
@@ -65,10 +58,6 @@ public class AddAssignmentController {
      */
     @FXML
     private void initialize() {
-//        currentCourse = Gradebook.getInstance().getCurrentCourse();
-//        addAssignmentCategory.getItems().clear();
-//        fillComboCategoryNames(currentCourse.getCategoryContainer().getRoot());
-
         course = Gradebook.getInstance().getCurrentCourse();
         assignmentTree = new AssignmentTree(course.getCategoryContainer());
         loadTreeView();
@@ -86,20 +75,10 @@ public class AddAssignmentController {
     }
 
     /**
-     * Filles the comboBox on add Category dialogue.
-     * @param theCat The category which name is going to be added to the list
-     */
-//    @FXML
-//    private void fillComboCategoryNames(Category theCat) {
-//        addAssignmentCategory.getItems().add(theCat.getName());
-//        if((ArrayList<Category>)theCat.getSubCategories() != null){
-//            for(Category x : (ArrayList<Category>)theCat.getSubCategories()) {
-//                fillComboCategoryNames(x);
-//            }
-//        }
-//    }
-    /**
-     * Adds an assignment to the collection of assignment of the parent Category.
+     * Adds an assignment to the collection of assignment of the parent Category. Throw exception if the user has not
+     * defined the parent category, name, weight, due date, and points of category.
+     * Calls course.getCategoryContainer().addAssignment() in order to add an assignment to the parent category chosen
+     * by the user.
      */
     @FXML
     private void handleAddAssignmentSave() {
@@ -112,14 +91,14 @@ public class AddAssignmentController {
                     .getSelectedItem().getValue();
             String parentName = selectedCategory.substring(0,
                     selectedCategory.indexOf("(")).trim();
-//            Category temp = assignmentTree.getCategory(parentName);
 
             try{
+                System.out.println(parentName);
             course.getCategoryContainer().addAssignment(assignmentTree.getCategory(parentName),
                     addAssignmentName.getText(),
                     addAssignmentWeight.getText(),
                     addAssignmentPoints.getText(),
-                    new Date(), new GradingScheme(), new LatePolicy(), false);
+                    addAssignmentDueDate.getText().trim(), new GradingScheme(), new LatePolicy(), false);
             } catch (BadDataException e) {
                 success = false;
                 Dialogs.showErrorDialog(stage, e.getMessage(), "Please resolve the following issues.", "Invalid input");
@@ -133,65 +112,7 @@ public class AddAssignmentController {
         if(success){
             stage.close();
         }
-
-
-/*        System.out.println("Save button Clicked!");
-//        addAssignment(addAssignmentCategory.getValue().toString(),
-//                currentCourse.getCategoryContainer().getRoot());
-        Stage stage = (Stage) treeView.getScene().getWindow();
-
-        try {
-            String selectedCategory = treeView.getSelectionModel()
-                    .getSelectedItem().getValue();
-            String parentName = selectedCategory.substring(0,
-                    selectedCategory.indexOf("(")).trim();
-//            addAssignment(parentName, currentCourse.getCategoryContainer().getRoot());
-            try {
-                Assignment newAssignment = new Assignment(assignmentTree.getCategory(parentName), addAssignmentName.getText(),
-                        Double.parseDouble(addAssignmentWeight.getText()),
-                        Integer.parseInt(addAssignmentPoints.getText()),
-                        new Date(), new GradingScheme(), new LatePolicy(), false);
-                currentCourse.getCategoryContainer().addAssignment(assignmentTree.getCategory(parentName),
-                        newAssignment);
-            }catch (BadDataException e)
-            {
-                Dialogs.showErrorDialog(stage, e.getMessage(), "Please resolve the following issues.", "Invalid input");
-            }
-        }
-        catch (Exception e)
-        {
-            Dialogs.showErrorDialog(stage, "You need to specify a parent category", "Please resolve the following issues.", "Invalid input");
-        }
-
-        stage.close();*/
     }
-
-    /**
-     * Locates the parent category in the arraylist of subCategories and adds the new category to it.
-     * @param name The name of the parent category.
-     * @param cat The new category to be added to parent category
-     */
-    private void addAssignment(String name, Category cat) {
-
-//        Category catLookingFor = null;
-//        if(cat.getName().equals(name)) {
-//            catLookingFor =  cat;
-//                Assignment newAssignment = new Assignment(cat, addAssignmentName.getText(),
-//                                                          Double.parseDouble(addAssignmentWeight.getText()),
-//                                                          Integer.parseInt(addAssignmentPoints.getText()),
-//                                                          new Date(), new GradingScheme(), new LatePolicy(), false);
-//                currentCourse.getCategoryContainer().addAssignment(cat,
-//                        newAssignment);
-//        }
-//        else if((ArrayList<Category>)cat.getSubCategories() != null && catLookingFor == null){
-//            for(Category x : (ArrayList<Category>)cat.getSubCategories()) {
-//                if(catLookingFor == null) {
-//                    addAssignment(name, x);
-//                }
-//            }
-//        }
-    }
-
     /**
      * Closes the Add Assignment page without saving anything.
      */
