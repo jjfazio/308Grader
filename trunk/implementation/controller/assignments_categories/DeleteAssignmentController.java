@@ -19,22 +19,15 @@ import java.util.ArrayList;
  */
 public class DeleteAssignmentController {
 
-    @FXML
-    private Assignment delAssignment;
-
-//    @FXML
-//    private ListView<String> deleteAssignmentList;
+    /**TreeView list of all of the assignment and categories*/
     @FXML
     private TreeView<String> treeView;
 
+    /**An instance of current course*/
     private SpreadsheetCourse course;
 
+    /**The assignment tree that is being shown in the TreeView*/
     private AssignmentTree assignmentTree;
-
-
-    public DeleteAssignmentController() {
-
-    }
 
     /**
      * Called by FXML when view is loaded. Reloads all of the
@@ -45,9 +38,6 @@ public class DeleteAssignmentController {
         course = Gradebook.getInstance().getCurrentCourse();
         assignmentTree = new AssignmentTree(course.getCategoryContainer());
         loadTreeView();
-//        ArrayList<String> assignmentNames = new ArrayList<String>();
-//        fillList(Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot(), assignmentNames);
-//        deleteAssignmentList.getItems().setAll(assignmentNames);
     }
 
     /**
@@ -61,9 +51,8 @@ public class DeleteAssignmentController {
         treeView.setShowRoot(true);
     }
 
-
     /**
-     * Removes an assignment from the collection of assignments of the parrent category.
+     * Gets the name of the assignment and sends it
      */
     @FXML
     private void handleDeleteAssignmentDelete() {
@@ -76,7 +65,6 @@ public class DeleteAssignmentController {
         removeAssignment(name, Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot());
         Stage stage = (Stage) treeView.getScene().getWindow();
         stage.close();
-
     }
 
     /**
@@ -104,7 +92,6 @@ public class DeleteAssignmentController {
         if(theCat.getAssignments() != null) {
             for(Assignment x : theCat.getAssignments()) {
                 if(x.getName().equals(name)) {
-//                    theCat.removeAssignment(x);
                     Gradebook.getInstance().getCurrentCourse().getCategoryContainer().deleteAssignment(theCat, x, course);
                     break;
                 }
@@ -115,27 +102,5 @@ public class DeleteAssignmentController {
                 removeAssignment(name, y);
             }
         }
-    }
-
-
-
-    /**
-     * Fills the viewList of delete Category pagedeleteAssignmentList
-     * @param theCat name of the list which we get the name.
-     * @param assignmentNames List of the names of categories
-     */
-    @FXML
-    private void fillList(Category theCat, ArrayList<String> assignmentNames) {
-        if(theCat.getAssignments() != null){
-            for (Assignment x : theCat.getAssignments()) {
-                assignmentNames.add(x.getName());
-            }
-        }
-        if(theCat.getSubCategories() != null) {
-            for (Category y : theCat.getSubCategories()) {
-                fillList(y, assignmentNames);
-            }
-        }
-
     }
 }

@@ -18,7 +18,7 @@ import java.lang.String;
  * a Tree data structure of sub categories and assignments. This
  * is where adding/removing assignments/categories should happen. When
  * an add or remove happens the Observers of this class are notified.
- * @author jamesfazio
+ * @author jamesfazio / Jirbert Dilanchian
  *
  */
 public class CategoryContainer extends Observable implements Serializable
