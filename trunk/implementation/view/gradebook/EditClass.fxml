@@ -2,19 +2,20 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="345.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.gradebook.EditClassController">
+<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="373.0" prefWidth="345.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.gradebook.EditClassController">
   <children>
-    <HBox layoutX="15.0" layoutY="12.0" prefHeight="373.0" prefWidth="322.0">
+    <HBox layoutX="14.0" layoutY="12.0" prefHeight="347.0" prefWidth="317.0">
       <children>
-        <VBox prefHeight="400.0" prefWidth="300.0">
+        <VBox prefHeight="373.0" prefWidth="337.0">
           <children>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="300.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="347.0" prefWidth="317.0">
               <children>
-                <VBox layoutX="0.0" layoutY="0.0" prefHeight="312.0" prefWidth="283.0">
+                <VBox layoutX="0.0" layoutY="0.0" prefHeight="347.0" prefWidth="317.0">
                   <children>
                     <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="282.0">
                       <children>
@@ -24,7 +25,7 @@
                             <Label fx:id="firstNameWarning" prefWidth="20.0" text="" textFill="RED" />
                           </children>
                         </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="193.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="213.0">
                           <children>
                             <TextField id="firstName" fx:id="name" alignment="CENTER_LEFT" prefWidth="178.0" promptText="OO Design" />
                           </children>
@@ -38,7 +39,7 @@
                             <Label text="Department" />
                           </children>
                         </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="206.0">
                           <children>
                             <TextField id="middleName" fx:id="department" prefWidth="178.0" promptText="CPE" />
                           </children>
@@ -101,6 +102,17 @@
                             <TextField id="major" fx:id="year" prefWidth="179.0" promptText="2014" />
                           </children>
                         </HBox>
+                      </children>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="317.0">
+                      <children>
+                        <Label prefWidth="122.0" text="Grading Scheme" />
+                        <ComboBox fx:id="gradingSchemes" prefWidth="131.0" promptText="">
+                          <items>
+                            <FXCollections fx:factory="observableArrayList" />
+                          </items>
+                        </ComboBox>
+                        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleCreateNewGradingSchemeButton" prefWidth="72.0" text="New" />
                       </children>
                     </HBox>
                     <HBox prefHeight="35.0" prefWidth="322.0">

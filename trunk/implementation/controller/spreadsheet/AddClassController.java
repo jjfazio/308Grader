@@ -70,9 +70,9 @@ public class AddClassController implements Observer {
     
     private ObservableList<GradingScheme> schemesObs;
 
-    public AddClassController() {
+    public AddClassController() 
+    {
         gradebook = Gradebook.getInstance();
-       
     }
     
     @FXML
@@ -135,12 +135,6 @@ public class AddClassController implements Observer {
         	
         	gradebook.addSpreadsheetCourse(course);
         	close();
-        	/*
-        	System.out.println("Course " + course.getCourseInfo().getCourseName() + " added with a late policy of " 
-        	        + course.getLatePolicy().getGraceDays() + " grace days and penalty of " + course.getLatePolicy().getDecayPercentage() 
-        	        + "% per " + course.getLatePolicy().getDecayRate() + " day(s) and a gradings scheme of "
-        	        + course.getGradingDistribution().toString());
-        	*/
         } 
         catch (CourseDataException e) 
         {

@@ -40,26 +40,47 @@ public class GradeRange implements Serializable {
         this.high = high;
     }
 
+    /**
+     * Get the letter grade for this range.
+     * @return String the grade 
+     */
     public String getLetterGrade()
     {
         return letterGrade;
     }
-
+    
+    
+    /**
+     * Get the low percent of this range
+     * @return Double the low percent of this range
+     */
     public Double getLow()
     {
         return low;
     }
 
+    /**
+     * Get the high percent of this range
+     * @return Double the high percent of this range
+     */
     public Double getHigh()
     {
         return high;
     }
     
+    /**
+     * Get the color for this range
+     * @return Color the color for this range
+     */
     public Color getColor()
     {
         return color;
     }
     
+    /**
+     * Set the color for this range
+     * @param newColor to set on this range.
+     */
     public void setColor(Color newColor)
     {
         this.color = newColor;
