@@ -202,11 +202,11 @@ public class GraphAndAdjustCurveController {
     	Map<String, Integer> scoreMap;
     	
     	if(this.cat == null) {
-    		scoreMap = graph.getAssignmentPieChartData();
+    		scoreMap = graph.getAssignmentPieChartData(course.getGradingDistribution());
     		this.pieChart.setTitle(ass.getName() + " Grade Distribution Pie Chart");
     	}
     	else {
-    		scoreMap = graph.getCategoryPieChartData();
+    		scoreMap = graph.getCategoryPieChartData(course.getGradingDistribution());
     		this.pieChart.setTitle(cat.getName() + " Grade Distribution Pie Chart");
     	}
     	
@@ -280,10 +280,12 @@ public class GraphAndAdjustCurveController {
     	controller.setCourse(course);
     	
     	if(cat != null) {
-    		controller.setCategoryPieChart(cat, graph);
+    		controller.setCategory(cat);
+    		controller.setCategoryPieChart(cat, graph, course.getGradingDistribution());
     	}
     	else {
-    		controller.setAssignmentPieChart(ass, graph);
+    		controller.setAssignment(ass);
+    		controller.setAssignmentPieChart(ass, graph, course.getGradingDistribution());
     	}
     	
     	controller.setTable();
