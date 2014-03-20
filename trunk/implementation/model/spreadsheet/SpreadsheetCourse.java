@@ -149,8 +149,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
         studentRoster.add(student);
         addedStudents.add(student);
         
-        setChanged();
-        notifyObservers();
+        updateCourse();
     }
     
     public void addStudents(List<Student> students) {
@@ -163,8 +162,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
             students.get(index).addCourse(this);
         }
         
-        setChanged();
-        notifyObservers();
+        updateCourse();
     }
 
     /**
@@ -223,8 +221,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
      @*/
     public void editStudent() {
        System.out.println("In SpreadsheetCourse.editStudent");
-        setChanged();
-        notifyObservers();
+        updateCourse();
     }
 
     /**
@@ -255,8 +252,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
         studentToDelete = student;
         studentRoster.remove(student);
         addedStudents.remove(student);
-        setChanged();
-        notifyObservers();
+        updateCourse();
     }
 
     public Student getStudentToDelete() {
@@ -380,6 +376,12 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     public String getCourseSection()
     {
         return courseInfo.getSection();
+    }
+    
+    public void updateCourse()
+    {
+        setChanged();
+        notifyObservers();
     }
     
     public void editCourse(String name, String dept, String number, String section, String quarter, String year)
