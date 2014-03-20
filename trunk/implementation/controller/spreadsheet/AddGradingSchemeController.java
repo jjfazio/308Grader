@@ -42,7 +42,7 @@ public class AddGradingSchemeController implements Observer {
     @FXML
     private TableColumn<GradeRange,String> colHighPercent;
     @FXML
-    private TableColumn<GradeRange,Color> colColor;
+    private TableColumn<GradeRange,String> colColor;
     
     @FXML
     private TextField newSymbol;
@@ -84,7 +84,7 @@ public class AddGradingSchemeController implements Observer {
         );
         
         colColor.setCellValueFactory(
-                new PropertyValueFactory<GradeRange,Color>("color")
+                new PropertyValueFactory<GradeRange,String>("color")
         );
         
         newColor.setValue(Color.BLACK);
@@ -132,7 +132,7 @@ public class AddGradingSchemeController implements Observer {
        
        // create new GradeRange with this data
        GradeRange gr = new GradeRange(symbol, lowPercent, highPercent);
-       gr.setColor(newColor.getValue());
+       gr.setColor(newColor.getValue().toString());
        
        // insert grade ranges into the table
        gradeRangeList.add(gr);

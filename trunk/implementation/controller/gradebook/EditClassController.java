@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -14,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.exception.StudentDataException;
 import model.gradebook.Gradebook;
+import model.spreadsheet.GradingScheme;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
 import view.ViewUtility;
@@ -57,6 +59,12 @@ public class EditClassController {
     /** Contains the year of the course */
     @FXML
     private TextField year;
+    
+    /** Contains the possible grading schemes to use */
+    @FXML
+    private ComboBox<GradingScheme> gradingSchemes;
+    
+    private ObservableList<GradingScheme> schemesObs;
 
     /** Holds the reference for the class we wish to edit */
     SpreadsheetCourse courseToEdit;
@@ -77,13 +85,17 @@ public class EditClassController {
         section.setText(courseToEdit.getCourseSection());
         quarter.setText(courseToEdit.getCourseInfo().getQuarter());
         year.setText(courseToEdit.getCourseInfo().getYear()); 
+        
+        schemesObs = FXCollections.observableArrayList();
+        gradingSchemes.getItems().clear();
+        gradingSchemes.setItems(schemesObs);
+        
     }
 
     /**
      * Contructor for this class
      */
     public EditClassController() {
-        
         this.gradebook = Gradebook.getInstance();
     }
 
@@ -105,6 +117,17 @@ public class EditClassController {
         gradebook.updatedCourse();
         getStage().close();
         
+    }
+    
+    /**
+     * Called when the user clicks on the "Create New" button for grading schemes
+     * Opens the Create New Grading Scheme dialog
+     */
+    @FXML
+    private void handleCreateNewGradingSchemeButton() {
+       FXMLLoader loader = new FXMLLoader(getClass().getResource(
+          "/view/spreadsheet/AddGradingScheme.fxml"));
+       ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Create Grading Scheme");
     }
 
     /**

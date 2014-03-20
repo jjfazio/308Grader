@@ -29,9 +29,9 @@ public class GradeRange implements Serializable {
     private Double high;
     
     /**
-     * The color to display in the gradebook.
+     * The hex string of a color to display in the gradebook.
      */
-    private Color color;
+    private String color;
     
     public GradeRange(String letter, double low, double high)
     {
@@ -40,29 +40,50 @@ public class GradeRange implements Serializable {
         this.high = high;
     }
 
+    /**
+     * Get the letter grade for this range.
+     * @return String the grade 
+     */
     public String getLetterGrade()
     {
         return letterGrade;
     }
-
+    
+    
+    /**
+     * Get the low percent of this range
+     * @return Double the low percent of this range
+     */
     public Double getLow()
     {
         return low;
     }
 
+    /**
+     * Get the high percent of this range
+     * @return Double the high percent of this range
+     */
     public Double getHigh()
     {
         return high;
     }
     
-    public Color getColor()
+    /**
+     * Get the color for this range
+     * @return Color the color for this range
+     */
+    public String getColor()
     {
         return color;
     }
     
-    public void setColor(Color newColor)
+    /**
+     * Set the color for this range
+     * @param newColor to set on this range.
+     */
+    public void setColor(String newColorHex)
     {
-        this.color = newColor;
+        this.color = newColorHex;
     }
 
     @Override
