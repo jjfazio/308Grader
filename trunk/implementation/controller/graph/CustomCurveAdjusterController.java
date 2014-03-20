@@ -187,6 +187,7 @@ public class CustomCurveAdjusterController {
     @FXML
     private void handleCancelButtonPressed() {
         System.out.println("Cancel button pressed");
+        getStage().close();
     }
     
     /**
@@ -220,7 +221,8 @@ public class CustomCurveAdjusterController {
     		String message = "There are overlapping grade ranges:\n" + e.getFirstRange().getLetterGrade()
     			+ " and " + e.getSecondRange().getLetterGrade() + " overlap.";
     		Dialogs.showErrorDialog(getStage(), message, "Error", "Custom Curve Adjustment");
-		} catch (GradingSchemeDataException e) {
+		}
+    	catch (GradingSchemeDataException e) {
 			
 		}
     }
@@ -234,6 +236,12 @@ public class CustomCurveAdjusterController {
         if(newScheme != null) {
         	course.setGradingDistribution(newScheme);
         	Gradebook.getInstance().saveGradebook();
+        	course.updateCourse();
+        	getStage().close();
+        }
+        else {
+        	String message = "There are no changes with the grade ranges to be saved.";
+        	Dialogs.showErrorDialog(getStage(), message, "Error", "Custom Curve Adjustment");
         }
     }
     
