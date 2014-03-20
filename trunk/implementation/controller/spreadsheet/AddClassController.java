@@ -83,10 +83,9 @@ public class AddClassController implements Observer {
     private void initialize()
     {
         gradebook.addObserver(this);
+        
         schemesObs = FXCollections.observableArrayList();
-        GradingScheme defaultGS = new GradingScheme();
-        schemesObs.add(defaultGS);
-        gradingSchemes.getItems().clear();
+        schemesObs.addAll(gradebook.getGradingSchemes());
         
         gradingSchemes.setItems(schemesObs);
         
@@ -184,9 +183,9 @@ public class AddClassController implements Observer {
     
     @Override
     public void update(Observable o, Object arg) {
+        schemesObs.clear();
         schemesObs.addAll(gradebook.getGradingSchemes());
         gradingSchemes.setItems(schemesObs);
-        //System.out.println("gs update called");
     }
     
     /**
