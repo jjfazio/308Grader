@@ -77,7 +77,10 @@ public class LatePolicy implements Serializable {
 
    public Integer getGraceDays()
    {
-       return graceDays;
+       if (graceDaysEnabled)
+           return graceDays;
+       
+       return null;
    }
    public void setGraceDaysEnabled(boolean graceDays)
    {
@@ -139,9 +142,5 @@ public boolean equals(Object obj)
         return false;
     return true;
 }
-   
-   
-  
-   
    
 }
