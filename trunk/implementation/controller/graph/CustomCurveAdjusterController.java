@@ -6,6 +6,7 @@ import java.util.Map;
 
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
+import model.graph.AdjustableGradeRange;
 import model.graph.Graph;
 import model.spreadsheet.GradeRange;
 import model.spreadsheet.SpreadsheetCourse;
@@ -35,19 +36,21 @@ public class CustomCurveAdjusterController {
     @FXML
     private PieChart pieChart;
     @FXML
-    private TableView<GradeRange> gradeRangeTable;
+    private TableView<AdjustableGradeRange> gradeRangeTable;
     @FXML
-    private TableColumn<GradeRange,String> colSymbols;
+    private TableColumn<AdjustableGradeRange,String> colSymbols;
     @FXML
-    private TableColumn<GradeRange,String> colStudsInRange;
+    private TableColumn<AdjustableGradeRange,String> colStudsInRange;
     @FXML
-    private TableColumn<GradeRange,String> colLowPercent;
+    private TableColumn<AdjustableGradeRange,String> colLowPercent;
     @FXML
-    private TableColumn<GradeRange,String> colHighPercent;
+    private TableColumn<AdjustableGradeRange,String> colHighPercent;
     
     private SpreadsheetCourse course;
-    private ObservableList<GradeRange> obsGradeRangeList;
-    private List<GradeRange> gradeRangeList;
+    private ObservableList<AdjustableGradeRange> obsGradeRangeList;
+    private List<AdjustableGradeRange> gradeRangeList;
+    private Graph graph;
+    private Map<String, Integer> rangeStudMap;
     
     /**
      * Creates a new CustomCurveAdjusterController
@@ -63,27 +66,32 @@ public class CustomCurveAdjusterController {
     
     public void setTable() {
         obsGradeRangeList = FXCollections.observableArrayList();
-        gradeRangeList = new ArrayList<GradeRange>();
+        gradeRangeList = new ArrayList<AdjustableGradeRange>();
         
         gradeRangeTable.setItems(obsGradeRangeList);
         
         colSymbols.setCellValueFactory(
-                new PropertyValueFactory<GradeRange,String>("letterGrade")
+                new PropertyValueFactory<AdjustableGradeRange,String>("letterGrade")
+        );
+        
+        colStudsInRange.setCellValueFactory(
+                new PropertyValueFactory<AdjustableGradeRange,String>("studsInRange")
         );
         
         colLowPercent.setCellValueFactory(
-                new PropertyValueFactory<GradeRange,String>("low")
+                new PropertyValueFactory<AdjustableGradeRange,String>("low")
         );
         
         colHighPercent.setCellValueFactory(
-                new PropertyValueFactory<GradeRange,String>("high")
+                new PropertyValueFactory<AdjustableGradeRange,String>("high")
         );
         
         gradeRangeTable.setItems(obsGradeRangeList);
         
         for(GradeRange range : course.getGradingDistribution().getGradeRanges())
         {
-        	obsGradeRangeList.add(range);
+        	AdjustableGradeRange temp = new AdjustableGradeRange(range, rangeStudMap);
+        	obsGradeRangeList.add(temp);
         }
     }
     
@@ -95,6 +103,8 @@ public class CustomCurveAdjusterController {
      * Sets the bar chart with the appropriate data if assignment is being viewed
      */
     public void setAssignmentPieChart(Assignment ass, Graph graph) {
+    	this.graph = graph;
+    	rangeStudMap = graph.getAssignmentPieChartData();
     	this.pieChart.setTitle(ass.getName() + " Grade Distribution Pie Chart");
     	Map<String, Integer> scoreMap = graph.getAssignmentPieChartData();
     	
@@ -114,6 +124,8 @@ public class CustomCurveAdjusterController {
      * Sets the bar chart with the appropriate data if assignment is being viewed
      */
     public void setCategoryPieChart(Category cat, Graph graph) {
+    	this.graph = graph;
+    	rangeStudMap = graph.getCategoryPieChartData();
     	this.pieChart.setTitle(cat.getName() + " Grade Distribution Pie Chart");
     	Map<String, Integer> scoreMap = graph.getCategoryPieChartData();
     	
