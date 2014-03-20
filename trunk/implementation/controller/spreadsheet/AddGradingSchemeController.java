@@ -132,7 +132,14 @@ public class AddGradingSchemeController implements Observer {
        
        // create new GradeRange with this data
        GradeRange gr = new GradeRange(symbol, lowPercent, highPercent);
-       gr.setColor(newColor.getValue().toString());
+       
+       Color c = newColor.getValue();
+       int r = (int) (c.getRed() * 256) ;
+       int g = (int) (c.getGreen() * 256) ;
+       int b = (int) (c.getBlue() * 256) ;
+       String toSet = String.format("rgb(%d, %d, %d)", r, g, b);
+       
+       gr.setColor(toSet);
        
        // insert grade ranges into the table
        gradeRangeList.add(gr);

@@ -87,6 +87,7 @@ public class EditClassController {
         year.setText(courseToEdit.getCourseInfo().getYear()); 
         
         schemesObs = FXCollections.observableArrayList();
+        schemesObs.addAll(gradebook.getGradingSchemes());
         gradingSchemes.getItems().clear();
         gradingSchemes.setItems(schemesObs);
         
