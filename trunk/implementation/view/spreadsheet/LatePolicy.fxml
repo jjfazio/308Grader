@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="203.0" prefWidth="333.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.spreadsheet.LatePolicyController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Text fx:id="dueDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="Assignent blah was due on blah">
+      <VBox.margin>
+        <Insets left="10.0" right="10.0" top="10.0" fx:id="x1" />
+      </VBox.margin>
+    </Text>
+    <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="273.0" VBox.margin="$x1">
+      <children>
+        <Text scaleX="1.0" scaleY="0.9999934685548276" strokeType="OUTSIDE" strokeWidth="0.0" text="How many days late?">
+          <HBox.margin>
+            <Insets right="10.0" />
+          </HBox.margin>
+        </Text>
+        <TextField fx:id="daysLate" prefWidth="55.0" />
+      </children>
+    </HBox>
+    <Text fx:id="graceDayText" strokeType="OUTSIDE" strokeWidth="0.0" text="This is where Grace Day Comment goes">
+      <VBox.margin>
+        <Insets left="10.0" top="10.0" fx:id="x2" />
+      </VBox.margin>
+    </Text>
+    <Text fx:id="percentDecayText" strokeType="OUTSIDE" strokeWidth="0.0" text="This is where Percent Decay goes" VBox.margin="$x2" />
+    <Text fx:id="newGradeText" strokeType="OUTSIDE" strokeWidth="0.0" text="This is where New Grade comment goes" VBox.margin="$x2" />
+    <HBox alignment="CENTER" prefHeight="44.0" prefWidth="333.0">
+      <children>
+        <Button mnemonicParsing="false" text="Confirm">
+          <HBox.margin>
+            <Insets right="30.0" />
+          </HBox.margin>
+        </Button>
+        <Button mnemonicParsing="false" text="Cancel">
+          <HBox.margin>
+            <Insets left="30.0" />
+          </HBox.margin>
+        </Button>
+      </children>
+      <VBox.margin>
+        <Insets top="10.0" />
+      </VBox.margin>
+    </HBox>
+  </children>
+</VBox>

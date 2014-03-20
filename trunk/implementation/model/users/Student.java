@@ -49,6 +49,8 @@ public class Student implements Serializable {
     private HashMap<Integer, Double> totalGrades;
     /** Map of courseID to total letter grade */
     private HashMap<Integer, String> letterGrades;
+    /** Map of courseID to total number of grace days */
+    private HashMap<Integer, Integer> graceDays;
    
     /** Contains the collection of courses that the student is enrolled */
     private ArrayList<SpreadsheetCourse> coursesEnrolled;
@@ -115,6 +117,7 @@ public class Student implements Serializable {
         boolean isBadFirstName = false;
         boolean isBadLastName = false;
         boolean isBadId = false;
+        graceDays = new HashMap<Integer, Integer>();
 
         if(!firstName.matches("^[a-zA-Z0-9_-]*$"))
         {
@@ -354,7 +357,33 @@ public class Student implements Serializable {
         letterGrades.put(course.getID(), 
                 course.getGradingDistribution().getGradeRanges().get(
                         course.getGradingDistribution().getGradeRanges().size() -1).getLetterGrade());
+        graceDays.put(course.getID(), course.getLatePolicy().getGraceDays());
+
         System.out.println("In Student.addCourse");
+    }
+
+    /**
+     * This method retrieves a grace day based on the passed
+     * course.
+     *
+     * @param   course      The course which has the amount of
+     *                      grace days
+     * @return  Integer     The amount of grace days for the course
+     */
+    public Integer getGraceDays(SpreadsheetCourse course)
+    {
+        return graceDays.get(course.getID());
+    }
+
+    /**
+     * Sets the amount of grace days based on the passed parameters
+     *
+     * @param course    The course containing the grace days.
+     * @param days      The number of days to grace.
+     */
+    public void setGraceDays(SpreadsheetCourse course, Integer days)
+    {
+        graceDays.put(course.getID(), days);
     }
 
     /**
