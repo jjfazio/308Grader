@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="478.9998779296875" prefHeight="490.999755859375" prefWidth="819.000022070315" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.graph.CustomCurveAdjusterController">
+<AnchorPane fx:id="root" minHeight="478.9998779296875" prefHeight="490.999755859375" prefWidth="819.000022070315" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.graph.CustomCurveAdjusterController">
   <!-- TODO Add Nodes -->
   <children>
     <Label layoutX="140.0" layoutY="21.0" text="Custom Curve Adjuster">
@@ -17,7 +17,7 @@
     </Label>
     <Button id="CancelButton" fx:id="cancelButton" layoutX="233.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleCancelButtonPressed" prefHeight="34.0" prefWidth="111.0" text="Cancel" />
     <Button fx:id="applyCurveButton" layoutX="454.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleApplyCurveButtonPressed" prefHeight="34.0" prefWidth="111.0" text="Apply Curve" />
-    <VBox layoutX="14.0" layoutY="148.0" prefHeight="230.0" prefWidth="357.0">
+    <VBox alignment="CENTER" layoutX="14.0" layoutY="148.0" prefHeight="230.0" prefWidth="357.0">
       <children>
         <TableView id="rangesTable" fx:id="gradeRangeTable" prefHeight="200.00009999999747" prefWidth="381.0">
           <columns>
@@ -30,5 +30,6 @@
       </children>
     </VBox>
     <PieChart id="PieChart" fx:id="pieChart" layoutX="435.0" layoutY="108.0" prefHeight="282.0" prefWidth="351.0" />
+    <Button fx:id="refreshGraphButton" contentDisplay="CENTER" layoutX="121.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleRefreshGraphButtonPressed" text="Refresh Graphs" textAlignment="CENTER" />
   </children>
 </AnchorPane>
