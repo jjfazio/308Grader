@@ -15,31 +15,32 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Dialogs;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.assignments_categories.Assignment;
 import model.assignments_categories.Category;
-import model.assignments_categories.CategoryContainer;
 import model.assignments_categories.Grade;
 import model.exception.BadDataException;
 import model.spreadsheet.AssignView;
 import model.spreadsheet.SpreadsheetCourse;
 import model.users.Student;
+import view.ViewUtility;
 
 /**
  * This class controls the Spreadsheet actions. Any action
@@ -279,6 +280,12 @@ public class SpreadsheetController implements Observer {
 
    }
    
+   /**
+    * Factory for the symbol cell, this cell will display the corresponding color for 
+    * each symbol.
+    * @author jamesfazio
+    *
+    */
    private class ColorCellFactory implements Callback<TableColumn<Student, String>, TableCell<Student, String>>
    {
 
@@ -342,7 +349,12 @@ public class SpreadsheetController implements Observer {
     public TableCell<Student, String> call(TableColumn<Student, String> arg)
     {
         Assignment assign = (Assignment) arg.getUserData();
-        return new EditingCell(assign);
+        EditingCell cell = new EditingCell();
+        
+        cell.setContextMenu(getLatePolicyMenu(assign));
+        cell.setTooltip(new Tooltip(assign.getMaxPoints() + " pts max"));   
+        
+        return cell;
     }
        
    }
@@ -425,6 +437,30 @@ public class SpreadsheetController implements Observer {
            table.setEditable(false);
    }
    
+   private ContextMenu getLatePolicyMenu(final Assignment assign)
+   {
+       ContextMenu menu = new ContextMenu();
+       MenuItem menuItem = new MenuItem("Apply LatePolicy");
+       
+       
+       menuItem.setOnAction(new EventHandler<ActionEvent>() {
+           public void handle(ActionEvent e) {
+               LatePolicyController controller;
+               Student student = studentList.get(table.getSelectionModel().getSelectedIndex());
+               
+               FXMLLoader loader = new FXMLLoader(
+                       getClass().getResource("/view/spreadsheet/LatePolicy.fxml"));
+               ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Apply Late Policy");
+               controller = loader.getController();
+               controller.setUp(student, assign);
+           }
+       });
+       
+       menu.getItems().add(menuItem);
+       
+       return menu;
+   }
+   
    /**
     * Called to refresh an assignment col along with the total grade and
     * total letter grade col.
@@ -479,9 +515,6 @@ public class SpreadsheetController implements Observer {
 
        private TextField textField;
 
-       public EditingCell(Assignment assign) {
-           this.setTooltip(new Tooltip(assign.getMaxPoints() + " pts max"));
-       }
 
        @Override
        public void startEdit() {
