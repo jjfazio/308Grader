@@ -21,6 +21,8 @@ import model.users.Student;
 import view.ViewUtility;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /****
  *
@@ -30,7 +32,7 @@ import java.util.ArrayList;
  *
  */
 
-public class EditClassController {
+public class EditClassController implements Observer {
 
     /** The root of this scene */
     @FXML
@@ -76,7 +78,7 @@ public class EditClassController {
      */
     @FXML
     protected void initialize() {
-        
+        gradebook.addObserver(this);
         this.courseToEdit = gradebook.getCurrentCourse();
         
         name.setText(courseToEdit.getCourseName());
@@ -114,7 +116,7 @@ public class EditClassController {
                 section.getText(), 
                 quarter.getText(),
                 year.getText());
-        
+        gradebook.getCurrentCourse().setGradingDistribution(gradingSchemes.getValue());
         gradebook.updatedCourse();
         getStage().close();
         
@@ -145,5 +147,14 @@ public class EditClassController {
      */
     private Stage getStage() {
         return (Stage) root.getScene().getWindow();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        // TODO Auto-generated method stub
+        schemesObs.clear();
+        schemesObs.addAll(gradebook.getGradingSchemes());
+        gradingSchemes.setItems(schemesObs);
+        
     }
 }
