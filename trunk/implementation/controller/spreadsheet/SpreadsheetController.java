@@ -378,8 +378,8 @@ public class SpreadsheetController implements Observer {
            // If the user enters in bad data for the student's grade
            catch (BadDataException e)
            {
-               Dialogs.showErrorDialog(getStage(), e.getMessage());
-               //don't show bad data
+               // Don't show bad data
+               System.out.println("Bad Data entered: " + e.getMessage());
            }
            finally
            {
