@@ -27,6 +27,7 @@ import model.assignments_categories.Category;
 import model.exception.BadDataException;
 import model.exception.GradingSchemeDataException;
 import model.exception.OverlappingRangesException;
+import model.gradebook.Gradebook;
 import model.graph.AdjustableGradeRange;
 import model.graph.Graph;
 import model.spreadsheet.GradeRange;
@@ -70,12 +71,13 @@ public class CustomCurveAdjusterController {
     private Map<String, Integer> rangeStudMap;
     private Category cat;
     private Assignment ass;
+    private GradingScheme newScheme;
     
     /**
      * Creates a new CustomCurveAdjusterController
      */
     public CustomCurveAdjusterController() {
-    	
+    	newScheme = null;
     }
     
     @FXML
@@ -144,6 +146,7 @@ public class CustomCurveAdjusterController {
     	Map<String, Integer> scoreMap = graph.getAssignmentPieChartData(scheme);
     	
     	this.pieChart.getData().clear();
+    	
     	for(String gradeStr : scoreMap.keySet()) {
     		if(scoreMap.get(gradeStr) > 0) {
     			PieChart.Data data = new PieChart.Data(gradeStr, scoreMap.get(gradeStr));
@@ -203,13 +206,13 @@ public class CustomCurveAdjusterController {
 				tempRangeList.add(curRange.getGradeRangeVersion());
 			}
 			
-			GradingScheme scheme = new GradingScheme(tempRangeList, course.getGradingDistribution().getSchemeName());
+			newScheme = new GradingScheme(tempRangeList, course.getGradingDistribution().getSchemeName());
 			
 			if(ass != null) {
-				setAssignmentPieChart(ass, graph, scheme);
+				setAssignmentPieChart(ass, graph, newScheme);
 			}
 			else {
-				setCategoryPieChart(cat, graph, scheme);
+				setCategoryPieChart(cat, graph, newScheme);
 			}
 			
 		}
@@ -228,6 +231,10 @@ public class CustomCurveAdjusterController {
     @FXML
     private void handleApplyCurveButtonPressed() {
         System.out.println("Apply curve button pressed");
+        if(newScheme != null) {
+        	course.setGradingDistribution(newScheme);
+        	Gradebook.getInstance().saveGradebook();
+        }
     }
     
     private class EditHandler implements EventHandler<CellEditEvent<AdjustableGradeRange, String>> {
