@@ -71,7 +71,7 @@ public class StudentDBTest
             "spring","01","308","Computer Science", 2014);
         StudentDB database = StudentDB.getInstance();
         List<Student> students = database.getStudentsForClass(courseInfo);
-        assertEquals("aaccf", students.get(0).getFirstName());
+        assertEquals("aaron", students.get(0).getFirstName());
     }
 
 }
