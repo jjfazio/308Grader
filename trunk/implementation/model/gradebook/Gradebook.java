@@ -219,7 +219,7 @@ public class Gradebook extends Observable implements Serializable
     {
         if (gradingSchemes == null)
         {
-            System.out.println("tried getting empty scheme, made default");
+            System.out.println("list is null so make a new one");
             addGradingScheme(new GradingScheme());
         }
         return gradingSchemes;
@@ -233,6 +233,7 @@ public class Gradebook extends Observable implements Serializable
         }
 
         gradingSchemes.add(scheme);
+        System.out.println("size noe = " + gradingSchemes.size());
         setChanged();
         notifyObservers();
     }
