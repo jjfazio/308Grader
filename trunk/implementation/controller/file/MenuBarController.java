@@ -96,11 +96,11 @@ public class MenuBarController
    public void classEdit() {
        if(Gradebook.getInstance().getCurrentCourse() != null)
        {
-      FXMLLoader loader = new FXMLLoader(
-         getClass().getResource("/view/gradebook/EditClass.fxml"));
+           FXMLLoader loader = new FXMLLoader(
+                   getClass().getResource("/view/gradebook/EditClass.fxml"));
       
       
-      ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Edit Class");
+           ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Edit Class");
        }
       
    }
@@ -111,10 +111,13 @@ public class MenuBarController
     */
    @FXML
    public void classDelete() {
-      FXMLLoader loader = new FXMLLoader(
-         getClass().getResource("/view/gradebook/DeleteClass.fxml"));
-      
-      ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Delete Class");
+       if(Gradebook.getInstance().getCurrentCourse() != null)
+       {
+          FXMLLoader loader = new FXMLLoader(
+             getClass().getResource("/view/gradebook/DeleteClass.fxml"));
+          
+          ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Delete Class");
+       }
       
    }
 
