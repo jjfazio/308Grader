@@ -359,7 +359,6 @@ public class Student implements Serializable {
                         course.getGradingDistribution().getGradeRanges().size() -1).getLetterGrade());
         graceDays.put(course.getID(), course.getLatePolicy().getGraceDays());
 
-        System.out.println("In Student.addCourse");
     }
 
     /**
