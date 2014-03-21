@@ -137,7 +137,7 @@ public class LatePolicyController
         //Check that the user entered a valid number
         try 
         {
-            days = Integer.parseInt(daysLate.getText()) / policy.getDecayRate();
+            days = Integer.parseInt(daysLate.getText());
             decay = policy.getDecayPercentage() * days;
         } 
         catch(NumberFormatException e)
@@ -164,6 +164,7 @@ public class LatePolicyController
         }
         else
         {
+            days = days / policy.getDecayRate();
             newGradePercent = oldGradePercent - (oldGradePercent * (decay / 100));
             sb.append("Old Grade: " + oldGradePercent + "%");
             sb.append("\nNew Grade: " + String.format("%.2f", newGradePercent) + "%");
