@@ -1,0 +1,97 @@
+<h3>
+    Acceptance Test Plan: Viewing Graphs and Adjusting Curves
+</h3>
+
+<p>
+    Author: Erik Owen<br><br>
+    The test plan for viewing graphs and adjusting the curves for an assignment/category is as following:
+<blockquote>
+    <table align=center border=1 cellpadding=4>
+        <tr>
+            <td valign=top><strong>Case No.</strong>
+            <td valign=top><strong>User Inputs and Commands</strong>
+            <td valign=top><strong>Expected Output</strong>
+            <td valign=top><strong>Remarks</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td valign=top><strong>Results</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <tr>
+                    <td valign=top>1
+                    <td valign=top>
+                        Make sure you are in a Gradebook which has assignments, categories, and students, with student grades for the respective assignments and categories. Look ad the grading.html file in acceptance/spreadsheet for information on this.<br><br>
+                        Navigate to Menu->View->View Graphs<br><br>
+                        Click on Overall category, and press select.<br><br>
+
+                    <td valign=top>
+                        The 'Graph and Adjust Curve' Page should appear. The graphs data should correctly reflect the student's scores for that particular category.
+                    <td valign=top>
+                        Tests graphs dynamically being created to reflect students scores for category showing.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>2
+                    <td valign=top>
+                        While still on the 'Graphs and Adjust Curve' page, go into the add percent curve text box in the 'Add Curve' box<br><br>
+                        in the text box, enter "10"<br>
+                        Press the 'Save Curved Grades' Button<br>
+                        Exit out of the Graph and Adjust Curves page to go back to the main spreadsheet view.<br>
+                    <td valign=top>
+                        All of the student's scores for the overall grade should have increased by 10%.
+                    <td valign=top>
+                        Tests adding a standard curve functionality.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>3
+                    <td valign=top>
+                        Navigate to Menu->View->View Graphs<br><br>
+                        Click an Assignment of your choice, and press select.<br><br>
+                    <td valign=top>
+                        The Graph and 'Adjust Curve' page should appear. This time, the graph's data should correctly reflect the student's scores for that particular assignment.
+                    <td valign=top>
+                        Tests viewing the graphs of the assignment to dynamically show students scores.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>4
+                    <td valign=top>
+                        While still on the 'Graphs and Adjust Curves' page, go the 'View Grades As' box and uncheck pie chart<br><br>
+                        Click the radio button that says 1% granularity.
+                    <td valign=top>
+                        The pie chart should be hidden from the view, and the bar chart's data should have changed from 10% intervals to 1% intervals. (Note, sometimes the 1% data does not appear in the bar chart if there is a lot of data, because JavaFx needs a certain amount of room to display all the data, and will not show any data if there is not the needed amount of room.)
+                    <td valign=top>
+                        Tests hiding graph types and changing interval granularity.
+                    <td valign=top>
+                        Pass
+                </tr>
+                                <tr>
+                    <td valign=top>4
+                    <td valign=top>
+                        While still on the 'Graphs and Adjust Curves' page, go the 'Adjust Curve' box and click the 'Add Custom Curve' button.<br><br>
+                        go into the table and change the low value for the 'A' grade column to 82.
+                        Press the 'Refresh Graphs' button.
+
+                    <td valign=top>
+                        The 'Custom Curve Adjuster' page should have appeared which allows users to edit the low and high values of the different grade ranges. After the user hit the Refresh Graphs button, an error dialogue should appear that tells the students that there are overlapping grade ranges.
+                    <td valign=top>
+                        Tests the 'Custom Curve Adjuster' page, and the functionality to determine if the user has two grade ranges that intersect.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>4
+                    <td valign=top>
+                        While still on the 'Custom Curve Adjuster' page, go to the 'B' grade column and change the high to be 81, so that B's range does not overlap with A. Hit the 'Refresh Graph' button, then hit The 'Apply Curve' button.
+
+                    <td valign=top>
+                        After the user hit the 'Refresh Graph' button, the graph should have changed to reflect the new distribution of students with the grade range in the table. After the user saved these GradeRanges by pressing the 'Apply Curve' button, the 'Custom Curve Adjuster' and 'View Graphs and Adjust Curves' pages should be disappear. Back in the main spreadsheet, when the user changes a student's grades in the table, the new grade ranges will be reflected in the 'Overall' column.
+                    <td valign=top>
+                        Tests input new ranges in the 'Custom Curve Adjuster' page, tests saving the new desired grade ranges.
+                    <td valign=top>
+                        Pass
+                </tr>
+
+    </table>
+</blockquote>
+</p>
