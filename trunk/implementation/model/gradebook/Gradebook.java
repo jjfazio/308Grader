@@ -213,6 +213,10 @@ public class Gradebook extends Observable implements Serializable
         notifyObservers();
     }
 
+    /**
+     * Get all the grading schemes created in this gradebook
+     * @return a list of grading schemes
+     */
     public ArrayList<GradingScheme> getGradingSchemes()
     {
         if (gradingSchemes == null)
@@ -223,6 +227,10 @@ public class Gradebook extends Observable implements Serializable
         return gradingSchemes;
     }
 
+    /**
+     * Add a grading scheme to the gradebook
+     * @param scheme the scheme to add
+     */
     public void addGradingScheme(GradingScheme scheme)
     {
         if (gradingSchemes == null)
@@ -255,6 +263,9 @@ public class Gradebook extends Observable implements Serializable
         return currentCourse;
     }
     
+    /**
+     * The course got updated so let the view know.
+     */
     public void updatedCourse()
     {
         setChanged();
