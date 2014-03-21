@@ -60,7 +60,7 @@ public class AdjustableGradeRange{
 	 * Setter method to set the number of students in the grade range
 	 * @param rangeMap the map to find the number of students in this range
 	 */
-	private void setStudentsInRange(Map<String, Integer> rangeMap) {
+	public void setStudentsInRange(Map<String, Integer> rangeMap) {
 		studsInRange = rangeMap.get(letterGrade);
 	}
 	
@@ -92,6 +92,11 @@ public class AdjustableGradeRange{
 		return high;
 	}
 	
+	/**
+	 * Gets the GradeRange object which this AdjustableGradeRange is decorating.
+	 * 
+	 * @return the original GradeRange decorated by this object
+	 */
 	public GradeRange getGradeRangeVersion() {
 		GradeRange oldRange = new GradeRange(letterGrade, low, high);
 		oldRange.setColor(origRange.getColor());
@@ -148,6 +153,11 @@ public class AdjustableGradeRange{
 		}
 	}
 	
+	/**
+	 * Static method checking a list of AdjustableGradeRanges for overlapping ranges
+	 * @param ranges the list of ranges being examined
+	 * @throws OverlappingRangesException if there are two ranges that are overlapping
+	 */
 	public static void checkForOverlappingRanges(List<AdjustableGradeRange> ranges) throws OverlappingRangesException {
     	for(int ndx = 0; ndx < ranges.size(); ndx++) {
     		for(int checkNdx = 0; checkNdx < ranges.size(); checkNdx++) {
