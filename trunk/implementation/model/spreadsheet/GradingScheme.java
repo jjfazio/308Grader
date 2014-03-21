@@ -25,7 +25,6 @@ public class GradingScheme extends Observable implements Serializable {
     
     public GradingScheme()
     {
-        //System.out.println("gs created");
         gradeRanges = new ArrayList<GradeRange>();
         
         /** Set to default scheme */
@@ -56,6 +55,12 @@ public class GradingScheme extends Observable implements Serializable {
         notifyObservers();
     }
     
+    /**
+     * Non default constructor.
+     * @param ranges the list of ranges
+     * @param name the name 
+     * @throws GradingSchemeDataException
+     */
     public GradingScheme(List<GradeRange> ranges, String name) throws GradingSchemeDataException
     {
         String errorMessage = "";
@@ -104,26 +109,46 @@ public class GradingScheme extends Observable implements Serializable {
         return plusMinusEnabled;
     }
 
+    /**
+     * Get the list of ranges
+     * @return
+     */
     public List<GradeRange> getGradeRanges()
     {
         return gradeRanges;
     }
 
+    /**
+     * Get the name of this scheme.
+     * @return
+     */
     public String getSchemeName()
     {
         return schemeName;
     }
     
+    /**
+     * Set the name of this scheme
+     * @param name
+     */
     public void setSchemeName(String name)
     {
         this.schemeName = name;
     }
     
+    /**
+     * Get the name of this string
+     */
     public String toString()
     {
         return schemeName;
     }
     
+    /**
+     * Add a grade range to this scheme
+     * @param range
+     * @throws GradingSchemeDataException
+     */
     public void addRange(GradeRange range) throws GradingSchemeDataException {
         
         if (isValidRangeToAdd(range)) {
@@ -147,9 +172,9 @@ public class GradingScheme extends Observable implements Serializable {
     }
     
     /**
-     * 
+     * Use a percent to determing the symbol
      * @param score
-     * @return
+     * @return "" if it doesnt fit in any of the ranges
      */
     public String getSymbolFromPercent(Double score) {
         
@@ -160,25 +185,16 @@ public class GradingScheme extends Observable implements Serializable {
             if (score <= r.getHigh() && score >= r.getLow())
             {
                 return r.getLetterGrade();
-            } 
-            /**
-            else if (score > r.getLow())
-            {
-                lower = false;
             }
-            else if (score < r.getHigh())
-            {
-                higher = false;
-            } */
         }
         
         return "";
     }
     
     /**
-     * 
-     * @param symbol
-     * @return
+     * Get the color
+     * @param symbol to get the color for
+     * @return the color as a string or null if it doesnt fit in any of the ranges
      */
     public String getColorFromSymbol(String symbol) {
         for (GradeRange r : gradeRanges)
@@ -225,7 +241,11 @@ public class GradingScheme extends Observable implements Serializable {
         return true;
     }
     
-    
+    /**
+     * Helper method to get the correct format of a color string
+     * @param c the Color object
+     * @return String representatin for css to use
+     */
     private String getColorString(Color c)
     {
         int r = (int) (c.getRed() * 256) ;

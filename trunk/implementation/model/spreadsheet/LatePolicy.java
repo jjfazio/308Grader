@@ -60,21 +60,37 @@ public class LatePolicy implements Serializable {
        this.graceDays = 0;
    }
 
+   /**
+    * Determine if this policy uses grace days
+    * @return
+    */
    public Boolean getGraceDaysEnabled()
    {
        return graceDaysEnabled;
    }
 
+   /**
+    * Get the decay rate
+    * @return
+    */
    public Integer getDecayRate()
    {
        return decayRate;
    }
 
+   /**
+    * Get the decay percent per day
+    * @return
+    */
    public Double getDecayPercentage()
    {
        return decayPercentage;
    }
 
+   /**
+    * Get the number of grace days
+    * @return null if not enabled
+    */
    public Integer getGraceDays()
    {
        if (graceDaysEnabled)
