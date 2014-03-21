@@ -32,6 +32,7 @@ import model.spreadsheet.SpreadsheetCourse;
 
 import javax.xml.soap.Text;
 import java.awt.*;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Jirbert Dilanchian
@@ -109,6 +110,11 @@ public class EditCategoryController {
     public void handleEditCategoryEdit() {
         Stage stage = (Stage) treeView.getScene().getWindow();
         System.out.println("Edit button Clicked!");
+
+        try {
+            treeView.getSelectionModel().getSelectedItem().getValue();
+
+
         if(editCategorySaveBtn.getText().equals("Edit")) {
 
             String origSelectedCategoryTemp = treeView.getSelectionModel().getSelectedItem().getValue();
@@ -123,10 +129,10 @@ public class EditCategoryController {
             topLbl.setText("Select the new parent category");
             editCategoryName.setDisable(false);
             editCategoryPercent.setDisable(false);
-
-            System.out.println("Cat name " + origSelectedCategory + "  parent Name " + origParentCategory);
         }
-        else {
+        else if(!(treeView.getSelectionModel().getSelectedItem().getValue().substring(0,
+                treeView.getSelectionModel().getSelectedItem().getValue().indexOf("(")).trim().equals(origSelectedCategory))) {
+
             try {
                 String newParentNameTemp = treeView.getSelectionModel().getSelectedItem().getValue();
                 String newParentName = newParentNameTemp.substring(0, newParentNameTemp.indexOf("(")).trim();
@@ -146,15 +152,31 @@ public class EditCategoryController {
                         );
             } catch (BadDataException e) {
                 Dialogs.showErrorDialog(stage, e.getMessage(), "Please resolve the following issues.", "Invalid input");
+            } catch (Exception e){
+                Dialogs.showErrorDialog(stage, "Crap", "Please resolve the following issues.", "Invalid input");
             }
+
             stage.close();
+        }
+        else {
+            Dialogs.showErrorDialog(stage, "You need to select different category ",
+                    "Please resolve the following issues.", "Invalid input");
+        }
+
+        }catch (Exception e) {
+            Dialogs.showErrorDialog(stage, "You need to select a category to be edited.  Note that Overall Category " +
+                    "cannot be edited, and you need to choose a new parent Category",
+                    "Please resolve the following issues.", "Invalid input");
         }
     }
 
     @FXML
     public void onMouseClicked() {
 
-        if (treeView.getSelectionModel().getSelectedItem() != null){
+        if (treeView.getSelectionModel().getSelectedItem() != null && !(
+                treeView.getSelectionModel()
+                        .getSelectedItem().getValue().substring(0, treeView.getSelectionModel()
+                        .getSelectedItem().getValue().indexOf("(")).trim()).equals("Overall")){
             isChosen = true;
             String selectedCategory = treeView.getSelectionModel()
                     .getSelectedItem().getValue();

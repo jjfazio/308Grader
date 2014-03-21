@@ -213,7 +213,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
                      !studentInCourse.equals(oldStudent)));
      @*/
     public void editStudent() {
-       System.out.println("In SpreadsheetCourse.editStudent");
         updateCourse();
     }
 
@@ -240,7 +239,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     @*/
 
     public void deleteStudent(Student student) {
-        System.out.println("In SpreadsheetCourse.deleteStudent");
         isStudentDeleted = true;
         studentToDelete = student;
         studentRoster.remove(student);
@@ -250,28 +248,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
 
     public Student getStudentToDelete() {
         return studentToDelete;
-    }
-       
-       /* TODO: CHANGE JML */
-
-    /**
-     * Sets the percentage curve for a particular category
-     */
-       /*@
-        requires
-        //
-        //the amount curved parameter must be a decimal between -1 and 1
-        //
-        (amountCurved >= -1 && amountCurved <= 1);
-        
-        ensures
-        //
-        //the percentCurve field in Category is changed to match the amountCurved parameter
-        //
-        (category.percentCurve.equals(amountCurved));
-       @*/
-    public void adjustCourseCurve(Double amountCurved) {
-       
     }
     
     public Boolean isStudentAdded() 

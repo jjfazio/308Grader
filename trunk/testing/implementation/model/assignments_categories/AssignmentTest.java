@@ -5,8 +5,14 @@ package implementation.model.assignments_categories;
 
 import static org.junit.Assert.*;
 
+import model.assignments_categories.Assignment;
+import model.assignments_categories.Category;
+import model.spreadsheet.GradingScheme;
+import model.spreadsheet.LatePolicy;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.GregorianCalendar;
 
 /****
  *
@@ -22,7 +28,7 @@ import org.junit.Test;
  *                                                                      <p><li>
  *     Phase 3: Unit test adjustCurve
  *                                                                      <p><li>
- *     Phase 5: Unit test setName, setMaxPoints, setPolicy, setPercentCurve
+ *     Phase 4: Unit test setName, setMaxPoints, setPolicy, setPercentCurve
  *                                                                      <p><li>
  *                                                                        </ul>
  *     @author Jirbert Dilanchian
@@ -41,20 +47,48 @@ public class AssignmentTest
     /**
      * Test method for {@link model.assignments_categories.Assignment#Assignment()}.
      */
+    /**
+     * Test method for {@link model.assignments_categories.Category#Category()}.
+     */
+    /**
+     * Unit test creating an instance root Category.
+     *  <pre>
+     *  Test
+     *  Case    Input                    Output                                   Remarks
+     * ====================================================================
+     *   1      none                Properly instantiate instance of Assignment        Only Case
+     */
     @Test
     public void testAssignment()
     {
-        fail("Not yet implemented");
+        Assignment testAss = new Assignment();
+        assertTrue(testAss != null);
     }
 
     /**
      * Test method for {@link model.assignments_categories.Assignment#(java.lang.String, java.lang.Double, java.lang.Integer, java.util.Date, model.spreadsheet.GradingScheme, model.spreadsheet.LatePolicy, java.lang.Boolean)}.
      */
+    /**
+     * Unit test creating an instance root Category.
+     *  <pre>
+     *  Test
+     *  Case    Input                         Output                                             Remarks
+     * =========================================================================
+     *   1      String name, double weight    Properly instantiate instance of Assignment        Only Case
+     *          int points,
+     *          GregorianCalendar date,
+     *
+     */
     @Test
+
     public void testAssignmentStringDoubleIntegerDateGradingSchemeLatePolicyBoolean()
     {
-        fail("Not yet implemented");
-    }
+        Assignment newAss = new Assignment(new Category(), "theName", 3.4, 50, new GregorianCalendar(),
+                new GradingScheme(), new LatePolicy(), false);
+        assertEquals(newAss.getName(), "theName");
+        assertEquals(newAss.getPercentOfCategory().toString(), "3.4");
+        assertTrue(newAss.getMaxPoints() == 50);
+     }
 
     /**
      * Test method for {@link model.assignments_categories.Assignment#adjustAssignmentCurve(java.lang.Double)}.
@@ -62,7 +96,7 @@ public class AssignmentTest
     @Test
     public void testAdjustAssignmentCurve()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -71,7 +105,7 @@ public class AssignmentTest
     @Test
     public void testGetName()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -80,7 +114,7 @@ public class AssignmentTest
     @Test
     public void testSetName()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -89,7 +123,7 @@ public class AssignmentTest
     @Test
     public void testGetPercentOfCategory()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -98,7 +132,7 @@ public class AssignmentTest
     @Test
     public void testSetPercentOfCategory()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -107,7 +141,7 @@ public class AssignmentTest
     @Test
     public void testGetMaxPoints()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -116,7 +150,7 @@ public class AssignmentTest
     @Test
     public void testSetMaxPoints()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -125,16 +159,16 @@ public class AssignmentTest
     @Test
     public void testGetDueDate()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
-     * Test method for {@link model.assignments_categories.Assignment#setDueDate(java.util.Date)}.
+     * Test method for {@link model.assignments_categories.Assignment#setDueDate(java.util.GregorianCalendar)}.
      */
     @Test
     public void testSetDueDate()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -143,7 +177,7 @@ public class AssignmentTest
     @Test
     public void testGetgScheme()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -152,7 +186,7 @@ public class AssignmentTest
     @Test
     public void testSetgScheme()
     {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -161,7 +195,6 @@ public class AssignmentTest
     @Test
     public void testGetPolicy()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -170,7 +203,6 @@ public class AssignmentTest
     @Test
     public void testSetPolicy()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -179,7 +211,6 @@ public class AssignmentTest
     @Test
     public void testGetHasElectronicTurnin()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -188,7 +219,6 @@ public class AssignmentTest
     @Test
     public void testSetHasElectrionicTurnin()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -197,7 +227,6 @@ public class AssignmentTest
     @Test
     public void testGetPercentCurve()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -206,7 +235,6 @@ public class AssignmentTest
     @Test
     public void testSetPercentCurve()
     {
-        fail("Not yet implemented");
     }
 
 }

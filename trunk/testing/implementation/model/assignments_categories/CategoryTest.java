@@ -94,6 +94,18 @@ public class CategoryTest
     /**
      * Test method for {@link model.assignments_categories.Category#getSubCategories()}.
      */
+    /**
+     * Unit test retrieving the subcategories assigned to a category.
+     *  <pre>
+     *  Test
+     *  Case    Input                            Output                                         Remarks
+     * ==================================================================================================
+     *   1      Create 1 parent category        Properly instantiates category        Only Case
+     *          Create 3 categories and         and it has 3 subcategories.
+     *          add them to the parent
+     *          category
+     */
+
     @Test
     public void testGetSubCategories()
     {
@@ -101,15 +113,35 @@ public class CategoryTest
         Category testCat1 = new Category(testCat, 5.0, "first");
         Category testCat2 = new Category(testCat, 6.0, "second");
         Category testCat3 = new Category(testCat, 7.0, "third");
-//        assertEquals(testCat.getSubCategories().size(), 3);
+        testCat.addSubCategory(testCat1);
+        testCat.addSubCategory(testCat2);
+        testCat.addSubCategory(testCat3);
+        assertEquals(testCat.getSubCategories().size(), 3);
     }
 
     /**
      * Test method for {@link model.assignments_categories.Category#addAssignment(model.assignments_categories.Assignment)}.
      */
+    /**
+     * Unit test retrieving the subcategories assigned to a category.
+     *  <pre>
+     *  Test
+     *  Case    Input                            Output                                         Remarks
+     * ==================================================================================================
+     *   1      Create 1 parent category        Properly instantiates 1 category        Only Case
+     *          Create 1 assignment and         and it has 1 Assignment.
+     *          add the assignment to the
+     *          parent category
+     */
+
     @Test
     public void testAddAssignment()
     {
+        Category testCat = new Category();
+        Assignment testAss = new Assignment();
+        testCat.addAssignment(testAss);
+        assertEquals(testAss.getName(), "changeName");
+        assertEquals(testCat.getAssignments().get(0).getName(), "changeName");
     }
 
     /**
@@ -126,6 +158,7 @@ public class CategoryTest
     @Test
     public void testRemoveAssignment()
     {
+
     }
 
     /**
@@ -147,14 +180,29 @@ public class CategoryTest
     /**
      * Test method for {@link model.assignments_categories.Category#removeCategory(model.assignments_categories.Category)}.
      */
+    /**
+     * Unit test retrieving the subcategories assigned to a category.
+     *  <pre>
+     *  Test
+     *  Case    Input                            Output                                         Remarks
+     * ==================================================================================================
+     *   1      Create 1 parent category        Properly instantiates 1 category        Only Case
+     *          Create 2 additional             and it has 1 Category.
+     *          Categories
+     *          Add categories to parent
+     *          category
+     *          Remove one of sub-categories
+     */
     @Test
     public void testRemoveCategory()
     {
-        Category testCat = new Category();
-        Category testCat1 = new Category(testCat, 4.7, "first");
-        Category testCat2 = new Category(testCat, 6.4, "second");
-        testCat.removeCategory(testCat1);
-//        assert(testCat.getSubCategories().size() == 1);
+        Category parentCat = new Category();
+        Category testCat1 = new Category(parentCat, 4.7, "first");
+        Category testCat2 = new Category(parentCat, 6.4, "second");
+        parentCat.addSubCategory(testCat1);
+        parentCat.addSubCategory(testCat2);
+        parentCat.removeCategory(testCat1);
+        assert(parentCat.getSubCategories().size() == 1);
     }
 
     /**
