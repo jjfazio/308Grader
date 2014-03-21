@@ -1,0 +1,190 @@
+<h3>
+    Acceptance Test Plan: Grading a Spreadsheet (James Fazio)
+</h3>
+<p>
+    Before doing this Acceptance Test, create a Class with a default Grading Scheme and a
+    grace day Late Policy with 3 grace days. Then Add two categories, 'Homework' for 30% of the class
+    and 'Tests; for 70% of the class. Then add 3 Assignments under Homework. 'HMW1' for 30%, 'HMW2'
+    for 40% and 'HMW3' for 50%. Add 2 Tests under Tests, 'Test1' for 60% and 'Test2' for 40%. Make
+    all assignments out of 100 pts. Also Download a roster so students are in the class.
+    The test plan for grading a spreadsheet course is as following:
+<blockquote>
+    <table align=center border=1 cellpadding=4>
+        <tr>
+            <td valign=top><strong>Case No.</strong>
+            <td valign=top><strong>User Inputs and Commands</strong>
+            <td valign=top><strong>Expected Output</strong>
+            <td valign=top><strong>Remarks</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td valign=top><strong>Results</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <tr>
+                    <td valign=top>1
+                    <td valign=top>
+                        Enter in 100s for every Assignment for Student1 <br><br>
+                    <td valign=top>
+                        The student should have a total grade of 100%. The Symbol should be A
+                        and the color in the symbol column should be green.
+                    <td valign=top>
+                        Tests to make sure grading percentages add up to 100.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>2
+                    <td valign=top>
+                        Enter in 5s for every Assignment for Student2
+                    <td valign=top>
+                        The student should have a total grade of 5% with total Symbol F
+                        and a dark red color.
+                    <td valign=top>
+                        Further testing to make sure grading percentages work.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>3
+                    <td valign=top>
+                        For Student 2:<br><br>
+                        Enter in 89 for HMW1<br><br>
+                        Enter in 78 for HMW2<br><br>
+                        Enter in 92 for HMW3<br><br>
+                        Enter in 88 for Test1<br><br>
+                        Enter in 77 for Test2
+                    <td valign=top>
+                        The Student should have a total grade of 84.17 with total symbol B
+                        and a light green color.
+                    <td valign=top>
+                        Test adding up varying percentages to make sure grading works.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>4
+                    <td valign=top>
+                        Hover over a Test2 Cell
+                    <td valign=top>
+                        100 pts should be displayed in a Tooltip
+                    <td valign=top>
+                        Tests Tooltip functionality
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>5
+                    <td valign=top>
+                        Change Student 1's Test2 Grade to a 0
+                    <td valign=top>
+                        Student 1 should have a total grade of 72% with a symbol of C
+                        and a color of yellow. 
+                    <td valign=top>
+                        Tests Table reloading, and ensures grades can be changed.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>6
+                    <td valign=top>
+                        Go to 'View' -> 'View Assignment As'<br><br>
+                        Select Percentages <br><br>
+                        Press Confirm <br><br>
+                        Try to Click in an Assignment Cell
+                    <td valign=top>
+                        The Spreadsheet displays percentages for all the assignment cells.
+                        Assignment cells are no longer editable, they can only be edited
+                        in View As -> Points.
+                    <td valign=top>
+                        Tests to make sure grades can be displayed in percentage mode.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>7
+                    <td valign=top>
+                        Go to 'View' -> 'View Assignment As'<br><br>
+                        Select Symbols <br><br>
+                        Press Confirm <br><br>
+                        Try to Click in an Assignment Cell
+                    <td valign=top>
+                        The Spreadsheet displays symbols assigned in the GradeScheme for the course 
+                        for all assignment cells. Assignment cells are no longer editable, they can only be edited
+                        in View As -> Points.
+                    <td valign=top>
+                        Tests to make sure grades can be displayed in symbol mode.
+                    <td valign=top>
+                        Pass
+                </tr>
+                 <tr>
+                    <td valign=top>8
+                    <td valign=top>
+                        Change back to View As -> Points <br><br>
+                        Right Click the 'Major' Table Column <br><br>
+                        Press 'Hide Major' <br><br>
+                        Right Click the 'Username' Table Column <br><br>
+                        Click 'Hide Username'
+                        
+                    <td valign=top>
+                        The Username and Major columns are no longer visible.
+                    <td valign=top>
+                        Tests to make sure columns can be hidden.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>9
+                    <td valign=top>
+                        Right Click 'First Name' Column header<br><br>
+                        Press 'Show All Columnns' <br><br>
+                        
+                    <td valign=top>
+                        All columns are now visible
+                    <td valign=top>
+                        Tests to make sure columns can be unhidden.
+                    <td valign=top>
+                        Pass
+                </tr>
+                 <tr>
+                    <td valign=top>10
+                    <td valign=top>
+                        Right Click on Student 3's HMW1 cell<br><br>
+                        Press 'Apply Late Policy' <br><br>
+                        Enter in 3 Days <br><br>
+                        Press Calculate
+                    <td valign=top>
+                        A message is displayed saying Student 3 will have 0 remaining Grace Days
+                    <td valign=top>
+                        Tests to make sure the correct late policy is displayed for the course.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>11
+                    <td valign=top>
+                        Press Confirm <br><br>
+                        Right click on the same cell from the previous test <br><br>
+                        Press 'Apply Late Policy' <br><br>
+                        Enter in 1 Days <br><br>
+                        Press Calculate
+                    <td valign=top>
+                        A message is displayed saying Student 3 will have -1 remaining Grace Days
+                        and they will receive a 0 on this assignment.
+                    <td valign=top>
+                        Tests to make sure grace days persist and work correctly.
+                    <td valign=top>
+                        Pass
+                </tr>
+                 <tr>
+                    <td valign=top>12
+                    <td valign=top>
+                        Press Confirm
+                    <td valign=top>
+                        Student 2 now has a 0 for HMW1 and a final grade of 76.16 with Symbol
+                        C and color yellow. 
+                    <td valign=top>
+                        Tests to make sure that a student who turns in work late after grace
+                        days are used will receive a 0.
+                    <td valign=top>
+                        Pass
+                </tr>
+
+    </table>
+</blockquote>
+</p>
