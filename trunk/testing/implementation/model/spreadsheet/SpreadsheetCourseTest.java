@@ -3,16 +3,17 @@ package implementation.model.spreadsheet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.exception.CourseDataException;
+import model.exception.StudentDataException;
 import model.spreadsheet.CourseInfo;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
 import model.spreadsheet.SpreadsheetCourse;
+import model.users.Student;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -65,15 +66,15 @@ public class SpreadsheetCourseTest
      * 
      * Construct a SpreadsheetCourse. Ensure that once the SpreadsheetCourse
      * is created that it is not null. If you pass in null CourseInfo into
-     * the SpreadsheetCourse, a BadDataException should be thrown
+     * the SpreadsheetCourse, a BadDataException should be thrown. If you
+     * pass null grading scheme a CourseDataExcpetion is thrown.
      *                                                                    <pre>
      *  Test
      *  Case    Input                                    Output             Remarks
      * =================================================================================
      *   1      SpreadsheetCourse(info, scheme, policy)  Success
-     *   2      SpreadsheetCourse(info, null, policy)  BadDataException
-     *
-     * @throws CourseDataException 
+     *   2      SpreadsheetCourse(info, null, policy)    CourseDataException
+     *   3      SpreadsheetCourse(null, scheme, policy   CourseDataException
      */
     @Test
     public void testSpreadsheetCourse() throws CourseDataException
@@ -97,6 +98,16 @@ public class SpreadsheetCourseTest
         try
         {
             SpreadsheetCourse course = new SpreadsheetCourse(info, null, policy);
+        }
+        catch (CourseDataException e)
+        {
+            assertNotNull(e.getMessage());
+        }
+        
+        // Test 3
+        try
+        {
+            SpreadsheetCourse course = new SpreadsheetCourse(null, scheme, policy);
         }
         catch (CourseDataException e)
         {
@@ -165,7 +176,7 @@ public class SpreadsheetCourseTest
      * ============================================================
      *   1      getCourseInfo()     Success
      *   
-     * @throws CourseDataException 
+     * @throws CourseDataException Invalid course created
      */
     @Test
     public void testGetCourseInfo() throws CourseDataException
@@ -187,7 +198,7 @@ public class SpreadsheetCourseTest
      * ================================================================
      *   1      getCourseLatePolicy()     Success
      *   
-     * @throws CourseDataException 
+     * @throws CourseDataException if course is invalid
      */
     @Test
     public void testGetLatePolicy() throws CourseDataException
@@ -198,11 +209,120 @@ public class SpreadsheetCourseTest
     }
 
     /**
-     * Test method for {@link model.spreadsheet.SpreadsheetCourse#addStudent(model.users.Student)}.
+     * Test method for {@link model.spreadsheet.SpreadsheetCourse#addStudent()}.
+     * 
+     * Ensures that after adding a student to a course the Student is actually
+     * in the course. Also ensures that when a student is added they are placed
+     * in the newly added students list. Stress test adding 1000 students.
+     *                                                                    <pre>
+     *  Test
+     *  Case    Input                     Output             Remarks
+     * ================================================================
+     *   1      Student  1                Success Added
+     *   2      Student  2                Success Added
+     *   3.     1000 Students             Success Added
+     * 
+     * @throws StudentDataException If student is invalid
+     * @throws CourseDataException If course is invalid
      */
     @Test
-    public void testAddStudent()
+    public void testAddStudent() throws CourseDataException, StudentDataException
     {
+        SpreadsheetCourse course = new SpreadsheetCourse(info, scheme, policy);
+        
+        Student student = new Student("bboy76", "Bill", "Nye",
+                "88890", "Computer Science", "Freshman");
+        
+        Student student2 = new Student("asaasasffas", "ladsjlakhj", "asljdlhak",
+                "-1", "", "Sophmore");
+        
+        Student temp;
+        
+        // Test 1
+        course.addStudent(student);
+        
+        assertEquals(course.getStudentRoster().size(), 1);
+        assertEquals(course.getStudentRoster().get(0), student);
+        assertEquals(course.getAddedStudents().size(), 1);
+        
+        // Should be empty after getting it the first time
+        assertEquals(course.getAddedStudents().size(), 0);
+        
+        // Test 2
+        course.addStudent(student2);
+        
+        assertEquals(course.getStudentRoster().size(), 2);
+        assertEquals(course.getStudentRoster().contains(student2), true);
+        assertEquals(course.getAddedStudents().size(), 1);
+        
+        // Should be empty after getting it the first time
+        assertEquals(course.getAddedStudents().size(), 0);
+        
+        
+        // Test 3
+        for (int i = 0; i < 1000; i++)
+        {
+            temp = new Student("" + i, "" + i, "" + i, "" + i, "" + i, "" + i);
+            course.addStudent(temp);
+            
+            assertEquals(course.getStudentRoster().size(), 3 + i);
+            assertEquals(course.getStudentRoster().contains(temp), true);
+        }
+        
+        assertEquals(course.getAddedStudents().size(), 1000);
+        assertEquals(course.getAddedStudents().size(), 0);
+    }
+    
+    /**
+     * Test method for {@link model.spreadsheet.SpreadsheetCourse#deleteStudent()}.
+     * 
+     * Ensures that after deleting a student from a Spreadsheet course that
+     * the student is actually deleted. Makes sure that the student can be retrieved
+     * from the getStudentToDelete method.
+     *                                                                    <pre>
+     *  Test
+     *  Case    Input                     Output             Remarks
+     * ================================================================
+     *   1      deleteStudent(Student1)   Success Deleted
+     *   2      deleteStudent(Student2)   Success Deleted
+     * 
+     * @throws StudentDataException If student is invalid
+     * @throws CourseDataException If course is invalid
+     */
+    @Test
+    public void testDeleteStudent() throws StudentDataException, CourseDataException
+    {
+        SpreadsheetCourse course = new SpreadsheetCourse(info, scheme, policy);
+        
+        Student student = new Student("bboy76", "Bill", "Nye",
+                "88890", "Computer Science", "Freshman");
+        
+        Student student2 = new Student("asaasasffas", "ladsjlakhj", "asljdlhak",
+                "-1", "", "Sophmore");
+
+        //Test 1
+        course.addStudent(student);
+        assertEquals(course.getStudentRoster().size(), 1);
+        course.deleteStudent(student);
+        assertEquals(course.getStudentRoster().size(), 0);
+        assertEquals(course.getStudentToDelete(), student);
+        
+        //Test 2
+        course.addStudent(student2);
+        assertEquals(course.getStudentRoster().size(), 1);
+        course.deleteStudent(student2);
+        assertEquals(course.getStudentRoster().size(), 0);
+        assertEquals(course.getStudentToDelete(), student2);
+        
+    }
+    
+    /**
+     * Test method for {@link model.spreadsheet.SpreadsheetCourse#equals(java.lang.Object)}.
+     */
+    @Test
+    public void testEqualsObject()
+    {
+        
     }
 
     /**
@@ -218,22 +338,6 @@ public class SpreadsheetCourseTest
      */
     @Test
     public void testEditStudent()
-    {
-    }
-
-    /**
-     * Test method for {@link model.spreadsheet.SpreadsheetCourse#deleteStudent(model.users.Student)}.
-     */
-    @Test
-    public void testDeleteStudent()
-    {
-    }
-
-    /**
-     * Test method for {@link model.spreadsheet.SpreadsheetCourse#adjustCourseCurve(java.lang.Double)}.
-     */
-    @Test
-    public void testAdjustCourseCurve()
     {
     }
 
@@ -262,10 +366,10 @@ public class SpreadsheetCourseTest
     }
 
     /**
-     * Test method for {@link model.spreadsheet.SpreadsheetCourse#getTopCategory()}.
+     * Test method for {@link model.spreadsheet.SpreadsheetCourse#getCategoryContainer()}.
      */
     @Test
-    public void testGetTopCategory()
+    public void testGetCategoryContainer()
     {
     }
 
@@ -298,30 +402,6 @@ public class SpreadsheetCourseTest
      */
     @Test
     public void testSetLatePolicy()
-    {
-    }
-
-    /**
-     * Test method for {@link model.spreadsheet.SpreadsheetCourse#getSettings()}.
-     */
-    @Test
-    public void testGetSettings()
-    {
-    }
-
-    /**
-     * Test method for {@link model.spreadsheet.SpreadsheetCourse#setSettings(model.file.Settings)}.
-     */
-    @Test
-    public void testSetSettings()
-    {
-    }
-
-    /**
-     * Test method for {@link model.spreadsheet.SpreadsheetCourse#equals(java.lang.Object)}.
-     */
-    @Test
-    public void testEqualsObject()
     {
     }
 

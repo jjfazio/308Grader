@@ -11,10 +11,10 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
+
 import model.exception.BadDataException;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.SpreadsheetCourse;
-import model.users.Teacher;
 
 /****
  * A Gradebook is the overarching object of the grader. It includes a teacher
@@ -40,8 +40,6 @@ public class Gradebook extends Observable implements Serializable
     /** Current {@link model.spreadsheet.SpreadsheetCourse} being used. */
     private SpreadsheetCourse currentCourse;
 
-    /** {@link model.users.Teacher} Teacher who owns the gradebook. */
-    private Teacher teacher;
 
     /**
      * Static reference to the Gradebook, used to ensure the Gradebook is only
@@ -219,7 +217,8 @@ public class Gradebook extends Observable implements Serializable
     {
         if (gradingSchemes == null)
         {
-            addGradingScheme(new GradingScheme());
+            gradingSchemes = new ArrayList<GradingScheme>();
+            gradingSchemes.add(new GradingScheme());
         }
         return gradingSchemes;
     }
@@ -234,25 +233,6 @@ public class Gradebook extends Observable implements Serializable
         gradingSchemes.add(scheme);
         setChanged();
         notifyObservers();
-    }
-
-    /**
-     * Returns the Teacher of the Gradebook.
-     * 
-     * @return - the Teacher of the Gradebook.
-     */
-    public Teacher getTeacher()
-    {
-        return teacher;
-    }
-    
-    /**
-     * Sets the teacher of the Gradebook.
-     * @param teacher The teacher of the Gradebook.
-     */
-    public void setTeacher(Teacher teacher)
-    {
-        this.teacher = teacher;
     }
 
     /**

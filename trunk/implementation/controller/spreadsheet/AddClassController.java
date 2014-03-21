@@ -1,5 +1,8 @@
 package controller.spreadsheet;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,11 +20,7 @@ import model.spreadsheet.CourseInfo;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
 import model.spreadsheet.SpreadsheetCourse;
-import model.users.TeacherAssistant;
 import view.ViewUtility;
-
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * This class represents the interaction between the add class dialog
@@ -45,8 +44,6 @@ public class AddClassController implements Observer {
     private TextField courseYear;
     @FXML
     private ComboBox<GradingScheme> gradingSchemes;
-    @FXML
-    private ComboBox<TeacherAssistant> teacherAssistants;
     @FXML
     private LatePolicy latePolicy;
     @FXML
@@ -85,8 +82,10 @@ public class AddClassController implements Observer {
         gradebook.addObserver(this);
         
         schemesObs = FXCollections.observableArrayList();
+        //schemesObs.clear();
         schemesObs.addAll(gradebook.getGradingSchemes());
         
+        gradingSchemes.getItems().clear();
         gradingSchemes.setItems(schemesObs);
         
         noLatePolicy.setSelected(true);
@@ -156,16 +155,7 @@ public class AddClassController implements Observer {
        ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Create Grading Scheme");
     }
 
-    /**
-     * Called when the user clicks on the "Create New" button for TA's
-     * Opens the Create New Teacher Assistant dialog
-     */
-    @FXML
-    private void handleCreateNewTeacherAssistantButton() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                "/view/users/AddTeacherAssistant.fxml"));
-        ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Create Teacher Assistant");
-    }
+
     
     /**
      * Called when the user clicks on the "Cancel" button
