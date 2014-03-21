@@ -35,6 +35,10 @@ public class GradeRange implements Serializable {
     
     public GradeRange(String letter, double low, double high)
     {
+        if (letter == null)
+        {
+            letter = "";
+        }
         letterGrade = letter;
         this.low = low;
         this.high = high;

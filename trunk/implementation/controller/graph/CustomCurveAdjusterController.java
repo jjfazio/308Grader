@@ -1,22 +1,10 @@
 package controller.graph;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import model.assignments_categories.Assignment;
-import model.assignments_categories.Category;
-import model.assignments_categories.Grade;
-import model.graph.AdjustableGradeRange;
-import model.graph.Graph;
-import model.spreadsheet.AssignView;
-import model.spreadsheet.GradeRange;
-import model.spreadsheet.SpreadsheetCourse;
-import model.users.Student;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,18 +12,27 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
+import model.assignments_categories.Assignment;
+import model.assignments_categories.Category;
+import model.exception.BadDataException;
+import model.exception.GradingSchemeDataException;
+import model.exception.OverlappingRangesException;
+import model.gradebook.Gradebook;
+import model.graph.AdjustableGradeRange;
+import model.graph.Graph;
+import model.spreadsheet.GradeRange;
+import model.spreadsheet.GradingScheme;
+import model.spreadsheet.SpreadsheetCourse;
 
 /**
  * Controller class for the custom curve adjuster view.
@@ -50,6 +47,8 @@ public class CustomCurveAdjusterController {
 	/**apply curve button which submits the curved grades when clicked*/
     @FXML
     private Button applyCurveButton;
+    @FXML
+    private Button refreshGraphButton;
     /**bar chart object*/
     @FXML
     private PieChart pieChart;
@@ -63,18 +62,22 @@ public class CustomCurveAdjusterController {
     private TableColumn<AdjustableGradeRange,String> colLowPercent;
     @FXML
     private TableColumn<AdjustableGradeRange,String> colHighPercent;
-    
+    @FXML
+    private AnchorPane root;
     private SpreadsheetCourse course;
     private ObservableList<AdjustableGradeRange> obsGradeRangeList;
     private List<AdjustableGradeRange> gradeRangeList;
     private Graph graph;
     private Map<String, Integer> rangeStudMap;
+    private Category cat;
+    private Assignment ass;
+    private GradingScheme newScheme;
     
     /**
      * Creates a new CustomCurveAdjusterController
      */
     public CustomCurveAdjusterController() {
-    	
+    	newScheme = null;
     }
     
     @FXML
@@ -123,14 +126,26 @@ public class CustomCurveAdjusterController {
     	this.course = course;
     }
     
+    public void setCategory(Category category) {
+    	this.cat = category;
+    	this.ass = null;
+    }
+    
+    public void setAssignment(Assignment assignment) {
+    	this.ass = assignment;
+    	this.cat = null;
+    }
+    
     /**
      * Sets the bar chart with the appropriate data if assignment is being viewed
      */
-    public void setAssignmentPieChart(Assignment ass, Graph graph) {
+    public void setAssignmentPieChart(Assignment ass, Graph graph, GradingScheme scheme) {
     	this.graph = graph;
-    	rangeStudMap = graph.getAssignmentPieChartData();
+    	rangeStudMap = graph.getAssignmentPieChartData(scheme);
     	this.pieChart.setTitle(ass.getName() + " Grade Distribution Pie Chart");
-    	Map<String, Integer> scoreMap = graph.getAssignmentPieChartData();
+    	Map<String, Integer> scoreMap = graph.getAssignmentPieChartData(scheme);
+    	
+    	this.pieChart.getData().clear();
     	
     	for(String gradeStr : scoreMap.keySet()) {
     		if(scoreMap.get(gradeStr) > 0) {
@@ -147,12 +162,13 @@ public class CustomCurveAdjusterController {
     /**
      * Sets the bar chart with the appropriate data if assignment is being viewed
      */
-    public void setCategoryPieChart(Category cat, Graph graph) {
+    public void setCategoryPieChart(Category cat, Graph graph, GradingScheme scheme) {
     	this.graph = graph;
-    	rangeStudMap = graph.getCategoryPieChartData();
+    	rangeStudMap = graph.getCategoryPieChartData(scheme);
     	this.pieChart.setTitle(cat.getName() + " Grade Distribution Pie Chart");
-    	Map<String, Integer> scoreMap = graph.getCategoryPieChartData();
+    	Map<String, Integer> scoreMap = graph.getCategoryPieChartData(scheme);
     	
+    	this.pieChart.getData().clear();
     	for(String gradeStr : scoreMap.keySet()) {
     		if(scoreMap.get(gradeStr) > 0) {
     			PieChart.Data data = new PieChart.Data(gradeStr, scoreMap.get(gradeStr));
@@ -171,6 +187,44 @@ public class CustomCurveAdjusterController {
     @FXML
     private void handleCancelButtonPressed() {
         System.out.println("Cancel button pressed");
+        getStage().close();
+    }
+    
+    /**
+     * Called when the user clicks the refresh button
+     */
+    @FXML
+    private void handleRefreshGraphButtonPressed() {
+    	for(AdjustableGradeRange curRange : this.obsGradeRangeList) {
+    		System.out.println(curRange.getLetterGrade() + ": " + curRange.getLow() + ", " + curRange.getHigh());
+    	}
+    	
+    	try {
+			AdjustableGradeRange.checkForOverlappingRanges(obsGradeRangeList);
+			List<GradeRange> tempRangeList = new ArrayList<GradeRange>();
+			
+			for(AdjustableGradeRange curRange : obsGradeRangeList) {
+				tempRangeList.add(curRange.getGradeRangeVersion());
+			}
+			
+			newScheme = new GradingScheme(tempRangeList, course.getGradingDistribution().getSchemeName());
+			
+			if(ass != null) {
+				setAssignmentPieChart(ass, graph, newScheme);
+			}
+			else {
+				setCategoryPieChart(cat, graph, newScheme);
+			}
+			
+		}
+    	catch (OverlappingRangesException e) {
+    		String message = "There are overlapping grade ranges:\n" + e.getFirstRange().getLetterGrade()
+    			+ " and " + e.getSecondRange().getLetterGrade() + " overlap.";
+    		Dialogs.showErrorDialog(getStage(), message, "Error", "Custom Curve Adjustment");
+		}
+    	catch (GradingSchemeDataException e) {
+			
+		}
     }
     
     /**
@@ -179,13 +233,37 @@ public class CustomCurveAdjusterController {
     @FXML
     private void handleApplyCurveButtonPressed() {
         System.out.println("Apply curve button pressed");
+        if(newScheme != null) {
+        	course.setGradingDistribution(newScheme);
+        	Gradebook.getInstance().saveGradebook();
+        	course.updateCourse();
+        	getStage().close();
+        }
+        else {
+        	String message = "There are no changes with the grade ranges to be saved.";
+        	Dialogs.showErrorDialog(getStage(), message, "Error", "Custom Curve Adjustment");
+        }
     }
     
     private class EditHandler implements EventHandler<CellEditEvent<AdjustableGradeRange, String>> {
 		@Override
-		public void handle(CellEditEvent<AdjustableGradeRange, String> arg0) {
-			System.out.println("Cell changed!");
+		public void handle(CellEditEvent<AdjustableGradeRange, String> cellText) {
+			AdjustableGradeRange curRange = cellText.getRowValue();
 			
+			try {
+				if(cellText.getTableColumn().equals(colLowPercent)) {
+					System.out.println("Adjusted Low");
+					curRange.setLow(cellText.getNewValue());
+				}
+				else if(cellText.getTableColumn().equals(colHighPercent)) {
+					System.out.println("Adjusted High");
+					curRange.setHigh(cellText.getNewValue());
+				}
+			}
+			catch(BadDataException bde) {
+				Dialogs.showErrorDialog(getStage(), "Invalid input: you must enter a number."
+						, "Error", "Custom Curve Adjustment");
+			}
 		}
     }
     
@@ -204,108 +282,13 @@ public class CustomCurveAdjusterController {
         	else
         		return new SimpleStringProperty(param.getValue().getLow().toString());
         }
-
     }
     
-//    private class EditCallBack implements Callback<TableColumn<AdjustableGradeRange, String>, TableCell<AdjustableGradeRange, String>> {
-//
-//        @Override
-//        public TableCell<AdjustableGradeRange, String> call(TableColumn<AdjustableGradeRange, String> arg)
-//        {
-//            //Assignment assign = (Assignment) arg.getUserData();
-//            return new EditingCell();
-//        }
-//           
-//       }
-//    
-//    class EditingCell extends TableCell<AdjustableGradeRange, String> {
-//
-//        private TextField textField;
-//
-//        @Override
-//        public void startEdit() {
-//            if (!isEmpty()) {
-//                super.startEdit();
-//                createTextField();
-//                setText(null);
-//                setGraphic(textField);
-//                textField.selectAll();
-//                
-//                //Hack to get double click to work
-//                Platform.runLater(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        textField.requestFocus();
-//                    }
-//               });
-//
-//            }
-//        }
-//
-//        @Override
-//        public void cancelEdit() {
-//            super.cancelEdit();
-//
-//            setText((String) getItem());
-//            setGraphic(null);
-//        }
-//
-//        @Override
-//        public void updateItem(String item, boolean empty) {
-//            super.updateItem(item, empty);
-//
-//            if (empty) {
-//                setText(null);
-//                setGraphic(null);
-//            } else {
-//                if (isEditing()) {
-//                    if (textField != null) {
-//                        textField.setText(getString());
-//                    }
-//                    setText(null);
-//                    setGraphic(textField);
-//                } else {
-//                    setText(getString());
-//                    setGraphic(null);
-//                }
-//            }
-//        }
-//
-//        private void createTextField() {
-//            textField = new TextField(getString());
-//            
-//            textField.setFocusTraversable(true);
-//            textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
-//            textField.focusedProperty().addListener(new ChangeListener<Boolean>(){
-//                @Override
-//                public void changed(ObservableValue<? extends Boolean> arg0, 
-//                    Boolean arg1, Boolean arg2) {
-//                        if (!arg2) {
-//                            commitEdit(textField.getText());
-//                        }
-//                }
-//            });
-//            
-//            // Allows for tabbing and entering in assignment cells
-//            textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//                @Override
-//                public void handle(KeyEvent t) {
-//                    if (t.getCode() == KeyCode.ENTER) {
-//                        commitEdit(textField.getText());
-//                    } else if (t.getCode() == KeyCode.ESCAPE) {
-//                        cancelEdit();
-//                    } else if (t.getCode() == KeyCode.TAB) {
-//                        commitEdit(textField.getText());
-//                        getTableView().getSelectionModel().selectBelowCell();
-//                        }
-//                    }
-//                });
-//        }
-//
-//        private String getString() {
-//            return getItem() == null ? "" : getItem().toString();
-//        }
-//    }
-    
-    
+    /**
+     * Get the stage of this view
+     * @return the stage of this view
+     */
+    private Stage getStage() {
+        return (Stage) root.getScene().getWindow();
+    }
 }

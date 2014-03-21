@@ -1,5 +1,8 @@
 package controller.spreadsheet;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,11 +20,7 @@ import model.spreadsheet.CourseInfo;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.LatePolicy;
 import model.spreadsheet.SpreadsheetCourse;
-import model.users.TeacherAssistant;
 import view.ViewUtility;
-
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * This class represents the interaction between the add class dialog
@@ -45,8 +44,6 @@ public class AddClassController implements Observer {
     private TextField courseYear;
     @FXML
     private ComboBox<GradingScheme> gradingSchemes;
-    @FXML
-    private ComboBox<TeacherAssistant> teacherAssistants;
     @FXML
     private LatePolicy latePolicy;
     @FXML

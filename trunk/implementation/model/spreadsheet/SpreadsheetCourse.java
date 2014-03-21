@@ -5,13 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import model.assignments_categories.Category;
 import model.assignments_categories.CategoryContainer;
 import model.exception.CourseDataException;
-import model.file.Settings;
 import model.users.Student;
-
-import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion.Setting;
 
 
 /**
@@ -50,9 +46,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
 
     /** The {@link LatePolicy} associated with the course. */
     private LatePolicy latePolicy;
-
-    /**  The {@link Setting} associated with the course. */
-    private Settings settings;
     
     /** Whether students have been deleted */
     private boolean isStudentDeleted = false;
@@ -149,8 +142,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
         studentRoster.add(student);
         addedStudents.add(student);
         
-        setChanged();
-        notifyObservers();
+        updateCourse();
     }
     
     public void addStudents(List<Student> students) {
@@ -163,8 +155,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
             students.get(index).addCourse(this);
         }
         
-        setChanged();
-        notifyObservers();
+        updateCourse();
     }
 
     /**
@@ -222,9 +213,7 @@ public class SpreadsheetCourse extends Observable implements Serializable {
                      !studentInCourse.equals(oldStudent)));
      @*/
     public void editStudent() {
-       System.out.println("In SpreadsheetCourse.editStudent");
-        setChanged();
-        notifyObservers();
+        updateCourse();
     }
 
     /**
@@ -250,39 +239,15 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     @*/
 
     public void deleteStudent(Student student) {
-        System.out.println("In SpreadsheetCourse.deleteStudent");
         isStudentDeleted = true;
         studentToDelete = student;
         studentRoster.remove(student);
         addedStudents.remove(student);
-        setChanged();
-        notifyObservers();
+        updateCourse();
     }
 
     public Student getStudentToDelete() {
         return studentToDelete;
-    }
-       
-       /* TODO: CHANGE JML */
-
-    /**
-     * Sets the percentage curve for a particular category
-     */
-       /*@
-        requires
-        //
-        //the amount curved parameter must be a decimal between -1 and 1
-        //
-        (amountCurved >= -1 && amountCurved <= 1);
-        
-        ensures
-        //
-        //the percentCurve field in Category is changed to match the amountCurved parameter
-        //
-        (category.percentCurve.equals(amountCurved));
-       @*/
-    public void adjustCourseCurve(Double amountCurved) {
-       
     }
     
     public Boolean isStudentAdded() 
@@ -340,14 +305,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     public void setLatePolicy(LatePolicy latePolicy) {
         this.latePolicy = latePolicy;
     }
-
-    public Settings getSettings() {
-        return settings;
-    }
-
-    public void setSettings(Settings settings) {
-        this.settings = settings;
-    }
     
     public void setAssignView(AssignView assignView)
     {
@@ -380,6 +337,12 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     public String getCourseSection()
     {
         return courseInfo.getSection();
+    }
+    
+    public void updateCourse()
+    {
+        setChanged();
+        notifyObservers();
     }
     
     public void editCourse(String name, String dept, String number, String section, String quarter, String year)
@@ -441,13 +404,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
                 return false;
         }
         else if (!latePolicy.equals(other.latePolicy))
-            return false;
-        if (settings == null)
-        {
-            if (other.settings != null)
-                return false;
-        }
-        else if (!settings.equals(other.settings))
             return false;
         if (studentRoster == null)
         {

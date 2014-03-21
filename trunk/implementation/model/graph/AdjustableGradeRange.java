@@ -1,7 +1,12 @@
 package model.graph;
 
+import java.util.List;
 import java.util.Map;
 
+import javafx.stage.Stage;
+
+import model.exception.BadDataException;
+import model.exception.OverlappingRangesException;
 import model.spreadsheet.GradeRange;
 
 /**
@@ -44,8 +49,8 @@ public class AdjustableGradeRange{
 	 */
 	public AdjustableGradeRange(GradeRange range, Map<String, Integer> rangeMap) {
 		this.origRange = range;
-		low = origRange.getHigh();
-		high = origRange.getLow();
+		high = origRange.getHigh();
+		low = origRange.getLow();
 		letterGrade = origRange.getLetterGrade();
 		
 		setStudentsInRange(rangeMap);
@@ -75,7 +80,7 @@ public class AdjustableGradeRange{
 	 */
 	public Double getLow()
 	{
-		return origRange.getLow();
+		return low;
 	}
 
 	/**
@@ -84,7 +89,11 @@ public class AdjustableGradeRange{
 	 */
 	public Double getHigh()
 	{
-		return origRange.getHigh();
+		return high;
+	}
+	
+	public GradeRange getGradeRangeVersion() {
+		return new GradeRange(letterGrade, low, high);
 	}
 	
 	/**
@@ -105,6 +114,52 @@ public class AdjustableGradeRange{
 	public boolean equals(Object obj)
 	{
 		return origRange.equals(obj);
+	}
+	
+	/**
+	 * Setter method to set the high score of this range
+	 * 
+	 * @param desiredHigh String representation of the value to be set
+	 * @throws BadDataException if the string is not a number
+	 */
+	public void setHigh(String desiredHigh) throws BadDataException {
+		try {
+			high = Double.parseDouble(desiredHigh);
+		}
+		catch(Exception ex) {
+			throw new BadDataException();
+		}
+	}
+	
+	/**
+	 * Setter method to set the low score of this range
+	 * 
+	 * @param desiredLow String representation of the value to be set
+	 * @throws BadDataException if the string is not a number
+	 */
+	public void setLow(String desiredLow) throws BadDataException {
+		try {
+			low = Double.parseDouble(desiredLow);
+		}
+		catch(Exception ex) {
+			throw new BadDataException();
+		}
+	}
+	
+	public static void checkForOverlappingRanges(List<AdjustableGradeRange> ranges) throws OverlappingRangesException {
+    	for(int ndx = 0; ndx < ranges.size(); ndx++) {
+    		for(int checkNdx = 0; checkNdx < ranges.size(); checkNdx++) {
+    			if(checkNdx != ndx) {
+    				double curHigh = ranges.get(ndx).getHigh();
+    				double curLow = ranges.get(ndx).getLow();
+    				double checkHigh = ranges.get(checkNdx).getHigh();
+    				double checkLow = ranges.get(checkNdx).getLow();
+    				if((curHigh < checkHigh && curHigh > checkLow) || (curLow > checkLow && curLow < checkHigh)) {
+    					throw new OverlappingRangesException(ranges.get(ndx), ranges.get(checkNdx));
+    				}
+    			}
+    		}
+    	}
 	}
 }
 

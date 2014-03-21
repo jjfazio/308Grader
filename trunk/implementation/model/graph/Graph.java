@@ -339,9 +339,9 @@ public class Graph implements Serializable {
 	 * @return a map with a string representing the letter grade to the number
 	 * of students in that letter grade range.
 	 */
-	public Map<String, Integer> getAssignmentPieChartData() {
+	public Map<String, Integer> getAssignmentPieChartData(GradingScheme gScheme) {
 		Map<String, Integer> returnMap = new HashMap<String, Integer>();
-		GradingScheme gScheme = this.course.getGradingDistribution();
+		//GradingScheme gScheme = this.course.getGradingDistribution();
 		
 		for(GradeRange range : gScheme.getGradeRanges()) {
 			returnMap.put(range.getLetterGrade(), 0);
@@ -443,10 +443,10 @@ public class Graph implements Serializable {
 	 * @return a map with a string representing the letter grade to the number
 	 * of students in that letter grade range.
 	 */
-	public Map<String, Integer> getCategoryPieChartData() {
+	public Map<String, Integer> getCategoryPieChartData(GradingScheme gScheme) {
 		Map<String, Integer> map = getCategoryBarChartData("10%");
 		Map<String, Integer> returnMap = new HashMap<String, Integer>();
-		GradingScheme gScheme = course.getGradingDistribution();
+		//GradingScheme gScheme = course.getGradingDistribution();
 		
 		for(String key : map.keySet()) {
 			Integer score = Integer.parseInt(key);
