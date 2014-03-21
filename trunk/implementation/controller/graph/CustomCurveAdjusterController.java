@@ -80,11 +80,17 @@ public class CustomCurveAdjusterController {
     	newScheme = null;
     }
     
+    /**
+     * Initializes the GUI
+     */
     @FXML
     private void initialize() {
         gradeRangeTable.setEditable(true);
     }
     
+    /**
+     * Sets the data in the table
+     */
     public void setTable() {
         obsGradeRangeList = FXCollections.observableArrayList();
         gradeRangeList = new ArrayList<AdjustableGradeRange>();
@@ -122,15 +128,27 @@ public class CustomCurveAdjusterController {
         }
     }
     
+    /**
+     * Sets the course being examined
+     * @param course the current course being examined
+     */
     public void setCourse(SpreadsheetCourse course) {
     	this.course = course;
     }
     
+    /**
+     * Sets the category being examined by this page
+     * @param category the current category being examined
+     */
     public void setCategory(Category category) {
     	this.cat = category;
     	this.ass = null;
     }
     
+    /**
+     * Sets the assignment being examined by this page
+     * @param assignment the current assignment being examined
+     */
     public void setAssignment(Assignment assignment) {
     	this.ass = assignment;
     	this.cat = null;

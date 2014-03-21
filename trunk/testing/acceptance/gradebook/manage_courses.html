@@ -1,8 +1,8 @@
 <h3>
-    Acceptance Test Plan: Creating a course (written by kbackers)
+    Acceptance Test Plan: Managing courses (written by kbackers)
 </h3>
 <p>
-    The test plan for adding a course to a gradebook is as following:
+    The test plan for adding, editing, and deleting courses in a gradebook is as following:
 <blockquote>
     <table align=center border=1 cellpadding=4>
         <tr>
@@ -14,44 +14,222 @@
                 <tr>
                     <td valign=top>1
                     <td valign=top>
-                        
+                    	Navigate to Menu->Classes->Edit Class<br><br>
                     <td valign=top>
-                        
+                        Nothing in the window should happen.
                     <td valign=top>
-                        
+                         Tests trying to edit a class when no class exists in the gradebook.
+                         This is the case when no classes have been entered.
                     <td valign=top>
                         Pass
                 </tr>
                 <tr>
                     <td valign=top>2
                     <td valign=top>
-                        
+                    	Navigate to Menu->Classes->Delete Class<br><br>
                     <td valign=top>
-                        
+                        Nothing in the window should happen.
                     <td valign=top>
-                        
+                         Tests trying to delete a class when no class exists in the gradebook.
+                         This is the case when no classes have been entered.
                     <td valign=top>
                         Pass
                 </tr>
                 <tr>
                     <td valign=top>3
                     <td valign=top>
-                        
+                        Navigate to Menu->Classes->Add Class<br><br>
+                        Leave all text entry fields alone, but select "Default" from the Grading Scheme dropddown.
+                        Click "Create" button
                     <td valign=top>
-                        
+                        A "Course Error" dialog should appear, informing the user they can not have empty fields.
                     <td valign=top>
-                        
+                        Tests creating a class with completely blank fields.
                     <td valign=top>
                         Pass
                 </tr>
                 <tr>
                     <td valign=top>4
                     <td valign=top>
-                        
+                        Navigate to Menu->Classes->Add Class<br><br>
+                        In the name field enter "Intro to CS"
+                        In the department field enter "CSC"
+                        In the number field enter "101"
+                        In the section field enter "1"
+                        In the quarter field enter "Fall"
+                        In the year field enter "2014"
+                        Click the "Create" button
                     <td valign=top>
-                        
+                        A "Course Error" dialog should appear, informing the user they must select a grading scheme.
                     <td valign=top>
-                        
+                         Tests creating a class without selecting a grading scheme
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>5
+                    <td valign=top>
+                        Navigate to Menu->Classes->Add Class<br><br>
+                        In the name field enter "Intro to CS"<br>
+                        In the department field enter "CSC"<br>
+                        In the number field enter "101"<br>
+                        In the section field enter "1"<br>
+                        In the quarter field enter "Fall"<br>
+                        In the year field enter "2014"<br>
+                        Select "Default" from the grading schemes dropdown<br>
+                        Click the "Create" button<br>
+                    <td valign=top>
+                        The Add Class dialog should close. A new tab should appear in the spreadsheet with "101-1" as the label.
+                    <td valign=top>
+                        Tests creating a class with valid input.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>6
+                    <td valign=top>
+                        Navigate to Menu->Classes->Add Class<br><br>
+                        In the name field enter "Databses"<br>
+                        In the department field enter "CPE"<br>
+                        In the number field enter "365"<br>
+                        In the section field enter "1"<br>
+                        In the quarter field enter "Fall"<br>
+                        In the year field enter "2014"<br>
+                        Click the "Create New" button next to the dropdown<br>
+                    <td valign=top>
+                        The "Create Grading Scheme" dialog should appear
+                    <td valign=top>
+                        Tests getting to the Create Grading Scheme dialog.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>7
+                    <td valign=top>
+                        Navigate to Menu->Classes->Add Class<br><br>
+                        In the name field enter "Databses"<br>
+                        In the department field enter "CPE"<br>
+                        In the number field enter "365"<br>
+                        In the section field enter "1"<br>
+                        In the quarter field enter "Fall"<br>
+                        In the year field enter "2014"<br>
+                        Click the "Create New" button next to the dropdown.<br>
+                        Click the "Create" button<br>
+                    <td valign=top>
+                        The "Grading Scheme Error" dialog should appear.
+                    <td valign=top>
+                        Tests trying to create a new grading scheme with invalid input.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>8
+                    <td valign=top>
+                        Navigate to Menu->Classes->Add Class<br><br>
+                        In the name field enter "Databses"<br>
+                        In the department field enter "CPE"<br>
+                        In the number field enter "365"<br>
+                        In the section field enter "1"<br>
+                        In the quarter field enter "Fall"<br>
+                        In the year field enter "2014"<br>
+                        Click the "Create New" button next to the dropdown<br>
+                        In the text field under the "Symbol" column enter "pass"<br>
+                        In the text field under the "Low" column enter 0<br>
+                        In the text field under the "high" column enter 100<br>
+                        Click the "Create" button<br>
+                    <td valign=top>
+                        The "Grading Scheme Error" dialog should appear.
+                    <td valign=top>
+                        Tests trying to create a new grading scheme with invalid input.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>9
+                    <td valign=top>
+                        Navigate to Menu->Classes->Add Class<br><br>
+                        In the name field enter "Databses"<br>
+                        In the department field enter "CPE"<br>
+                        In the number field enter "365"<br>
+                        In the section field enter "1"<br>
+                        In the quarter field enter "Fall"<br>
+                        In the year field enter "2014"<br>
+                        Click the "Create New" button next to the dropdown<br>
+                        In the text field under the "Symbol" column enter "pass"<br>
+                        In the text field under the "Low" column enter 0<br>
+                        In the text field under the "high" column enter 100<br>
+                        Click the "+" button to the right<br>
+                        Click the "Create" button<br>
+                    <td valign=top>
+                        The "Grading Scheme Error" dialog should appear.
+                    <td valign=top>
+                        Tests trying to create a new grading scheme without a name.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>10
+                    <td valign=top>
+                        Navigate to Menu->Classes->Add Class<br><br>
+                        In the name field enter "Databses"<br>
+                        In the department field enter "CPE"<br>
+                        In the number field enter "365"<br>
+                        In the section field enter "1"<br>
+                        In the quarter field enter "Fall"<br>
+                        In the year field enter "2014"<br>
+                        Click the "Create New" button next to the dropdown<br>
+                        In the text field under the "Symbol" column enter "pass"<br>
+                        In the text field under the "Low" column enter 0<br>
+                        In the text field under the "high" column enter 100<br>
+                        Click the "+" button to the right<br>
+                        In the "Scheme Name" field enter "All Pass"<br>
+                        Click the "Create" button<br>
+                    <td valign=top>
+                        The "Create Grading Scheme" dialog should close. 
+                        "All Pass" should now appear in the drop down menu.
+                    <td valign=top>
+                        Tests trying to create a new grading scheme.
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>11
+                    <td valign=top>
+                        Navigate to Menu->Classes->Add Class<br><br>
+                        In the name field enter "Databses"<br>
+                        In the department field enter "CPE"<br>
+                        In the number field enter "365"<br>
+                        In the section field enter "1"<br>
+                        In the quarter field enter "Fall"<br>
+                        In the year field enter "2014"<br>
+                        Click the "Create New" button next to the dropdown<br>
+                        In the text field under the "Symbol" column enter "fail"<br>
+                        In the text field under the "Low" column enter 0<br>
+                        In the text field under the "high" column enter 100<br>
+                        Use the color picker to pick a shade of red<br>
+                        Click the "+" button to the right<br>
+                        In the "Scheme Name" field enter "All Fail"<br>
+                        Click the "Create" button<br>
+                        Select "All Fail" from the dropdown for grading schemes.
+                    <td valign=top>
+                        The "Create Class" dialog should close. 
+                        The gradebook should have a tab "365-1"
+                    <td valign=top>
+                        Tests creating a new class with a new grading scheme 
+                    <td valign=top>
+                        Pass
+                </tr>
+                <tr>
+                    <td valign=top>12
+                    <td valign=top>
+                    	Navigate to Menu->Classes->Delete Class<br><br>
+                    	Click on the first row<br>
+                    	Click the "Delete Selected" button<br>
+                    <td valign=top>
+                        The "Delete Class" dialog should close.
+                        The selected classes tab and spreadsheet should be gone from the window. 
+                    <td valign=top>
+                         Tests deleting a class.
                     <td valign=top>
                         Pass
                 </tr>
