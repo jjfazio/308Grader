@@ -137,7 +137,7 @@ public class LatePolicyController
         //Check that the user entered a valid number
         try 
         {
-            days = Integer.parseInt(daysLate.getText());
+            days = Integer.parseInt(daysLate.getText()) / policy.getDecayRate();
             decay = policy.getDecayPercentage() * days;
         } 
         catch(NumberFormatException e)

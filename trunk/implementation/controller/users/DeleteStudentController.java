@@ -67,24 +67,38 @@ public class DeleteStudentController {
         int index = 0;
         ArrayList<SpreadsheetCourse> coursesToRemove = new ArrayList<SpreadsheetCourse>();
         String courseListString = "";
+        boolean foundCheck = false;
         for(CheckBox currentBox : courseCheckBoxes) {
             if(currentBox.isSelected()) {
                 coursesToRemove.add(courseList.get(index));
                 courseListString += (courseList.get(index).getCourseInfo().getNumber()
                     + "-" + courseList.get(index).getCourseInfo().getSection());
+                foundCheck = true;
             }
             index++;
         }
-        Dialogs.DialogResponse response = Dialogs.showConfirmDialog(
-            (Stage) this.studentNameLabel.getScene().getWindow(),
-            "Are you sure you want to delete student " + studentNameLabel.getText()
-            + " from the following course(s)?\n   " + courseListString,
-            "Delete Student confirmation", "Delete Student");
+        if(!foundCheck)
+        {
+            Dialogs.showWarningDialog((Stage) this.studentNameLabel.getScene()
+                    .getWindow(), "You must select a course in which the student "
+                    + "will be removed.\n\nSelect 'Cancel' if you no longer wish to remove this student",
+                    "Missing Course",
+                    "Missing Course");
+        }
+        else
+        {
+            Dialogs.DialogResponse response = Dialogs.showConfirmDialog(
+                (Stage) this.studentNameLabel.getScene().getWindow(),
+                "Are you sure you want to delete student " + studentNameLabel.getText()
+                + " from the following course(s)?\n   " + courseListString,
+                "Delete Student confirmation", "Delete Student");
 
-        if(response == Dialogs.DialogResponse.YES) {
-            for(SpreadsheetCourse currentCourse : coursesToRemove) {
-                currentCourse.deleteStudent(studentToDelete);
-                studentToDelete.removeCourse(currentCourse);
+            if(response == Dialogs.DialogResponse.YES) {
+                for(SpreadsheetCourse currentCourse : coursesToRemove) {
+                    currentCourse.deleteStudent(studentToDelete);
+                    studentToDelete.removeCourse(currentCourse);
+                }
+
             }
             Stage stage = (Stage) studentNameLabel.getScene().getWindow();
             stage.close();

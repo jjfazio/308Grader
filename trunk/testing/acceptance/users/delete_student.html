@@ -1,0 +1,63 @@
+<h3>
+    Acceptance Test Plan: Deleting a student
+</h3>
+<p>
+    The test plan for deleting a student in a spreadsheet course is as following:
+<blockquote>
+    <table align=center border=1 cellpadding=4>
+        <tr>
+            <td valign=top><strong>Case No.</strong>
+            <td valign=top><strong>User Inputs and Commands</strong>
+            <td valign=top><strong>Expected Output</strong>
+            <td valign=top><strong>Remarks</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td valign=top><strong>Results</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <tr>
+            <td valign=top>1
+            <td valign=top>
+                Make sure you have students enrolled in at least one course<br><br>
+                Navigate to Menu->Students->Delete Student<br><br>
+                Select the first person that appears on the list and click on the "Delete Selected" button<br><br>
+                Select the course in the next dialog that appears and click "Delete".<br><br>
+                A confirmation dialog should appear, select "Yes"
+            <td valign=top>
+                The dialog should close.  Check the roster that student was removed from the course you
+                selected.
+            <td valign=top>
+                Tests deleting a student from one course.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>2
+            <td valign=top>
+                Make sure you have a student enrolled in two courses<br><br>
+                Navigate to Menu->Students->Delete Student<br><br>
+                Select the student who is enrolled in two courses and click on the "Delete Selected" button<br><br>
+                Select both courses in the next dialog that appears and click "Delete".<br><br>
+                A confirmation dialog should appear, select "Yes"
+            <td valign=top>
+                The dialog should close.  Check both rosters that student was removed from the courses you
+                selected.
+            <td valign=top>
+                Tests deleting a student from multiple courses.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>3
+            <td valign=top>
+                Make sure you have students enrolled in at least one course<br><br>
+                Navigate to Menu->Students->Delete Student<br><br>
+                Select the first person that appears on the list and click on the "Delete Selected" button<br><br>
+                Don't select any courses and select "Delete".
+            <td valign=top>
+                A warning dialog should appear stating that courses must be selected if the "Delete" button is clicked.
+            <td valign=top>
+                Tests deleting a student from no courses.
+            <td valign=top>
+                Pass
+        </tr>
+
+    </table>
+</blockquote>
+</p>

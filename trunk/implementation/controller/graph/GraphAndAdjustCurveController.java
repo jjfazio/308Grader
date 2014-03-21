@@ -161,10 +161,9 @@ public class GraphAndAdjustCurveController {
         
         xAxis.setLabel("Number of Students");
         List<String> categories = Arrays.asList(scoreMap.keySet().toArray(new String[0]));
-        Collections.sort(categories);
         xAxis.setCategories((FXCollections.<String>observableArrayList(categories)));
-        //Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
         Series series1 = new XYChart.Series();
+        this.barChart.getData().clear();
         
         if(granularity.equals("1%")) {
         	for(int ndx = 0; ndx < scoreMap.size(); ndx++) {
