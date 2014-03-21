@@ -1,0 +1,79 @@
+<h3>
+    Acceptance Test Plan: Editing a student
+</h3>
+<p>
+    The test plan for editing a student in a spreadsheet course is as following:
+<blockquote>
+    <table align=center border=1 cellpadding=4>
+        <tr>
+            <td valign=top><strong>Case No.</strong>
+            <td valign=top><strong>User Inputs and Commands</strong>
+            <td valign=top><strong>Expected Output</strong>
+            <td valign=top><strong>Remarks</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td valign=top><strong>Results</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <tr>
+            <td valign=top>1
+            <td valign=top>
+                Make sure you have students enrolled in at least one course<br><br>
+                Navigate to Menu->Students->Edit Student<br><br>
+                Select the first person that appears on the list and click on the "Edit Selected" button<br><br>
+                An edit dialog should appear, change the student's first name to "Jones", and select "Confirm Edit"
+            <td valign=top>
+                The dialog should close.  Check the roster that the previous student was located and make sure
+                his or her new first name is "Jones"
+            <td valign=top>
+                Tests editting a student's first name.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>2
+            <td valign=top>
+                Make sure you have students enrolled in at least one course<br><br>
+                Navigate to Menu->Students->Edit Student<br><br>
+                Select the first person that appears on the list and click on the "Edit Selected" button<br><br>
+                An edit dialog should appear, change the student's first name to "#$%Jones", and select "Confirm Edit"
+            <td valign=top>
+                An error dialog should appear, stating "First name must only contain alphabetic characters," and
+                no change to the student selected should occur.
+            <td valign=top>
+                Tests editting a student's first name with invalid input.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>3
+            <td valign=top>
+                Make sure you have students enrolled in at least one course<br><br>
+                Navigate to Menu->Students->Edit Student<br><br>
+                Select the first person that appears on the list and click on the "Edit Selected" button<br><br>
+                An edit dialog should appear.  Select the course in the "Course(s) Enrolled" dialog, and select "Delete Course"<br><br>
+                Click on the "Add Course" button, and add a different course than the one the student was previously enrolled in<br><br>
+                Select "Confirm Edit".
+            <td valign=top>
+                The student that was editted should now no longer appear in the original course, but should appear in the
+                newly added course.
+            <td valign=top>
+                Tests editting a student's list of courses enrolled.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>4
+            <td valign=top>
+                Make sure you have students enrolled in at least one course<br><br>
+                Navigate to Menu->Students->Edit Student<br><br>
+                Select the first person that appears on the list and click on the "Edit Selected" button<br><br>
+                An edit dialog should appear.  Clear all text fields on this dialog<br><br>
+                Select the "Confirm Edit" button.
+            <td valign=top>
+                An error dialog should appear, indicating which fields are not allowed to be blank.
+            <td valign=top>
+                Tests editting a student with all empty fields.
+            <td valign=top>
+                Pass
+        </tr>
+
+    </table>
+</blockquote>
+</p>
