@@ -57,7 +57,7 @@ public class Category implements Serializable
 
         if (parentCategory != null)
             this.percentOfClass = (parentCategory.percentOfClass / 100.0)
-                    * this.percentOfParent;
+               * this.percentOfParent;
         else
             this.percentOfClass = 100.0;
     }

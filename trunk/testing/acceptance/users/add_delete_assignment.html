@@ -1,0 +1,89 @@
+<h3>
+    Acceptance Test Plan: Adding a student
+</h3>
+<p>
+    The test plan for adding a student to a spreadsheet course is as following:
+<blockquote>
+    <table align=center border=1 cellpadding=4>
+        <tr>
+            <td valign=top><strong>Case No.</strong>
+            <td valign=top><strong>User Inputs and Commands</strong>
+            <td valign=top><strong>Expected Output</strong>
+            <td valign=top><strong>Remarks</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td valign=top><strong>Results</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <tr>
+            <td valign=top>1
+            <td valign=top>
+                Navigate to Menu->Assignments->Add Assignment<br><br>
+                Leave all text entry fields blank and select the "Save" button.
+            <td valign=top>
+                An "Invalid Input" error dialog should appear, informing the user
+                to select a Category for the Assignment.
+            <td valign=top>
+                Tests adding  new student with completely blank text-entry fields and without choosing parent category.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>2
+            <td valign=top>
+                Navigate to Menu->Students->Add Assignment<br><br>
+                Select the parent category <br>
+                In the name field, enter ""<br>
+                In the weight field enter "ten"<br>
+                In the due date field enter "13/1/2013""<br>
+                In the points field enter 200
+            <td valign=top>
+                An "Invalid Input" error dialog appears, stating that the name, weight, due date, and points
+                values are invalid.
+            <td valign=top>
+                Tests adding new Assignment with invalid inputs.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>3
+            <td valign=top>
+                Navigate to Menu->Students->Add Assignment<br><br>
+                Select the parent category <br>
+                In the name field, enter "Midterms"<br>
+                In the weight field enter 30 <br>
+                In the due date field enter "12/13/2013""<br>
+                In the points field enter 50
+            <td valign=top>
+                The Add Assignment dialog closes. Confirm the new assignment is added to the Assignments column of
+                the spreadsheet.
+            <td valign=top>
+                Tests adding new Assignment with valid input.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>4
+            <td valign=top>
+                Navigate to Menu->Students->Delete Assignment<br><br>
+                Select a category and select "Delete" button.
+            <td valign=top>
+                An "Invalid Input" error dialog appears, stating that an assignment should be selected to be deleted.
+            <td valign=top>
+                Tests removing a category in remove assignment page.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>5
+            <td valign=top>
+                Navigate to Menu->Students->Delete Assignment<br><br>
+                Select an assignment and select "Delete" button.
+            <td valign=top>
+                The Add Assignment dialog closes. Confirm the assignment is removed in Assignments column of
+                the spreadsheet.
+            <td valign=top>
+                Tests removing an assignment.
+            <td valign=top>
+                Pass
+        </tr>
+
+    </table>
+</blockquote>
+</p>

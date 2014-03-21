@@ -1,0 +1,156 @@
+<h3>
+    Acceptance Test Plan: Adding a Category
+</h3>
+<p>
+    The test plan for adding a Category to a spreadsheet course is as following:
+<blockquote>
+    <table align=center border=1 cellpadding=4>
+        <tr>
+            <td valign=top><strong>Case No.</strong>
+            <td valign=top><strong>User Inputs and Commands</strong>
+            <td valign=top><strong>Expected Output</strong>
+            <td valign=top><strong>Remarks</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td valign=top><strong>Results</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <tr>
+            <td valign=top>1
+            <td valign=top>
+                Navigate to Menu->Assignments->Add Category<br><br>
+                Leave all text entry fields blank and select the "Save" button.
+            <td valign=top>
+                An "Invalid Student Input" error dialog should appear, informing the user
+                to choose a parent Category.
+            <td valign=top>
+                Tests adding new Category with completely blank text-entry fields, and not choosing parent category
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>2
+            <td valign=top>
+                Navigate to Menu->Assignments->Add Category<br><br>
+                Leave all text entry fields blank but select the Overall Category.
+                Then select the "Save" button.
+            <td valign=top>
+                An "Invalid Student Input" error dialog should appear, informing the user
+                to choose a name and percent of parent for the new Category.
+            <td valign=top>
+                Tests adding new Category with completely blank text-entry fields, but choosing parent Category
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>3
+            <td valign=top>
+                Navigate to Menu->Assignments->Add Category<br><br>
+                Fill the name field with "Midterms" and percent of parent field with "two"
+                Then select the "Save" button.
+            <td valign=top>
+                An "Invalid Student Input" error dialog should appear, informing the user
+                that percent of parent can only be a number.
+            <td valign=top>
+                Tests adding new Category filled in name field, but invalid Percent of Parent field.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>4
+            <td valign=top>
+                Navigate to Menu->Assignments->Add Category<br><br>
+                Fill the name field with "Midterms" and percent of parent field with 30
+                Then select the "Save" button.
+            <td valign=top>
+                The Add Category dialog closes. Confirm the Category that was just created is now displayed in the
+                spreadsheet underneath its parent category along with its percent of parent.
+            <td valign=top>
+                Tests adding new Category filled in name field, and valid percent of parent field
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>5
+            <td valign=top>
+                Navigate to Menu->Assignments->Delete Category<br><br>
+                Select the "Delete" button without choosing any category.
+            <td valign=top>
+                An "Invalid Input" error dialog appears, informing the user
+                that the user needs to select a category to delete.
+            <td valign=top>
+                Tests deleting a category without selecting any category
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>6
+            <td valign=top>
+                Navigate to Menu->Assignments->Delete Category<br><br>
+                Select the Overall from the list. Then select the "Delete" button.
+            <td valign=top>
+                An "Invalid Input" error dialog should appear, informing the user
+                that the Overall category cannot be deleted.
+            <td valign=top>
+                Tests deleting the Overall category.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>7
+            <td valign=top>
+                Navigate to Menu->Assignments->Delete Category<br><br>
+                Select any category except the Overall category. Then select the "Delete" button.
+            <td valign=top>
+                The Delete Category dialog closes. Confirm the selected category is removed from the the categories
+                column.
+            <td valign=top>
+                Tests deleting the Overall category.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>8
+            <td valign=top>
+                Navigate to Menu->Assignments->Edit Category<br><br>
+                Do not select any category, and select the "Edit" button.
+            <td valign=top>
+                An "Invalid Input" error dialog appears, informing the user
+                that the user needs to select a category other than Overall to edit.
+            <td valign=top>
+                Tests Editing a category with invalid input.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>9
+            <td valign=top>
+                Navigate to Menu->Assignments->Edit Category<br><br>
+                select any category except Overall, and select the "Edit" button.
+                "Name" and "Percent of Parent" fields will become enabled and filled with the selected category's
+                information.  Then click "Save" button.
+            <td valign=top>
+                An "Invalid Input" error dialog appears, informing the user
+                that the user needs to select a parent category.
+            <td valign=top>
+                Tests Editing a category without choosing the new parent category.
+            <td valign=top>
+                Pass
+        </tr>
+        <tr>
+            <td valign=top>9
+            <td valign=top>
+                Navigate to Menu->Assignments->Edit Category<br><br>
+                select any category except Overall, and select the "Edit" button.
+                "Name" and "Percent of Parent" fields will become enabled and filled with the selected category's
+                information. Fill the "Name" and "Percent of Parent" fields with a String and number. Select a new
+                parent category.
+                Then click "Save" button.
+            <td valign=top>
+                The Edit Category dialog closes. Confirm that the Name and Percent of Parent of the category has changed
+                in the spreadsheet.
+            <td valign=top>
+                Tests Editing a category with valid inputs.
+            <td valign=top>
+                Pass
+        </tr>
+
+    </table>
+</blockquote>
+</p>
