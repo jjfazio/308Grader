@@ -25,6 +25,7 @@ public class GradingScheme extends Observable implements Serializable {
     
     public GradingScheme()
     {
+        //System.out.println("gs created");
         gradeRanges = new ArrayList<GradeRange>();
         
         /** Set to default scheme */

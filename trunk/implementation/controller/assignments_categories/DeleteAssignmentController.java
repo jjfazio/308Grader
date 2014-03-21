@@ -1,6 +1,7 @@
 package controller.assignments_categories;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -57,14 +58,19 @@ public class DeleteAssignmentController {
     @FXML
     private void handleDeleteAssignmentDelete() {
         System.out.println("Delete button Clicked!");
-        String selectedCategory = treeView.getSelectionModel()
-                .getSelectedItem().getValue();
-        String name = selectedCategory.substring(0,
-                selectedCategory.indexOf("<")).trim();
-
-        removeAssignment(name, Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot());
         Stage stage = (Stage) treeView.getScene().getWindow();
-        stage.close();
+        try {
+            String selectedCategory = treeView.getSelectionModel()
+                    .getSelectedItem().getValue();
+            String name = selectedCategory.substring(0,
+                    selectedCategory.indexOf("<")).trim();
+
+            removeAssignment(name, Gradebook.getInstance().getCurrentCourse().getCategoryContainer().getRoot());
+            stage.close();
+        } catch (Exception e) {
+            Dialogs.showErrorDialog(stage, "You need to specify an assignment to be deleted",
+                    "Please resolve the following issues.", "Invalid input");
+        }
     }
 
     /**

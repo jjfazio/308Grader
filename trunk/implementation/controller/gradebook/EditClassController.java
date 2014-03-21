@@ -89,9 +89,12 @@ public class EditClassController implements Observer {
         year.setText(courseToEdit.getCourseInfo().getYear()); 
         
         schemesObs = FXCollections.observableArrayList();
+        schemesObs.clear();
         schemesObs.addAll(gradebook.getGradingSchemes());
+        
         gradingSchemes.getItems().clear();
         gradingSchemes.setItems(schemesObs);
+        gradingSchemes.getSelectionModel().select(gradebook.getCurrentCourse().getGradingDistribution());
         
     }
 

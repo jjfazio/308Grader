@@ -150,13 +150,13 @@ public class LatePolicyController
         // Grace days enabled
         if (policy.getGraceDaysEnabled())
         {
-            graceDaysLeft = Math.max(0, student.getGraceDays(course) - days);
+            graceDaysLeft = Math.max(-1, student.getGraceDays(course) - days);
             
             sb.append(student.getFirstName() + " " + student.getLastName()
                     + " will have " + graceDaysLeft + " grace day(s) left");
             
             // Set new grade to 0 if grace days are out
-            if (graceDaysLeft == 0)
+            if (graceDaysLeft == -1)
             {
                 sb.append("\nThey will receive a 0 on this assignment");
                 newGradePercent = 0.0;
@@ -166,7 +166,7 @@ public class LatePolicyController
         {
             newGradePercent = oldGradePercent - (oldGradePercent * (decay / 100));
             sb.append("Old Grade: " + oldGradePercent + "%");
-            sb.append("\nNew Grade: " + newGradePercent + "%");
+            sb.append("\nNew Grade: " + String.format("%.2f", newGradePercent) + "%");
         }
         
         newGradeText.setText(sb.toString());
@@ -193,6 +193,7 @@ public class LatePolicyController
                     {
                         student.getGrades().get(assign.getID()).setScore("" + 0.0);
                         course.updateCourse();
+                        student.addGrade(course, assign, student.getGrades().get(assign.getID()));
                     }
                     catch (BadDataException e)
                     {
@@ -207,8 +208,8 @@ public class LatePolicyController
                 {
                     student.getGrades().get(assign.getID()).setScore("" + (newGradePercent /
                             100.0) * assign.getMaxPoints());
-
                     course.updateCourse();
+                    student.addGrade(course, assign, student.getGrades().get(assign.getID()));
                 }
                 catch (BadDataException e)
                 {

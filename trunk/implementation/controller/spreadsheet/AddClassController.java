@@ -82,8 +82,10 @@ public class AddClassController implements Observer {
         gradebook.addObserver(this);
         
         schemesObs = FXCollections.observableArrayList();
+        //schemesObs.clear();
         schemesObs.addAll(gradebook.getGradingSchemes());
         
+        gradingSchemes.getItems().clear();
         gradingSchemes.setItems(schemesObs);
         
         noLatePolicy.setSelected(true);
@@ -153,16 +155,7 @@ public class AddClassController implements Observer {
        ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Create Grading Scheme");
     }
 
-    /**
-     * Called when the user clicks on the "Create New" button for TA's
-     * Opens the Create New Teacher Assistant dialog
-     */
-    @FXML
-    private void handleCreateNewTeacherAssistantButton() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                "/view/users/AddTeacherAssistant.fxml"));
-        ViewUtility.loadAndShowPage(loader, AnchorPane.class, "Create Teacher Assistant");
-    }
+
     
     /**
      * Called when the user clicks on the "Cancel" button
