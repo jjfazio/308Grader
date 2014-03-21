@@ -164,6 +164,7 @@ public class LatePolicyController
         }
         else
         {
+            days = days / policy.getDecayRate();
             newGradePercent = oldGradePercent - (oldGradePercent * (decay / 100));
             sb.append("Old Grade: " + oldGradePercent + "%");
             sb.append("\nNew Grade: " + String.format("%.2f", newGradePercent) + "%");

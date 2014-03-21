@@ -49,12 +49,19 @@ import org.junit.Test;
 */
 public class GradebookTest
 {
+    private CourseInfo info;
+    private GradingScheme scheme;
+    private LatePolicy policy;
     
     @Before
-    public void setUp()
+    public void setUp() throws CourseDataException
     {
         File file = new File("currentGradebook");
         file.delete();
+        info = new CourseInfo("Test Course", "Spring", "04", "111",
+                    "Computer Science", 2014);
+        scheme = new GradingScheme();
+        policy = new LatePolicy();
     }
     
     @After
@@ -113,7 +120,7 @@ public class GradebookTest
         {
             gradebook.addSpreadsheetCourse(course);
         }
-        catch (BadDataException e)
+        catch (CourseDataException e)
         {
             e.printStackTrace();
         }
@@ -125,7 +132,7 @@ public class GradebookTest
         {
             gradebook.addSpreadsheetCourse(null);
         }
-        catch (BadDataException e)
+        catch (CourseDataException e)
         {
             assertNotNull(e.getMessage());
         }
@@ -145,7 +152,7 @@ public class GradebookTest
                 gradebook.addSpreadsheetCourse(c);
                 assertEquals(gradebook.getCourses().size(), i + 1);
             }
-            catch (BadDataException e)
+            catch (CourseDataException e)
             {
                 e.printStackTrace();
             }
@@ -155,18 +162,69 @@ public class GradebookTest
 
     /**
      * Test method for {@link model.gradebook.Gradebook#getSpreadsheetCourse()}.
+     * Ensures that once a SpreadsheetCourse in in the Gradebook it can be retrieved.
+     *                                                                    <pre>
+     *  Test
+     *  Case    Input                                  Output             Remarks
+     * ====================================================================
+     *   1     getSpreadsheetCourse(course1)           Success
+     *   2.    getSpreadsheetCourse(null)              BadDataException
+     *   
+     * @throws CourseDataException  If course made is invalid
+     *
      */
     @Test
-    public void testGetSpreadsheetCourse()
+    public void testGetSpreadsheetCourse() throws CourseDataException
     {
+        Gradebook gradebook = Gradebook.getInstance();
+        SpreadsheetCourse course = new SpreadsheetCourse(info, scheme, policy);
+        
+        // Test 1
+        try
+        {
+            gradebook.addSpreadsheetCourse(course);
+            assertEquals(gradebook.getCourses().contains(course), true);
+        }
+        catch (CourseDataException e)
+        {
+            e.printStackTrace();
+        }
+        
+        // Test 2
+        try
+        {
+            gradebook.addSpreadsheetCourse(null);
+        }
+        catch (CourseDataException e)
+        {
+            assertNotNull(e.getMessage());
+        }
+        
     }
 
     /**
-     * Test method for {@link model.gradebook.Gradebook#deleteSpreadsheetCourse(model.spreadsheet.SpreadsheetCourse)}.
+     * Test method for {@link model.gradebook.Gradebook#deleteSpreadsheetCourse()}.
+     * Ensures that a SpreadsheetCourse can be deleted from the Gradebook
+     *                                                                    <pre>
+     *  Test
+     *  Case    Input                                  Output             Remarks
+     * ====================================================================
+     *   1      deleteSpreadsheet()                   Success
+     *   
+     * @throws CourseDataException  If course made is invalid
+     *
      */
     @Test
-    public void testDeleteSpreadsheetCourse()
+    public void testDeleteSpreadsheetCourse() throws CourseDataException
     {
+        Gradebook gradebook = Gradebook.getInstance();
+        SpreadsheetCourse course = new SpreadsheetCourse(info, scheme, policy);
+        
+        //Test 1
+        gradebook.addSpreadsheetCourse(course);
+        gradebook.removeSpreadsheetCourse(course);
+        assertEquals(gradebook.getCourses().contains(course), false);
+        
     }
 
     /**
@@ -203,6 +261,8 @@ public class GradebookTest
         gradebook.addGradingScheme(new GradingScheme());
         gradebook.saveGradebook();
         gradebook.clearGradebook();
+        
+        
         
         assertEquals(scanner.hasNext(), false);
         scanner.close();

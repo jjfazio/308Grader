@@ -7,14 +7,6 @@
 
 <BorderPane fx:id="MainWindow" prefHeight="429.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.file.MenuBarController">
   <!-- TODO Add Nodes -->
-  <bottom>
-    <HBox fx:id="ButtonContainer" alignment="CENTER" prefHeight="71.0" prefWidth="650.0" spacing="75.0">
-      <children>
-        <Button fx:id="ViewGraphButton" mnemonicParsing="false" onAction="#viewGraphs" text="View Graphs" />
-        <Button fx:id="PostChangeButton" contentDisplay="LEFT" mnemonicParsing="false" text="Post Changes" />
-      </children>
-    </HBox>
-  </bottom>
   <top>
     <MenuBar id="MenuBar" fx:id="menuBar" blendMode="SRC_OVER" prefHeight="28.0" prefWidth="650.0">
       <menus>
@@ -28,6 +20,7 @@
         <Menu mnemonicParsing="false" text="View" fx:id="ViewMenu">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#viewAssignAs" text="View Assignments As" fx:id="ViewAsgnMenuItem" />
+            <MenuItem mnemonicParsing="false" onAction="#viewGraphs" text="View Graphs" />
             <MenuItem mnemonicParsing="false" onAction="#viewStatisticsTable" text="View Statistics" />
           </items>
         </Menu>
