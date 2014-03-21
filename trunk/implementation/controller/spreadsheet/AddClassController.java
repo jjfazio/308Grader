@@ -136,10 +136,6 @@ public class AddClassController implements Observer {
         {
             Dialogs.showErrorDialog(getStage(), e.getMessage(), "Input Data Error", "Course Error");
         }
-        catch (BadDataException e)
-        {
-            e.printStackTrace();
-        }
     }
 
     /**
