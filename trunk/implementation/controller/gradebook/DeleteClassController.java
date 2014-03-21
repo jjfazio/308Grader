@@ -57,10 +57,9 @@ public class DeleteClassController {
         courseSectionColumn.setCellValueFactory(new PropertyValueFactory<SpreadsheetCourse, String>("courseSection"));
 
         gradebook = Gradebook.getInstance();
-        //allCourses.clear();
+        allCourses.clear();
         
         allCourses.addAll(gradebook.getCourses());
-        
         
         courseTable.setItems(allCourses);
     }
