@@ -290,6 +290,7 @@ public class GraphAndAdjustCurveController {
     	
     	controller.setTable();
         ViewUtility.showPage(pane, "Custom Curve Adjustment");
+        getStage().close();
     }
     
     /**
