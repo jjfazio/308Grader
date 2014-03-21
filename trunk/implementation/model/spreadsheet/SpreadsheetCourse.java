@@ -5,13 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import model.assignments_categories.Category;
 import model.assignments_categories.CategoryContainer;
 import model.exception.CourseDataException;
-import model.file.Settings;
 import model.users.Student;
-
-import com.sun.xml.internal.ws.api.config.management.policy.ManagementAssertion.Setting;
 
 
 /**
@@ -50,9 +46,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
 
     /** The {@link LatePolicy} associated with the course. */
     private LatePolicy latePolicy;
-
-    /**  The {@link Setting} associated with the course. */
-    private Settings settings;
     
     /** Whether students have been deleted */
     private boolean isStudentDeleted = false;
@@ -336,14 +329,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
     public void setLatePolicy(LatePolicy latePolicy) {
         this.latePolicy = latePolicy;
     }
-
-    public Settings getSettings() {
-        return settings;
-    }
-
-    public void setSettings(Settings settings) {
-        this.settings = settings;
-    }
     
     public void setAssignView(AssignView assignView)
     {
@@ -443,13 +428,6 @@ public class SpreadsheetCourse extends Observable implements Serializable {
                 return false;
         }
         else if (!latePolicy.equals(other.latePolicy))
-            return false;
-        if (settings == null)
-        {
-            if (other.settings != null)
-                return false;
-        }
-        else if (!settings.equals(other.settings))
             return false;
         if (studentRoster == null)
         {

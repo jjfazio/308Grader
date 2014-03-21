@@ -170,14 +170,6 @@ public class GradebookTest
     }
 
     /**
-     * Test method for {@link model.gradebook.Gradebook#editSpreadsheetCourse(model.spreadsheet.SpreadsheetCourse, model.spreadsheet.SpreadsheetCourse)}.
-     */
-    @Test
-    public void testEditSpreadsheetCourse()
-    {
-    }
-
-    /**
      * Test method for {@link model.gradebook.Gradebook#clearGradebook()}.
      * Ensure that after a call made to clearGradebook that the "currentGradebook"
      * file is in fact actually empty.
@@ -273,14 +265,6 @@ public class GradebookTest
         assertEquals(gradebook.getCurrentCourse(), gradebook2.getCurrentCourse());
         ois.close();
         fin.close();
-    }
-
-    /**
-     * Test method for {@link model.gradebook.Gradebook#getTeacher()}.
-     */
-    @Test
-    public void testGetTeacher()
-    {
     }
 
     /**
