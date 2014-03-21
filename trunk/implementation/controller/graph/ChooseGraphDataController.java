@@ -20,13 +20,21 @@ import view.ViewUtility;
 import view.assignments_categories.AssignmentTree;
 import view.assignments_categories.CategoryTree;
 
+/**
+ * Controller class which manages the Choose Graph Data Window that appears before
+ * the Graph and Adjust Curves page
+ * @author erikowen
+ *
+ */
 public class ChooseGraphDataController {
-
+	/**TreeView of the different assignments and categories to chose from*/
     @FXML
     private TreeView<String> graphDataChoserTree;
     
+    /**The current course opened by the user*/
     private SpreadsheetCourse course;
     
+    /**The underlying data of the tree*/
     private AssignmentTree assignmentTree;
 
     /**

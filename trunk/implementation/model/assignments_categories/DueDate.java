@@ -5,15 +5,30 @@ import model.exception.BadDataException;
 import java.util.GregorianCalendar;
 
 /**
- * Created by Jib on 3/19/14.
+ * The DueDate class creates a GregorianCalendar type date. This date is used to define the due date of instances of
+ * Assignments.
+ *
+ * @author Jirbert Dilanchian
  */
 public class DueDate {
-    String dateStr;
+    // Stores the string the user entered the date
+    private String dateStr;
+    // Stores the Gregorian Calender representation of the date user entered.
+
+    private GregorianCalendar dueDate;
+    /**
+     * The constructor of DueDate
+     *
+     * @param dateStr the date the user enters for the due date of assignment
+     */
     public DueDate(String dateStr) {
         this.dateStr = dateStr;
     }
 
-    private GregorianCalendar dueDate;
+    /**
+     * Determines if the date entered by the user is a valid date
+     * @return true if the user entered a valid date.
+     */
     public boolean isValidDate(){
         int month, day, year;
         String monthStr, dayStr, yearStr;
@@ -48,6 +63,10 @@ public class DueDate {
         return isValid;
     }
 
+    /**
+     * Returns the Gregorian Calender representation of the due date
+     * @return the Gregorian Calender representation of the due date
+     */
     public GregorianCalendar getDueDate(){
         return dueDate;
     }
