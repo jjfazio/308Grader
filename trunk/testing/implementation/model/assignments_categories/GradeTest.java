@@ -6,6 +6,12 @@ import java.util.Date;
 
 import model.assignments_categories.Grade;
 import model.exception.BadDataException;
+import model.exception.CourseDataException;
+import model.gradebook.Gradebook;
+import model.spreadsheet.CourseInfo;
+import model.spreadsheet.GradingScheme;
+import model.spreadsheet.LatePolicy;
+import model.spreadsheet.SpreadsheetCourse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,8 +41,23 @@ public class GradeTest
  *                                                                      <p><li>
  *     Phase 5: Unit test the getter method for the score
  *                                                                      <p><li>
+ * @throws CourseDataException 
+ * @throws BadDataException 
  */
 
+	private Gradebook gradebook;
+	
+	@Before
+	public void settup() throws CourseDataException, BadDataException {
+		gradebook = Gradebook.getInstance();
+		CourseInfo info = new CourseInfo("Test Course", "Spring", "04", "111",
+				"Computer Science", 2014);
+		GradingScheme scheme = new GradingScheme();
+		LatePolicy policy = new LatePolicy();
+		SpreadsheetCourse course = new SpreadsheetCourse(info, scheme, policy);
+		gradebook.addSpreadsheetCourse(course);
+		gradebook.setCurrentCourse(course);
+	}
 	
     /**
      * Unit test the Grade constructor by building a Grade object.
