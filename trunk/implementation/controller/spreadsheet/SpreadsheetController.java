@@ -435,12 +435,6 @@ public class SpreadsheetController implements Observer {
            table.setEditable(true);
        else
            table.setEditable(false);
-       
-       table.getColumns().get(table.getColumns().size() -1).setVisible(false);
-       table.getColumns().get(table.getColumns().size() - 1).setVisible(true);
-       
-       table.getColumns().get(table.getColumns().size() - 2).setVisible(false);
-       table.getColumns().get(table.getColumns().size() - 2).setVisible(true);
    }
    
    private ContextMenu getLatePolicyMenu(final Assignment assign)

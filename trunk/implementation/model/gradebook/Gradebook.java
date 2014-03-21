@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import model.exception.BadDataException;
+import model.exception.CourseDataException;
 import model.spreadsheet.GradingScheme;
 import model.spreadsheet.SpreadsheetCourse;
 
@@ -55,7 +56,6 @@ public class Gradebook extends Observable implements Serializable
      */
     private Gradebook()
     {
-        System.out.println("Congrats, you loaded a Gradebook!");
         loadGradebook();
     }
 
@@ -159,11 +159,11 @@ public class Gradebook extends Observable implements Serializable
      * @
      */
 
-    public void addSpreadsheetCourse(SpreadsheetCourse course) throws BadDataException
+    public void addSpreadsheetCourse(SpreadsheetCourse course) throws CourseDataException
     {
-        if (course == null || course.getCourseInfo() == null)
+        if (course == null)
         {
-            throw new BadDataException("Cannot enter a null course!");
+            throw new CourseDataException("Cannot enter a null course!");
         }
         if (courses == null)
         {
@@ -269,8 +269,6 @@ public class Gradebook extends Observable implements Serializable
      */
     public void setCurrentCourse(SpreadsheetCourse currentCourse)
     {
-        System.out.println("Setting current course to: "
-                + currentCourse.getCourseInfo().getCourseName());
         this.currentCourse = currentCourse;
     }
     
@@ -322,7 +320,6 @@ public class Gradebook extends Observable implements Serializable
             {
                 instance = new Gradebook(true);
             }
-            System.out.println("Done loading gradebook");
         }
         catch (IOException e)
         {
@@ -350,8 +347,6 @@ public class Gradebook extends Observable implements Serializable
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(instance);
             oos.close();
-            System.out.println("Done saving gradebook");
-
         }
         catch (IOException e)
         {

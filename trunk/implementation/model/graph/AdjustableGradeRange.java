@@ -93,7 +93,9 @@ public class AdjustableGradeRange{
 	}
 	
 	public GradeRange getGradeRangeVersion() {
-		return new GradeRange(letterGrade, low, high);
+		GradeRange oldRange = new GradeRange(letterGrade, low, high);
+		oldRange.setColor(origRange.getColor());
+		return oldRange;
 	}
 	
 	/**
