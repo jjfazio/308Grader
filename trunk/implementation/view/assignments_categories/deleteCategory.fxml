@@ -21,9 +21,7 @@
         <Button id="categoryCancelbotton" alignment="CENTER" cancelButton="false" defaultButton="false" mnemonicParsing="false" onAction="#handleDeleteCategoryCancel" text="Cancel" textAlignment="LEFT" HBox.margin="$x1" />
       </children>
     </HBox>
-    <Label id="lblEditAssignment" layoutX="319.0" layoutY="42.0" pickOnBounds="false" prefHeight="220.0" prefWidth="233.0" text="" underline="false" />
-    <Label layoutX="330.0" layoutY="21.0" prefHeight="21.0" prefWidth="233.0" text="Details" textFill="BLACK" />
     <Label layoutX="38.0" layoutY="24.0" text="Categories" />
-    <TreeView fx:id="treeView" layoutX="38.0" layoutY="52.0" prefHeight="200.0" prefWidth="200.0" />
+    <TreeView fx:id="treeView" layoutX="0.0" layoutY="52.0" prefHeight="200.0" prefWidth="600.0" />
   </children>
 </AnchorPane>
