@@ -217,7 +217,8 @@ public class Gradebook extends Observable implements Serializable
     {
         if (gradingSchemes == null)
         {
-            addGradingScheme(new GradingScheme());
+            gradingSchemes = new ArrayList<GradingScheme>();
+            gradingSchemes.add(new GradingScheme());
         }
         return gradingSchemes;
     }

@@ -58,17 +58,6 @@
             <Button mnemonicParsing="false" onAction="#handleCreateNewGradingSchemeButton" text="Create New" />
           </children>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-          <children>
-            <Label text="Teacher's Assistant:" />
-            <ComboBox fx:id="teacherAssistants" minWidth="-1.0" promptText="None" HBox.hgrow="ALWAYS">
-              <items>
-                <FXCollections fx:factory="observableArrayList" />
-              </items>
-            </ComboBox>
-            <Button mnemonicParsing="false" onAction="#handleCreateNewTeacherAssistantButton" text="Create New" />
-          </children>
-        </HBox>
         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
           <children>
             <Label text="Late Policy:" />

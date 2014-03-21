@@ -273,7 +273,7 @@ public class Graph implements Serializable {
 	 * of students in that range
 	 */
 	private Map<String, Integer> getAssignmentOnePercentBarChartData() {
-		Map<String, Integer> returnMap = new HashMap<String, Integer>();
+		Map<String, Integer> returnMap = new TreeMap<String, Integer>();
 		
 		for(int percent = 0; percent <= HUNDRED_PERCENT; percent++) {
 			Integer temp = new Integer(percent);
@@ -305,7 +305,7 @@ public class Graph implements Serializable {
 	 * of students in that range
 	 */
 	private Map<String, Integer> getAssignmentTenPercentBarChartData() {
-		Map<String, Integer> returnMap = new HashMap<String, Integer>();
+		Map<String, Integer> returnMap = new TreeMap<String, Integer>();
 		
 		for(int percent = 0; percent <= HUNDRED_PERCENT; percent += TEN_PERCENT_INCREMENT) {
 			Integer temp = new Integer(percent);

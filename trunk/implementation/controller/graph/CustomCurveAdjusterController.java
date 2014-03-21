@@ -235,8 +235,8 @@ public class CustomCurveAdjusterController {
         System.out.println("Apply curve button pressed");
         if(newScheme != null) {
         	course.setGradingDistribution(newScheme);
-        	Gradebook.getInstance().saveGradebook();
         	course.updateCourse();
+        	Gradebook.getInstance().saveGradebook();
         	getStage().close();
         }
         else {
