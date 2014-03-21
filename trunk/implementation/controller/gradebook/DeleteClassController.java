@@ -74,8 +74,6 @@ public class DeleteClassController {
         
         gradebook.removeSpreadsheetCourse(allCourses.get(indexSelected));
         
-        //System.out.println("removed: " + allCourses.get(indexSelected));
-        
         getStage().close();
         
     }
