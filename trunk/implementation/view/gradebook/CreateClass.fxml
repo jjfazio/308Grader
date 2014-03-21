@@ -2,6 +2,7 @@
 
 <?import java.lang.*?>
 <?import javafx.collections.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -71,8 +72,11 @@
                       </toggleGroup>
                     </RadioButton>
                   </children>
+                  <padding>
+                    <Insets bottom="5.0" top="5.0" fx:id="x1" />
+                  </padding>
                 </HBox>
-                <HBox alignment="TOP_LEFT" maxHeight="-1.0" maxWidth="-1.0" prefHeight="16.0" prefWidth="268.0">
+                <HBox alignment="TOP_LEFT" maxHeight="-1.0" maxWidth="-1.0" padding="$x1" prefHeight="16.0" prefWidth="268.0">
                   <children>
                     <RadioButton fx:id="decay" mnemonicParsing="false" prefWidth="71.0" text="Decay" toggleGroup="$latePolicies" />
                     <TextField fx:id="decayPercentage" prefWidth="41.0" promptText="10" />
@@ -81,7 +85,7 @@
                     <Label prefWidth="50.0" text="day(s)" />
                   </children>
                 </HBox>
-                <HBox alignment="TOP_LEFT" prefHeight="22.0" prefWidth="193.0">
+                <HBox alignment="TOP_LEFT" padding="$x1" prefHeight="22.0" prefWidth="193.0">
                   <children>
                     <RadioButton id="decay" fx:id="graceDays" mnemonicParsing="false" prefWidth="-1.0" text="Grace days" toggleGroup="$latePolicies" />
                     <TextField id="decayPercentage" fx:id="numberOfGraceDays" prefWidth="41.0" promptText="0" text="" />
