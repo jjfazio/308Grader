@@ -2,7 +2,6 @@ package controller.users;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-import model.users.TeacherAssistant;
 
 /**
  * This class represents the interaction between the add teacher assistant dialog
@@ -34,7 +33,7 @@ public class AddTeacherAssistantController {
         /* call addStudent function in spreadsheetcourse.java
          * in the model package
          */
-    	TeacherAssistant tempTA = new TeacherAssistant();
+    	//TeacherAssistant tempTA = new TeacherAssistant();
     }
 
 
