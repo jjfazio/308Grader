@@ -65,20 +65,27 @@ public class DeleteCategoryController {
      */
     @FXML
     public void handleDeleteCategoryDelete() {
-        try {
-            String origSelectedCategory = treeView.getSelectionModel()
-                    .getSelectedItem().getValue();
-            String selectName = origSelectedCategory.substring(0,
-                    origSelectedCategory.indexOf("(")).trim();
-            String origParentCategory = treeView.getSelectionModel()
-                    .getSelectedItem().getParent().getValue();
-            String parentName = origParentCategory.substring(0,
-                    origParentCategory.indexOf("(")).trim();
+        if(treeView.getSelectionModel().getSelectedItem() != null)
+        {
+            try {
+                String origSelectedCategory = treeView.getSelectionModel()
+                        .getSelectedItem().getValue();
+                String selectName = origSelectedCategory.substring(0,
+                        origSelectedCategory.indexOf("(")).trim();
+                String origParentCategory = treeView.getSelectionModel()
+                        .getSelectedItem().getParent().getValue();
+                String parentName = origParentCategory.substring(0,
+                        origParentCategory.indexOf("(")).trim();
 
-            course.getCategoryContainer().removeCategory(categoryTree.getCategory(parentName), categoryTree.getCategory(selectName));
-            getStage().close();
-        } catch (Exception e) {
-            Dialogs.showErrorDialog(getStage(), "Total category cannot be removed", "Please resolve the following issues.", "Invalid input");
+                course.getCategoryContainer().removeCategory(categoryTree.getCategory(parentName), categoryTree.getCategory(selectName));
+                getStage().close();
+            } catch (Exception e) {
+                Dialogs.showErrorDialog(getStage(), "Total category cannot be removed", "Please resolve the following issues.", "Invalid input");
+            }
+        }
+        else {
+            Dialogs.showErrorDialog(getStage(), "You need to specify a Category to be deleted",
+                "Please resolve the following issues.", "Invalid input");
         }
     }
 
