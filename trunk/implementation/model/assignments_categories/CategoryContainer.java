@@ -183,10 +183,19 @@ public class CategoryContainer extends Observable implements Serializable
         notifyObservers();
 
     }
-    /*                addAssignmentName.getText(),
-                addAssignmentWeight.getText(),
-                addAssignmentPoints.getText(),
-                new Date, new GradingScheme, new LatePolicy(), false);*/
+
+    /**
+     * Helper to add assignment to specified category. It also does the error checking for the user inputs.
+     * @param parent the category which assignment to be added
+     * @param name the name of the assignment
+     * @param weight the weight of the assignment
+     * @param points the points of the assignment
+     * @param date the date of the assignment
+     * @param gradingScheme the grading scheme of the assignment
+     * @param latePolicy the late policy of the assingment
+     * @param online if it can be submitted online. 
+     * @throws BadDataException
+     */
     public void addAssignment(Category parent, String name, String weight, String points, String date, GradingScheme gradingScheme,
                               LatePolicy latePolicy, boolean online ) throws BadDataException
     {
@@ -234,7 +243,13 @@ public class CategoryContainer extends Observable implements Serializable
         setChanged();
         notifyObservers();
     }
-    
+
+    /**
+     * Removes an assignment from specified parent category
+     * @param parent The parent category where it removes the assignment from.
+     * @param assignment the assignment to be removed
+     * @param course the course which parent and assignment belong to.
+     */
     public void deleteAssignment(Category parent, Assignment assignment, SpreadsheetCourse course)
     {
         for (Student x : course.getStudentRoster()){
@@ -245,7 +260,12 @@ public class CategoryContainer extends Observable implements Serializable
         setChanged();
         notifyObservers();
     }
-    
+
+    /**
+     * Returns the assignment corresponding to the id
+     * @param id the identification number designated to the assignment
+     * @return the assignment corresponding to the id
+     */
     public Assignment getAssignmentById(int id)
     {
         return searchAssignments(root, id);
@@ -281,6 +301,11 @@ public class CategoryContainer extends Observable implements Serializable
         return null;
     }
 
+    /**
+     * Checks the equality between two containers.
+     * @param obj the container to be checked with current container
+     * @return true if both containers are equal
+     */
     @Override
     public boolean equals(Object obj)
     {
@@ -300,6 +325,4 @@ public class CategoryContainer extends Observable implements Serializable
             return false;
         return true;
     }
-    
-    
 }
